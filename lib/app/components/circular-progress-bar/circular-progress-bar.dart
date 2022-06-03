@@ -40,7 +40,7 @@ class Avatar extends StatelessWidget {
     return Container(
         child: GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'profile');
+        /* Navigator.pushNamed(context, 'profile'); */
       },
       child: CircleAvatar(
         radius: AvatarSize, // Image radius
