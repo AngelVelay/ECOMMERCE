@@ -30,14 +30,6 @@ class CardCategoriesProfile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Favoritos',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-          ),
           const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
@@ -62,9 +54,9 @@ class _ProductPopularPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.grey,
+        color: Colors.white,
         width: MediaQuery.of(context).size.width / 2,
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
           children: [
             GestureDetector(
@@ -79,7 +71,7 @@ class _ProductPopularPoster extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: Stack(children: [
                       Container(
-                        height: 100,
+                        height: 90,
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
                             image: DecorationImage(
@@ -88,6 +80,9 @@ class _ProductPopularPoster extends StatelessWidget {
                             )),
                       ),
                     ]))),
+            Text(
+              productsList[index]['title'].toString(),
+            )
           ],
         ));
   }
