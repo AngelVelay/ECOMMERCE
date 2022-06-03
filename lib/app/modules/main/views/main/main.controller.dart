@@ -6,7 +6,7 @@ import 'package:jexpoints/app/shared/values/globals.dart';
 
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
-import '../../../home/views/home/home.page.dart';
+import '../home/home.page.dart';
 import '../tst/tst.page.dart';
 
 class TabItem {

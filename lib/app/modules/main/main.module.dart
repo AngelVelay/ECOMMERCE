@@ -1,12 +1,15 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
-import 'package:jexpoints/app/modules/home/views/home/home.controller.dart';
 import 'package:jexpoints/app/modules/main/services/employees/employees.fake.service.dart';
+import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
+import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.controller.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
+import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
+import 'package:jexpoints/app/modules/main/views/home/home.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
 import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.controller.dart';
@@ -17,13 +20,13 @@ import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
-import '../home/views/home/home.page.dart';
 import 'views/main/widgets/menu/menu.controller.dart';
 import 'views/profile/profile.controller.dart';
 import 'views/tst/tst.controller.dart';
 
 class MainRouting {
   static const MAIN_ROUTE = '/main';
+
   static const HOME_ROUTE = '/home';
   static const PROFILE_ROUTE = '/profile';
   static const CONSUME_ROUTE = '/consume';
@@ -32,6 +35,7 @@ class MainRouting {
   static const UBICATIONS_LIST_ROUTE = '/ubications-list';
   static const DETAIL_ROUTE = '/detail';
   static const PUBLICIDAD_ROUTE = '/publicidad';
+  static const CATALOGOS_ROUTE = '/catalogos';
 
   static final routes = [
     // GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -63,6 +67,10 @@ class MainRouting {
         name: PUBLICIDAD_ROUTE,
         page: () => PublicidadPage(),
         binding: PublicidadBinding()),
+    GetPage(
+        name: CATALOGOS_ROUTE,
+        page: () => CatalogosPage(),
+        binding: CatalogosBinding()),
   ];
 }
 
@@ -71,6 +79,8 @@ class MainBinding implements Bindings {
   MainBinding() {
     Get.lazyPut(() => TstController(EmployeesFakeService()));
     Get.lazyPut(() => MenuController(authService));
+    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
+    Get.lazyPut<ConsumeController>(() => ConsumeController());
   }
 
   @override
@@ -84,6 +94,10 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
+    Get.lazyPut<ConsumeController>(() => ConsumeController());
+    Get.lazyPut<CatalogosController>(() => CatalogosController());
+
     Get.lazyPut(() => MenuController(authService));
   }
 }
@@ -140,5 +154,12 @@ class PublicidadBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PublicidadController>(() => PublicidadController());
+  }
+}
+
+class CatalogosBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<CatalogosController>(() => CatalogosController());
   }
 }

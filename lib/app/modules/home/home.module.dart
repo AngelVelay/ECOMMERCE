@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/home/views/home/home.controller.dart';
-import 'package:jexpoints/app/modules/home/views/home/home.page.dart';
+
 import 'package:jexpoints/app/modules/main/main.module.dart';
 
 import '../auth/services/auth/auth.fake.service.dart';
+import '../main/views/home/home.controller.dart';
+import '../main/views/home/home.page.dart';
 import '../main/views/main/widgets/menu/menu.controller.dart';
 
 class HomeRouting {

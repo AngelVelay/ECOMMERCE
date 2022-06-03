@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 
 import '../../../../components/button-qr-generate/button-qr-generate.dart';
+import '../../../../components/card-favorites/cars-favorites.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
 import '../../../../components/map_ubication/map_ubication.dart';
+import '../../../../components/profile-card-categories/profile-card-categories.dart';
 import '../main/widgets/menu/menu.widget.dart';
 
 class ProfilePage extends GetView<ProfileController> {
@@ -14,52 +17,57 @@ class ProfilePage extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(        
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: CustomSliverDelegate(
-                controller,
-                expandedHeight: 120,
+    return Container(
+      color: Color(0xff2222222),
+      child: SafeArea(
+        left: false,
+        right: false,
+        bottom: false,
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: CustomSliverDelegate(
+                  controller,
+                  expandedHeight: 120,
+                ),
               ),
-            ),
-            SliverFillRemaining(
-              child: SingleChildScrollView(
-                child: Column(children: [
-                  _levelBar(),
-                  const ButtonsQr(),
-                  const SizedBox(height: 20),
-                  _consumeInfo(context, controller),
-                ]),
-              ),
-            )
-          ],
+              SliverFillRemaining(
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    _levelBar(),
+                    CardCategoriesProfile(),
+                    SizedBox(height: 20),
+                    _consumeInfo(context, controller),
+                  ]),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  static Widget _levelBar(){
+  static Widget _levelBar() {
     return const Padding(
-      padding: EdgeInsets.only(bottom: 10, left: 10),
+      padding: EdgeInsets.only(bottom: 0, left: 10),
       child: LinearProgressBar(
         trailing: 'Platino',
       ),
     );
   }
 
-  static Widget _consumeInfo(BuildContext context, ProfileController controller) {    
+  static Widget _consumeInfo(
+      BuildContext context, ProfileController controller) {
     return Column(children: [
       // List Header
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Mis Consumos',
-            style: TextStyle(fontSize: 22)
-          ),
+          const Text('Mis Compras', style: TextStyle(fontSize: 22)),
           GestureDetector(
             onTap: () {
               Get.toNamed("/consume");
@@ -76,62 +84,50 @@ class ProfilePage extends GetView<ProfileController> {
       ).paddingSymmetric(horizontal: 10),
       const Divider(thickness: 2),
       _consumeList(context, controller)
-    ]); 
+    ]);
   }
 
   // List
-  static Widget _consumeList(BuildContext context, ProfileController controller){
+  static Widget _consumeList(
+      BuildContext context, ProfileController controller) {
     return SingleChildScrollView(
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(thickness: 2),
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: controller.compras.length,
-        itemBuilder: (context, index) {          
-          return GestureDetector(
-              onTap: () {
-                controller.consumeTap(context);
-              },                        
-              child: _consumeListItem(context, controller.compras[index])
-          );
-        }
-      )
-    );
+        child: ListView.separated(
+            separatorBuilder: (context, index) => const Divider(thickness: 2),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: controller.compras.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                  onTap: () {
+                    controller.consumeTap(context);
+                  },
+                  child: _consumeListItem(context, controller.compras[index]));
+            }));
   }
 
-  static Widget _consumeListItem(BuildContext context, dynamic item){
+  static Widget _consumeListItem(BuildContext context, dynamic item) {
     return ListTile(
-    // shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(10)),
-    // color: Colors.white,
-    title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,                              
-        children: [                                  
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 145,
-                child: Text(
-                  '${item['name']}', 
-                  overflow: TextOverflow.ellipsis
-                ),
-              ),              
-              Text('${item['fecha']}'),
-            ]
-          ),                                                                  
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                    '\$${item['costo']}.00'),
-                Text(
-                  '${item['puntos']} pts',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ]
-          ),
+      // shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(10)),
+      // color: Colors.white,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 145,
+              child: Text('${item['name']}', overflow: TextOverflow.ellipsis),
+            ),
+            Text('${item['fecha']}'),
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text('\$${item['costo']}.00'),
+            Text(
+              '${item['puntos']} pts',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ]),
         ],
       ),
       trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
@@ -144,7 +140,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   final bool hideTitleWhenExpanded;
   final ProfileController controller;
 
-  CustomSliverDelegate(this.controller, {
+  CustomSliverDelegate(
+    this.controller, {
     required this.expandedHeight,
     this.hideTitleWhenExpanded = true,
   });
@@ -163,12 +160,15 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(
             height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
             child: AppBar(
-                backgroundColor: const Color(0xff2222222),
-                elevation: 0.0,
-                title: Opacity(
-                  opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-                  child: const Text("Mi perfil", style: TextStyle(color: Colors.white)),
-                )),
+              automaticallyImplyLeading: false,
+              backgroundColor: const Color(0xff2222222),
+              elevation: 0.0,
+              title: Opacity(
+                opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+                child: const Text("Mi perfil",
+                    style: TextStyle(color: Colors.white)),
+              ),
+            ),
           ),
           Positioned(
             left: 130.0,
@@ -185,7 +185,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                           fontSize: 20,
                           color: Colors.white))),
             ),
-          ),          
+          ),
           Positioned(
             left: 130.0,
             top: 50,
@@ -196,24 +196,22 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      width: 180,
+                      width: 130,
                       height: 40,
                       color: const Color(0xFF43578d),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const FadeInImage(
-                            placeholder: AssetImage('assets/images/estrella.png'),
-                            image: AssetImage('assets/images/estrella.png')
-                          ),
+                              placeholder:
+                                  AssetImage('assets/images/estrella.png'),
+                              image: AssetImage('assets/images/estrella.png')),
                           Container(width: 10),
                           const Text('35 pts',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white
-                            )
-                          ),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.white)),
                         ],
                       ),
                     ),
@@ -228,10 +226,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30 * percent),
                 child: const CircularProgressBar(
-                  sizeProgressBar: 60.0, 
-                  AvatarSize: 55, 
+                  sizeProgressBar: 60.0,
+                  AvatarSize: 55,
                   percent: 0.8,
-                  
                 ),
               ),
             ),
@@ -250,8 +247,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return true;
-  }  
-    
+  }
 }
 
 class ButtonsQr extends StatelessWidget {
@@ -267,7 +263,7 @@ class ButtonsQr extends StatelessWidget {
           width: 70,
           height: 80,
           color: Color(0xff2222222),
-        ),        
+        ),
       ],
     );
   }

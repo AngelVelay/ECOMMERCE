@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
+
+import '../../modules/main/views/home/home.controller.dart';
 
 final List<Map<String, String>> productsList = [
   {
@@ -34,9 +35,8 @@ final List<Map<String, String>> productsList = [
   },
 ];
 
-class PopularProducts extends StatelessWidget {
-  const PopularProducts(HomeController controller, {Key? key})
-      : super(key: key);
+class FavoritesProducts extends StatelessWidget {
+  const FavoritesProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class PopularProducts extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Lo mas vendido',
+            child: Text('Favoritos',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -77,8 +77,8 @@ class _ProductPopularPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
-      height: 190,
+      width: 350,
+      height: 200,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
@@ -104,7 +104,7 @@ class _ProductPopularPoster extends StatelessWidget {
                   Align(
                       alignment: Alignment.bottomRight,
                       child: Icon(Icons.add_circle_rounded,
-                          color: Colors.white, size: 30)),
+                          color: Colors.white, size: 50)),
                 ])),
           ),
           //const SizedBox(height: 5),
@@ -112,7 +112,7 @@ class _ProductPopularPoster extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Colors.white, fontSize: 20)),
           Text(
             '\$ ${productsList[index]['puntos'].toString()}',
             maxLines: 2,
