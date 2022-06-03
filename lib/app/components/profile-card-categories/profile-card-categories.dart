@@ -82,8 +82,12 @@ class _ProductPopularPoster extends StatelessWidget {
                     ]))),
             Text(
               productsList[index]['title'].toString(),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ));
   }
