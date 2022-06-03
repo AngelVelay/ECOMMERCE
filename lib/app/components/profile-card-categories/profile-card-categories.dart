@@ -26,7 +26,7 @@ class CardCategoriesProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 140,
+      height: 170,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,7 +73,7 @@ class _ProductPopularPoster extends StatelessWidget {
                       Container(
                         height: 90,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
+                            border: Border.all(color: Colors.white),
                             image: DecorationImage(
                               image: NetworkImage(
                                   productsList[index]['url'].toString()),
@@ -82,6 +82,7 @@ class _ProductPopularPoster extends StatelessWidget {
                     ]))),
             Text(
               productsList[index]['title'].toString(),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )
           ],
         ));
