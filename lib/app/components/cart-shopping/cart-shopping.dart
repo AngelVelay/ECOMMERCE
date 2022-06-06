@@ -13,11 +13,16 @@ class CartShopping extends StatelessWidget {
         ModalBottomSheetCart(context);
       },
       child: Stack(children: [
-        Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/cart-shop.png')),
-        PointsViewer(size: 30, value: '1', fontSize: 20),
+        // Image(
+        //     width: 50,
+        //     height: 50,
+        //     image: AssetImage('assets/images/cart-shop.png')),
+        Icon(
+          Icons.shopping_cart,
+          color: Colors.white,
+          size: 40,
+        ),
+        PointsViewer(size: 20, value: '1', fontSize: 15),
       ]),
     );
   }

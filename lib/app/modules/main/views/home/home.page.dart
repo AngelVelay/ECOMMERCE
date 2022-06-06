@@ -155,9 +155,9 @@ class HomePage1 extends GetView<HomeController> {
             SliverToBoxAdapter(
               child: Column(children: [
                 _slider(controller),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 PopularProducts(controller),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 FavoritesProducts()
               ]),
             )
@@ -385,9 +385,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     Row(
                       children: [
                         CircularProgressBar(
-                          AvatarSize: 25,
+                          AvatarSize: 20,
                           percent: 0.8,
-                          sizeProgressBar: 30,
+                          sizeProgressBar: 25,
                         ),
                         const SizedBox(width: 10),
                         Column(
@@ -403,7 +403,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: 130,
-                                    height: 40,
+                                    height: 35,
                                     color: const Color(0xFF43578d),
                                     child: Row(
                                       mainAxisAlignment:
@@ -448,6 +448,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   width: MediaQuery.of(context).size.width - 50,
+                  height: 50,
                   child: TextField(
                     cursorColor: Colors.black,
                     style: TextStyle(color: Colors.black),
