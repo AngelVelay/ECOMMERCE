@@ -159,9 +159,9 @@ class HomePage1 extends GetView<HomeController> {
                 child: Column(children: [
                   _slider(controller),
                   const SizedBox(height: 15),
-                  PopularProducts(controller),
+                  const PopularProducts(),
                   const SizedBox(height: 15),
-                  FavoritesProducts()
+                  const FavoritesProducts()
                 ]),
               )
             ],
@@ -375,13 +375,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               opacity: percent,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        CircularProgressBar(
+                        const CircularProgressBar(
                           AvatarSize: 20,
                           percent: 0.8,
                           sizeProgressBar: 25,
@@ -389,7 +389,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         const SizedBox(width: 10),
                         Column(
                           children: [
-                            Text('Angel Velay',
+                            const Text('Angel Velay',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -425,8 +425,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: CartShopping(),
                     )
                   ],

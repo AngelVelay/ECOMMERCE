@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'dart:convert';
 
 import 'package:jexpoints/app/shared/values/enviroments.dart';
 
+import '../../services/products/products.contract.dart';
 import 'home.page.dart';
 
 class HomeController extends GetxController {
@@ -40,17 +42,16 @@ class HomeController extends GetxController {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1FhghFqIDVPomjCXn7UBRc53MAePnUNUNhQ&usqp=CAU'
   ];
 
-  // final List<String> sliderImagesList = [
-  //   'https://acortar.link/GnYwPs',
-  //   'https://acortar.link/GUPy1Y',
-  //   'https://acortar.link/nJdMRU',
-  //   'https://acortar.link/gmuSe1',
-  //   'https://acortar.link/cGCbz6',
-  //   'https://acortar.link/NBE4ZC'
-  // ];
+  late var productList$ = <Product>[].obs;
+  late var cartItems$ = 0.obs;
+  final IProductsService productsService;
+
+  HomeController(this.productsService);
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    productList$.value = await productsService.getTop();
     imagesUrl();
   }
 
@@ -102,5 +103,23 @@ class HomeController extends GetxController {
                 ],
               ),
             ));
+  }
+
+  addCart(Product item) {
+    item.cartValue++;
+    productList$.refresh();
+    _updateCartItems();
+  }
+
+  deleteCart(Product item) {
+    item.cartValue--;
+    productList$.refresh();
+    _updateCartItems();
+  }
+
+  _updateCartItems() {
+    cartItems$.value =
+        productList$.value.map((e) => e.cartValue).reduce((a, b) => a + b);
+    cartItems$.refresh();
   }
 }
