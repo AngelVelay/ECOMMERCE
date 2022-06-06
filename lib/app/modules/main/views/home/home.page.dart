@@ -59,7 +59,7 @@ class _BottomNavBarState extends State<HomePage> {
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
@@ -139,34 +139,39 @@ class HomePage1 extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF2222222),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: CustomSliverDelegate(
-                controller,
-                expandedHeight: 150,
+    return Container(
+      color: Color(0xff222222),
+      child: SafeArea(
+        left: false,
+        right: false,
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: CustomSliverDelegate(
+                  controller,
+                  expandedHeight: 150,
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(children: [
-                _slider(controller),
-                const SizedBox(height: 15),
-                PopularProducts(controller),
-                const SizedBox(height: 15),
-                FavoritesProducts()
-              ]),
-            )
-          ],
+              SliverToBoxAdapter(
+                child: Column(children: [
+                  _slider(controller),
+                  const SizedBox(height: 15),
+                  PopularProducts(controller),
+                  const SizedBox(height: 15),
+                  FavoritesProducts()
+                ]),
+              )
+            ],
+          ),
+
+          /* bottomNavigationBar: CustomNavigationBar(),
+          floatingActionButton: FloatingActionButtonPointsQR(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, */
         ),
       ),
-      /* bottomNavigationBar: CustomNavigationBar(),
-      floatingActionButton: FloatingActionButtonPointsQR(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, */
     );
   }
 
@@ -336,14 +341,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         SizedBox(
           height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
           child: AppBar(
-              bottomOpacity: 0.0,
               automaticallyImplyLeading: false,
-              backgroundColor: const Color(0xFF22222222),
+              backgroundColor: const Color(0xFF222222),
               elevation: 0.0,
               title: Opacity(
                 opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
                       style: ButtonStyle(
@@ -360,13 +364,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         ModalBottomSheet(context);
                       },
                       label: const Text('Agrega una dirección'),
-                    ),
-                    SizedBox(width: 40),
-                    IconButton(
-                      icon: Icon(Icons.logout),
-                      onPressed: () {
-                        Get.toNamed('/login');
-                      },
                     ),
                   ],
                 ),

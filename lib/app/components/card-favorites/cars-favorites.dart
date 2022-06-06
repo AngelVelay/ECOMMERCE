@@ -52,7 +52,7 @@ class FavoritesProducts extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white)),
+                    color: Colors.black)),
           ),
           const SizedBox(height: 10),
           Expanded(
@@ -112,14 +112,14 @@ class _ProductPopularPoster extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+              style: TextStyle(color: Colors.black, fontSize: 20)),
           Text(
             '\$ ${productsList[index]['puntos'].toString()}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           )
         ],
       ),
