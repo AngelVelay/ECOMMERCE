@@ -39,6 +39,7 @@ class _BottomNavBarState extends State<HomePage> {
     CatalogosPage(),
     PointsPage(),
     ProfilePage(),
+    ProfilePage(),
   ];
 
   @override
@@ -51,8 +52,9 @@ class _BottomNavBarState extends State<HomePage> {
           height: 60.0,
           items: [
             Icon(Icons.home, size: 30),
-            Icon(Icons.category_rounded, size: 30),
-            Icon(Icons.star, size: 30, color: Color(0xffbf930d)),
+            Icon(Icons.grid_view, size: 30),
+            Icon(Icons.credit_card, size: 30),
+            Icon(Icons.place_outlined, size: 30),
             Icon(Icons.person_outline_outlined, size: 30),
           ],
           color: Colors.white,
