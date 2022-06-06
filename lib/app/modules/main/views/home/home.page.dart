@@ -193,7 +193,7 @@ class HomePage1 extends GetView<HomeController> {
                           child: FadeInImage(
                             width: 600,
                             height: 3000,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             placeholder: const NetworkImage(
                                 'https://tenor.com/view/loading-gif-9212724.gif'),
                             image: NetworkImage(carouselImage),
