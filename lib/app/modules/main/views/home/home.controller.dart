@@ -31,23 +31,23 @@ class HomeController extends GetxController {
     {'name': 'Manjar de Cajeta', 'points': 15, 'image': 'MANJAR CAJETA'},
   ];
 
-  // final List<String> sliderImagesList = [
-  //   'https://i.pinimg.com/474x/b4/e3/85/b4e385df02980536ff75ebe2cb7bb56a.jpg',
-  //   'https://previews.123rf.com/images/studioworkstock/studioworkstock1601/studioworkstock160100006/49971438-restaurante-de-comida-r%C3%A1pida-del-men%C3%BA-de-plantilla-de-vectores-con-elementos-de-ilustraci%C3%B3n-abstract.jpg',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT1Q5f_Y0ZuqN1mft5gHBtfwl5TgyY608V95_jbXFS-Qo7x4jvc9uLTwFh5Mi8JEfOpPs&usqp=CAU',
-  //   'https://1.bp.blogspot.com/-zWOLUmplBks/W5-X5NkS61I/AAAAAAAAAeA/N1GauJFllJcLYEmwhs3xYRBpft78CvcsQCLcBGAs/s1600/SAMSUNG_S8_INFOGRAFIA4.jpg',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwWqfqWZJteW5aSWsmp1aJkqgNgp9UiYWK69pkyw3zY6wbV5BWc-H9pNcw3_-NxcvOyDY&usqp=CAU',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1FhghFqIDVPomjCXn7UBRc53MAePnUNUNhQ&usqp=CAU'
-  // ];
-
   final List<String> sliderImagesList = [
-    'https://acortar.link/GnYwPs',
-    'https://acortar.link/GUPy1Y',
-    'https://acortar.link/nJdMRU',
-    'https://acortar.link/gmuSe1',
-    'https://acortar.link/cGCbz6',
-    'https://acortar.link/NBE4ZC'
+    'https://i.pinimg.com/474x/b4/e3/85/b4e385df02980536ff75ebe2cb7bb56a.jpg',
+    'https://previews.123rf.com/images/studioworkstock/studioworkstock1601/studioworkstock160100006/49971438-restaurante-de-comida-r%C3%A1pida-del-men%C3%BA-de-plantilla-de-vectores-con-elementos-de-ilustraci%C3%B3n-abstract.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT1Q5f_Y0ZuqN1mft5gHBtfwl5TgyY608V95_jbXFS-Qo7x4jvc9uLTwFh5Mi8JEfOpPs&usqp=CAU',
+    'https://1.bp.blogspot.com/-zWOLUmplBks/W5-X5NkS61I/AAAAAAAAAeA/N1GauJFllJcLYEmwhs3xYRBpft78CvcsQCLcBGAs/s1600/SAMSUNG_S8_INFOGRAFIA4.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwWqfqWZJteW5aSWsmp1aJkqgNgp9UiYWK69pkyw3zY6wbV5BWc-H9pNcw3_-NxcvOyDY&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1FhghFqIDVPomjCXn7UBRc53MAePnUNUNhQ&usqp=CAU'
   ];
+
+  // final List<String> sliderImagesList = [
+  //   'https://acortar.link/GnYwPs',
+  //   'https://acortar.link/GUPy1Y',
+  //   'https://acortar.link/nJdMRU',
+  //   'https://acortar.link/gmuSe1',
+  //   'https://acortar.link/cGCbz6',
+  //   'https://acortar.link/NBE4ZC'
+  // ];
   @override
   void onInit() {
     super.onInit();

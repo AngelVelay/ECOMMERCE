@@ -334,28 +334,41 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         SizedBox(
           height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
           child: AppBar(
-            bottomOpacity: 0.0,
-            automaticallyImplyLeading: false,
-            backgroundColor: const Color(0xFF22222222),
-            elevation: 0.0,
-            title: Opacity(
+              bottomOpacity: 0.0,
+              automaticallyImplyLeading: false,
+              backgroundColor: const Color(0xFF22222222),
+              elevation: 0.0,
+              title: Opacity(
                 opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-                child: ElevatedButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFF43578d),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.black)))),
-                  icon: const Icon(Icons.location_on),
-                  onPressed: () {
-                    ModalBottomSheet(context);
-                  },
-                  label: const Text('Agrega una dirección'),
-                )),
-          ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton.icon(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color(0xFF43578d),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.black)))),
+                      icon: const Icon(Icons.location_on),
+                      onPressed: () {
+                        ModalBottomSheet(context);
+                      },
+                      label: const Text('Agrega una dirección'),
+                    ),
+                    SizedBox(width: 40),
+                    IconButton(
+                      icon: Icon(Icons.logout),
+                      onPressed: () {
+                        Get.toNamed('/login');
+                      },
+                    ),
+                  ],
+                ),
+              )),
         ),
         Positioned(
           top: 20,
