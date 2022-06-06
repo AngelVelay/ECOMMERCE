@@ -13,25 +13,32 @@ class ConsumePage extends GetView<ConsumeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverPersistentHeader(
-            pinned: true,
-            floating: true,
-            delegate: CustomSliverDelegate(
-              expandedHeight: 80,
-            ),
+    return Container(
+      color: Color(0xff2222222),
+      child: SafeArea(
+        left: false,
+        right: false,
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: CustomSliverDelegate(
+                  expandedHeight: 80,
+                ),
+              ),
+              SliverFillRemaining(
+                  child: SingleChildScrollView(
+                child: Column(children: [
+                  SizedBox(height: 20),
+                  // ConsumeInfo(),
+                  _consumeInfo(context, controller),
+                ]),
+              )),
+            ],
           ),
-          SliverFillRemaining(
-              child: SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(height: 20),
-              // ConsumeInfo(),
-              _consumeInfo(context, controller),
-            ]),
-          )),
-        ],
+        ),
       ),
     );
   }

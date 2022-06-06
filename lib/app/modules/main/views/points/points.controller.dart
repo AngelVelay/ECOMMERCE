@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:jexpoints/app/shared/values/enviroments.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:jexpoints/app/shared/values/enviroments.dart';
-
-import 'home.page.dart';
-
-class HomeController extends GetxController {
+class PointsController extends GetxController {
   List<dynamic> topProductList = [
     {'name': 'Babka Canela', 'points': 45, 'image': 'BABKA CANELA'},
     {'name': 'Barquillo Danés', 'points': 30, 'image': 'BARQUILLO DANÉS'},
@@ -62,37 +58,5 @@ class HomeController extends GetxController {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
     }
-  }
-
-  consumeTap(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        builder: (context) => Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const Text(
-                    'Sucursal Colonia del Valle',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const Text(
-                    'Calle Colonia del Valle #123',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.48,
-                    child: const chooseAddress(),
-                  ),
-                ],
-              ),
-            ));
   }
 }

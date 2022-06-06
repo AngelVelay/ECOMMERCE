@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
+import '../../../../components/custom_input/custom_input.dart';
 import '../../../../components/points/points.widget.dart';
 
 final List<Map<String, String>> productsList = [

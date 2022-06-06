@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
+import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,6 +17,7 @@ import '../../../../components/button-qr-generate/button-qr-generate.dart';
 import '../../../../components/card-favorites/cars-favorites.dart';
 import '../../../../components/cart-shopping/cart-shopping.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
+import '../../../../components/custom_input/custom_input.dart';
 import '../../../../components/custom_navigation_bar/custom_navigation_bar.dart';
 import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
 import '../../../../components/popular-product-slider/popular-product-slider.dart';
@@ -35,7 +37,7 @@ class _BottomNavBarState extends State<HomePage> {
   final screens = [
     HomePage1(),
     CatalogosPage(),
-    ConsumePage(),
+    PointsPage(),
     ProfilePage(),
   ];
 
@@ -50,7 +52,7 @@ class _BottomNavBarState extends State<HomePage> {
           items: [
             Icon(Icons.home, size: 30),
             Icon(Icons.category_rounded, size: 30),
-            Icon(Icons.food_bank, size: 30),
+            Icon(Icons.star, size: 30, color: Color(0xffbf930d)),
             Icon(Icons.person_outline_outlined, size: 30),
           ],
           color: Colors.white,
@@ -489,19 +491,19 @@ Future<dynamic> ModalBottomSheet(BuildContext context) {
         return SafeArea(
           child: Container(
               height: MediaQuery.of(context).size.height * 0.30,
-              child: addAddress()),
+              child: chooseAddress()),
         );
       });
 }
 
-class addAddress extends StatefulWidget {
-  const addAddress({Key? key}) : super(key: key);
+class chooseAddress extends StatefulWidget {
+  const chooseAddress({Key? key}) : super(key: key);
 
   @override
-  State<addAddress> createState() => _addAddressState();
+  State<chooseAddress> createState() => _chooseAddressState();
 }
 
-class _addAddressState extends State<addAddress> {
+class _chooseAddressState extends State<chooseAddress> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -561,11 +563,119 @@ class _addAddressState extends State<addAddress> {
                       side: BorderSide(color: Colors.black)))),
           icon: const Icon(Icons.location_on),
           onPressed: () {
-            ModalBottomSheet(context);
+            ModalBottomSheetAddAddress(context);
           },
           label: const Text('Agrega una nueva dirección'),
         )
       ],
     );
   }
+}
+
+class addAdress extends StatelessWidget {
+  const addAdress({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 10,
+                  ),
+                  child: Text('Agrega una dirección',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black)),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      CustomInputField(
+                        keyboardType: TextInputType.text,
+                        labelText: 'Calle y Numero',
+                        prefixIcon: Icons.place_rounded,
+                      ),
+                      SizedBox(height: 10),
+                      CustomInputField(
+                        keyboardType: TextInputType.text,
+                        labelText: 'Alcaldia',
+                        prefixIcon: Icons.business,
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomInputField(
+                              keyboardType: TextInputType.datetime,
+                              labelText: 'CP',
+                              prefixIcon: Icons.numbers,
+                            ),
+                          ),
+                          Expanded(
+                            child: CustomInputField(
+                              keyboardType: TextInputType.number,
+                              labelText: 'Referencias',
+                              prefixIcon: Icons.account_balance_outlined,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: SizedBox(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color(0xFF43578d),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.black)))),
+                      icon: const Icon(
+                        Icons.location_on,
+                        size: 20,
+                      ),
+                      onPressed: () {},
+                      label: const Text('Guardad dirección',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white)),
+                    ),
+                  ),
+                )
+              ],
+            )));
+  }
+}
+
+Future<dynamic> ModalBottomSheetAddAddress(BuildContext context) {
+  return showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      isScrollControlled: true,
+      builder: (context) {
+        return SafeArea(
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.50,
+              child: addAdress()),
+        );
+      });
 }

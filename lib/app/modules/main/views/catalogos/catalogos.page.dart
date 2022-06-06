@@ -55,7 +55,7 @@ class CatalogosPage extends GetView<CatalogosController> {
         bottom: false,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(0XFF222222),
+            backgroundColor: Color(0XFF2222222),
             title: const Text('Catalogos'),
           ),
           body: SingleChildScrollView(
