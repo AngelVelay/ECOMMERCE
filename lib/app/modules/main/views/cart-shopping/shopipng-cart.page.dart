@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../../../components/points/points.widget.dart';
 
@@ -58,13 +60,13 @@ class _ShoppingCartState extends State<ShoppingCart> {
             Text('Mis Compras',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 40,
+                    fontSize: 30,
                     color: Colors.black)),
             cartProduct(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
-                height: 80,
+                height: 60,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
@@ -77,13 +79,15 @@ class _ShoppingCartState extends State<ShoppingCart> {
                               side: BorderSide(color: Colors.black)))),
                   icon: const Icon(
                     Icons.monetization_on,
-                    size: 30,
+                    size: 20,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/pay');
+                  },
                   label: const Text('Pagar',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 20,
                           color: Colors.white)),
                 ),
               ),
@@ -136,21 +140,21 @@ class cartProduct extends StatelessWidget {
                         Text(
                           '\$ ${productsList[index]['precio']}',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 15,
                           ),
                         ),
                         Text(
                           '${productsList[index]['puntos']} pts',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Row(
                           children: [
                             Icon(Icons.remove_circle_outline_outlined,
-                                size: 30, color: Colors.black),
+                                size: 25, color: Colors.black),
                             Text('1', style: TextStyle(fontSize: 25)),
                             Icon(Icons.add_circle_outline_outlined,
-                                size: 30, color: Colors.black),
+                                size: 25, color: Colors.black),
                           ],
                         )
                       ],

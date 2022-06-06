@@ -486,9 +486,11 @@ Future<dynamic> ModalBottomSheet(BuildContext context) {
       ),
       isScrollControlled: true,
       builder: (context) {
-        return Container(
-            height: MediaQuery.of(context).size.height * 0.30,
-            child: addAddress());
+        return SafeArea(
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: addAddress()),
+        );
       });
 }
 

@@ -11,6 +11,8 @@ import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 import 'package:jexpoints/app/modules/main/views/home/home.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
+import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
+import 'package:jexpoints/app/modules/main/views/pay_page/pay.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
 import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.controller.dart';
 import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.page.dart';
@@ -36,6 +38,7 @@ class MainRouting {
   static const DETAIL_ROUTE = '/detail';
   static const PUBLICIDAD_ROUTE = '/publicidad';
   static const CATALOGOS_ROUTE = '/catalogos';
+  static const PAY_ROUTE = '/pay';
 
   static final routes = [
     // GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -71,6 +74,7 @@ class MainRouting {
         name: CATALOGOS_ROUTE,
         page: () => CatalogosPage(),
         binding: CatalogosBinding()),
+    GetPage(name: PAY_ROUTE, page: () => PayPage(), binding: PayBinding()),
   ];
 }
 
@@ -81,6 +85,7 @@ class MainBinding implements Bindings {
     Get.lazyPut(() => MenuController(authService));
     Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
     Get.lazyPut<ConsumeController>(() => ConsumeController());
+    Get.lazyPut<PayController>(() => PayController());
   }
 
   @override
@@ -99,6 +104,7 @@ class HomeBinding implements Bindings {
     Get.lazyPut<CatalogosController>(() => CatalogosController());
 
     Get.lazyPut(() => MenuController(authService));
+    Get.lazyPut<PayController>(() => PayController());
   }
 }
 
@@ -161,5 +167,12 @@ class CatalogosBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CatalogosController>(() => CatalogosController());
+  }
+}
+
+class PayBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PayController>(() => PayController());
   }
 }
