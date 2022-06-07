@@ -86,8 +86,8 @@ class SearchPage extends GetView<HomeController> {
             onTap: () {
               Navigator.pushNamed(context, '/detail', arguments: {
                 'url': item.url,
-                'title': item.name,
-                'puntos': item.price,
+                'name': item.name,
+                'price': item.price,
               });
             },
             child: ClipRRect(
@@ -98,7 +98,7 @@ class SearchPage extends GetView<HomeController> {
                         'https://tenor.com/view/loading-gif-9212724.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 130,
+                    height: 115,
                     fit: BoxFit.cover,
                   ),
                 ])),
@@ -191,7 +191,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     child: TextField(
                       controller: controller.keywordCtrl,
                       onEditingComplete: () {
-                        controller.search();
+                        controller.search(context);
                       },
                       autofocus: true,
                       cursorColor: Colors.black,

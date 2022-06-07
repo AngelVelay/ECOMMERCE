@@ -50,8 +50,8 @@ class PopularProducts extends GetView<HomeController> {
             onTap: () {
               Navigator.pushNamed(context, '/detail', arguments: {
                 'url': item.url,
-                'title': item.name,
-                'puntos': item.price,
+                'name': item.name,
+                'price': item.price,
               });
             },
             child: ClipRRect(

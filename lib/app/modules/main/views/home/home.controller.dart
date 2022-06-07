@@ -127,7 +127,8 @@ class HomeController extends GetxController {
     cartItems$.refresh();
   }
 
-  search() async {
+  search(BuildContext context) async {
     findedProducts$.value = await productsService.search(keywordCtrl.text);
+    FocusScope.of(context).unfocus();
   }
 }
