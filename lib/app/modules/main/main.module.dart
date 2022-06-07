@@ -27,6 +27,7 @@ import 'package:jexpoints/app/modules/main/views/ubications/ubications.controlle
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
 import 'views/main/widgets/menu/menu.controller.dart';
 import 'views/profile/profile.controller.dart';
+import 'views/search/search.page.dart';
 import 'views/tst/tst.controller.dart';
 
 class MainRouting {

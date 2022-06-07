@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/points/points.widget.dart';
+import 'package:jexpoints/app/modules/main/views/search/search.page.dart';
 
 import '../../../../components/button-qr-generate/button-qr-generate.dart';
 import '../../../../components/card-favorites/cars-favorites.dart';
@@ -321,9 +323,10 @@ class HomePage1 extends GetView<HomeController> {
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final bool hideTitleWhenExpanded;
+  final HomeController controller;
 
   CustomSliverDelegate(
-    HomeController controller, {
+    this.controller, {
     required this.expandedHeight,
     this.hideTitleWhenExpanded = true,
   });
@@ -440,38 +443,39 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             opacity: percent,
             child: Form(
               child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFfffffff),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                   width: MediaQuery.of(context).size.width - 50,
                   height: 50,
-                  child: TextField(
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                        hintText: 'Buscar',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: Colors.black,
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => SearchPage(controller));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFfffffff),
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: const BorderRadius.all(Radius.circular(
+                                  10.0) //                 <--- border radius here
+                              ),
+                        ),
+                        child: Row(children: const [
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.search,
+                            color: Colors.black54,
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: Colors.black,
+                          SizedBox(width: 10),
+                          Text(
+                            'Buscar producto...',
+                            style: TextStyle(color: Colors.black54),
                           ),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: Icon(Icons.food_bank, color: Colors.black)),
-                  )),
+                          Spacer(),
+                          Icon(
+                            Icons.food_bank,
+                            color: Colors.black54,
+                          ),
+                          SizedBox(width: 10),
+                        ]),
+                      ))),
             ),
           ),
         ),
@@ -540,10 +544,10 @@ class _chooseAddressState extends State<chooseAddress> {
                     });
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text('Lago Wenner 58 Col. Centro, C.P. 04510'),
+                const Text('Lago Wenner 58 Col. Centro, C.P. 04510'),
               ],
             ),
             Row(
@@ -662,7 +666,7 @@ class addAdress extends StatelessWidget {
                         size: 20,
                       ),
                       onPressed: () {},
-                      label: const Text('Guardad dirección',
+                      label: const Text('Guardar dirección',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,

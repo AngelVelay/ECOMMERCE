@@ -45,6 +45,8 @@ class HomeController extends GetxController {
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   final IProductsService productsService;
+  late var findedProducts$ = <Product>[].obs;
+  final keywordCtrl = TextEditingController();
 
   HomeController(this.productsService);
 
@@ -108,12 +110,14 @@ class HomeController extends GetxController {
   addCart(Product item) {
     item.cartValue++;
     productList$.refresh();
+    findedProducts$.refresh();
     _updateCartItems();
   }
 
   deleteCart(Product item) {
     item.cartValue--;
     productList$.refresh();
+    findedProducts$.refresh();
     _updateCartItems();
   }
 
@@ -121,5 +125,9 @@ class HomeController extends GetxController {
     cartItems$.value =
         productList$.value.map((e) => e.cartValue).reduce((a, b) => a + b);
     cartItems$.refresh();
+  }
+
+  search() async {
+    findedProducts$.value = await productsService.search(keywordCtrl.text);
   }
 }

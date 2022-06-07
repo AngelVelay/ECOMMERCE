@@ -44,4 +44,9 @@ class ProductsFakeService implements IProductsService {
   Future<List<Product>> getTop() async {
     return _products;
   }
+
+  @override
+  Future<List<Product>> search(String keyword) async {
+    return _products;
+  }
 }
