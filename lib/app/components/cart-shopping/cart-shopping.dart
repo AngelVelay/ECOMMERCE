@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 
 import '../../modules/main/views/cart-shopping/shopipng-cart.page.dart';
 import '../points/points.widget.dart';
 
-class CartShopping extends StatelessWidget {
+class CartShopping extends GetView<HomeController> {
   const CartShopping({Key? key}) : super(key: key);
 
   @override
@@ -13,11 +15,15 @@ class CartShopping extends StatelessWidget {
         ModalBottomSheetCart(context);
       },
       child: Stack(children: [
-        Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/cart-shop.png')),
-        PointsViewer(size: 30, value: '1', fontSize: 20),
+        const Icon(
+          Icons.shopping_cart,
+          color: Colors.white,
+          size: 40,
+        ),
+        Obx(() {
+          return PointsViewer(
+              size: 23, value: '${controller.cartItems$}', fontSize: 11);
+        })
       ]),
     );
   }
@@ -26,7 +32,7 @@ class CartShopping extends StatelessWidget {
 Future<dynamic> ModalBottomSheetCart(BuildContext context) {
   return showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
         ),

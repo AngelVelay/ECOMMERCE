@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/employees/employees.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
@@ -26,6 +27,7 @@ import 'package:jexpoints/app/modules/main/views/ubications/ubications.controlle
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
 import 'views/main/widgets/menu/menu.controller.dart';
 import 'views/profile/profile.controller.dart';
+import 'views/search/search.page.dart';
 import 'views/tst/tst.controller.dart';
 
 class MainRouting {
@@ -103,9 +105,11 @@ class MainBinding implements Bindings {
 
 class HomeBinding implements Bindings {
   var authService = AuthFakeService();
+  var productsService = ProductsFakeService();
+
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<HomeController>(() => HomeController(productsService));
     Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
     Get.lazyPut<ConsumeController>(() => ConsumeController());
     Get.lazyPut<CatalogosController>(() => CatalogosController());

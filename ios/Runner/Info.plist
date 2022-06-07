@@ -25,10 +25,20 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>331450712808-eoc5at0mnsru2g9qh4vt7rj6v504nq2a.apps.googleusercontent.com
+</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb736487804400545</string>
-				<string>331450712808-eoc5at0mnsru2g9qh4vt7rj6v504nq2a.apps.googleusercontent.com</string>
 			</array>
 		</dict>
 	</array>

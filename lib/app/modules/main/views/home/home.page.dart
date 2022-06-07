@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/points/points.widget.dart';
+import 'package:jexpoints/app/modules/main/views/search/search.page.dart';
 
 import '../../../../components/button-qr-generate/button-qr-generate.dart';
 import '../../../../components/card-favorites/cars-favorites.dart';
@@ -39,6 +41,7 @@ class _BottomNavBarState extends State<HomePage> {
     CatalogosPage(),
     PointsPage(),
     ProfilePage(),
+    ProfilePage(),
   ];
 
   @override
@@ -51,13 +54,14 @@ class _BottomNavBarState extends State<HomePage> {
           height: 60.0,
           items: [
             Icon(Icons.home, size: 30),
-            Icon(Icons.category_rounded, size: 30),
-            Icon(Icons.star, size: 30, color: Color(0xffbf930d)),
+            Icon(Icons.grid_view, size: 30),
+            Icon(Icons.credit_card, size: 30),
+            Icon(Icons.place_outlined, size: 30),
             Icon(Icons.person_outline_outlined, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
@@ -137,34 +141,39 @@ class HomePage1 extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF2222222),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: CustomSliverDelegate(
-                controller,
-                expandedHeight: 150,
+    return Container(
+      color: Color(0xff222222),
+      child: SafeArea(
+        left: false,
+        right: false,
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: CustomSliverDelegate(
+                  controller,
+                  expandedHeight: 150,
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(children: [
-                _slider(controller),
-                const SizedBox(height: 20),
-                PopularProducts(controller),
-                const SizedBox(height: 20),
-                FavoritesProducts()
-              ]),
-            )
-          ],
+              SliverToBoxAdapter(
+                child: Column(children: [
+                  _slider(controller),
+                  const SizedBox(height: 15),
+                  const PopularProducts(),
+                  const SizedBox(height: 15),
+                  const FavoritesProducts()
+                ]),
+              )
+            ],
+          ),
+
+          /* bottomNavigationBar: CustomNavigationBar(),
+          floatingActionButton: FloatingActionButtonPointsQR(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, */
         ),
       ),
-      /* bottomNavigationBar: CustomNavigationBar(),
-      floatingActionButton: FloatingActionButtonPointsQR(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, */
     );
   }
 
@@ -314,9 +323,10 @@ class HomePage1 extends GetView<HomeController> {
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final bool hideTitleWhenExpanded;
+  final HomeController controller;
 
   CustomSliverDelegate(
-    HomeController controller, {
+    this.controller, {
     required this.expandedHeight,
     this.hideTitleWhenExpanded = true,
   });
@@ -334,14 +344,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         SizedBox(
           height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
           child: AppBar(
-              bottomOpacity: 0.0,
               automaticallyImplyLeading: false,
-              backgroundColor: const Color(0xFF22222222),
+              backgroundColor: const Color(0xFF222222),
               elevation: 0.0,
               title: Opacity(
                 opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
                       style: ButtonStyle(
@@ -359,13 +368,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                       },
                       label: const Text('Agrega una dirección'),
                     ),
-                    SizedBox(width: 40),
-                    IconButton(
-                      icon: Icon(Icons.logout),
-                      onPressed: () {
-                        Get.toNamed('/login');
-                      },
-                    ),
                   ],
                 ),
               )),
@@ -376,21 +378,21 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               opacity: percent,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        CircularProgressBar(
-                          AvatarSize: 25,
+                        const CircularProgressBar(
+                          AvatarSize: 20,
                           percent: 0.8,
-                          sizeProgressBar: 30,
+                          sizeProgressBar: 25,
                         ),
                         const SizedBox(width: 10),
                         Column(
                           children: [
-                            Text('Angel Velay',
+                            const Text('Angel Velay',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -401,7 +403,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: 130,
-                                    height: 40,
+                                    height: 35,
                                     color: const Color(0xFF43578d),
                                     child: Row(
                                       mainAxisAlignment:
@@ -426,8 +428,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: CartShopping(),
                     )
                   ],
@@ -441,37 +443,39 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             opacity: percent,
             child: Form(
               child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFfffffff),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                   width: MediaQuery.of(context).size.width - 50,
-                  child: TextField(
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                        hintText: 'Buscar',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: Colors.black,
+                  height: 50,
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => SearchPage(controller));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFfffffff),
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: const BorderRadius.all(Radius.circular(
+                                  10.0) //                 <--- border radius here
+                              ),
+                        ),
+                        child: Row(children: const [
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.search,
+                            color: Colors.black54,
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: Colors.black,
+                          SizedBox(width: 10),
+                          Text(
+                            'Buscar producto...',
+                            style: TextStyle(color: Colors.black54),
                           ),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: Icon(Icons.food_bank, color: Colors.black)),
-                  )),
+                          Spacer(),
+                          Icon(
+                            Icons.food_bank,
+                            color: Colors.black54,
+                          ),
+                          SizedBox(width: 10),
+                        ]),
+                      ))),
             ),
           ),
         ),
@@ -540,10 +544,10 @@ class _chooseAddressState extends State<chooseAddress> {
                     });
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text('Lago Wenner 58 Col. Centro, C.P. 04510'),
+                const Text('Lago Wenner 58 Col. Centro, C.P. 04510'),
               ],
             ),
             Row(
@@ -662,7 +666,7 @@ class addAdress extends StatelessWidget {
                         size: 20,
                       ),
                       onPressed: () {},
-                      label: const Text('Guardad dirección',
+                      label: const Text('Guardar dirección',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,

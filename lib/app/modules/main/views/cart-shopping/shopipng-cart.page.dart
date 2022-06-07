@@ -58,7 +58,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Mis Compras',
+            const Text('Mi Carrito',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -72,12 +72,12 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFF43578d),
+                        const Color(0xFF43578d),
                       ),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.black)))),
+                              side: const BorderSide(color: Colors.black)))),
                   icon: const Icon(
                     Icons.monetization_on,
                     size: 20,
@@ -120,7 +120,7 @@ class cartProduct extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: FadeInImage(
-                          placeholder: NetworkImage(
+                          placeholder: const NetworkImage(
                               'https://tenor.com/view/loading-gif-9212724.gif'),
                           image: NetworkImage(
                               productsList[index]['url'].toString()),
@@ -130,7 +130,7 @@ class cartProduct extends StatelessWidget {
                       child: ListTile(
                     title: Text(
                       '${productsList[index]['title']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -140,17 +140,17 @@ class cartProduct extends StatelessWidget {
                       children: [
                         Text(
                           '\$ ${productsList[index]['precio']}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                           ),
                         ),
                         Text(
                           '${productsList[index]['puntos']} pts',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.remove_circle_outline_outlined,
                                 size: 25, color: Colors.black),
                             Text('1', style: TextStyle(fontSize: 25)),

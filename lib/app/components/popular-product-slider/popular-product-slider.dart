@@ -1,42 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 
-final List<Map<String, String>> productsList = [
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1w3DfHY1rczx50CtpyT7WQWM7DzgJO51Rww&usqp=CAU',
-    'title': 'Pastel de Chocolate',
-    'puntos': '30',
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaMIgHTCOHYmVBhq3Fu_7LILYd1ONWeT8AmQ&usqp=CAU',
-    'title': 'Pan Blanco',
-    'puntos': '50'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz-uOqi6OOH-5WdxCfboKBJzsFxGn_7WpH8A&usqp=CAU',
-    'title': 'Pan de Muerto',
-    'puntos': '80'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XaE3eZ7-TOq0Da7FhHcmmlxU2zwhc6ydbQ&usqp=CAU',
-    'title': 'Bollos',
-    'puntos': '10'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlP42IpEI_A3Z79-YLoqy4x1vskyPeLiTdLQ&usqp=CAU',
-    'title': 'Concha de Chocolate',
-    'puntos': '40'
-  },
-];
-
-class PopularProducts extends StatelessWidget {
-  const PopularProducts(HomeController controller, {Key? key})
-      : super(key: key);
+class PopularProducts extends GetView<HomeController> {
+  const PopularProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,75 +21,91 @@ class PopularProducts extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white)),
+                    color: Colors.black)),
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: productsList.length,
-                itemBuilder: (_, int index) {
-                  return _ProductPopularPoster(index: index);
-                }),
+            child: Obx(() {
+              return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.productList$.length,
+                  itemBuilder: (_, int index) {
+                    return itemWidget(context, controller.productList$[index]);
+                  });
+            }),
           ),
         ],
       ),
     );
   }
-}
 
-class _ProductPopularPoster extends StatelessWidget {
-  final index;
-  const _ProductPopularPoster({Key? key, required this.index})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget itemWidget(BuildContext context, Product item) {
     return Container(
       width: 130,
       height: 190,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, '/detail', arguments: {
-                'url': productsList[index]['url'],
-                'title': productsList[index]['title'],
-                'puntos': productsList[index]['puntos'],
+                'url': item.url,
+                'title': item.name,
+                'puntos': item.price,
               });
             },
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Stack(children: [
                   FadeInImage(
-                    placeholder: NetworkImage(
+                    placeholder: const NetworkImage(
                         'https://tenor.com/view/loading-gif-9212724.gif'),
-                    image: NetworkImage(productsList[index]['url'].toString()),
+                    image: NetworkImage(item.url),
                     width: double.infinity,
                     height: 150,
                     fit: BoxFit.cover,
                   ),
-                  Align(
-                      alignment: Alignment.bottomRight,
-                      child: Icon(Icons.add_circle_rounded,
-                          color: Colors.white, size: 30)),
+                  // const Align(
+                  //     alignment: Alignment.bottomRight,
+                  //     child: Icon(Icons.add_circle_rounded,
+                  //         color: Colors.white, size: 30)
+                  // ),
                 ])),
           ),
-          //const SizedBox(height: 5),
-          Text(productsList[index]['title'].toString(),
-              maxLines: 2,
+          const SizedBox(height: 3),
+          Text(item.name,
               overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              softWrap: false,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.black)),
           Text(
-            '\$ ${productsList[index]['puntos'].toString()}',
+            '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-          )
+            style: const TextStyle(
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          Row(children: [
+            (item.cartValue > 0)
+                ? CircleIconButton(
+                    iconData: Icons.remove,
+                    onPressed: () => controller.deleteCart(item),
+                    size: 25,
+                    foregroundColor: Colors.white,
+                  )
+                : Container(),
+            const Spacer(),
+            (item.cartValue > 0) ? Text('${item.cartValue}') : Container(),
+            const Spacer(),
+            CircleIconButton(
+              iconData: Icons.add,
+              onPressed: () => controller.addCart(item),
+              size: 25,
+              foregroundColor: Colors.white,
+            ),
+          ])
         ],
       ),
     );

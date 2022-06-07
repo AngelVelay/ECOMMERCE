@@ -160,6 +160,14 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(
             height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
             child: AppBar(
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.logout),
+                  onPressed: () {
+                    Get.toNamed('/login');
+                  },
+                ),
+              ],
               automaticallyImplyLeading: false,
               backgroundColor: const Color(0xff2222222),
               elevation: 0.0,
