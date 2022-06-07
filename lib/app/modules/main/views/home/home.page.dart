@@ -41,7 +41,7 @@ class _BottomNavBarState extends State<HomePage> {
     HomePage1(),
     CatalogosPage(),
     PointsPage(),
-    PointsPage(),
+    UbicationsPage(),
     ProfilePage(),
   ];
 

@@ -30,6 +30,7 @@ class UbicationsPage extends GetView<UbicationsController> {
             appBar: AppBar(
               backgroundColor: const Color(0xff2222222),
               title: const Text('Ubicaciones'),
+              automaticallyImplyLeading: false,
               actions: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.list_alt),
@@ -54,6 +55,7 @@ class UbicationsPage extends GetView<UbicationsController> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: const Color(0xff2222222),
+              automaticallyImplyLeading: false,
               title: const Text('Ubicaciones'),
               actions: <Widget>[
                 IconButton(

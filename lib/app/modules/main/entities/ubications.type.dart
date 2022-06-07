@@ -18,20 +18,20 @@ class UbicationsObject {
 
   });
 
-  String companyId;
+  String? companyId;
   String? company;
-  String externalCode;
-  int externalId;
-  String icon;
-  String geoIcon;
-  String latitude;
-  String longitude;
+  String? externalCode;
+  int? externalId;
+  String? icon;
+  String? geoIcon;
+  double? latitude;
+  double? longitude;
   String description;
   String name;
-  bool isActive;
-  bool isBySystem;
-  String id;
-  bool isNew;
+  bool? isActive;
+  bool? isBySystem;
+  String? id;
+  bool? isNew;
 
   factory UbicationsObject.fromJson(Map<String, dynamic> json) =>
       UbicationsObject(
@@ -58,8 +58,8 @@ class UbicationsObject {
         externalId: 0,
         icon: '',
         geoIcon: '',
-        latitude: '',
-        longitude: '',
+        latitude: null,
+        longitude: null,
         description: '',
         name: '',
         isActive: true,

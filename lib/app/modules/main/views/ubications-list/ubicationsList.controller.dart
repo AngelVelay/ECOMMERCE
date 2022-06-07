@@ -29,7 +29,7 @@ class UbicationsListController extends GetxController {
   Future<dynamic> fetchPost() async {
     final response = await http.get(
       Uri.parse(
-          'http://dev.jexbit.mx/JexcoreService/api/OrganizationsApplicationsKeys/3e0bc783-033c-43ef-b612-479f236b008e/branches'),
+          'https://mocki.io/v1/bb31251b-5077-498d-9c0f-51d4d88c2498'),
     );
     return json.decode(response.body);
   }
@@ -109,8 +109,8 @@ class UbicationsListController extends GetxController {
   map(item)  {
     final initialCameraPosition = CameraPosition(
       target: LatLng(
-        double.parse(item.latitude),
-        double.parse(item.longitude),
+        item.latitude,
+        item.longitude,
       ),
       zoom: 18,
     );
@@ -143,8 +143,8 @@ class UbicationsListController extends GetxController {
             Marker(
               markerId: const MarkerId('1'),
               position: LatLng(
-                double.parse(item.latitude),
-                double.parse(item.longitude),
+                item.latitude,
+                item.longitude,
               ),
               icon: BitmapDescriptor.defaultMarker,
               // icon: icon,

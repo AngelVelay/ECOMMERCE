@@ -28,14 +28,14 @@ class UbicationsController extends ChangeNotifier {
   Future<void> fetchPost() async {
     final response = await http.get(
       Uri.parse(
-          'http://dev.jexbit.mx/JexcoreService/api/OrganizationsApplicationsKeys/3e0bc783-033c-43ef-b612-479f236b008e/branches'),
+          'https://mocki.io/v1/bb31251b-5077-498d-9c0f-51d4d88c2498'),
     );
 
     responseJsonUbications = json.decode(response.body);
 
     responseJsonUbications.forEach((element) async {
       imgurl = "http://201.151.139.54/FileManagerDoctos/jexbit/" +
-          element['geoIcon'];
+          element['GeoIcon'];
 
       Uint8List bytes =
           (await NetworkAssetBundle(Uri.parse(imgurl)).load(imgurl))
@@ -44,8 +44,8 @@ class UbicationsController extends ChangeNotifier {
 
       allMarkers.add(Marker(
         markerId: MarkerId(contador.toString()),
-        position: LatLng(double.parse(element['latitude']),
-            double.parse(element['longitude'])),
+        position: LatLng(element['latitude'],
+           element['longitude']),
         icon: BitmapDescriptor.fromBytes(bytes),
         infoWindow: InfoWindow(
           title: element['name'],
