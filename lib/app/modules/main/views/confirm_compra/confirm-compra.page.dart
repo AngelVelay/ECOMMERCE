@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../components/custom_input/custom_input.dart';
-import '../../../../components/points/points.widget.dart';
+import '../../../../components/popular-product-slider/popular-product-slider.dart';
 
 final List<Map<String, String>> productsList = [
   {
@@ -34,77 +34,68 @@ final List<Map<String, String>> productsList = [
     'puntos': '10',
     'precio': '130'
   },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlP42IpEI_A3Z79-YLoqy4x1vskyPeLiTdLQ&usqp=CAU',
-    'title': 'Concha de Chocolate',
-    'puntos': '40',
-    'precio': '15'
-  },
 ];
 
-class ShoppingCart extends StatefulWidget {
-  const ShoppingCart({Key? key}) : super(key: key);
+class ConfirmarCompraPage extends StatelessWidget {
+  const ConfirmarCompraPage({Key? key}) : super(key: key);
 
-  @override
-  State<ShoppingCart> createState() => _ShoppingCartState();
-}
-
-class _ShoppingCartState extends State<ShoppingCart> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text('Mis Carrito',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.black)),
+      top: false,
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text('Confirmar Compra'),
+            backgroundColor: Color(0xff222222),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(''),
+                ConfirmarCompra(),
+                SizedBox(height: 20),
+                PopularProducts('Sugerencias de Compra'),
+                _buttonConfirm(context)
+              ],
             ),
-            cartProduct(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SizedBox(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFF43578d),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: const BorderSide(color: Colors.black)))),
-                  icon: const Icon(
-                    Icons.monetization_on,
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/pay');
-                  },
-                  label: const Text('Pagar',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white)),
-                ),
+          )),
+    );
+  }
+
+  Widget _buttonConfirm(context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SizedBox(
+        height: 60,
+        width: MediaQuery.of(context).size.width,
+        child: ElevatedButton.icon(
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Color(0xFF43578d),
               ),
-            )
-          ],
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.black)))),
+          icon: const Icon(
+            Icons.monetization_on,
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/add-credit-card');
+          },
+          label: const Text('Confirmar',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white)),
         ),
       ),
     );
-    ;
   }
 }
 
-class cartProduct extends StatelessWidget {
+class ConfirmarCompra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -117,13 +108,14 @@ class cartProduct extends StatelessWidget {
             child: GestureDetector(
               onTap: () {},
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     height: 80,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: FadeInImage(
-                          placeholder: const NetworkImage(
+                          placeholder: NetworkImage(
                               'https://tenor.com/view/loading-gif-9212724.gif'),
                           image: NetworkImage(
                               productsList[index]['url'].toString()),
@@ -133,7 +125,7 @@ class cartProduct extends StatelessWidget {
                       child: ListTile(
                     title: Text(
                       '${productsList[index]['title']}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -143,17 +135,16 @@ class cartProduct extends StatelessWidget {
                       children: [
                         Text(
                           '\$ ${productsList[index]['precio']}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                           ),
                         ),
                         Text(
                           '${productsList[index]['puntos']} pts',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(Icons.remove_circle_outline_outlined,
                                 size: 25, color: Colors.black),

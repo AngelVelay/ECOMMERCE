@@ -14,7 +14,7 @@ class PayPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Color(0xff2222222),
-            title: Text('Detalle de Compra'),
+            title: Text('Agregar metodo de pago'),
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -23,7 +23,8 @@ class PayPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildTitleSection(
-                      title: "Detalle de pago", subTitle: "Como desea pagar?"),
+                      title: "Agregar metodo de pago",
+                      subTitle: "Como desea pagar?"),
                   _buildCreditCard(
                       color: Color(0xFF000000),
                       cardExpiration: "05/2024",
@@ -190,7 +191,7 @@ class TextFieldCreditCard extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(vertical: 50.0),
               child: SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width,
@@ -208,66 +209,15 @@ class TextFieldCreditCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/pay');
+                    Navigator.pushNamed(context, '/add-credit-card');
                   },
-                  label: const Text('Confirmar pago',
+                  label: const Text('Agregar Tarjeta',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           color: Colors.white)),
                 ),
               ),
-            ),
-            Column(
-              children: [
-                Text(
-                  'Tambie puedes pagar con :',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                        width: 80,
-                        height: 80,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: FadeInImage(
-                            image: NetworkImage(
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png'),
-                            placeholder: NetworkImage(
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png'),
-                            width: 80,
-                            height: 80,
-                          ),
-                        )),
-                    Container(
-                        width: 80,
-                        height: 80,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: FadeInImage(
-                            image: NetworkImage(
-                                'https://s3.cointelegraph.com/storage/uploads/view/3278bdc14c74dd4e85732b776d0e5b1d.png'),
-                            placeholder:
-                                AssetImage('assets/images/face-id.png'),
-                            width: 80,
-                            height: 80,
-                          ),
-                        )),
-                  ],
-                ),
-              ],
             ),
           ],
         ),

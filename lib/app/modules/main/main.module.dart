@@ -3,8 +3,12 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/employees/employees.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
+import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
+import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
+import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.controller.dart';
+import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.controller.dart';
@@ -44,6 +48,8 @@ class MainRouting {
   static const CATALOGOS_ROUTE = '/catalogos';
   static const PAY_ROUTE = '/pay';
   static const POINTS_ROUTE = '/points';
+  static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
+  static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
 
   static final routes = [
     // GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -83,6 +89,14 @@ class MainRouting {
 
     GetPage(
         name: POINTS_ROUTE, page: () => PointsPage(), binding: PointsBinding()),
+    GetPage(
+        name: ADD_CREDIT_CARD_ROUTE,
+        page: () => addCreditCard(),
+        binding: AddCardBinding()),
+    GetPage(
+        name: CONFIRM_COMPRA_ROUTE,
+        page: () => ConfirmarCompraPage(),
+        binding: ConfirmPagodBinding()),
   ];
 }
 
@@ -193,5 +207,19 @@ class PointsBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PointsController>(() => PointsController());
+  }
+}
+
+class AddCardBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AddCardController>(() => AddCardController());
+  }
+}
+
+class ConfirmPagodBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<ConfirmPagoController>(() => ConfirmPagoController());
   }
 }

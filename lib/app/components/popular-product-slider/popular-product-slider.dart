@@ -5,7 +5,8 @@ import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 
 class PopularProducts extends GetView<HomeController> {
-  const PopularProducts({Key? key}) : super(key: key);
+  final String title;
+  const PopularProducts(this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +16,13 @@ class PopularProducts extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Lo mas vendido',
+            child: Text('${title}',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black)),
+                    color: Colors.white)),
           ),
           const SizedBox(height: 10),
           Expanded(
@@ -78,32 +79,39 @@ class PopularProducts extends GetView<HomeController> {
               maxLines: 1,
               softWrap: false,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black)),
+              style: const TextStyle(color: Colors.white)),
           Text(
             '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           Row(children: [
             (item.cartValue > 0)
                 ? CircleIconButton(
+                    backgroundColor: Colors.white,
                     iconData: Icons.remove,
                     onPressed: () => controller.deleteCart(item),
                     size: 25,
-                    foregroundColor: Colors.white,
+                    foregroundColor: Colors.black,
                   )
                 : Container(),
             const Spacer(),
-            (item.cartValue > 0) ? Text('${item.cartValue}') : Container(),
+            (item.cartValue > 0)
+                ? Text(
+                    '${item.cartValue}',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  )
+                : Container(),
             const Spacer(),
             CircleIconButton(
+              backgroundColor: Colors.white,
               iconData: Icons.add,
               onPressed: () => controller.addCart(item),
               size: 25,
-              foregroundColor: Colors.white,
+              foregroundColor: Colors.black,
             ),
           ])
         ],

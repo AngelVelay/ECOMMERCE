@@ -24,6 +24,7 @@ import '../../../../components/custom_navigation_bar/custom_navigation_bar.dart'
 import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
 import '../../../../components/popular-product-slider/popular-product-slider.dart';
 import '../../../main/views/main/widgets/menu/menu.widget.dart';
+import '../ubications/ubications.page.dart';
 import 'home.controller.dart';
 
 void main() => runApp(MaterialApp(home: HomePage()));
@@ -40,7 +41,7 @@ class _BottomNavBarState extends State<HomePage> {
     HomePage1(),
     CatalogosPage(),
     PointsPage(),
-    ProfilePage(),
+    PointsPage(),
     ProfilePage(),
   ];
 
@@ -147,6 +148,7 @@ class HomePage1 extends GetView<HomeController> {
         left: false,
         right: false,
         child: Scaffold(
+          backgroundColor: Color(0xff222222),
           body: CustomScrollView(
             slivers: [
               SliverPersistentHeader(
@@ -161,7 +163,7 @@ class HomePage1 extends GetView<HomeController> {
                 child: Column(children: [
                   _slider(controller),
                   const SizedBox(height: 15),
-                  const PopularProducts(),
+                  const PopularProducts('Lo mas vendido'),
                   const SizedBox(height: 15),
                   const FavoritesProducts()
                 ]),
