@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
+
+import '../../modules/main/views/tab-home/tab-home.controller.dart';
 
 class PopularProducts extends GetView<HomeController> {
   final String title;

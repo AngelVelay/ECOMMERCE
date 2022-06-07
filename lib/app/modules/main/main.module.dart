@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
-import 'package:jexpoints/app/modules/main/services/employees/employees.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
@@ -13,8 +13,6 @@ import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.controller.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.page.dart';
@@ -29,15 +27,14 @@ import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
-import 'views/main/widgets/menu/menu.controller.dart';
+import 'views/main/main.page.dart';
 import 'views/profile/profile.controller.dart';
-import 'views/search/search.page.dart';
-import 'views/tst/tst.controller.dart';
+import 'views/tab-home/tab-home.controller.dart';
 
 class MainRouting {
   static const MAIN_ROUTE = '/main';
 
-  static const HOME_ROUTE = '/home';
+  // static const HOME_ROUTE = '/home';
   static const PROFILE_ROUTE = '/profile';
   static const CONSUME_ROUTE = '/consume';
   static const GENERATE_QR_ROUTE = '/generate-qr';
@@ -52,8 +49,7 @@ class MainRouting {
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
 
   static final routes = [
-    // GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
-    GetPage(name: HOME_ROUTE, page: () => HomePage(), binding: HomeBinding()),
+    GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
     GetPage(
         name: PROFILE_ROUTE,
         page: () => ProfilePage(),
@@ -66,7 +62,6 @@ class MainRouting {
         name: GENERATE_QR_ROUTE,
         page: () => QrGeneratePage(),
         binding: QrGenerateBinding()),
-
     GetPage(
         name: UBICATIONS_ROUTE,
         page: () => UbicationsPage(),
@@ -86,7 +81,6 @@ class MainRouting {
         page: () => CatalogosPage(),
         binding: CatalogosBinding()),
     GetPage(name: PAY_ROUTE, page: () => PayPage(), binding: PayBinding()),
-
     GetPage(
         name: POINTS_ROUTE, page: () => PointsPage(), binding: PointsBinding()),
     GetPage(
@@ -103,8 +97,8 @@ class MainRouting {
 class MainBinding implements Bindings {
   var authService = AuthFakeService();
   MainBinding() {
-    Get.lazyPut(() => TstController(EmployeesFakeService()));
-    Get.lazyPut(() => MenuController(authService));
+    Get.lazyPut<HomeController>(() => HomeController(
+        ProductsFakeService(), authService, FlyersFakeService()));
     Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
     Get.lazyPut<ConsumeController>(() => ConsumeController());
     Get.lazyPut<PayController>(() => PayController());
@@ -113,24 +107,7 @@ class MainBinding implements Bindings {
 
   @override
   void dependencies() {
-    Get.lazyPut<MainController>(() => MainController(authService));
-  }
-}
-
-class HomeBinding implements Bindings {
-  var authService = AuthFakeService();
-  var productsService = ProductsFakeService();
-
-  @override
-  void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController(productsService));
-    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
-    Get.lazyPut<ConsumeController>(() => ConsumeController());
-    Get.lazyPut<CatalogosController>(() => CatalogosController());
-
-    Get.lazyPut(() => MenuController(authService));
-    Get.lazyPut<PayController>(() => PayController());
-    Get.lazyPut<PointsController>(() => PointsController());
+    Get.lazyPut<MainController>(() => MainController());
   }
 }
 
@@ -139,7 +116,6 @@ class ProfileBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
-    Get.lazyPut(() => MenuController(authService));
   }
 }
 
@@ -148,7 +124,6 @@ class ConsumeBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ConsumeController>(() => ConsumeController());
-    Get.lazyPut(() => MenuController(authService));
   }
 }
 
@@ -157,7 +132,6 @@ class QrGenerateBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<QrGenerateController>(() => QrGenerateController());
-    Get.lazyPut(() => MenuController(authService));
   }
 }
 

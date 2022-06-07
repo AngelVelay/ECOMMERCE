@@ -1,154 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/services.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
-import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
-import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
-import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
-import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/points/points.widget.dart';
+import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 import 'package:jexpoints/app/modules/main/views/search/search.page.dart';
-
-import '../../../../components/button-qr-generate/button-qr-generate.dart';
 import '../../../../components/card-favorites/cars-favorites.dart';
 import '../../../../components/cart-shopping/cart-shopping.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/custom_input/custom_input.dart';
-import '../../../../components/custom_navigation_bar/custom_navigation_bar.dart';
-import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
 import '../../../../components/popular-product-slider/popular-product-slider.dart';
-import '../../../main/views/main/widgets/menu/menu.widget.dart';
-import '../ubications/ubications.page.dart';
-import 'home.controller.dart';
+import 'tab-home.controller.dart';
 
-void main() => runApp(MaterialApp(home: HomePage()));
-
-class HomePage extends StatefulWidget {
-  @override
-  _BottomNavBarState createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<HomePage> {
-  int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  final screens = [
-    HomePage1(),
-    CatalogosPage(),
-    PointsPage(),
-    UbicationsPage(),
-    ProfilePage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        extendBody: true,
-        bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
-          index: 0,
-          height: 60.0,
-          items: [
-            Icon(Icons.home, size: 30),
-            Icon(Icons.grid_view, size: 30),
-            Icon(Icons.credit_card, size: 30),
-            Icon(Icons.place_outlined, size: 30),
-            Icon(Icons.person_outline_outlined, size: 30),
-          ],
-          color: Colors.white,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.black,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 600),
-          onTap: (index) {
-            setState(() {
-              _page = index;
-            });
-          },
-          letIndexChange: (index) => true,
-        ),
-        body: screens[_page]);
-  }
-}
-
-/* void main() => runApp(MaterialApp(home: HomePage()));
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final _pageIndex = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  final screens = [
-    HomePage1(),
-    ConsumePage(),
-    ProfilePage(),
-  ];
-
-  Widget _initialPage = HomePage();
-
-  Widget _choosePage(int screens) {
-    switch (screens) {
-      case 0:
-        return HomePage1();
-      case 1:
-        return ConsumePage();
-      case 2:
-        return ProfilePage();
-      default:
-        return HomePage1();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
-          index: _pageIndex,
-          height: 60.0,
-          items: <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
-          ],
-          color: Colors.white,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.blueAccent,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 600),
-          onTap: (index) {
-            setState(() {
-              _initialPage = _choosePage(index);
-            });
-          },
-          letIndexChange: (index) => true,
-        ),
-        body: _choosePage(screens.length));
-  }
-} */
-
-class HomePage1 extends GetView<HomeController> {
-  const HomePage1({Key? key}) : super(key: key);
+class HomePage extends GetView<HomeController> {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff222222),
+      color: const Color(0xff222222),
       child: SafeArea(
         left: false,
         right: false,
         child: Scaffold(
-          backgroundColor: Color(0xff222222),
+          backgroundColor: const Color(0xff222222),
           body: CustomScrollView(
             slivers: [
               SliverPersistentHeader(
@@ -161,7 +34,7 @@ class HomePage1 extends GetView<HomeController> {
               ),
               SliverToBoxAdapter(
                 child: Column(children: [
-                  _slider(controller),
+                  _flyerList(controller),
                   const SizedBox(height: 15),
                   const PopularProducts('Lo mas vendido'),
                   const SizedBox(height: 15),
@@ -170,156 +43,56 @@ class HomePage1 extends GetView<HomeController> {
               )
             ],
           ),
-
-          /* bottomNavigationBar: CustomNavigationBar(),
-          floatingActionButton: FloatingActionButtonPointsQR(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, */
         ),
       ),
     );
   }
 
-  static Widget _slider(HomeController controller) {
+  Widget _flyerList(HomeController controller) {
     return SizedBox(
         child: ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        CarouselSlider.builder(
-          itemCount: controller.sliderImagesList.length,
-          itemBuilder: (context, index, realIndex) {
-            final carouselImage = controller.sliderImagesList[index];
-            return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: SizedBox(
-                    width: 600,
-                    height: 600,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/publicidad',
-                                arguments: carouselImage);
-                          },
-                          child: FadeInImage(
-                            width: 600,
-                            height: 3000,
-                            fit: BoxFit.fill,
-                            placeholder: const NetworkImage(
-                                'https://tenor.com/view/loading-gif-9212724.gif'),
-                            image: NetworkImage(carouselImage),
-                          ),
-                        ))));
-          },
-          options: CarouselOptions(
-            height: 150,
-            autoPlay: true,
-            scrollDirection: Axis.horizontal,
-          ),
-        )
+        Obx(() {
+          return CarouselSlider.builder(
+            itemCount: controller.flyerList$.length,
+            itemBuilder: (context, index, realIndex) {
+              return controller.flyerList$.isNotEmpty
+                  ? _flyerItem(controller.flyerList$[index])
+                  : Container();
+            },
+            options: CarouselOptions(
+              height: 150,
+              autoPlay: true,
+              scrollDirection: Axis.horizontal,
+            ),
+          );
+        })
       ],
     ));
   }
 
-  static Widget _sliderImage(String carouselImage, int index) {
+  Widget _flyerItem(Flyer item) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-          width: 400,
-          height: 150,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage(
-                fit: BoxFit.cover,
-                placeholder: const NetworkImage(
-                    'https://tenor.com/view/loading-gif-9212724.gif'),
-                image: NetworkImage(carouselImage),
-              ))),
-    );
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: SizedBox(
+            width: 600,
+            height: 600,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: GestureDetector(
+                  onTap: () => controller.toFlyer(item),
+                  child: FadeInImage(
+                    width: 600,
+                    height: 3000,
+                    fit: BoxFit.fill,
+                    placeholder: const NetworkImage(
+                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                    image: NetworkImage(item.url),
+                  ),
+                ))));
   }
-
-/*   static Widget _topList(BuildContext context, HomeController controller) {
-    return Column(children: [
-      const Text(
-        'Recompensas',
-        style: TextStyle(
-          fontSize: 25,
-          color: Colors.black87,
-        ),
-      ),
-      const SizedBox(height: 10),
-      SingleChildScrollView(
-        dragStartBehavior: DragStartBehavior.start,
-        scrollDirection: Axis.vertical,
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: controller.topProductList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 15.0,
-                  crossAxisSpacing: 5.0,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) =>
-                    _topListItem(context, controller.topProductList[index])),
-          ),
-        ),
-      ),
-    ]);
-  }
-
-  static Widget _topListItem(BuildContext context, dynamic product) {
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed('/detail', arguments: product);
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: FadeInImage(
-                  fit: BoxFit.cover,
-                  placeholder: NetworkImage(product['url']),
-                  image: NetworkImage(product['url']),
-                ),
-              ),
-            ),
-          ),
-          // const Text(
-          //   // products is out demo list
-          //   'Nombre de producto',
-          //   style: TextStyle(color: Colors.black, fontSize: 12),
-          // ),
-
-          Center(
-              child: Text(
-            // products is out demo list
-            '${product['points']} pts',
-            style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 13,
-                fontWeight: FontWeight.bold),
-          )),
-          // Text(
-          //   "${product['puntos']} pts",
-          //   style: TextStyle(fontWeight: FontWeight.bold),
-          // )
-        ],
-      ),
-    );
-  }
-} */
 }
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
@@ -394,13 +167,18 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         const SizedBox(width: 10),
                         Column(
                           children: [
-                            const Text('Angel Velay',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.white)),
+                            Obx(() {
+                              return Text(
+                                  controller.user$.value.employee != null
+                                      ? controller.user$.value.employee!.name
+                                      : '',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white));
+                            }),
                             Padding(
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
@@ -448,16 +226,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   width: MediaQuery.of(context).size.width - 50,
                   height: 50,
                   child: GestureDetector(
-                      onTap: () {
-                        Get.to(() => SearchPage(controller));
-                      },
+                      onTap: () => controller.toSearch(controller),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Color(0xFFfffffff),
                           border: Border.all(color: Colors.grey),
-                          borderRadius: const BorderRadius.all(Radius.circular(
-                                  10.0) //                 <--- border radius here
-                              ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Row(children: const [
                           SizedBox(width: 10),
@@ -469,6 +244,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                           Text(
                             'Buscar producto...',
                             style: TextStyle(color: Colors.black54),
+                            // Theme.of(context).textTheme.headline2
                           ),
                           Spacer(),
                           Icon(
@@ -500,7 +276,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
 Future<dynamic> ModalBottomSheet(BuildContext context) {
   return showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
         ),
@@ -508,7 +284,7 @@ Future<dynamic> ModalBottomSheet(BuildContext context) {
       isScrollControlled: true,
       builder: (context) {
         return SafeArea(
-          child: Container(
+          child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.30,
               child: chooseAddress()),
         );

@@ -1,13 +1,12 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/auth/auth.module.dart';
-import 'package:jexpoints/app/core/utils/storage.utils.dart';
-import 'package:jexpoints/app/shared/values/globals.dart';
 
-import '../../../auth/entities/user.type.dart';
-import '../../../auth/services/auth/auth.contract.dart';
-import '../home/home.page.dart';
-import '../tst/tst.page.dart';
+import '../catalogos/catalogos.page.dart';
+import '../points/points.page.dart';
+import '../profile/profile.page.dart';
+import '../tab-home/tab-home.page.dart';
+import '../ubications/ubications.page.dart';
 
 class TabItem {
   final IconData icon;
@@ -18,32 +17,17 @@ class TabItem {
 }
 
 class MainController extends GetxController {
-  late IAuthService _repo;
-
-  final List<TabItem> navigationItems = [
-    TabItem(Icons.home, HomePage(), 'Inicio'),
-    TabItem(Icons.account_circle, TstPage(), 'Mi Perfil'),
+  var pageIndex$ = 0.obs;
+  GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
+  final screens = [
+    const HomePage(),
+    const CatalogosPage(),
+    const PointsPage(),
+    const UbicationsPage(),
+    const ProfilePage(),
   ];
 
-  MainController(this._repo);
-
-  var user = User.fromVoid().obs;
-  String appName = Globals.APP_NAME;
-
-  @override
-  void onInit() async {
-    var existingUser = await _repo.checkUser();
-    if (existingUser != null) {
-      user.value = existingUser;
-    } else {
-      Get.toNamed(AuthRouting.LOGIN_ROUTE);
-    }
-
-    super.onInit();
-  }
-
-  void signInOut() {
-    LocalStorageUtils.setStringKey(Globals.CURRENT_USER_KEY, '');
-    Get.toNamed(AuthRouting.LOGIN_ROUTE);
+  changeTab(int index) {
+    pageIndex$.value = index;
   }
 }

@@ -168,8 +168,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import '../../../../../../components/circular-progress-bar/circular-progress-bar.dart';
-import '../../../../../auth/auth.module.dart';
+import 'package:jexpoints/app/components/circular-progress-bar/circular-progress-bar.dart';
+import '../../../auth/auth.module.dart';
 import 'menu.controller.dart';
 
 class Menu extends GetView<MenuController> {
@@ -210,10 +210,10 @@ class Menu extends GetView<MenuController> {
                             //                     'assets/images/profile.png'))))),
                             child: Container(
                           alignment: Alignment.center,
-                          child: CircularProgressBar(
-                            sizeProgressBar: 40.0, 
-                            AvatarSize: 30,  
-                            percent: 0,                          
+                          child: const CircularProgressBar(
+                            sizeProgressBar: 40.0,
+                            AvatarSize: 30,
+                            percent: 0,
                           ),
                         )),
                         Container(

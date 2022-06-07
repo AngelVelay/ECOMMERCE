@@ -4,7 +4,6 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/map_ubication/map_ubication.dart';
-import '../main/widgets/menu/menu.widget.dart';
 import '../profile/profile.page.dart';
 import 'consume.controller.dart';
 

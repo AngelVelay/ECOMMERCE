@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 
 import '../../modules/main/views/cart-shopping/shopipng-cart.page.dart';
+import '../../modules/main/views/tab-home/tab-home.controller.dart';
 import '../points/points.widget.dart';
 
 class CartShopping extends GetView<HomeController> {

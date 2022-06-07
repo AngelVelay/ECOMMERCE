@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../modules/main/views/home/home.controller.dart';
-
 final List<Map<String, String>> productsList = [
   {
     'url':

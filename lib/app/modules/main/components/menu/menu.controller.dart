@@ -3,9 +3,8 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
-import 'package:jexpoints/app/shared/values/enviroments.dart';
-import '../../../../../auth/entities/user.type.dart';
-import '../../../../../auth/services/auth/auth.contract.dart';
+import '../../../auth/entities/user.type.dart';
+import '../../../auth/services/auth/auth.contract.dart';
 
 class MenuItem {
   final IconData icon;
@@ -20,7 +19,7 @@ class MenuController extends GetxController {
   MenuController(this._repo);
 
   final List<MenuItem> menuItems = [
-    MenuItem(Icons.home, MainRouting.HOME_ROUTE, 'Inicio'),
+    // MenuItem(Icons.home, MainRouting.HOME_ROUTE, 'Inicio'),
     MenuItem(Icons.account_circle, MainRouting.PROFILE_ROUTE, 'Mi Perfil'),
     MenuItem(Icons.food_bank, MainRouting.CONSUME_ROUTE, 'MiS Consumos'),
     MenuItem(Icons.account_circle, MainRouting.UBICATIONS_ROUTE, 'Ubicaciones'),

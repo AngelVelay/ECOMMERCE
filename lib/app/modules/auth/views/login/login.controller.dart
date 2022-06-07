@@ -48,7 +48,7 @@ class LoginController extends GetxController {
     var user = await _service.singIn(username.text, password.text);
     loginText.value = 'Ingresar';
     if (user != null) {
-      Get.toNamed(MainRouting.HOME_ROUTE);
+      Get.toNamed(MainRouting.MAIN_ROUTE);
     } else {
       MsgUtils.error('Algo salio mal');
     }
@@ -57,7 +57,7 @@ class LoginController extends GetxController {
   _checkLogueInUser() async {
     var currentUser = await _service.checkUser();
     if (currentUser != null && currentUser.id != 0) {
-      Get.toNamed(MainRouting.HOME_ROUTE);
+      Get.toNamed(MainRouting.MAIN_ROUTE);
     }
   }
 
@@ -69,11 +69,11 @@ class LoginController extends GetxController {
     try {
       final result = await _googleSignIn.signIn();
       if (result != null) {
-        Get.toNamed(MainRouting.HOME_ROUTE);
-        print(result);
+        Get.toNamed(MainRouting.MAIN_ROUTE);
       }
     } catch (error) {
-      print(error);
+      // TODO: Exception Handler
+      // print(error);
     }
   }
 
@@ -81,12 +81,11 @@ class LoginController extends GetxController {
     final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       final AccessToken accessToken = result.accessToken!;
-      Get.toNamed(MainRouting.HOME_ROUTE);
-
-      print(accessToken.toJson());
+      Get.toNamed(MainRouting.MAIN_ROUTE);
     } else {
-      print(result.status);
-      print(result.message);
+      // TODO: Exception Handler
+      // print(result.status);
+      // print(result.message);
     }
   }
 
@@ -97,8 +96,6 @@ class LoginController extends GetxController {
         AppleIDAuthorizationScopes.fullName,
       ],
     );
-
-    print(credential);
   }
 
   Future<dynamic> faceID() async {
@@ -115,9 +112,9 @@ class LoginController extends GetxController {
     }
 
     if (isAuthenticated) {
-      Get.toNamed(MainRouting.HOME_ROUTE);
+      Get.toNamed(MainRouting.MAIN_ROUTE);
     } else {
-      IOSAuthMessages(
+      const IOSAuthMessages(
         lockOut: 'Ingresa con Face ID',
         cancelButton: 'Cancelar',
       );

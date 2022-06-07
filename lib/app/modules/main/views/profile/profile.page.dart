@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.controller.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
-
 import '../../../../components/button-qr-generate/button-qr-generate.dart';
-import '../../../../components/card-favorites/cars-favorites.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
-import '../../../../components/map_ubication/map_ubication.dart';
 import '../../../../components/profile-card-categories/profile-card-categories.dart';
-import '../main/widgets/menu/menu.widget.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({Key? key}) : super(key: key);
@@ -18,7 +12,7 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff2222222),
+      color: const Color(0xff2222222),
       child: SafeArea(
         left: false,
         right: false,
@@ -38,8 +32,8 @@ class ProfilePage extends GetView<ProfileController> {
                 child: SingleChildScrollView(
                   child: Column(children: [
                     _levelBar(),
-                    CardCategoriesProfile(),
-                    SizedBox(height: 20),
+                    const CardCategoriesProfile(),
+                    const SizedBox(height: 20),
                     _consumeInfo(context, controller),
                   ]),
                 ),
@@ -162,7 +156,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             child: AppBar(
               actions: [
                 IconButton(
-                  icon: Icon(Icons.logout),
+                  icon: const Icon(Icons.logout),
                   onPressed: () {
                     Get.toNamed('/login');
                   },

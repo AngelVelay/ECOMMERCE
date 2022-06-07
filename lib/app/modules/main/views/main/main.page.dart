@@ -1,78 +1,36 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'main.controller.dart';
-import 'widgets/menu/menu.widget.dart';
 
 class MainPage extends GetView<MainController> {
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: controller.navigationItems.length,
-      child: Scaffold(
-        drawer: Menu(),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).accentColor,
-          title: Row(
-            children: [
-              Builder(
-                builder: (context) => GestureDetector(
-                  child: Obx(() {
-                    return Container(
-                        width: 30,
-                        height: 30,
-                        decoration: (controller.user.value.id != null &&
-                                controller.user.value.employee != null)
-                            ? BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                      controller.user.value.employee!.picture!),
-                                ),
-                              )
-                            : const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                        'assets/images/profile.png'))));
-                  }),
-                  onTap: () => Scaffold.of(context).openDrawer(),
-                ),
-              ),
-              Spacer(),
-              Center(
-                  child: Text(
-                controller.appName,
-                style: Theme.of(context).textTheme.headline2,
-              )),
-              Spacer(),
-              GestureDetector(
-                child: Icon(Icons.exit_to_app,
-                    color: Theme.of(context).buttonColor),
-                onTap: () => controller.signInOut(),
-              )
-            ],
-          ),
+    return Scaffold(
+        extendBody: true,
+        bottomNavigationBar: CurvedNavigationBar(
+          key: controller.bottomNavigationKey,
+          index: 0,
+          height: 60.0,
+          items: const [
+            Icon(Icons.home, size: 30),
+            Icon(Icons.grid_view, size: 30),
+            Icon(Icons.credit_card, size: 30),
+            Icon(Icons.place_outlined, size: 30),
+            Icon(Icons.person_outline_outlined, size: 30),
+          ],
+          color: Colors.white,
+          buttonBackgroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          animationCurve: Curves.easeInOut,
+          animationDuration: const Duration(milliseconds: 500),
+          onTap: (index) => controller.changeTab(index),
+          letIndexChange: (index) => true,
         ),
-        bottomNavigationBar: Container(
-            height: 70,
-            color: Theme.of(context).accentColor,
-            padding: EdgeInsets.only(bottom: 20),
-            child: TabBar(
-                indicatorColor: Theme.of(context).indicatorColor,
-                tabs: controller.navigationItems
-                    .map(
-                      (e) => new Tab(
-                          icon: Icon(e.icon,
-                              color: Theme.of(context).buttonColor)),
-                    )
-                    .toList())),
-        body: TabBarView(
-          children: controller.navigationItems.map((e) => e.page).toList(),
-        ),
-      ),
-    );
+        body: Obx(() {
+          return controller.screens[controller.pageIndex$.value];
+        }));
   }
 }

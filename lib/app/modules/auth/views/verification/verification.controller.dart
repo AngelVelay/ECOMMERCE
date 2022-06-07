@@ -56,7 +56,7 @@ class VerificationController extends GetxController {
     textEditingController.clear();
   }
 
-  goToHome(){
-    Get.toNamed(MainRouting.HOME_ROUTE);
+  goToHome() {
+    Get.toNamed(MainRouting.MAIN_ROUTE);
   }
 }

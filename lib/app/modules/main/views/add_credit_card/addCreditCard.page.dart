@@ -1,12 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:jexpoints/app/modules/main/views/home/home.page.dart';
 
-import '../pay_page/pay.page.dart';
+import '../tab-home/tab-home.page.dart';
 
 final List<dynamic> sliderImagesList = [
   // {
@@ -245,7 +241,7 @@ class _addCreditCardState extends State<addCreditCard> {
             splash: Container(
               height: 600,
               child: Column(
-                children: [
+                children: const [
                   Expanded(
                     child: FadeInImage(
                         height: 600,
@@ -262,7 +258,7 @@ class _addCreditCardState extends State<addCreditCard> {
                 ],
               ),
             ),
-            nextScreen: HomePage(),
+            nextScreen: const HomePage(),
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: const Color(0xFFffffff)));
   }

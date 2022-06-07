@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:jexpoints/app/core/data/services/base-service.service.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/branch.type.dart';
+import 'package:jexpoints/app/modules/auth/entities/employee.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/signup.type.dart';
 import '../../entities/user.type.dart';
 import 'auth.contract.dart';
@@ -13,7 +14,14 @@ class AuthFakeService extends BaseService implements IAuthService {
         isActive: true,
         username: 'jcarballido@jexbit.mx',
         passwordSalt: '',
-        id: 1)
+        id: 1,
+        employee: Employee(
+            organizationId: 'sdf',
+            organization: null,
+            email: 'jcarballido@jexbit.mx',
+            name: 'Angel Velay',
+            isActive: true,
+            isBySystem: false))
   ];
 
   AuthFakeService() : super('');
@@ -49,7 +57,7 @@ class AuthFakeService extends BaseService implements IAuthService {
         isActive: true,
         username: registrationUser.email,
         passwordSalt: '',
-        phoneNumber: registrationUser.phoneNumber, 
+        phoneNumber: registrationUser.phoneNumber,
         id: 0);
     user?.code = '12345';
     return user;
