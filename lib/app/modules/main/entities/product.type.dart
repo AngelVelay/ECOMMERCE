@@ -5,6 +5,8 @@ class Product {
     required this.url,
     required this.price,
     required this.cartValue,
+    required this.isFavorite,
+    required this.topRate,
   });
 
   int id;
@@ -12,6 +14,8 @@ class Product {
   String url;
   double price;
   int cartValue;
+  bool isFavorite;
+  int topRate;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -19,6 +23,8 @@ class Product {
         url: json["url"],
         price: json["price"],
         cartValue: json["cartValue"],
+        isFavorite: json["isFavorite"],
+        topRate: json["topRate"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +33,7 @@ class Product {
         "url": url,
         "price": price,
         "cartValue": cartValue,
+        "isFavorite": isFavorite,
+        "topRate": topRate,
       };
 }

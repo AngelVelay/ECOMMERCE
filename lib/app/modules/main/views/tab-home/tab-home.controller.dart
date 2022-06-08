@@ -18,6 +18,7 @@ class HomeController extends GetxController {
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
+  late var favoriteProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
 
   HomeController(this.productsService, this.authService, this.flyersService);
@@ -31,6 +32,8 @@ class HomeController extends GetxController {
     }
 
     productList$.value = await productsService.getTop();
+    productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
+    favoriteProducts$.value = await productsService.getFavorites();
     flyerList$.value = await flyersService.get();
   }
 
@@ -38,6 +41,7 @@ class HomeController extends GetxController {
     item.cartValue++;
     productList$.refresh();
     findedProducts$.refresh();
+    favoriteProducts$.refresh();
     _updateCartItems();
   }
 
@@ -45,6 +49,7 @@ class HomeController extends GetxController {
     item.cartValue--;
     productList$.refresh();
     findedProducts$.refresh();
+    favoriteProducts$.refresh();
     _updateCartItems();
   }
 
@@ -65,5 +70,13 @@ class HomeController extends GetxController {
 
   toFlyer(Flyer item) {
     Get.toNamed(MainRouting.PUBLICIDAD_ROUTE, arguments: item.url);
+  }
+
+  toProductDetail(Product item) {
+    Get.toNamed(MainRouting.DETAIL_ROUTE, arguments: {
+      'url': item.url,
+      'name': item.name,
+      'price': item.price,
+    });
   }
 }

@@ -3,11 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 import 'package:jexpoints/app/modules/main/views/search/search.page.dart';
-import '../../../../components/card-favorites/cars-favorites.dart';
+import 'components/favorite-products.widget.dart';
 import '../../../../components/cart-shopping/cart-shopping.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/custom_input/custom_input.dart';
-import '../../../../components/popular-product-slider/popular-product-slider.dart';
+import 'components/top-products.widget.dart';
 import 'tab-home.controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -36,9 +36,10 @@ class HomePage extends GetView<HomeController> {
                 child: Column(children: [
                   _flyerList(controller),
                   const SizedBox(height: 15),
-                  const PopularProducts('Lo mas vendido'),
+                  const HomeTopProducts(),
                   const SizedBox(height: 15),
-                  const FavoritesProducts()
+                  const HomeFavoriteProducts(),
+                  const SizedBox(height: 20)
                 ]),
               )
             ],

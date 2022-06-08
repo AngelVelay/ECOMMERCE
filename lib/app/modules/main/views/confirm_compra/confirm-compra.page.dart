@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../components/popular-product-slider/popular-product-slider.dart';
+import '../tab-home/components/top-products.widget.dart';
 
 final List<Map<String, String>> productsList = [
   {
@@ -54,7 +54,7 @@ class ConfirmarCompraPage extends StatelessWidget {
                 Text(''),
                 ConfirmarCompra(),
                 SizedBox(height: 20),
-                PopularProducts('Sugerencias de Compra'),
+                // PopularProducts('Sugerencias de Compra'),
                 _buttonConfirm(context)
               ],
             ),
