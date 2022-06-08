@@ -18,6 +18,7 @@ class HomeController extends GetxController {
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
+  late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
 
@@ -41,6 +42,7 @@ class HomeController extends GetxController {
     item.cartValue++;
     productList$.refresh();
     findedProducts$.refresh();
+    catalogsList$.refresh();
     favoriteProducts$.refresh();
     _updateCartItems();
   }
@@ -49,6 +51,7 @@ class HomeController extends GetxController {
     item.cartValue--;
     productList$.refresh();
     findedProducts$.refresh();
+    catalogsList$.refresh();
     favoriteProducts$.refresh();
     _updateCartItems();
   }
@@ -67,6 +70,10 @@ class HomeController extends GetxController {
     findedProducts$.value = await productsService.search(keywordCtrl.text);
     FocusScope.of(context).unfocus();
   }
+
+  catalogList(BuildContext context) async {
+    catalogsList$.value = await productsService.catalogsList();
+  } 
 
   toFlyer(Flyer item) {
     Get.toNamed(MainRouting.PUBLICIDAD_ROUTE, arguments: item.url);

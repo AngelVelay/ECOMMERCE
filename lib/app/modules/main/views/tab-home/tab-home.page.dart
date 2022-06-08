@@ -243,7 +243,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Buscar producto...',
+                            'Buscar producto...', 
                             style: TextStyle(color: Colors.black54),
                             // Theme.of(context).textTheme.headline2
                           ),

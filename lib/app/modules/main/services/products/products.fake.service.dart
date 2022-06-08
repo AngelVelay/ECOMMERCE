@@ -78,4 +78,20 @@ class ProductsFakeService implements IProductsService {
   Future<List<Product>> getFavorites() async {
     return _products.where((element) => element.isFavorite).toList();
   }
+
+  @override
+  Future<List<Product>> catalogsList() async {
+    // keyword = keyword.toLowerCase();
+    // var result =
+    //     _products.where((e) => e.name.toLowerCase().contains(keyword)).toList();
+    // print(result);
+    // return result;
+
+
+    var result = _products.toList();
+    print(result);
+    return result;
+
+  }
+
 }

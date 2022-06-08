@@ -103,7 +103,11 @@ class CatalogosPage extends GetView<CatalogosController> {
 
   static Widget _ListItemCatalogue(BuildContext context, dynamic product) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+
+Navigator.pushNamed(context, '/catalogs-list');
+
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
