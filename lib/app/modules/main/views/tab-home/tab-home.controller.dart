@@ -79,4 +79,8 @@ class HomeController extends GetxController {
       'price': item.price,
     });
   }
+
+  toPayment() {
+    Get.toNamed(MainRouting.PAY_ROUTE);
+  }
 }

@@ -7,6 +7,7 @@ class Product {
     required this.cartValue,
     required this.isFavorite,
     required this.topRate,
+    required this.points,
   });
 
   int id;
@@ -16,6 +17,7 @@ class Product {
   int cartValue;
   bool isFavorite;
   int topRate;
+  int points;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -25,6 +27,7 @@ class Product {
         cartValue: json["cartValue"],
         isFavorite: json["isFavorite"],
         topRate: json["topRate"],
+        points: json["points"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,5 +38,6 @@ class Product {
         "cartValue": cartValue,
         "isFavorite": isFavorite,
         "topRate": topRate,
+        "points": points,
       };
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/catalogues/catalogues.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
@@ -103,6 +105,8 @@ class MainBinding implements Bindings {
     Get.lazyPut<ConsumeController>(() => ConsumeController());
     Get.lazyPut<PayController>(() => PayController());
     Get.lazyPut<PointsController>(() => PointsController());
+    Get.lazyPut<CatalogosController>(
+        () => CatalogosController(CatalogueFakeService()));
   }
 
   @override
@@ -166,7 +170,8 @@ class PublicidadBinding implements Bindings {
 class CatalogosBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CatalogosController>(() => CatalogosController());
+    Get.lazyPut<CatalogosController>(
+        () => CatalogosController(CatalogueFakeService()));
   }
 }
 
@@ -187,7 +192,8 @@ class PointsBinding implements Bindings {
 class AddCardBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AddCardController>(() => AddCardController());
+    Get.lazyPut<AddCardController>(
+        () => AddCardController(CreditCardFakeService()));
   }
 }
 

@@ -1,36 +1,12 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 
 import '../tab-home/tab-home.page.dart';
+import 'addCreditCard.controller.dart';
 
-final List<dynamic> sliderImagesList = [
-  // {
-  //   'color': '0xffe61919',
-  //   'cardNumber': '4566 9876 XXXX XXXX',
-  //   'cardHolder': 'ANGEL VELAY',
-  //   'cardExpiration': '09/2024',
-  // },
-  {
-    'color': '0xff2222222',
-    'cardNumber': '5662 9876 XXXX XXXX',
-    'cardHolder': 'JUAN N',
-    'cardExpiration': '06/2024',
-  },
-  {
-    'color': '0xffbf930d',
-    'cardNumber': '3543 9876 XXXX XXXX',
-    'cardHolder': 'FERNANDO P',
-    'cardExpiration': '02/2024',
-  },
-];
-
-class addCreditCard extends StatefulWidget {
-  @override
-  State<addCreditCard> createState() => _addCreditCardState();
-}
-
-class _addCreditCardState extends State<addCreditCard> {
+class addCreditCard extends GetView<AddCardController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,40 +27,38 @@ class _addCreditCardState extends State<addCreditCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Row(
-                        children: [
-                          Radio(
-                            value: 1,
-                            groupValue: 1,
-                            onChanged: (value) {
-                              setState(() {
-                                print(value);
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          _buildCreditCard(
-                              color: Color(
-                                  int.parse(sliderImagesList[index]['color'])),
-                              cardExpiration:
-                                  "${sliderImagesList[index]['cardExpiration']}",
-                              cardHolder:
-                                  "${sliderImagesList[index]['cardHolder']}",
-                              cardNumber:
-                                  "${sliderImagesList[index]['cardNumber']}"),
-                        ],
-                      );
-                    },
-                    itemCount: sliderImagesList.length,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                  ),
+                  Obx(() {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            Radio(
+                              value: 1,
+                              groupValue: 1,
+                              onChanged: (value) {},
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            _buildCreditCard(
+                                color: Color(int.parse(
+                                    controller.creditCardList$[index].color)),
+                                cardExpiration:
+                                    "${controller.creditCardList$[index].cardExpiration}",
+                                cardHolder:
+                                    "${controller.creditCardList$[index].cardHolder}",
+                                cardNumber:
+                                    "${controller.creditCardList$[index].cardNumber}"),
+                          ],
+                        );
+                      },
+                      itemCount: controller.creditCardList$.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                    );
+                  }),
                   _anotherPayWay(),
-                  _buttonConfirm(),
+                  _buttonConfirm(context),
                   _addCreditCard()
                 ],
               ),
@@ -263,7 +237,7 @@ class _addCreditCardState extends State<addCreditCard> {
             backgroundColor: const Color(0xFFffffff)));
   }
 
-  Widget _buttonConfirm() {
+  Widget _buttonConfirm(context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: SizedBox(

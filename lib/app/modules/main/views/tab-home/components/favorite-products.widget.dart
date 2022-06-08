@@ -71,7 +71,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                 ])),
           ),
           Text(item.name,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white, fontSize: 20)),
@@ -90,31 +90,33 @@ class HomeFavoriteProducts extends GetView<HomeController> {
   }
 
   Widget _cartControlsWidget(Product item) {
-    return Row(children: [
-      (item.cartValue > 0)
-          ? CircleIconButton(
-              backgroundColor: Colors.white,
-              iconData: Icons.remove,
-              onPressed: () => controller.deleteCart(item),
-              size: 25,
-              foregroundColor: Colors.black,
-            )
-          : Container(),
-      const Spacer(),
-      (item.cartValue > 0)
-          ? Text(
-              '${item.cartValue}',
-              style: const TextStyle(color: Colors.white, fontSize: 15),
-            )
-          : Container(),
-      const Spacer(),
-      CircleIconButton(
-        backgroundColor: Colors.white,
-        iconData: Icons.add,
-        onPressed: () => controller.addCart(item),
-        size: 25,
-        foregroundColor: Colors.black,
-      ),
-    ]);
+    return Expanded(
+      child: Row(children: [
+        (item.cartValue > 0)
+            ? CircleIconButton(
+                backgroundColor: Colors.white,
+                iconData: Icons.remove,
+                onPressed: () => controller.deleteCart(item),
+                size: 25,
+                foregroundColor: Colors.black,
+              )
+            : Container(),
+        const Spacer(),
+        (item.cartValue > 0)
+            ? Text(
+                '${item.cartValue}',
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+              )
+            : Container(),
+        const Spacer(),
+        CircleIconButton(
+          backgroundColor: Colors.white,
+          iconData: Icons.add,
+          onPressed: () => controller.addCart(item),
+          size: 25,
+          foregroundColor: Colors.black,
+        ),
+      ]),
+    );
   }
 }
