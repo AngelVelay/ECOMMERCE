@@ -283,7 +283,7 @@ class addCreditCard extends GetView<AddCardController> {
             Get.toNamed("/pay");
           },
           child: Container(
-            child: Text(
+            child: const Text(
               'Agregar una tarjeta',
               style: TextStyle(
                   color: Colors.black,
@@ -292,8 +292,8 @@ class addCreditCard extends GetView<AddCardController> {
             ),
           ),
         ),
-        SizedBox(width: 10),
-        Icon(
+        const SizedBox(width: 10),
+        const Icon(
           Icons.arrow_forward_ios_sharp,
           color: Colors.black,
         ),
