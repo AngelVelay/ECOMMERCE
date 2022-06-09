@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
@@ -97,8 +98,8 @@ class MainRouting {
 class MainBinding implements Bindings {
   var authService = AuthFakeService();
   MainBinding() {
-    Get.lazyPut<HomeController>(() => HomeController(
-        ProductsFakeService(), authService, FlyersFakeService()));
+    Get.lazyPut<HomeController>(() => HomeController(ProductsFakeService(),
+        authService, FlyersFakeService(), AddressFakeService()));
     Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
     Get.lazyPut<ConsumeController>(() => ConsumeController());
     Get.lazyPut<PayController>(() => PayController());

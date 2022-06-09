@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
-
 import '../tab-home.controller.dart';
 
 class HomeTopProducts extends GetView<HomeController> {
