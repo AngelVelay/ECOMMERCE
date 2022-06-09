@@ -1,12 +1,9 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
-<<<<<<< HEAD
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
-=======
 import 'package:jexpoints/app/modules/main/services/catalogues/catalogues.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
->>>>>>> 3e2c28ce94654f73bc05afe3ab689dae9af80584
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
@@ -55,7 +52,6 @@ class MainRouting {
   static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
   static const CATALOGS_LIST_ROUTE = '/catalogs-list';
-
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -215,7 +211,7 @@ class ConfirmPagodBinding implements Bindings {
   }
 }
 
-  class CatalogsListBinding implements Bindings {
+class CatalogsListBinding implements Bindings {
   @override
   void dependencies() {
     // Get.lazyPut<HomeController>(() => HomeController());
