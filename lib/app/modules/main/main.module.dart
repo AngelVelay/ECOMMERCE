@@ -1,13 +1,18 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+<<<<<<< HEAD
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
+=======
+import 'package:jexpoints/app/modules/main/services/catalogues/catalogues.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
+>>>>>>> 3e2c28ce94654f73bc05afe3ab689dae9af80584
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
-import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
+import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.controller.dart';
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
@@ -28,9 +33,10 @@ import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
-import 'views/main/main.page.dart';
-import 'views/profile/profile.controller.dart';
-import 'views/tab-home/tab-home.controller.dart';
+import 'package:jexpoints/app/modules/main/views/catalogos/catalogos.page.dart';
+import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
+import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
 class MainRouting {
   static const MAIN_ROUTE = '/main';
@@ -48,6 +54,8 @@ class MainRouting {
   static const POINTS_ROUTE = '/points';
   static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
+  static const CATALOGS_LIST_ROUTE = '/catalogs-list';
+
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -92,6 +100,10 @@ class MainRouting {
         name: CONFIRM_COMPRA_ROUTE,
         page: () => ConfirmarCompraPage(),
         binding: ConfirmPagodBinding()),
+    GetPage(
+        name: CATALOGS_LIST_ROUTE,
+        page: () => CatalogsListPage(),
+        binding: ConfirmPagodBinding()),
   ];
 }
 
@@ -104,6 +116,8 @@ class MainBinding implements Bindings {
     Get.lazyPut<ConsumeController>(() => ConsumeController());
     Get.lazyPut<PayController>(() => PayController());
     Get.lazyPut<PointsController>(() => PointsController());
+    Get.lazyPut<CatalogosController>(
+        () => CatalogosController(CatalogueFakeService()));
   }
 
   @override
@@ -167,7 +181,8 @@ class PublicidadBinding implements Bindings {
 class CatalogosBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CatalogosController>(() => CatalogosController());
+    Get.lazyPut<CatalogosController>(
+        () => CatalogosController(CatalogueFakeService()));
   }
 }
 
@@ -188,7 +203,8 @@ class PointsBinding implements Bindings {
 class AddCardBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AddCardController>(() => AddCardController());
+    Get.lazyPut<AddCardController>(
+        () => AddCardController(CreditCardFakeService()));
   }
 }
 
@@ -196,5 +212,12 @@ class ConfirmPagodBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ConfirmPagoController>(() => ConfirmPagoController());
+  }
+}
+
+  class CatalogsListBinding implements Bindings {
+  @override
+  void dependencies() {
+    // Get.lazyPut<HomeController>(() => HomeController());
   }
 }

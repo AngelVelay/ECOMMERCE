@@ -84,23 +84,6 @@ class UbicationsListController extends GetxController {
                     height: MediaQuery.of(context).size.height * 0.55,
                     child: map(item),
                   ),
-
-// CONTENEDOR ASINCRONO
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height * 0.55,
-                  //   child: FutureBuilder(
-                  //     future: map(item),
-                  //     builder: (context, snapshot) {
-                  //       if (snapshot.hasData) {
-                  //         return snapshot.data;
-                  //       } else {
-                  //         return Center(
-                  //           child: CircularProgressIndicator(),
-                  //         );
-                  //       }
-                  //     },
-                  //   ),
-                  // ),
                 ],
               ),
             ));

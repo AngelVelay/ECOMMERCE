@@ -22,6 +22,7 @@ class HomeController extends GetxController {
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
+  late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
   late var addressList$ = <Address>[].obs;
@@ -53,6 +54,7 @@ class HomeController extends GetxController {
     item.cartValue++;
     productList$.refresh();
     findedProducts$.refresh();
+    catalogsList$.refresh();
     favoriteProducts$.refresh();
     _updateCartItems();
   }
@@ -61,6 +63,7 @@ class HomeController extends GetxController {
     item.cartValue--;
     productList$.refresh();
     findedProducts$.refresh();
+    catalogsList$.refresh();
     favoriteProducts$.refresh();
     _updateCartItems();
   }
@@ -80,6 +83,10 @@ class HomeController extends GetxController {
     FocusScope.of(context).unfocus();
   }
 
+  catalogList(BuildContext context) async {
+    catalogsList$.value = await productsService.catalogsList();
+  }
+
   toFlyer(Flyer item) {
     Get.toNamed(MainRouting.PUBLICIDAD_ROUTE, arguments: item.url);
   }
@@ -95,5 +102,9 @@ class HomeController extends GetxController {
   addressSelect(Address item, BuildContext context) {
     selectedAddress$.value = item;
     Navigator.pop(context);
+  }
+
+  toPayment() {
+    Get.toNamed(MainRouting.PAY_ROUTE);
   }
 }

@@ -27,8 +27,7 @@ class UbicationsController extends ChangeNotifier {
 
   Future<void> fetchPost() async {
     final response = await http.get(
-      Uri.parse(
-          'https://mocki.io/v1/bb31251b-5077-498d-9c0f-51d4d88c2498'),
+      Uri.parse('https://mocki.io/v1/bb31251b-5077-498d-9c0f-51d4d88c2498'),
     );
 
     responseJsonUbications = json.decode(response.body);
@@ -44,8 +43,7 @@ class UbicationsController extends ChangeNotifier {
 
       allMarkers.add(Marker(
         markerId: MarkerId(contador.toString()),
-        position: LatLng(element['latitude'],
-           element['longitude']),
+        position: LatLng(element['latitude'], element['longitude']),
         icon: BitmapDescriptor.fromBytes(bytes),
         infoWindow: InfoWindow(
           title: element['name'],

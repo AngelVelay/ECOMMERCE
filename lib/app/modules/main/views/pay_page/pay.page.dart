@@ -101,7 +101,7 @@ class PayPage extends StatelessWidget {
                   value: cardHolder,
                 ),
                 _buildDetailsBlock(
-                    label: 'Numero de VALIDACIÓN', value: cardExpiration),
+                    label: 'Numero de Expiración', value: cardExpiration),
               ],
             ),
           ],
