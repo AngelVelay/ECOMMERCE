@@ -8,8 +8,8 @@ import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.contract.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search.page.dart';
 import '../../services/products/products.contract.dart';
-import '../search/search.page.dart';
 
 class HomeController extends GetxController {
   final IProductsService productsService;
@@ -24,6 +24,7 @@ class HomeController extends GetxController {
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
+  late var cartProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
   late var addressList$ = <Address>[].obs;
   late var selectedAddress$ = Address.fromVoid().obs;
@@ -52,6 +53,11 @@ class HomeController extends GetxController {
 
   addCart(Product item) {
     item.cartValue++;
+    if (!cartProducts$.any((element) => element.id == item.id)) {
+      cartProducts$.add(item);
+    }
+
+    cartProducts$.refresh();
     productList$.refresh();
     findedProducts$.refresh();
     catalogsList$.refresh();
@@ -61,6 +67,10 @@ class HomeController extends GetxController {
 
   deleteCart(Product item) {
     item.cartValue--;
+    if (item.cartValue == 0) {
+      cartProducts$.remove(item);
+    }
+    cartProducts$.refresh();
     productList$.refresh();
     findedProducts$.refresh();
     catalogsList$.refresh();
@@ -70,12 +80,12 @@ class HomeController extends GetxController {
 
   _updateCartItems() {
     cartItems$.value =
-        productList$.value.map((e) => e.cartValue).reduce((a, b) => a + b);
+        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
     cartItems$.refresh();
   }
 
   toSearch(HomeController controller) {
-    Get.to(() => SearchPage(controller));
+    Get.to(() => HomeSearchPage(controller));
   }
 
   search(BuildContext context) async {

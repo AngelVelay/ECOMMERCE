@@ -27,8 +27,9 @@ class Signup {
         name: json["name"],
         email: json["email"],
         phoneNumber: json["phoneNumber"],
-        password: json["password"],
-        confirmPassword: json["confirmPassword"],
+        password: json["password"] != null ? json["password"] : '',
+        confirmPassword:
+            json["confirmPassword"] != null ? json["confirmPassword"] : '',
       );
 
   Map<String, dynamic> toJson() => {

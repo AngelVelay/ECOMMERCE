@@ -4,13 +4,17 @@ class SheetContainer extends StatelessWidget {
   final Widget content;
   final String? title;
   final Function? onCancel;
+  final double height;
 
-  SheetContainer(this.content, this.title, this.onCancel);
+  const SheetContainer(this.content, this.title, this.onCancel, this.height,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        height:
+            height == 0 ? MediaQuery.of(context).size.height * 0.80 : height,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(

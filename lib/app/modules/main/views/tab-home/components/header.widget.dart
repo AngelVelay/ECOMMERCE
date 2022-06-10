@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/components/button-qr-generate/button-qr-generate.dart';
 import 'package:jexpoints/app/components/circular-progress-bar/circular-progress-bar.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home/components/shopipng-cart.widget.dart';
 
-import '../../../../../components/cart-shopping/cart-shopping.dart';
 import '../tab-home.controller.dart';
 import 'address-add.widget.dart';
 import 'address-choose.widget.dart';
@@ -66,7 +66,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                   const Spacer(),
                   _zipCodeLabel(context),
                   const Spacer(),
-                  const CartShopping()
+                  HomeShoppingCart()
                 ],
               ),
             )));
@@ -133,9 +133,9 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                     ),
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: CartShopping(),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: HomeShoppingCart(),
                 )
               ],
             ),

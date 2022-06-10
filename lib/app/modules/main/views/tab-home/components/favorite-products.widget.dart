@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home/components/cart-controls.widget.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
 class HomeFavoriteProducts extends GetView<HomeController> {
@@ -83,40 +84,9 @@ class HomeFavoriteProducts extends GetView<HomeController> {
             style: const TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          _cartControlsWidget(item)
+          HomeCartControls(item)
         ],
       ),
-    );
-  }
-
-  Widget _cartControlsWidget(Product item) {
-    return Expanded(
-      child: Row(children: [
-        (item.cartValue > 0)
-            ? CircleIconButton(
-                backgroundColor: Colors.white,
-                iconData: Icons.remove,
-                onPressed: () => controller.deleteCart(item),
-                size: 25,
-                foregroundColor: Colors.black,
-              )
-            : Container(),
-        const Spacer(),
-        (item.cartValue > 0)
-            ? Text(
-                '${item.cartValue}',
-                style: const TextStyle(color: Colors.white, fontSize: 15),
-              )
-            : Container(),
-        const Spacer(),
-        CircleIconButton(
-          backgroundColor: Colors.white,
-          iconData: Icons.add,
-          onPressed: () => controller.addCart(item),
-          size: 25,
-          foregroundColor: Colors.black,
-        ),
-      ]),
     );
   }
 }

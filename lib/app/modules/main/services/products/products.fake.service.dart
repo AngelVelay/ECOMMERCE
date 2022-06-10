@@ -37,7 +37,7 @@ class ProductsFakeService implements IProductsService {
       points: 14,
     ),
     Product(
-      id: 3,
+      id: 4,
       url:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XaE3eZ7-TOq0Da7FhHcmmlxU2zwhc6ydbQ&usqp=CAU',
       name: 'Bollos',
@@ -48,7 +48,7 @@ class ProductsFakeService implements IProductsService {
       points: 32,
     ),
     Product(
-      id: 3,
+      id: 5,
       url:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlP42IpEI_A3Z79-YLoqy4x1vskyPeLiTdLQ&usqp=CAU',
       name: 'Concha de Chocolate',
@@ -87,11 +87,8 @@ class ProductsFakeService implements IProductsService {
     // print(result);
     // return result;
 
-
     var result = _products.toList();
     print(result);
     return result;
-
   }
-
 }

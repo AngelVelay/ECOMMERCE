@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home/components/cart-controls.widget.dart';
 import '../../entities/product.type.dart';
-import '../../../../components/map_ubication/map_ubication.dart';
 import '../tab-home/tab-home.controller.dart';
 
-class SearchPage extends GetView<HomeController> {
+class HomeSearchPage extends GetView<HomeController> {
   @override
   final HomeController controller;
 
-  const SearchPage(this.controller);
+  const HomeSearchPage(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -99,25 +98,11 @@ class SearchPage extends GetView<HomeController> {
             style: const TextStyle(
                 fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          Row(children: [
-            (item.cartValue > 0)
-                ? CircleIconButton(
-                    iconData: Icons.remove,
-                    onPressed: () => controller.deleteCart(item),
-                    size: 25,
-                    foregroundColor: Colors.white,
-                  )
-                : Container(),
-            const Spacer(),
-            (item.cartValue > 0) ? Text('${item.cartValue}') : Container(),
-            const Spacer(),
-            CircleIconButton(
-              iconData: Icons.add,
-              onPressed: () => controller.addCart(item),
-              size: 25,
-              foregroundColor: Colors.white,
-            ),
-          ])
+          HomeCartControls(
+            item,
+            labelColor: Colors.black,
+            altColor: Colors.white,
+          )
         ],
       ),
     );
@@ -216,19 +201,3 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 }
-
-// Future<dynamic> ModalBottomSheet(BuildContext context) {
-//   return showModalBottomSheet(
-//       context: context,
-//       shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.vertical(
-//           top: Radius.circular(20),
-//         ),
-//       ),
-//       isScrollControlled: true,
-//       builder: (context) {
-//         return Container(
-//             height: MediaQuery.of(context).size.height * 0.8,
-//             child: MapFlutter());
-//       });
-// }
