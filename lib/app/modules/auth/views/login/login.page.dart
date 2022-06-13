@@ -61,7 +61,7 @@ class LoginPage extends GetView<LoginController> {
           SizedBox(height: 20),
           Platform.isIOS
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GoogleAuthButton(
                       onPressed: () => controller.signInGoogleAuth(),

@@ -10,6 +10,8 @@ import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.c
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
+import 'package:jexpoints/app/modules/main/views/checkout/checkout.controller.dart';
+import 'package:jexpoints/app/modules/main/views/checkout/checkout.page.dart';
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.controller.dart';
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
@@ -52,6 +54,7 @@ class MainRouting {
   static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
   static const CATALOGS_LIST_ROUTE = '/catalogs-list';
+  static const CHECKOUT_ROUTE = '/checkout';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -94,12 +97,16 @@ class MainRouting {
         binding: AddCardBinding()),
     GetPage(
         name: CONFIRM_COMPRA_ROUTE,
-        page: () => ConfirmarCompraPage(),
+        page: () => ConfirmBuyPage(),
         binding: ConfirmPagodBinding()),
     GetPage(
         name: CATALOGS_LIST_ROUTE,
         page: () => CatalogsListPage(),
         binding: ConfirmPagodBinding()),
+    GetPage(
+        name: CHECKOUT_ROUTE,
+        page: () => CheckOutPage(),
+        binding: CheckOutBinding()),
   ];
 }
 
@@ -114,6 +121,7 @@ class MainBinding implements Bindings {
     Get.lazyPut<PointsController>(() => PointsController());
     Get.lazyPut<CatalogosController>(
         () => CatalogosController(CatalogueFakeService()));
+    Get.lazyPut<CheckOutController>(() => CheckOutController());
   }
 
   @override
@@ -207,7 +215,8 @@ class AddCardBinding implements Bindings {
 class ConfirmPagodBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ConfirmPagoController>(() => ConfirmPagoController());
+    Get.lazyPut<ConfirmPagoController>(
+        () => ConfirmPagoController(CreditCardFakeService()));
   }
 }
 
@@ -215,5 +224,12 @@ class CatalogsListBinding implements Bindings {
   @override
   void dependencies() {
     // Get.lazyPut<HomeController>(() => HomeController());
+  }
+}
+
+class CheckOutBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<CheckOutController>(() => CheckOutController());
   }
 }

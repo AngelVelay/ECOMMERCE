@@ -16,54 +16,72 @@ class addCreditCard extends GetView<AddCardController> {
         right: false,
         bottom: false,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xff2222222),
-            title: Text('Selecciona un metodo de Pago'),
-          ),
-          body: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(
-                  top: 20.0, left: 8.0, right: 8.0, bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Obx(() {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Radio(
-                              value: 1,
-                              groupValue: 1,
-                              onChanged: (value) {},
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            _buildCreditCard(
-                                color: Color(int.parse(
-                                    controller.creditCardList$[index].color)),
-                                cardExpiration:
-                                    "${controller.creditCardList$[index].cardExpiration}",
-                                cardHolder:
-                                    "${controller.creditCardList$[index].cardHolder}",
-                                cardNumber:
-                                    "${controller.creditCardList$[index].cardNumber}"),
-                          ],
-                        );
-                      },
-                      itemCount: controller.creditCardList$.length,
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                    );
-                  }),
-                  _anotherPayWay(),
-                  _buttonConfirm(context),
-                  _addCreditCard()
-                ],
-              ),
+            appBar: AppBar(
+              backgroundColor: Color(0xff2222222),
+              title: Text('Selecciona un metodo de Pago'),
             ),
-          ),
+            body: Column(
+              children: [
+                Expanded(child: _chooseCreditCard(context)),
+                Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      _anotherPayWay(),
+                      _buttonConfirm(context),
+                      _addCreditCard()
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
+    );
+  }
+
+  Widget _chooseCreditCard(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding:
+            const EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Obx(() {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      Radio(
+                        value: index,
+                        groupValue: controller.creditCardList$.value,
+                        onChanged: (value) {
+                          controller.selectedCreditCard(value as CreditCard);
+                        },
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      _buildCreditCard(
+                          color: Color(int.parse(
+                              controller.creditCardList$[index].color)),
+                          cardExpiration:
+                              "${controller.creditCardList$[index].cardExpiration}",
+                          cardHolder:
+                              "${controller.creditCardList$[index].cardHolder}",
+                          cardNumber:
+                              "${controller.creditCardList$[index].cardNumber}"),
+                    ],
+                  );
+                },
+                itemCount: controller.creditCardList$.length,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+              );
+            }),
+          ],
         ),
       ),
     );
@@ -81,7 +99,7 @@ class addCreditCard extends GetView<AddCardController> {
         borderRadius: BorderRadius.circular(14),
       ),
       child: Container(
-        height: 200,
+        height: 180,
         padding: const EdgeInsets.only(left: 16.0, right: 80.0, bottom: 22.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,36 +225,6 @@ class addCreditCard extends GetView<AddCardController> {
     );
   }
 
-  Widget _gifConfirm() {
-    return Center(
-        child: AnimatedSplashScreen(
-            splashIconSize: 500,
-            duration: 3000,
-            splash: Container(
-              height: 600,
-              child: Column(
-                children: const [
-                  Expanded(
-                    child: FadeInImage(
-                        height: 600,
-                        width: 600,
-                        fit: BoxFit.cover,
-                        placeholder: AssetImage('assets/images/delivery.gif'),
-                        image: AssetImage('assets/images/delivery.gif')),
-                  ),
-                  Text('Tu pedido esta en camino...',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            nextScreen: const HomePage(),
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: const Color(0xFFffffff)));
-  }
-
   Widget _buttonConfirm(context) {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -257,12 +245,7 @@ class addCreditCard extends GetView<AddCardController> {
             size: 20,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => _gifConfirm(),
-              ),
-            );
+            Get.toNamed('/confirm-compra');
           },
           label: const Text(' Confirmar Compra',
               style: TextStyle(

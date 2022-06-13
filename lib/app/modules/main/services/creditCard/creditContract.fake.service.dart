@@ -5,26 +5,29 @@ import 'package:jexpoints/app/modules/main/services/creditCard/creditCard.contra
 
 class CreditCardFakeService implements ICreditCardService {
   final _creditCardList = <CreditCard>[
-    // CreditCard(
-    //   id: 1,
-    //   color: '0xffe61919',
-    //   cardNumber: '4566 9876 XXXX XXXX',
-    //   cardHolder: 'ANGEL VELAY',
-    //   cardExpiration: '09/2024',
-    // ),
+    CreditCard(
+      id: 1,
+      color: '0xffe61919',
+      cardNumber: '4566 9876 XXXX XXXX',
+      cardHolder: 'ANGEL V',
+      cardExpiration: '09/2024',
+      isDefault: true,
+    ),
     CreditCard(
       id: 2,
       color: '0xff2222222',
       cardNumber: '5662 9876 XXXX XXXX',
-      cardHolder: 'JUAN ',
+      cardHolder: 'JUAN M',
       cardExpiration: '06/2024',
+      isDefault: false,
     ),
     CreditCard(
       id: 3,
       color: '0xffbf930d',
       cardNumber: '3543 9876 XXXX XXXX',
-      cardHolder: 'FERNANDO P',
+      cardHolder: 'PEDRO S',
       cardExpiration: '02/2024',
+      isDefault: false,
     ),
   ];
 

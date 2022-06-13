@@ -117,4 +117,8 @@ class HomeController extends GetxController {
   toPayment() {
     Get.toNamed(MainRouting.PAY_ROUTE);
   }
+
+  toAddCreditCard() {
+    Get.toNamed(MainRouting.ADD_CREDIT_CARD_ROUTE);
+  }
 }

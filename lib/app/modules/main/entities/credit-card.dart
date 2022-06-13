@@ -7,6 +7,7 @@ class CreditCard {
     required this.cardNumber,
     required this.cardHolder,
     required this.cardExpiration,
+    required this.isDefault,
   });
 
   int id;
@@ -18,12 +19,23 @@ class CreditCard {
 
   String color;
 
+  bool isDefault;
+
+  factory CreditCard.fromVoid() => CreditCard(
+      id: 1,
+      color: '',
+      cardNumber: '',
+      cardHolder: '',
+      cardExpiration: '',
+      isDefault: false);
+
   factory CreditCard.fromJson(Map<String, dynamic> json) => CreditCard(
         id: json["id"],
         cardExpiration: json["cardExpiration"],
         cardHolder: json["cardHolder"],
         cardNumber: json["cardNumber"],
         color: (json["color"]),
+        isDefault: json["isDefault"],
       );
 
   Map<String, dynamic> toJson() => {
