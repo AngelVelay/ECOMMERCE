@@ -23,7 +23,7 @@ class MainController extends GetxController {
     const HomePage(),
     const CatalogosPage(),
     const PointsPage(),
-    const UbicationsPage(),
+     UbicationsPage(),
     const ProfilePage(),
   ];
 

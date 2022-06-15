@@ -128,7 +128,7 @@ class MainBinding implements Bindings {
 
   @override
   void dependencies() {
-    Get.lazyPut<MainController>(() => MainController());
+    Get.lazyPut<MainController>(() => MainController(), fenix: true);
   }
 }
 

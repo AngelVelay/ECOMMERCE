@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
+import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/shared/values/assets.globals.dart';
@@ -55,9 +56,7 @@ Widget _imageWidget(BuildContext context) {
       backgroundColor: Colors.blueGrey,
       child: CircleAvatar(
           radius: 70,
-          backgroundImage: AssetImage('assets/images/esperanza_logo.png')
-    )
-  );
+          backgroundImage: AssetImage('assets/images/esperanza_logo.png')));
 }
 
 Widget _headerWidget(BuildContext context, VerificationController controller) {
@@ -172,7 +171,8 @@ Widget _verifyButtonWidget(
     BuildContext context, VerificationController controller) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-    child: CustomButton(
+    width: double.infinity,
+    child: CustomRoundedButton(
         text: 'Verificar'.toUpperCase(),
         onPressed: () => controller.validate()),
   );

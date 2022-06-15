@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../services/auth/auth.contract.dart';
@@ -18,6 +17,8 @@ class VerificationController extends GetxController {
   TextEditingController textEditingController = TextEditingController();
   bool hasError = false;
   String currentText = "";
+
+  final passwordFormKey = GlobalKey<FormState>();
 
   VerificationController(IAuthService authService) {
     _authService = authService;
@@ -42,7 +43,7 @@ class VerificationController extends GetxController {
       clear();
     } else {
       hasError = false;
-      Get.toNamed(AuthRouting.VERIFICATION_SUCCESS_ROUTE);
+      Get.toNamed(AuthRouting.PASSWORD_ROUTE);
     }
   }
 
@@ -54,9 +55,5 @@ class VerificationController extends GetxController {
     MsgUtils.success("Se ha vuelto a enviar el codigo de verificación.",
         title: 'Código reenviado');
     textEditingController.clear();
-  }
-
-  goToHome() {
-    Get.toNamed(MainRouting.MAIN_ROUTE);
   }
 }
