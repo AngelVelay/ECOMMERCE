@@ -113,20 +113,24 @@ class MainRouting {
 class MainBinding implements Bindings {
   var authService = AuthFakeService();
   MainBinding() {
-    Get.lazyPut<HomeController>(() => HomeController(ProductsFakeService(),
-        authService, FlyersFakeService(), AddressFakeService()));
-    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
-    Get.lazyPut<ConsumeController>(() => ConsumeController());
-    Get.lazyPut<PayController>(() => PayController());
-    Get.lazyPut<PointsController>(() => PointsController());
+    Get.lazyPut<HomeController>(
+        () => HomeController(ProductsFakeService(), authService,
+            FlyersFakeService(), AddressFakeService()),
+        fenix: true);
+    Get.lazyPut<ProfileController>(() => ProfileController(authService),
+        fenix: true);
+    Get.lazyPut<ConsumeController>(() => ConsumeController(), fenix: true);
+    Get.lazyPut<PayController>(() => PayController(), fenix: true);
+    Get.lazyPut<PointsController>(() => PointsController(), fenix: true);
     Get.lazyPut<CatalogosController>(
-        () => CatalogosController(CatalogueFakeService()));
-    Get.lazyPut<CheckOutController>(() => CheckOutController());
+        () => CatalogosController(CatalogueFakeService()),
+        fenix: true);
+    Get.lazyPut<CheckOutController>(() => CheckOutController(), fenix: true);
   }
 
   @override
   void dependencies() {
-    Get.lazyPut<MainController>(() => MainController());
+    Get.lazyPut<MainController>(() => MainController(), fenix: true);
   }
 }
 

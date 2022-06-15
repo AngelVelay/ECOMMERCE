@@ -23,7 +23,7 @@ class MainPage extends GetView<MainController> {
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 500),
           onTap: (index) => controller.changeTab(index),

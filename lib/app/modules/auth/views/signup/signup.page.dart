@@ -3,16 +3,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
-import '../../services/auth/auth.contract.dart';
 import 'signup.controller.dart';
 
 class SignupPage extends GetView<SignupController> {
-  // @override
-  // late SignupController controller;
-
-  // SignupPage(IAuthService authService, {Key? key}) : super(key: key) {
-  //   controller = Get.put(SignupController(authService));
-  // }
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,27 +105,6 @@ Widget _formWidget(BuildContext context, SignupController controller) {
               ]),
               keyboardType: TextInputType.number,
             ),
-            // FormBuilderTextField(
-            //   name: 'password',
-            //   decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       labelText: 'Contraseña',
-            //       suffixIcon: Icon(Icons.vpn_key)),
-            //   validator: FormBuilderValidators.required(),
-            //   keyboardType: TextInputType.text,
-            // ),
-            // FormBuilderTextField(
-            //   name: 'confirmPassword',
-            //   decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       labelText: 'Confirmación de Contraseña',
-            //       suffixIcon: Icon(Icons.vpn_key)),
-            //   validator: FormBuilderValidators.required(),
-            //   keyboardType: TextInputType.text,
-            // ),
-            // const SizedBox(
-            //   height: 70,
-            // ),
             SizedBox(
                 width: double.infinity,
                 child: CustomRoundedButton(
