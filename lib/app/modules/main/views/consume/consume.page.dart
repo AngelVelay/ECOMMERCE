@@ -4,7 +4,9 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/map_ubication/map_ubication.dart';
+import '../../entities/my-shopping.type.dart';
 import '../profile/profile.page.dart';
+import 'components/timeline.dart';
 import 'consume.controller.dart';
 
 class ConsumePage extends GetView<ConsumeController> {
@@ -32,7 +34,7 @@ class ConsumePage extends GetView<ConsumeController> {
                 child: Column(children: [
                   SizedBox(height: 20),
                   // ConsumeInfo(),
-                  _consumeInfo(context, controller),
+                  consumeInfo(),
                 ]),
               )),
             ],
@@ -42,67 +44,21 @@ class ConsumePage extends GetView<ConsumeController> {
     );
   }
 
-  static Widget _consumeInfo(
-      BuildContext context, ConsumeController controller) {
-    return Column(children: [
-      // List Header
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(' Mis Consumos', style: TextStyle(fontSize: 22)),
-        ],
-      ).paddingSymmetric(horizontal: 10),
-      const Divider(thickness: 2),
-      _consumeList(context, controller)
-    ]);
-  }
-
-  // List
-  static Widget _consumeList(
-      BuildContext context, ConsumeController controller) {
-    return SingleChildScrollView(
-        child: ListView.separated(
-            separatorBuilder: (context, index) => const Divider(thickness: 2),
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: controller.compras.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                  onTap: () {
-                    controller.consumeTap(context);
-                  },
-                  child: _consumeListItem(context, controller.compras[index]));
-            }));
-  }
-
-  static Widget _consumeListItem(BuildContext context, dynamic item) {
-    return ListTile(
-      // shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(10)),
-      // color: Colors.white,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 145,
-              child: Text('${item['name']}', overflow: TextOverflow.ellipsis),
-            ),
-            Text('${item['fecha']}'),
-          ]),
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text('\$${item['costo']}.00'),
-            Text(
-              '${item['puntos']} pts',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ]),
-        ],
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
-    );
-  }
+//   static Widget _consumeInfo(
+//       BuildContext context, ConsumeController controller) {
+//     return Column(children: [
+//       // List Header
+//       Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: const [
+//           Text(' Mis Consumos', style: TextStyle(fontSize: 22)),
+//         ],
+//       ).paddingSymmetric(horizontal: 10),
+//       const Divider(thickness: 2),
+//       _consumeList(context, controller)
+//     ]);
+//   }
+// }
 }
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
@@ -195,18 +151,65 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-Future<dynamic> ModalBottomSheet(BuildContext context) {
-  return showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+class consumeInfo extends GetView<ConsumeController> {
+  const consumeInfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      // List Header
+      _consumeList(context, controller),
+    ]);
+  }
+
+  // List
+  static Widget _consumeList(
+      BuildContext context, ConsumeController controller) {
+    return SingleChildScrollView(child: Obx(() {
+      return ListView.separated(
+        separatorBuilder: (context, index) => const Divider(thickness: 2),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: controller.shoppingList$.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+              onTap: () {
+                controller.selectedDeliveryType(
+                    controller.shoppingList$.value[index], context);
+              },
+              child:
+                  _consumeListItem(context, controller.shoppingList$[index]));
+        },
+      );
+    }));
+  }
+
+  static Widget _consumeListItem(BuildContext context, dynamic item) {
+    return ListTile(
+      // shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(10)),
+      // color: Colors.white,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 145,
+              child: Text('${item.name}', overflow: TextOverflow.ellipsis),
+            ),
+            Text('${item.fecha}'),
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text('\$${item.costo}.00'),
+            Text(
+              '${item.puntos} pts',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ]),
+        ],
       ),
-      isScrollControlled: true,
-      builder: (context) {
-        return Container(
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: MapFlutter());
-      });
+      trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
+    );
+  }
 }

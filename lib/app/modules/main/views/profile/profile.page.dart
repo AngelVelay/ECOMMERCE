@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import '../../../../components/button-qr-generate/button-qr-generate.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
@@ -77,56 +78,56 @@ class ProfilePage extends GetView<ProfileController> {
         ],
       ).paddingSymmetric(horizontal: 10),
       const Divider(thickness: 2),
-      _consumeList(context, controller)
+      consumeInfo()
     ]);
   }
 
   // List
-  static Widget _consumeList(
-      BuildContext context, ProfileController controller) {
-    return SingleChildScrollView(
-        child: ListView.separated(
-            separatorBuilder: (context, index) => const Divider(thickness: 2),
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: controller.compras.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                  onTap: () {
-                    controller.consumeTap(context);
-                  },
-                  child: _consumeListItem(context, controller.compras[index]));
-            }));
-  }
+//   static Widget _consumeList(
+//       BuildContext context, ProfileController controller) {
+//     return SingleChildScrollView(
+//         child: ListView.separated(
+//             separatorBuilder: (context, index) => const Divider(thickness: 2),
+//             physics: const NeverScrollableScrollPhysics(),
+//             shrinkWrap: true,
+//             scrollDirection: Axis.vertical,
+//             itemCount: controller.compras.length,
+//             itemBuilder: (context, index) {
+//               return GestureDetector(
+//                   onTap: () {
+//                     controller.consumeTap(context);
+//                   },
+//                   child: _consumeListItem(context, controller.compras[index]));
+//             }));
+//   }
 
-  static Widget _consumeListItem(BuildContext context, dynamic item) {
-    return ListTile(
-      // shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(10)),
-      // color: Colors.white,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 145,
-              child: Text('${item['name']}', overflow: TextOverflow.ellipsis),
-            ),
-            Text('${item['fecha']}'),
-          ]),
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text('\$${item['costo']}.00'),
-            Text(
-              '${item['puntos']} pts',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ]),
-        ],
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
-    );
-  }
+//   static Widget _consumeListItem(BuildContext context, dynamic item) {
+//     return ListTile(
+//       // shape: RoundedRectangleBorder(
+//       //     borderRadius: BorderRadius.circular(10)),
+//       // color: Colors.white,
+//       title: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+//             SizedBox(
+//               width: MediaQuery.of(context).size.width - 145,
+//               child: Text('${item['name']}', overflow: TextOverflow.ellipsis),
+//             ),
+//             Text('${item['fecha']}'),
+//           ]),
+//           Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+//             Text('\$${item['costo']}.00'),
+//             Text(
+//               '${item['puntos']} pts',
+//               style: const TextStyle(fontWeight: FontWeight.bold),
+//             ),
+//           ]),
+//         ],
+//       ),
+//       trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
+//     );
+//   }
 }
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {

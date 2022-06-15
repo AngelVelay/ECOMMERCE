@@ -41,6 +41,7 @@ dependencies:
   animated_splash_screen: ^1.2.0
   local_auth: ^2.1.0
   curved_navigation_bar: ^1.0.3
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:
