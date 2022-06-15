@@ -29,14 +29,12 @@ class UbicationsListController extends GetxController {
   Future<dynamic> fetchPost() async {
     final response = await http.get(
       Uri.parse(
-          'https://mocki.io/v1/bb31251b-5077-498d-9c0f-51d4d88c2498'),
+          'http://dev.jexbit.mx/JexcoreService/api/OrganizationsApplicationsKeys/db755596-ed44-417b-9a5a-8512964932a8/branches'),
     );
     return json.decode(response.body);
   }
 
   consumeTap(BuildContext context, UbicationsObject item) {
-    print(item);
-
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -91,10 +89,10 @@ class UbicationsListController extends GetxController {
 
   map(item)  {
     final initialCameraPosition = CameraPosition(
-      target: LatLng(
-        item.latitude,
-        item.longitude,
-      ),
+      target: LatLng(double.parse(item.latitude), double.parse(item.longitude)),
+        // item.latitude,
+        // item.longitude,
+      // ),
       zoom: 18,
     );
 
@@ -125,10 +123,11 @@ class UbicationsListController extends GetxController {
           markers: <Marker>{
             Marker(
               markerId: const MarkerId('1'),
-              position: LatLng(
-                item.latitude,
-                item.longitude,
-              ),
+              position: LatLng(double.parse(item.latitude),
+                  double.parse(item.longitude)),
+                // item.latitude,
+                // item.longitude,
+              // ),
               icon: BitmapDescriptor.defaultMarker,
               // icon: icon,
               infoWindow: InfoWindow(

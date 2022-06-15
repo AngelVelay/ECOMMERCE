@@ -24,8 +24,8 @@ class UbicationsObject {
   int? externalId;
   String? icon;
   String? geoIcon;
-  double? latitude;
-  double? longitude;
+  String? latitude;
+  String? longitude;
   String description;
   String name;
   bool? isActive;
