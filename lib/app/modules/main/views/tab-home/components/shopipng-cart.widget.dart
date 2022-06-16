@@ -135,7 +135,7 @@ class HomeShoppingCart extends GetView<HomeController> {
             Icons.monetization_on,
             size: 20,
           ),
-          onPressed: () => controller.toPayment(),
+          onPressed: () => controller.toAddCreditCard(),
           label: const Text('Pagar',
               style: TextStyle(
                   fontWeight: FontWeight.bold,

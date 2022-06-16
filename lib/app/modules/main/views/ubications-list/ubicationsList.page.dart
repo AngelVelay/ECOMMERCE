@@ -3,7 +3,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:jexpoints/app/modules/main/entities/ubications.type.dart';
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.controller.dart';
-
+ 
 class UbicationsListPage extends GetView<UbicationsListController> {
   const UbicationsListPage({Key? key}) : super(key: key);
 

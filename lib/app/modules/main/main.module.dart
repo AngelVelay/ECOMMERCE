@@ -7,6 +7,8 @@ import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
+import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
@@ -135,13 +137,24 @@ class MainBinding implements Bindings {
         fenix: true);
     Get.lazyPut<ProfileController>(() => ProfileController(authService),
         fenix: true);
-    Get.lazyPut<ConsumeController>(() => ConsumeController(), fenix: true);
+    Get.lazyPut<ConsumeController>(
+        () => ConsumeController(ShoppingFakeService()),
+        fenix: true);
     Get.lazyPut<PayController>(() => PayController(), fenix: true);
     Get.lazyPut<PointsController>(() => PointsController(), fenix: true);
     Get.lazyPut<CatalogosController>(
-        () => CatalogosController(CatalogueFakeService()),
+        () =>
+            CatalogosController(CatalogueFakeService(), ProductsFakeService()),
         fenix: true);
     Get.lazyPut<CheckOutController>(() => CheckOutController(), fenix: true);
+    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
+    Get.lazyPut<ConsumeController>(
+        () => ConsumeController(ShoppingFakeService()));
+    Get.lazyPut<PayController>(() => PayController());
+    Get.lazyPut<PointsController>(() => PointsController());
+    Get.lazyPut<CatalogosController>(() =>
+        CatalogosController(CatalogueFakeService(), ProductsFakeService()));
+    Get.lazyPut<CheckOutController>(() => CheckOutController());
   }
 
   @override
@@ -162,7 +175,8 @@ class ConsumeBinding implements Bindings {
   var authService = AuthFakeService();
   @override
   void dependencies() {
-    Get.lazyPut<ConsumeController>(() => ConsumeController());
+    Get.lazyPut<ConsumeController>(
+        () => ConsumeController(ShoppingFakeService()));
   }
 }
 
@@ -205,8 +219,8 @@ class PublicidadBinding implements Bindings {
 class CatalogosBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CatalogosController>(
-        () => CatalogosController(CatalogueFakeService()));
+    Get.lazyPut<CatalogosController>(() =>
+        CatalogosController(CatalogueFakeService(), ProductsFakeService()));
   }
 }
 

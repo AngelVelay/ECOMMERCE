@@ -2,7 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../tab-home-search/tab-home-search.page.dart';
+import '../tab-home/tab-home.controller.dart';
 import 'catagolos.controller.dart';
+import 'components/catalog-search.dart';
 
 class CatalogosPage extends GetView<CatalogosController> {
   const CatalogosPage({Key? key}) : super(key: key);
@@ -17,57 +20,98 @@ class CatalogosPage extends GetView<CatalogosController> {
         bottom: false,
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Color(0XFF2222222),
             title: const Text('Catalogos'),
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Form(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFfffffff),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        width: MediaQuery.of(context).size.width - 50,
-                        child: TextField(
-                          cursorColor: Colors.black,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              hintText: 'Busca un producto',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                              suffixIcon:
-                                  Icon(Icons.food_bank, color: Colors.black)),
-                        )),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: _searchInput(context, controller),
                 ),
+                // Form(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(20.0),
+                //     child: Container(
+                //         decoration: BoxDecoration(
+                //           color: Color(0xFFfffffff),
+                //           borderRadius: BorderRadius.circular(20),
+                //         ),
+                //         width: MediaQuery.of(context).size.width - 50,
+                //         child: TextField(
+                //           cursorColor: Colors.black,
+                //           style: TextStyle(color: Colors.black),
+                //           decoration: InputDecoration(
+                //               hintText: 'Busca un producto',
+                //               floatingLabelBehavior:
+                //                   FloatingLabelBehavior.always,
+                //               border: OutlineInputBorder(
+                //                 borderRadius: BorderRadius.circular(20),
+                //                 borderSide: BorderSide(
+                //                   width: 2,
+                //                   color: Colors.black,
+                //                 ),
+                //               ),
+                //               focusedBorder: OutlineInputBorder(
+                //                 borderRadius: BorderRadius.circular(20),
+                //                 borderSide: BorderSide(
+                //                   width: 2,
+                //                   color: Colors.black,
+                //                 ),
+                //               ),
+                //               prefixIcon: Icon(
+                //                 Icons.search,
+                //                 color: Colors.black,
+                //               ),
+                //               suffixIcon:
+                //                   Icon(Icons.food_bank, color: Colors.black)),
+                //         )),
+                //   ),
+                // ),
                 _ListCatalogue(context, controller),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _searchInput(BuildContext context, CatalogosController controller) {
+    return Form(
+      child: SizedBox(
+          width: MediaQuery.of(context).size.width - 50,
+          height: 50,
+          child: GestureDetector(
+              onTap: () => controller.toSearch(controller),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xfffffffff),
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                ),
+                child: Row(children: const [
+                  SizedBox(width: 10),
+                  Icon(
+                    Icons.search,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Buscar',
+                    style: TextStyle(color: Colors.black54),
+                    // Theme.of(context).textTheme.headline2
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.food_bank,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 10),
+                ]),
+              ))),
     );
   }
 
@@ -104,9 +148,7 @@ class CatalogosPage extends GetView<CatalogosController> {
   static Widget _ListItemCatalogue(BuildContext context, dynamic product) {
     return GestureDetector(
       onTap: () {
-
-Navigator.pushNamed(context, '/catalogs-list');
-
+        Navigator.pushNamed(context, '/catalogs-list');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
