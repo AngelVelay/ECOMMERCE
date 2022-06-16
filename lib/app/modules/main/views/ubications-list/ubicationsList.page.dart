@@ -16,20 +16,21 @@ class UbicationsListPage extends GetView<UbicationsListController> {
       ),
       body: Column(children: [
         Expanded(child: Obx(() {
-          if (controller.isLoading.value)
+          if (controller.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
-          else
+          } else {
             return _branchesListWidget(context);
+          }
         })),
       ]),
     );
   }
 
   _branchesListWidget(BuildContext context) {
-    return Container(child: Obx(() {
+    return Obx(() {
       return SingleChildScrollView(
           child: Column(children: <Widget>[
-        controller.reports$.length > 0
+        controller.reports$.isNotEmpty
             ? Column(children: [
                 ListView.builder(
                     scrollDirection: Axis.vertical,
@@ -48,23 +49,16 @@ class UbicationsListPage extends GetView<UbicationsListController> {
                 decoration: BoxDecoration(color: Colors.grey[300]),
               ),
       ]));
-    }));
+    });
   }
 
   _branchesItemWidget(BuildContext context, UbicationsObject item) {
     return ListTile(
-      title: Container(
-        child: Text(item.name),
-      ),
+      title: Text(item.name),
       subtitle:
           Text(item.description, style: const TextStyle(color: Colors.grey)),
       onTap: () {
         controller.consumeTap(context, item);
-
-        // final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        //     <String, dynamic>{}) as Map;
-        // arguments['ubication'] = item;
-        // Navigator.pushNamed(context, '/ubications', arguments: arguments);
       },
       trailing: const Icon(Icons.chevron_right),
     );

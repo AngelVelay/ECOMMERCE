@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:jexpoints/app/components/map_ubication/map_ubication.dart';
 import 'package:jexpoints/app/modules/main/entities/ubications.type.dart';
 import 'package:http/http.dart' as http;
-import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
+
+import '../ubications/utills/map_utils.dart';
 
 class UbicationsListController extends GetxController {
   @override
@@ -45,7 +44,7 @@ class UbicationsListController extends GetxController {
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         builder: (context) => Container(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
@@ -53,7 +52,7 @@ class UbicationsListController extends GetxController {
                   Container(
                     alignment: Alignment.topRight,
                     child: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () {
                         Get.back();
                       },
@@ -61,20 +60,20 @@ class UbicationsListController extends GetxController {
                   ),
                   Text(
                     item.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         height: 1.5, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     item.description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Hora de atención: Lunes a Viernes de 7:00 a 22:00',
                     style: TextStyle(height: 1.5, fontSize: 16),
                   ),
-                  Text(
+                  const Text(
                     'Telefono: 55-55-55-55',
                     style: TextStyle(height: 1.5, fontSize: 16),
                   ),
@@ -87,28 +86,11 @@ class UbicationsListController extends GetxController {
             ));
   }
 
-  map(item)  {
+  map(item) {
     final initialCameraPosition = CameraPosition(
       target: LatLng(double.parse(item.latitude), double.parse(item.longitude)),
-        // item.latitude,
-        // item.longitude,
-      // ),
       zoom: 18,
     );
-
-    // var icon = await BitmapDescriptor.fromAssetImage(
-    //     ImageConfiguration(devicePixelRatio: 3.2), 'assets/images/marker.png');
-
-    // if (item.geoIcon == "esperanza_pointer.png") {
-    //    icon = await BitmapDescriptor.fromAssetImage(
-    //       ImageConfiguration(devicePixelRatio: 3.2),
-    //       "assets/images/esperanza_pointer.png");
-    // }else{
-    //    icon = await BitmapDescriptor.fromAssetImage(
-    //       ImageConfiguration(devicePixelRatio: 3.2),
-    //       "assets/images/bonpane_pointer.png");
-    // }
-
     return Scaffold(
       body: Column(children: <Widget>[
         Expanded(
@@ -123,14 +105,14 @@ class UbicationsListController extends GetxController {
           markers: <Marker>{
             Marker(
               markerId: const MarkerId('1'),
-              position: LatLng(double.parse(item.latitude),
-                  double.parse(item.longitude)),
-                // item.latitude,
-                // item.longitude,
-              // ),
+              position: LatLng(
+                  double.parse(item.latitude), double.parse(item.longitude)),
               icon: BitmapDescriptor.defaultMarker,
-              // icon: icon,
               infoWindow: InfoWindow(
+                onTap: () async {
+                  MapUtils.openMap(double.parse(item.latitude),
+                      double.parse(item.longitude));
+                },
                 title: item.name,
                 snippet: item.description,
               ),

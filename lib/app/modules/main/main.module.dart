@@ -191,7 +191,7 @@ class QrGenerateBinding implements Bindings {
 class UbicationsBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<UbicationsController>(() => UbicationsController());
+    Get.lazyPut<UbicationsController>(() => UbicationsController(), fenix: true);
   }
 }
 
