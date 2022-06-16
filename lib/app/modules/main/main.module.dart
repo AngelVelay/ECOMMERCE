@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/catalogues/catalogues.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
@@ -16,6 +17,9 @@ import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.c
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
+import 'package:jexpoints/app/modules/main/views/coupon-detail/coupon-detail.controller.dart';
+import 'package:jexpoints/app/modules/main/views/coupon-detail/coupon-detail.page.dart';
+import 'package:jexpoints/app/modules/main/views/coupons/coupons.controller.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.controller.dart';
 import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
@@ -37,6 +41,8 @@ import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
+import 'views/coupons/coupons.page.dart';
+
 class MainRouting {
   static const MAIN_ROUTE = '/main';
 
@@ -55,6 +61,8 @@ class MainRouting {
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
   static const CATALOGS_LIST_ROUTE = '/catalogs-list';
   static const CHECKOUT_ROUTE = '/checkout';
+  static const COUPONS_ROUTE = '/coupons';
+  static const COUPON_DETAIL_ROUTE = '/coupon/detail';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -107,6 +115,14 @@ class MainRouting {
         name: CHECKOUT_ROUTE,
         page: () => CheckOutPage(),
         binding: CheckOutBinding()),
+    GetPage(
+        name: COUPONS_ROUTE,
+        page: () => const CouponsPage(),
+        binding: CouponsBinding()),
+    GetPage(
+        name: COUPON_DETAIL_ROUTE,
+        page: () => const CouponDetailPage(),
+        binding: CouponDetailBinding()),
   ];
 }
 
@@ -115,7 +131,7 @@ class MainBinding implements Bindings {
   MainBinding() {
     Get.lazyPut<HomeController>(
         () => HomeController(ProductsFakeService(), authService,
-            FlyersFakeService(), AddressFakeService()),
+            FlyersFakeService(), AddressFakeService(), CouponsFakeService()),
         fenix: true);
     Get.lazyPut<ProfileController>(() => ProfileController(authService),
         fenix: true);
@@ -235,5 +251,20 @@ class CheckOutBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CheckOutController>(() => CheckOutController());
+  }
+}
+
+class CouponsBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<CouponsController>(
+        () => CouponsController(CouponsFakeService()));
+  }
+}
+
+class CouponDetailBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<CouponDetailController>(() => CouponDetailController());
   }
 }

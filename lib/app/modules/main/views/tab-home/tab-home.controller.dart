@@ -7,8 +7,10 @@ import 'package:jexpoints/app/modules/main/entities/location.type.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
+import 'package:jexpoints/app/modules/main/services/coupons/coupons.contract.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search.page.dart';
+import '../../entities/coupon.type.dart';
 import '../../services/products/products.contract.dart';
 
 class HomeController extends GetxController {
@@ -16,6 +18,7 @@ class HomeController extends GetxController {
   final IFlyersService flyersService;
   final IAuthService authService;
   final IAddressService addressService;
+  final ICouponsService couponsService;
 
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <Flyer>[].obs;
@@ -28,9 +31,11 @@ class HomeController extends GetxController {
   late var user$ = User.fromVoid().obs;
   late var addressList$ = <Address>[].obs;
   late var selectedAddress$ = Address.fromVoid().obs;
+  late var coupons$ = <Coupon>[].obs;
+  late var defaultCoupon$ = Coupon.fromVoid().obs;
 
   HomeController(this.productsService, this.authService, this.flyersService,
-      this.addressService);
+      this.addressService, this.couponsService);
 
   @override
   void onInit() async {
@@ -44,6 +49,10 @@ class HomeController extends GetxController {
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();
     flyerList$.value = await flyersService.get();
+    coupons$.value = await couponsService.get();
+    if (coupons$.isNotEmpty) {
+      defaultCoupon$.value = coupons$.first;
+    }
     addressList$.value = await addressService.getFromCurrent();
     if (addressList$.isNotEmpty) {
       selectedAddress$.value =
@@ -120,5 +129,14 @@ class HomeController extends GetxController {
 
   toAddCreditCard() {
     Get.toNamed(MainRouting.ADD_CREDIT_CARD_ROUTE);
+  }
+
+  toCoupons() {
+    Get.toNamed(MainRouting.COUPONS_ROUTE);
+  }
+
+  toCouponDetail() {
+    Get.toNamed(MainRouting.COUPON_DETAIL_ROUTE,
+        arguments: [defaultCoupon$.value]);
   }
 }

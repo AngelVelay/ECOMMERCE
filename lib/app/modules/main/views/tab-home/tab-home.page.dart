@@ -26,12 +26,13 @@ class HomePage extends GetView<HomeController> {
                 floating: true,
                 delegate: HomeHeader(
                   controller,
-                  expandedHeight: 150,
+                  expandedHeight: 115,
                 ),
               ),
               SliverToBoxAdapter(
                 child: Column(children: [
-                  _flyerList(controller),
+                  _coupons(),
+                  _flyerList(),
                   const SizedBox(height: 15),
                   const HomeTopProducts(),
                   const SizedBox(height: 15),
@@ -46,7 +47,40 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  Widget _flyerList(HomeController controller) {
+  Widget _coupons() {
+    return Obx(() {
+      return controller.defaultCoupon$.value.id != 0
+          ? Container(
+              width: double.infinity,
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: const Color(0xFFc59400), width: 3),
+                // color: Colors.black
+              ),
+              child: Row(children: [
+                GestureDetector(
+                    onTap: () => controller.toCouponDetail(),
+                    child: Text(
+                        controller.defaultCoupon$.value.shortDescription,
+                        style: const TextStyle(color: Colors.white))),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      controller.toCoupons();
+                    },
+                    child: const Text(
+                      'Ver mas',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ))
+              ]),
+            ).paddingOnly(left: 15, right: 15, bottom: 10)
+          : Container();
+    });
+  }
+
+  Widget _flyerList() {
     return SizedBox(
         child: ListView(
       shrinkWrap: true,

@@ -33,7 +33,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
         _minimizedHeader(context, percent, appBarSize),
         _header(context, percent),
         _qrCode(context, percent),
-        _searchInput(context, percent),
+        // _searchInput(context, percent),
         _zipCodeLabelWrapper(context, percent)
       ]),
     );
@@ -66,6 +66,13 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                   const Spacer(),
                   _zipCodeLabel(context),
                   const Spacer(),
+                  IconButton(
+                    onPressed: () => controller.toSearch(controller),
+                    icon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                  ),
                   HomeShoppingCart()
                 ],
               ),
@@ -86,9 +93,9 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                 Row(
                   children: [
                     const CircularProgressBar(
-                      AvatarSize: 20,
+                      AvatarSize: 23,
                       percent: 0.8,
-                      sizeProgressBar: 25,
+                      sizeProgressBar: 26,
                     ),
                     const SizedBox(width: 10),
                     Column(
@@ -133,9 +140,20 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: HomeShoppingCart(),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => controller.toSearch(controller),
+                      icon: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: HomeShoppingCart(),
+                    )
+                  ],
                 )
               ],
             ),
@@ -143,49 +161,49 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget _searchInput(BuildContext context, double percent) {
-    return Positioned(
-      left: 25,
-      top: 145,
-      child: Opacity(
-        opacity: percent,
-        child: Form(
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width - 50,
-              height: 50,
-              child: GestureDetector(
-                  onTap: () => controller.toSearch(controller),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xfffffffff),
-                      border: Border.all(color: Colors.grey),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    child: Row(children: const [
-                      SizedBox(width: 10),
-                      Icon(
-                        Icons.search,
-                        color: Colors.black54,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Buscar',
-                        style: TextStyle(color: Colors.black54),
-                        // Theme.of(context).textTheme.headline2
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.food_bank,
-                        color: Colors.black54,
-                      ),
-                      SizedBox(width: 10),
-                    ]),
-                  ))),
-        ),
-      ),
-    );
-  }
+  // Widget _searchInput(BuildContext context, double percent) {
+  //   return Positioned(
+  //     left: 25,
+  //     top: 145,
+  //     child: Opacity(
+  //       opacity: percent,
+  //       child: Form(
+  //         child: SizedBox(
+  //             width: MediaQuery.of(context).size.width - 50,
+  //             height: 50,
+  //             child: GestureDetector(
+  //                 onTap: () => controller.toSearch(controller),
+  //                 child: Container(
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xfffffffff),
+  //                     border: Border.all(color: Colors.grey),
+  //                     borderRadius:
+  //                         const BorderRadius.all(Radius.circular(10.0)),
+  //                   ),
+  //                   child: Row(children: const [
+  //                     SizedBox(width: 10),
+  //                     Icon(
+  //                       Icons.search,
+  //                       color: Colors.black54,
+  //                     ),
+  //                     SizedBox(width: 10),
+  //                     Text(
+  //                       'Buscar',
+  //                       style: TextStyle(color: Colors.black54),
+  //                       // Theme.of(context).textTheme.headline2
+  //                     ),
+  //                     Spacer(),
+  //                     Icon(
+  //                       Icons.food_bank,
+  //                       color: Colors.black54,
+  //                     ),
+  //                     SizedBox(width: 10),
+  //                   ]),
+  //                 ))),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _qrCode(BuildContext context, double percent) {
     return Positioned(
@@ -246,7 +264,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   Widget _zipCodeLabelWrapper(BuildContext context, double percent) {
     return Positioned(
-        top: 197,
+        top: 140,
         child: Opacity(
             opacity: percent,
             child: Container(

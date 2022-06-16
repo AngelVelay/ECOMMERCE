@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class CircularProgressBar extends StatelessWidget {
@@ -21,8 +23,7 @@ class CircularProgressBar extends StatelessWidget {
       animation: true,
       animationDuration: 1000,
       center: Avatar(AvatarSize: AvatarSize),
-      // progressColor: Color(0xFF475cb5),
-      progressColor: Color(0xFFc59400),
+      progressColor: const Color(0xFFc59400),
     );
   }
 }
@@ -40,7 +41,7 @@ class Avatar extends StatelessWidget {
     return Container(
         child: GestureDetector(
       onTap: () {
-        /* Navigator.pushNamed(context, 'profile'); */
+        // Get.toNamed(MainRouting.PROFILE_ROUTE);
       },
       child: CircleAvatar(
         radius: AvatarSize, // Image radius
