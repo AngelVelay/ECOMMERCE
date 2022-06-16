@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
-import 'package:marquee/marquee.dart';
 import 'coupon-detail.controller.dart';
 
 class CouponDetailPage extends GetView<CouponDetailController> {

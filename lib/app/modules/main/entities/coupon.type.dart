@@ -10,6 +10,8 @@ class Coupon {
     required this.couponPriorityId,
     required this.order,
     required this.validTo,
+    required this.couponTypeId,
+    required this.amount,
   });
 
   int id;
@@ -22,6 +24,8 @@ class Coupon {
   int order;
   int couponPriorityId;
   DateTime validTo;
+  int couponTypeId;
+  double amount;
   String? formattedValidTo;
 
   factory Coupon.fromJson(Map<String, dynamic> json) => Coupon(
@@ -35,6 +39,8 @@ class Coupon {
         couponPriorityId: json["couponPriorityId"],
         order: json["order"],
         validTo: json["validTo"],
+        couponTypeId: json["couponTypeId"],
+        amount: json["amount"],
       );
 
   factory Coupon.fromVoid() => Coupon(
@@ -47,7 +53,9 @@ class Coupon {
       terms: '',
       couponPriorityId: 0,
       order: 0,
-      validTo: DateTime.now());
+      validTo: DateTime.now(),
+      couponTypeId: 1,
+      amount: 0);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -60,5 +68,7 @@ class Coupon {
         "couponPriorityId": couponPriorityId,
         "order": order,
         "validTo": validTo,
+        "couponTypeId": couponTypeId,
+        "amount": amount,
       };
 }
