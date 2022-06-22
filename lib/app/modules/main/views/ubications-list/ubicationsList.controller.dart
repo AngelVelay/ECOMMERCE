@@ -78,7 +78,8 @@ class UbicationsListController extends GetxController {
                     style: TextStyle(height: 1.5, fontSize: 16),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.55,
+                    height: MediaQuery.of(context).size.height * 0.50,
+                    // height: 350,
                     child: map(item),
                   ),
                 ],
