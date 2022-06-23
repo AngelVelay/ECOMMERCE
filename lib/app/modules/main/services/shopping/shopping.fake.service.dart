@@ -74,5 +74,30 @@ class ShoppingFakeService implements IShoppingService {
             .toList();
       }
     }
+
+    // @override
+    // Future<List<MyShopping>> search(String keyword) async {
+    //   keyword = keyword.toLowerCase();
+    //   var result =
+    //       compras.where((e) => e.name.toLowerCase().contains(keyword)).toList();
+    //   print(result);
+    //   return result;
+    // }
+
+    Future getShoppingbyName(String name) async {
+      name = name.toLowerCase();
+      var result =
+          compras.where((e) => e.name.toLowerCase().contains(name)).toList();
+      return result;
+    }
+  }
+
+  @override
+  Future<List<MyShopping>> search(String keyword) async {
+    keyword = keyword.toLowerCase();
+    var result =
+        compras.where((e) => e.name.toLowerCase().contains(keyword)).toList();
+    print(result);
+    return result;
   }
 }

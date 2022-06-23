@@ -80,19 +80,20 @@ class CatalogsListPage extends GetView<HomeController> {
                 ])),
           ),
           const SizedBox(height: 3),
-          Text(item.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: false,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black)),
+          Text(
+            item.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            softWrap: false,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline5,
+          ),
           Text(
             '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+            style: Theme.of(context).textTheme.headline6,
           ),
           Row(children: [
             (item.cartValue > 0)
@@ -104,7 +105,12 @@ class CatalogsListPage extends GetView<HomeController> {
                   )
                 : Container(),
             const Spacer(),
-            (item.cartValue > 0) ? Text('${item.cartValue}') : Container(),
+            (item.cartValue > 0)
+                ? Text(
+                    '${item.cartValue}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                : Container(),
             const Spacer(),
             CircleIconButton(
               iconData: Icons.add,

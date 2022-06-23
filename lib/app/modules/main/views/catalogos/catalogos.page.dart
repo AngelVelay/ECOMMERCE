@@ -172,10 +172,7 @@ class CatalogosPage extends GetView<CatalogosController> {
           Center(
               child: Text(
             '${product.name}',
-            style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 13,
-                fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headline4,
           )),
         ],
       ),

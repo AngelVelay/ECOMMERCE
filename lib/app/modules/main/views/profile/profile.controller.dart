@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
 import 'package:jexpoints/app/shared/values/globals.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,15 +9,27 @@ import '../../../../components/map_ubication/map_ubication.dart';
 import '../../../auth/auth.module.dart';
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
+import '../../entities/coupon.type.dart';
+import '../../main.module.dart';
+import '../../services/coupons/coupons.contract.dart';
 
 class ProfileController extends GetxController {
   late IAuthService _repo;
+  final ICouponsService _couponsService;
   var user = User.fromVoid().obs;
+  var coupons$ = <Coupon>[].obs;
+  var selectedCoupon$ = Coupon.fromVoid().obs;
 
-  ProfileController(this._repo);
+  ProfileController(this._repo, this._couponsService);
 
   @override
-  void onInit() {
+  void onInit() async {
+    var coupons = await _couponsService.get();
+    var formatter = DateFormat('dd/MM/yyyy');
+    for (var e in coupons) {
+      e.formattedValidTo = formatter.format(e.validTo);
+    }
+    coupons$.value = coupons;
     _curretUser();
     super.onInit();
   }
@@ -35,6 +48,11 @@ class ProfileController extends GetxController {
     } else {
       Get.toNamed(AuthRouting.LOGIN_ROUTE);
     }
+  }
+
+  toDetail(Coupon item) {
+    selectedCoupon$.value = item;
+    Get.toNamed(MainRouting.COUPON_DETAIL_ROUTE, arguments: [item]);
   }
 
   consumeTap(BuildContext context) {

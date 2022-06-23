@@ -107,7 +107,7 @@ class MainRouting {
         binding: AddCardBinding()),
     GetPage(
         name: CONFIRM_COMPRA_ROUTE,
-        page: () => ConfirmBuyPage(),
+        page: () => ConfirmPagoPage(),
         binding: ConfirmPagodBinding()),
     GetPage(
         name: CATALOGS_LIST_ROUTE,
@@ -132,29 +132,40 @@ class MainBinding implements Bindings {
   var authService = AuthFakeService();
   MainBinding() {
     Get.lazyPut<HomeController>(
-        () => HomeController(ProductsFakeService(), authService,
-            FlyersFakeService(), AddressFakeService(), CouponsFakeService()),
+        () => HomeController(
+            ProductsFakeService(),
+            authService,
+            FlyersFakeService(),
+            AddressFakeService(),
+            CouponsFakeService(),
+            CreditCardFakeService()),
         fenix: true);
-    Get.lazyPut<ProfileController>(() => ProfileController(authService),
+    Get.lazyPut<ProfileController>(
+        () => ProfileController(authService, CouponsFakeService()),
         fenix: true);
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()),
         fenix: true);
-    Get.lazyPut<PayController>(() => PayController(), fenix: true);
+    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()),
+        fenix: true);
     Get.lazyPut<PointsController>(() => PointsController(), fenix: true);
     Get.lazyPut<CatalogosController>(
         () =>
             CatalogosController(CatalogueFakeService(), ProductsFakeService()),
         fenix: true);
-    Get.lazyPut<CheckOutController>(() => CheckOutController(), fenix: true);
-    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
+    Get.lazyPut<CheckOutController>(
+        () => CheckOutController(AddressFakeService(), CreditCardFakeService()),
+        fenix: true);
+    Get.lazyPut<ProfileController>(
+        () => ProfileController(AuthFakeService(), CouponsFakeService()));
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()));
-    Get.lazyPut<PayController>(() => PayController());
+    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
     Get.lazyPut<PointsController>(() => PointsController());
     Get.lazyPut<CatalogosController>(() =>
         CatalogosController(CatalogueFakeService(), ProductsFakeService()));
-    Get.lazyPut<CheckOutController>(() => CheckOutController());
+    Get.lazyPut<CheckOutController>(() =>
+        CheckOutController(AddressFakeService(), CreditCardFakeService()));
   }
 
   @override
@@ -167,7 +178,8 @@ class ProfileBinding implements Bindings {
   var authService = AuthFakeService();
   @override
   void dependencies() {
-    Get.lazyPut<ProfileController>(() => ProfileController(AuthFakeService()));
+    Get.lazyPut<ProfileController>(
+        () => ProfileController(AuthFakeService(), CouponsFakeService()));
   }
 }
 
@@ -191,7 +203,8 @@ class QrGenerateBinding implements Bindings {
 class UbicationsBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<UbicationsController>(() => UbicationsController(), fenix: true);
+    Get.lazyPut<UbicationsController>(() => UbicationsController(),
+        fenix: true);
   }
 }
 
@@ -227,7 +240,7 @@ class CatalogosBinding implements Bindings {
 class PayBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PayController>(() => PayController());
+    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
   }
 }
 
@@ -249,8 +262,8 @@ class AddCardBinding implements Bindings {
 class ConfirmPagodBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ConfirmPagoController>(
-        () => ConfirmPagoController(CreditCardFakeService()));
+    Get.lazyPut<ConfirmPagoController>(() =>
+        ConfirmPagoController(CreditCardFakeService(), ProductsFakeService()));
   }
 }
 
@@ -264,7 +277,8 @@ class CatalogsListBinding implements Bindings {
 class CheckOutBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CheckOutController>(() => CheckOutController());
+    Get.lazyPut<CheckOutController>(() =>
+        CheckOutController(AddressFakeService(), CreditCardFakeService()));
   }
 }
 

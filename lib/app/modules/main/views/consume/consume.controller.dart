@@ -12,6 +12,8 @@ class ConsumeController extends GetxController {
   final IShoppingService shoppingService;
 
   late var shoppingList$ = <MyShopping>[].obs;
+  final keywordCtrl = TextEditingController();
+  late var findedProducts$ = <MyShopping>[].obs;
 
   ConsumeController(this.shoppingService);
 
@@ -19,6 +21,19 @@ class ConsumeController extends GetxController {
   void onInit() async {
     super.onInit();
     shoppingList$.value = await shoppingService.get();
+  }
+
+  search(BuildContext context, String query) async {
+    findedProducts$.value = await shoppingService.search(keywordCtrl.text);
+    FocusScope.of(context).unfocus();
+  }
+
+  @override
+  Future<List<MyShopping>> getByName(String query) async {
+    //filter by name
+    return shoppingList$.value.where((element) {
+      return element.name.toLowerCase().contains(query.toLowerCase());
+    }).toList();
   }
 
   consumeTapMap(BuildContext context) {

@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, FocusScope, Navigator, TextEditingController;
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
+import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 import 'package:jexpoints/app/modules/main/entities/location.type.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
@@ -11,6 +13,7 @@ import 'package:jexpoints/app/modules/main/services/coupons/coupons.contract.dar
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search.page.dart';
 import '../../entities/coupon.type.dart';
+import '../../services/creditCard/creditCard.contract.dart';
 import '../../services/products/products.contract.dart';
 
 class HomeController extends GetxController {
@@ -19,6 +22,7 @@ class HomeController extends GetxController {
   final IAuthService authService;
   final IAddressService addressService;
   final ICouponsService couponsService;
+  final ICreditCardService creditCardService;
 
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <Flyer>[].obs;
@@ -30,12 +34,15 @@ class HomeController extends GetxController {
   late var cartProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
   late var addressList$ = <Address>[].obs;
+  late var selectedCreditCard$ = <CreditCard>[].obs;
   late var selectedAddress$ = Address.fromVoid().obs;
   late var coupons$ = <Coupon>[].obs;
   late var defaultCoupon$ = Coupon.fromVoid().obs;
+  late double total$ = 0.0;
+  late double subtotal$ = 0.0;
 
   HomeController(this.productsService, this.authService, this.flyersService,
-      this.addressService, this.couponsService);
+      this.addressService, this.couponsService, this.creditCardService);
 
   @override
   void onInit() async {
@@ -44,6 +51,8 @@ class HomeController extends GetxController {
     if (currentUser != null) {
       user$.value = currentUser;
     }
+    total$ = 0.0;
+    subtotal$ = 0.0;
 
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
@@ -138,5 +147,30 @@ class HomeController extends GetxController {
   toCouponDetail() {
     Get.toNamed(MainRouting.COUPON_DETAIL_ROUTE,
         arguments: [defaultCoupon$.value]);
+  }
+
+  totalBuy() {
+    return total$ = subtotal$ - defaultCoupon$.value.amount;
+  }
+
+  // couponDiscount() {
+  //   total$ = subtotal$ - defaultCoupon$.value.amount;
+  // }
+
+  subtotalBuy() {
+    return subtotal$ = double.parse(cartProducts$
+        .map((e) => e.price * e.cartValue)
+        .reduce((a, b) => a + b)
+        .toString());
+  }
+
+  toCheckout() {
+    Get.toNamed(MainRouting.CHECKOUT_ROUTE, arguments: {
+      'total': total$,
+      'cartProducts': cartProducts$,
+      'selectedAddress': selectedAddress$.value,
+      'defaultCoupon': defaultCoupon$.value,
+      'selectedCreditCard': selectedCreditCard$,
+    });
   }
 }

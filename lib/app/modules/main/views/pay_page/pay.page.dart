@@ -1,46 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../../components/custom_input/custom_input.dart';
 
-class PayPage extends StatelessWidget {
+class PayPage extends GetView<PayController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff2222222),
-      child: SafeArea(
-        left: false,
-        right: false,
-        bottom: false,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xff2222222),
-            title: Text('Agregar metodo de pago'),
-          ),
-          body: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildTitleSection(
-                      title: "Agregar metodo de pago",
-                      subTitle: "Como desea pagar?"),
-                  _buildCreditCard(
-                      color: Color(0xFF000000),
-                      cardExpiration: "05/2024",
-                      cardHolder: "ANGEL VELAY",
-                      cardNumber: "9874 4785 XXXX 6548"),
-                  TextFieldCreditCard()
-                ],
+        color: Color(0xff2222222),
+        child: SafeArea(
+          left: false,
+          right: false,
+          bottom: false,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xff2222222),
+              title: Text(
+                'Agregar metodo de pago',
+                style: Theme.of(context).textTheme.headline3,
               ),
             ),
+            body: SingleChildScrollView(
+              child: Obx((() {
+                return Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildTitleSection(
+                          title: "Agrega una nueva tarjeta", subTitle: ""),
+                      _buildCreditCard(
+                          color: Color(0xFF000000),
+                          cardExpiration: controller.cardExpiration$.value,
+                          cardHolder: controller.cardHolder$.value,
+                          cardNumber: controller.cardNumber$.value),
+                      _formCreditCard(context, controller),
+                    ],
+                  ),
+                );
+              })),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
-  // Build the title section
+// Build the title section
   Column _buildTitleSection({@required title, @required subTitle}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,21 +56,22 @@ class PayPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0, top: 16.0),
           child: Text(
             '$title',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
           child: Text(
             '$subTitle',
-            style: TextStyle(fontSize: 21, color: Colors.black45),
+            style: TextStyle(fontSize: 21, color: Colors.white),
           ),
         )
       ],
     );
   }
 
-  // Build the credit card widget
+// Build the credit card widget
   Card _buildCreditCard(
       {required Color color,
       required String cardNumber,
@@ -110,7 +118,7 @@ class PayPage extends StatelessWidget {
     );
   }
 
-  // Build the top row containing logos
+// Build the top row containing logos
   Row _buildLogosBlock() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,26 +155,26 @@ class PayPage extends StatelessWidget {
       ],
     );
   }
-}
 
-class TextFieldCreditCard extends StatelessWidget {
-  const TextFieldCreditCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _formCreditCard(BuildContext context, PayController controller) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             CustomInputField(
+              maxLength: 16,
+              inputFormatter:
+                  FilteringTextInputFormatter.allow(RegExp(r'[A-Z," "]')),
+              controller: controller.cardHolder,
               keyboardType: TextInputType.text,
               labelText: 'Nombre del titular',
               prefixIcon: Icons.person_outline_outlined,
             ),
             SizedBox(height: 10),
-            SizedBox(height: 10),
             CustomInputField(
+              inputFormatter: controller.cardNUmberFormatter,
+              controller: controller.cardNumber,
               keyboardType: TextInputType.number,
               labelText: 'Numero de tarjeta',
               prefixIcon: Icons.credit_card,
@@ -176,6 +184,8 @@ class TextFieldCreditCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomInputField(
+                    inputFormatter: controller.cardExpirationFormatter,
+                    controller: controller.cardExpiration,
                     keyboardType: TextInputType.datetime,
                     labelText: 'Fecha de vencimiento',
                     prefixIcon: Icons.date_range,
@@ -183,6 +193,8 @@ class TextFieldCreditCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomInputField(
+                    inputFormatter: controller.cardCVVFormatter,
+                    controller: controller.cardCVV,
                     keyboardType: TextInputType.number,
                     labelText: 'CVV',
                     prefixIcon: Icons.credit_score_rounded,
@@ -209,6 +221,7 @@ class TextFieldCreditCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
+                    controller.addCreditCard();
                     Navigator.pushNamed(context, '/add-credit-card');
                   },
                   label: const Text('Agregar Tarjeta',

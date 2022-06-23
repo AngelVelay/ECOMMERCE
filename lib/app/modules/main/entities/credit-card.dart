@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class CreditCard {
   CreditCard({
@@ -7,6 +8,7 @@ class CreditCard {
     required this.cardNumber,
     required this.cardHolder,
     required this.cardExpiration,
+    required this.cvv,
     required this.isDefault,
   });
 
@@ -17,17 +19,22 @@ class CreditCard {
 
   String cardNumber;
 
-  String color;
+  String cvv;
+
+  Color color;
 
   bool isDefault;
 
   factory CreditCard.fromVoid() => CreditCard(
-      id: 1,
-      color: '',
-      cardNumber: '',
-      cardHolder: '',
-      cardExpiration: '',
-      isDefault: false);
+        id: 1,
+        color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+            .withOpacity(1.0),
+        cardNumber: '',
+        cardHolder: '',
+        cardExpiration: '',
+        isDefault: false,
+        cvv: '',
+      );
 
   factory CreditCard.fromJson(Map<String, dynamic> json) => CreditCard(
         id: json["id"],
@@ -36,13 +43,16 @@ class CreditCard {
         cardNumber: json["cardNumber"],
         color: (json["color"]),
         isDefault: json["isDefault"],
+        cvv: json["cvv"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "cardExpiration": cardExpiration,
-        "cardHolder": cardHolder,
-        "cardNumber": cardNumber,
-        "color": color,
+        // "id": id,
+        // "cardExpiration": cardExpiration,
+        // "cardHolder": cardHolder,
+        // "cardNumber": cardNumber,
+        // "color": color,
+        // "isDefault": isDefault,
+        // "cvv": cvv,
       };
 }

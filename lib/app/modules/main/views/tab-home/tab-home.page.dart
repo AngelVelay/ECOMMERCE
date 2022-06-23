@@ -17,6 +17,7 @@ class HomePage extends GetView<HomeController> {
       child: SafeArea(
         left: false,
         right: false,
+        bottom: false,
         child: Scaffold(
           backgroundColor: const Color(0xff222222),
           body: CustomScrollView(

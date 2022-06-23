@@ -16,10 +16,18 @@ class AddCardController extends GetxController {
   void onInit() async {
     super.onInit();
     creditCardList$.value = await creditCardService.get();
+    creditCardList$.value = await creditCardService.getFromCurrent();
+    if (creditCardList$.isNotEmpty) {
+      selectedCreditCard.value = creditCardList$
+              .where((element) => element.isDefault)
+              .toList()
+              .isNotEmpty
+          ? creditCardList$.where((element) => element.isDefault).toList()[0]
+          : creditCardList$.first;
+    }
   }
 
   creditCardSelect(CreditCard item, BuildContext context) {
     selectedCreditCard.value = item;
-    Navigator.pop(context);
   }
 }

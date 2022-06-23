@@ -90,14 +90,13 @@ class CatalogSearchPage extends GetView<CatalogosController> {
               maxLines: 1,
               softWrap: false,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black)),
+              style: Theme.of(context).textTheme.headline5),
           Text(
             '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+            style: Theme.of(context).textTheme.headline6,
           ),
           HomeCartControls(
             item,

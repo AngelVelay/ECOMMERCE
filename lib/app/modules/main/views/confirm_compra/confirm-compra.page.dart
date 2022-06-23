@@ -1,74 +1,18 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
+import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.controller.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 
 import '../../../../components/custom_input/custom_input.dart';
-import '../../main.module.dart';
-import '../tab-home/tab-home.page.dart';
+import '../../entities/product.type.dart';
 
-final List<Map<String, String>> productsList = [
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1w3DfHY1rczx50CtpyT7WQWM7DzgJO51Rww&usqp=CAU',
-    'title': 'Pastel de Chocolate',
-    'puntos': '30',
-    'precio': '250'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaMIgHTCOHYmVBhq3Fu_7LILYd1ONWeT8AmQ&usqp=CAU',
-    'title': 'Pan Blanco',
-    'puntos': '50',
-    'precio': '50'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz-uOqi6OOH-5WdxCfboKBJzsFxGn_7WpH8A&usqp=CAU',
-    'title': 'Pan de Muerto',
-    'puntos': '80',
-    'precio': '180'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XaE3eZ7-TOq0Da7FhHcmmlxU2zwhc6ydbQ&usqp=CAU',
-    'title': 'Bollos',
-    'puntos': '10',
-    'precio': '130'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz-uOqi6OOH-5WdxCfboKBJzsFxGn_7WpH8A&usqp=CAU',
-    'title': 'Pan de Muerto',
-    'puntos': '80',
-    'precio': '180'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XaE3eZ7-TOq0Da7FhHcmmlxU2zwhc6ydbQ&usqp=CAU',
-    'title': 'Bollos',
-    'puntos': '10',
-    'precio': '130'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz-uOqi6OOH-5WdxCfboKBJzsFxGn_7WpH8A&usqp=CAU',
-    'title': 'Pan de Muerto',
-    'puntos': '80',
-    'precio': '180'
-  },
-  {
-    'url':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XaE3eZ7-TOq0Da7FhHcmmlxU2zwhc6ydbQ&usqp=CAU',
-    'title': 'Bollos',
-    'puntos': '10',
-    'precio': '130'
-  },
-];
+import '../tab-home/components/cart-controls.widget.dart';
+import '../tab-home/tab-home.controller.dart';
 
-class ConfirmBuyPage extends StatelessWidget {
-  const ConfirmBuyPage({Key? key}) : super(key: key);
+class ConfirmPagoPage extends GetView<HomeController> {
+  const ConfirmPagoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +26,12 @@ class ConfirmBuyPage extends StatelessWidget {
           body: Column(
             children: [
               Text(''),
-              Expanded(child: _confirmarCompra(context)),
+              Expanded(child: _cartProductList(context)),
               Expanded(
                 child: Column(
                   children: [
                     _applyCoupon(context),
-                    _totalBuy(context),
+                    _totalBuy(context, controller),
                     // PopularProducts('Sugerencias de Compra'),
                     _buttonConfirm(context)
                   ],
@@ -98,162 +42,259 @@ class ConfirmBuyPage extends StatelessWidget {
         ));
   }
 
-  Widget _totalBuy(context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Subtotal',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black),
+  Widget _cartProductList(BuildContext context) {
+    final size = MediaQuery.of(context).size.height * 0.85;
+
+    return Container(
+        height: size - 162,
+        child: Obx(() {
+          return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: controller.cartProducts$.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _cartProductListItem(
+                    controller.cartProducts$[index], context);
+              });
+        }));
+  }
+
+  Widget _cartProductListItem(Product item, context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: GestureDetector(
+        onTap: () {},
+        child: Row(
+          children: [
+            SizedBox(
+              height: 60,
+              width: 60,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                    placeholder: const NetworkImage(
+                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                    image: NetworkImage(item.url),
+                  )),
+            ),
+            Expanded(
+                child: ListTile(
+              title: Text(
+                item.name,
+                style: Theme.of(context).textTheme.headline5,
               ),
-              Text(
-                '\$480',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    '\$ ${item.price}',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    '${item.points} pts',
+                    style: Theme.of(context).textTheme.headline5,
+                  )
+                ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Envio',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black),
-              ),
-              Text(
-                '\$50',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Cupon de Descuento',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black),
-              ),
-              Text(
-                ' - \$50',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.black,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Total a Pagar',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              Text(
-                '\$480',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-            ],
-          ),
-        ],
+            )),
+            SizedBox(
+                width: 80,
+                child: HomeCartControls(
+                  item,
+                  labelColor: Colors.white,
+                  altColor: Colors.black,
+                ))
+          ],
+        ),
       ),
     );
   }
 
-  Widget _confirmarCompra(context) {
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: productsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: GestureDetector(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 80,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: FadeInImage(
-                            placeholder: const NetworkImage(
-                                'https://tenor.com/view/loading-gif-9212724.gif'),
-                            image: NetworkImage(
-                                productsList[index]['url'].toString()),
-                          )),
-                    ),
-                    Expanded(
-                        child: ListTile(
-                      title: Text(
-                        '${productsList[index]['title']}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '\$ ${productsList[index]['precio']}',
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                          Text(
-                            '${productsList[index]['puntos']} pts',
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: const [
-                              Icon(Icons.remove_circle_outline_outlined,
-                                  size: 25, color: Colors.black),
-                              Text('1', style: TextStyle(fontSize: 25)),
-                              Icon(Icons.add_circle_outline_outlined,
-                                  size: 25, color: Colors.black),
-                            ],
-                          )
-                        ],
-                      ),
-                    ))
-                  ],
-                ),
+  Widget _totalBuy(context, controller) {
+    return Obx(
+      () {
+        return Column(
+          children: [
+            ListTile(
+              title: Text(
+                'Subtotal',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              trailing: Text(
+                '\$ ${controller.subtotalBuy()}',
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
-          );
-        });
+            ListTile(
+              title: Text(
+                'Cupón de Descuento',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              trailing: Text(
+                ' - \$ ${controller.defaultCoupon$.value.amount}',
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Total a pagar',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              trailing: Text(
+                '\$ ${controller.totalBuy()}',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       'Subtotal',
+            //       style: Theme.of(context).textTheme.headline4,
+            //     ),
+            //     Text(
+            //       '\$480',
+            //       style: Theme.of(context).textTheme.headline4,
+            //     )
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: const [
+            //     Text(
+            //       'Envio',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.normal,
+            //           color: Colors.black),
+            //     ),
+            //     Text(
+            //       '\$50',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: const [
+            //     Text(
+            //       'Cupon de Descuento',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.normal,
+            //           color: Colors.black),
+            //     ),
+            //     Text(
+            //       ' - \$50',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.red),
+            //     ),
+            //   ],
+            // ),
+            // Divider(
+            //   color: Colors.black,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: const [
+            //     Text(
+            //       'Total a Pagar',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black),
+            //     ),
+            //     Text(
+            //       '\$480',
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black),
+            //     ),
+            //   ],
+            // ),
+          ],
+        );
+      },
+    );
   }
+
+  // Widget _confirmarCompra(context,ConfirmPagoController controller) {
+  //   return ListView.builder(
+  //       scrollDirection: Axis.vertical,
+  //       shrinkWrap: true,
+  //       itemCount: controller.cartProducts$.length,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return SingleChildScrollView(
+  //           child: Container(
+  //             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //             child: GestureDetector(
+  //               onTap: () {},
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                 children: [
+  //                   Container(
+  //                     height: 80,
+  //                     child: ClipRRect(
+  //                         borderRadius: BorderRadius.circular(20),
+  //                         child: FadeInImage(
+  //                           placeholder: const NetworkImage(
+  //                               'https://tenor.com/view/loading-gif-9212724.gif'),
+  //                           image: NetworkImage(cartProducts$.),
+  //                               // productsList[index]['url'].toString()),
+  //                         )),
+  //                   ),
+  //                   Expanded(
+  //                       child: ListTile(
+  //                     title: Text(
+  //                       '${productsList[index]['title']}',
+  //                       style: const TextStyle(
+  //                         fontSize: 20,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                     subtitle: Row(
+  //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                       children: [
+  //                         Text(
+  //                           '\$ ${productsList[index]['precio']}',
+  //                           style: const TextStyle(
+  //                             fontSize: 15,
+  //                           ),
+  //                         ),
+  //                         Text(
+  //                           '${productsList[index]['puntos']} pts',
+  //                           style: const TextStyle(
+  //                               fontSize: 15, fontWeight: FontWeight.bold),
+  //                         ),
+  //                         Row(
+  //                           children: const [
+  //                             Icon(Icons.remove_circle_outline_outlined,
+  //                                 size: 25, color: Colors.black),
+  //                             Text('1', style: TextStyle(fontSize: 25)),
+  //                             Icon(Icons.add_circle_outline_outlined,
+  //                                 size: 25, color: Colors.black),
+  //                           ],
+  //                         )
+  //                       ],
+  //                     ),
+  //                   ))
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
 
   Widget _applyCoupon(context) {
     return Padding(
@@ -277,8 +318,10 @@ class ConfirmBuyPage extends StatelessWidget {
                 width: 100,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: const Color(0xff222222),
-                    borderRadius: BorderRadius.circular(10)),
+                    color: const Color(0xFF43578d),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        topRight: Radius.circular(10))),
                 child: const Text(
                   'Aplicar',
                   style: TextStyle(
@@ -314,13 +357,7 @@ class ConfirmBuyPage extends StatelessWidget {
             size: 20,
           ),
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => _gifConfirm(),
-            //   ),
-            // );
-            Get.toNamed('/checkout');
+            controller.toCheckout();
           },
           label: const Text('Pagar',
               style: TextStyle(

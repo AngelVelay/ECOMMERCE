@@ -1,136 +1,203 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:jexpoints/app/modules/main/views/consume/components/timeline.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.page.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:ticket_widget/ticket_widget.dart';
 
+import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
+import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
+import '../../entities/coupon.type.dart';
+import '../consume/consume.page.dart';
+import '../tab-home/components/address-choose.widget.dart';
+import '../tab-home/tab-home.controller.dart';
 import '../ubications/ubications.page.dart';
+import 'checkout.controller.dart';
 
-class CheckOutPage extends StatelessWidget {
+class CheckOutPage extends GetView<CheckOutController> {
   const CheckOutPage({Key? key}) : super(key: key);
+
+  final String data =
+      "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xff2222222),
-          title: Text('Confirmar pedido'),
-        ),
-        body: Column(
-          children: [
-            _totalBuyDelivery(context),
-            _totalBuyTakeAway(context),
-          ],
+    return Container(
+      color: const Color(0xff222222),
+      child: SafeArea(
+        bottom: false,
+        child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Color(0xff2222222),
+                title: Text('Confirmar pedido'),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: _tabBar(context),
+              )),
         ),
       ),
     );
   }
 
+  Widget _tabBar(context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            height: 60,
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(25.0)),
+            child: TabBar(
+              indicator: BoxDecoration(
+                  color: Color(0xff2222222),
+                  borderRadius: BorderRadius.circular(25.0)),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(
+                  text: 'Envio a Domicilio',
+                ),
+                Tab(
+                  text: 'Recoger en Sucursal',
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+            child: TabBarView(
+          children: [
+            Center(
+              child: _totalBuyDelivery(context),
+            ),
+            Center(child: _buttonConfirmTakeAway(context)),
+          ],
+        ))
+      ],
+    );
+  }
+
   Widget _totalBuyDelivery(context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(10.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: Text(
                 'Envio a Domicilio',
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            Text(
-              'Calle Alamo 123 C.P 14200',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+            ListTile(
+              trailing: TextButton(
+                child: Icon(
+                  Icons.change_circle,
+                  color: Colors.black,
+                  size: 40,
+                ),
+                onPressed: () {
+                  controller.adreesTap(context);
+                },
+              ),
+              title: Text(
+                'Enviar a:',
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text(
+                  '${controller.selectedAddress.street} #${controller.selectedAddress.number} CP:${controller.selectedAddress.zipcode} '),
+            ),
+            ListTile(
+              trailing: Icon(Icons.credit_score_sharp),
+              title: Text(
+                'Forma de Pago:',
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text('5456 4569 1234 5678'),
             ),
             Divider(thickness: 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Subtotal',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+            Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    'Cupon de descuento',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black),
+                  ),
+                  leading: Icon(
+                    Icons.card_giftcard_rounded,
+                    color: Colors.black,
+                  ),
+                  trailing: Text(
+                    ' - \$${controller.coupons.amount}',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
                 ),
-                Text(
-                  '\$480',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                ListTile(
+                  title: Text(
+                    'Envio',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black),
+                  ),
+                  leading: Icon(
+                    Icons.local_shipping,
+                    color: Colors.black,
+                  ),
+                  trailing: Text(
+                    '\$ 50.00',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
+                  ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Envio',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                ),
-                Text(
-                  '\$50',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Cupon de Descuento',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                ),
-                Text(
-                  ' - \$50',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Total a Pagar',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                Text(
-                  '\$480',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                ListTile(
+                  title: Text(
+                    'Total',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  trailing: Text(
+                    '\$ ${controller.total - controller.coupons.amount}',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                 ),
               ],
             ),
-            _buttonConfirmDelivery(context)
+            Column(
+              children: [
+                Timeline(),
+                _buttonConfirmDelivery(context),
+              ],
+            )
           ],
         ),
       ),
@@ -139,12 +206,13 @@ class CheckOutPage extends StatelessWidget {
 
   Widget _totalBuyTakeAway(context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(10.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -153,74 +221,73 @@ class CheckOutPage extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Subtotal',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+            ListTile(
+              trailing: Icon(Icons.location_on),
+              title: Text(
+                'Enviar a:',
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text('Calle falsa 123'),
+            ),
+            ListTile(
+              trailing: Icon(Icons.credit_score_sharp),
+              title: Text(
+                'Forma de Pago:',
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text('Calle falsa 123'),
+            ),
+            Divider(thickness: 2),
+            Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    'Total',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  leading: Icon(
+                    Icons.attach_money,
+                    color: Colors.black,
+                  ),
+                  trailing: Text(
+                    '\$ 100.00',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                 ),
-                Text(
-                  '\$480',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                ListTile(
+                  title: Text(
+                    'Envio',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black),
+                  ),
+                  leading: Icon(
+                    Icons.local_shipping,
+                    color: Colors.black,
+                  ),
+                  trailing: Text(
+                    '\$ 50.00',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Cupon de Descuento',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                ),
-                Text(
-                  ' - \$50',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
+            Column(
+              children: [
+                Timeline(),
+                _buttonConfirmDelivery(context),
               ],
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Total a Pagar',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                Text(
-                  '\$480',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                Text(
-                  'Ver Ticket',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue),
-                ),
-              ],
-            ),
-            _buttonConfirmTakeAway(context)
+            )
           ],
         ),
       ),
@@ -265,69 +332,217 @@ class CheckOutPage extends StatelessWidget {
   }
 
   Widget _buttonConfirmTakeAway(context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        child: ElevatedButton.icon(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xFF43578d),
+    final String data =
+        "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
+    return Center(
+      child: TicketWidget(
+        width: 350.0,
+        height: 500.0,
+        isCornerRounded: true,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: 120.0,
+                    height: 25.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(width: 1.0, color: Colors.green),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sucursal',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'Esperanza',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.pink,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.black)))),
-          icon: const Icon(
-            Icons.place,
-            size: 20,
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'Ticket de Compra',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 25.0),
+                child: Column(
+                  children: <Widget>[
+                    ticketDetailsWidget(
+                        'Numero de Pedido', '4568538', 'Fecha', '24-12-2022'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12.0, right: 15.0),
+                      child: ticketDetailsWidget(
+                          'Descuento', '\$200', 'Cupon', '66BDFDC'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12.0, right: 40.0),
+                      child: ticketDetailsWidget(
+                          'Total a Pagar', '\$100', 'Puntos', '21'),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Expanded(
+                      child: QrImage(
+                    data: data,
+                    gapless: true,
+                    size: 200,
+                    errorCorrectionLevel: QrErrorCorrectLevel.H,
+                  )),
+                ),
+              )
+            ],
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UbicationsPage(),
-              ),
-            );
-          },
-          label: const Text('Ver Sucursales',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white)),
         ),
       ),
     );
   }
 
-  Widget _gifConfirm() {
-    return Center(
-        child: AnimatedSplashScreen(
-            splashIconSize: 500,
-            duration: 3000,
-            splash: Container(
-              height: 600,
-              child: Column(
-                children: const [
-                  Expanded(
-                    child: FadeInImage(
-                        height: 600,
-                        width: 600,
-                        fit: BoxFit.cover,
-                        placeholder: AssetImage('assets/images/delivery.gif'),
-                        image: AssetImage('assets/images/delivery.gif')),
-                  ),
-                  Text('Tu pedido esta en camino...',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                ],
+  Widget ticketDetailsWidget(String firstTitle, String firstDesc,
+      String secondTitle, String secondDesc) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                firstTitle,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
-            ),
-            nextScreen: HomePage(),
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: const Color(0xFFffffff)));
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Text(
+                  firstDesc,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                secondTitle,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Text(
+                  secondDesc,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
+}
+// return Padding(
+//   padding: const EdgeInsets.all(20.0),
+//   child: SizedBox(
+//     height: 60,
+//     width: MediaQuery.of(context).size.width,
+//     child: ElevatedButton.icon(
+//       style: ButtonStyle(
+//           backgroundColor: MaterialStateProperty.all<Color>(
+//             const Color(0xFF43578d),
+//           ),
+//           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//               RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(18.0),
+//                   side: const BorderSide(color: Colors.black)))),
+//       icon: const Icon(
+//         Icons.place,
+//         size: 20,
+//       ),
+//       onPressed: () {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) => UbicationsPage(),
+//           ),
+//         );
+//       },
+//       label: const Text('Ver Sucursales',
+//           style: TextStyle(
+//               fontWeight: FontWeight.bold,
+//               fontSize: 20,
+//               color: Colors.white)),
+//     ),
+//   ),
+// );
+
+Widget _gifConfirm() {
+  return Center(
+      child: AnimatedSplashScreen(
+          splashIconSize: 500,
+          duration: 3000,
+          splash: Container(
+            height: 600,
+            child: Column(
+              children: const [
+                Expanded(
+                  child: FadeInImage(
+                      height: 600,
+                      width: 600,
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('assets/images/delivery.gif'),
+                      image: AssetImage('assets/images/delivery.gif')),
+                ),
+                Text('Tu pedido esta en camino...',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+          nextScreen: HomePage(),
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: const Color(0xFFffffff)));
 }

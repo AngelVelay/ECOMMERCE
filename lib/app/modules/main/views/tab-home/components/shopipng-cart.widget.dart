@@ -45,17 +45,36 @@ class HomeShoppingCart extends GetView<HomeController> {
   }
 
   Widget _cartProductList(BuildContext context) {
-    return SizedBox(
-        height: size - 162,
-        child: Obx(() {
-          return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: controller.cartProducts$.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _cartProductListItem(controller.cartProducts$[index]);
-              });
-        }));
+    return controller.cartProducts$.length > 0
+        ? SizedBox(
+            height: size - 162,
+            child: Obx(() {
+              return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: controller.cartProducts$.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _cartProductListItem(
+                        controller.cartProducts$[index]);
+                  });
+            }))
+        : Container(
+            height: size - 162,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.remove_shopping_cart_outlined,
+                  color: Colors.grey,
+                  size: 100,
+                ),
+                Text(
+                  "No hay productos en el carrito",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          );
   }
 
   Widget _cartProductListItem(Product item) {
@@ -81,9 +100,9 @@ class HomeShoppingCart extends GetView<HomeController> {
               title: Text(
                 item.name,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
               subtitle: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -117,32 +136,36 @@ class HomeShoppingCart extends GetView<HomeController> {
   }
 
   Widget _button() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
-      child: SizedBox(
-        height: 60,
-        width: double.infinity,
-        child: ElevatedButton.icon(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xFF43578d),
+    return controller.cartProducts$.length > 0
+        ? Padding(
+            padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
+            child: SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color(0xFF43578d),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: const BorderSide(color: Colors.black)))),
+                icon: const Icon(
+                  Icons.monetization_on,
+                  size: 20,
+                ),
+                onPressed: controller.cartProducts$.length > 0
+                    ? () => controller.toAddCreditCard()
+                    : null,
+                label: const Text('Pagar',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white)),
               ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.black)))),
-          icon: const Icon(
-            Icons.monetization_on,
-            size: 20,
-          ),
-          onPressed: () => controller.toAddCreditCard(),
-          label: const Text('Pagar',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white)),
-        ),
-      ),
-    );
+            ),
+          )
+        : Container();
   }
 }

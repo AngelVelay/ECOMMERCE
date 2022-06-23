@@ -24,7 +24,7 @@ class Timeline extends StatelessWidget {
               endChild: Text('Preparando '),
               indicatorStyle: IndicatorStyle(
                 height: 40,
-                color: Colors.purple,
+                color: Colors.grey,
                 padding: const EdgeInsets.all(8),
                 iconStyle: IconStyle(
                   color: Colors.white,
@@ -32,7 +32,7 @@ class Timeline extends StatelessWidget {
                 ),
               ),
               beforeLineStyle: const LineStyle(
-                color: Colors.purple,
+                color: Colors.grey,
                 thickness: 6,
               ),
             ),
@@ -42,7 +42,7 @@ class Timeline extends StatelessWidget {
               endChild: Text('En camino'),
               indicatorStyle: IndicatorStyle(
                 height: 40,
-                color: Colors.purple,
+                color: Colors.grey,
                 padding: const EdgeInsets.all(8),
                 iconStyle: IconStyle(
                   color: Colors.white,
@@ -50,7 +50,7 @@ class Timeline extends StatelessWidget {
                 ),
               ),
               beforeLineStyle: const LineStyle(
-                color: Colors.purple,
+                color: Colors.grey,
                 thickness: 6,
               ),
             ),
@@ -61,7 +61,7 @@ class Timeline extends StatelessWidget {
               endChild: Text('Entregado'),
               indicatorStyle: IndicatorStyle(
                 height: 40,
-                color: Colors.purple,
+                color: Colors.grey,
                 padding: const EdgeInsets.all(8),
                 iconStyle: IconStyle(
                     color: Colors.white, iconData: Icons.tag_faces_rounded),
