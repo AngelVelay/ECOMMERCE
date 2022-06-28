@@ -6,14 +6,17 @@ import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.p
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../main.module.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 
 class PayController extends GetxController {
   final ICreditCardService creditCardService;
 
   PayController(this.creditCardService);
+  late var selectedCreditCard = CreditCard.fromVoid().obs;
 
   late var creditCardList$ = <CreditCard>[].obs;
+  late var newCreditCard = <CreditCard>[].obs;
   late var cardNumber = TextEditingController();
   late var cardHolder = TextEditingController();
   late var cardExpiration = TextEditingController();
@@ -35,7 +38,7 @@ class PayController extends GetxController {
       filter: {"#": RegExp(r'[0-9]')});
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
 
     cardNumber.addListener(() {
@@ -53,8 +56,16 @@ class PayController extends GetxController {
       cardCVV$.value = cardCVV.text;
     });
 
-    cardNUmberFormatter = MaskTextInputFormatter(
-        mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')});
+    creditCardList$.value = await creditCardService.get();
+    creditCardList$.value = await creditCardService.getFromCurrent();
+    if (creditCardList$.isNotEmpty) {
+      selectedCreditCard.value = creditCardList$
+              .where((element) => element.isDefault)
+              .toList()
+              .isNotEmpty
+          ? creditCardList$.where((element) => element.isDefault).toList()[0]
+          : creditCardList$.first;
+    }
   }
 
   @override
@@ -67,42 +78,27 @@ class PayController extends GetxController {
     super.dispose();
   }
 
-  addCreditCard() async {
+  addCreditCard() {
     creditCardList$.add(CreditCard(
       id: creditCardList$.length + 1,
       color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
           .withOpacity(1.0),
-      cardNumber: cardNumber.text,
-      cardHolder: cardHolder.text,
-      cardExpiration: cardExpiration.text,
-      cvv: cardCVV.text,
+      cardNumber: cardNumber$.value,
+      cardHolder: cardHolder$.value,
+      cardExpiration: cardExpiration$.value,
+      cvv: cardCVV$.value,
       isDefault: false,
     ));
+    return creditCardList$.value;
+  }
+
+  creditCardSelect(CreditCard item, BuildContext context) {
+    selectedCreditCard.value = item;
+  }
+
+  toProductDetail(CreditCard item) {
+    Get.toNamed(MainRouting.CONFIRM_COMPRA_ROUTE, arguments: {
+      'selectedCreditCard': selectedCreditCard.value,
+    });
   }
 }
-
-
-//  id: creditCardList$.length + 1,
-//         color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-//             .withOpacity(1.0),
-//         isDefault: false,
-//         cardNumber: cardNumber.text,
-//         cardHolder: cardHolder.text,
-//         cardExpiration: cardExpiration.text,
-//         cvv: cardCVV.text
-  // // void addCreditCard() {
-    // //   creditCardService.addCreditCard().then((value) {
-    // //     creditCardList$.value = value;
-    //   });
-
-      //   void addCreditCard() async => creditCardList$.add(CreditCard(
-      //         id: creditCardList$.length + 1,
-      //         color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-      //             .withOpacity(1.0),
-      //         cardNumber: cardNumber$.value,
-      //         cardHolder: cardHolder$.value,
-      //         cardExpiration: cardExpiration$.value,
-      //         cvv: cvv$.value,
-      //         isDefault: false,
-      //       ));
-      // }

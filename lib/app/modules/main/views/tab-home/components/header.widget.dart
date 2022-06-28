@@ -207,7 +207,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   Widget _qrCode(BuildContext context, double percent) {
     return Positioned(
-        top: 90,
+        top: 100,
         child: Opacity(
             opacity: percent,
             child: Container(
@@ -264,7 +264,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   Widget _zipCodeLabelWrapper(BuildContext context, double percent) {
     return Positioned(
-        top: 140,
+        top: 150,
         child: Opacity(
             opacity: percent,
             child: Container(

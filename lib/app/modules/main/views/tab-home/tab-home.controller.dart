@@ -173,4 +173,8 @@ class HomeController extends GetxController {
       'selectedCreditCard': selectedCreditCard$,
     });
   }
+
+  toHome() {
+    Get.off(MainRouting.MAIN_ROUTE);
+  }
 }

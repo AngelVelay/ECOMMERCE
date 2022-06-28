@@ -10,6 +10,7 @@ import '../../entities/product.type.dart';
 
 import '../tab-home/components/cart-controls.widget.dart';
 import '../tab-home/tab-home.controller.dart';
+import '../tab-home/tab-home.page.dart';
 
 class ConfirmPagoPage extends GetView<HomeController> {
   const ConfirmPagoPage({Key? key}) : super(key: key);
@@ -394,7 +395,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                 ],
               ),
             ),
-            nextScreen: MainPage(),
+            nextScreen: controller.toHome(),
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: const Color(0xFFffffff)));
   }

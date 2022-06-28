@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
 import '../../entities/credit-card.dart';
+import '../../main.module.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 import '../../services/products/products.contract.dart';
 
@@ -18,6 +19,8 @@ class ConfirmPagoController extends GetxController {
   late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
   late var _total$ = 0.obs;
+
+  final selectedCreditCard = Get.arguments['selectedCreditCard'];
 
   ConfirmPagoController(this.creditCardService, this.productsService);
 
@@ -68,5 +71,11 @@ class ConfirmPagoController extends GetxController {
         .map((e) => e.price * e.cartValue)
         .reduce((a, b) => a + b)
         .toString());
+  }
+
+  toContinue() {
+    Get.toNamed(MainRouting.CHECKOUT_ROUTE, arguments: {
+      'selectedCreditCard': selectedCreditCard,
+    });
   }
 }

@@ -78,11 +78,11 @@ class HomeFavoriteProducts extends GetView<HomeController> {
               style: const TextStyle(color: Colors.white, fontSize: 20)),
           Text(
             '\$ ${item.price}',
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           HomeCartControls(item)
         ],

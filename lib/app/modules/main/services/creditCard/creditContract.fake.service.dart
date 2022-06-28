@@ -48,19 +48,9 @@ class CreditCardFakeService implements ICreditCardService {
     return _creditCardList;
   }
 
-  // @override
-  // Future<List<CreditCard>> addCreditCard() {
-  //   _creditCardList.add(CreditCard(
-  //     id: _creditCardList.length + 1,
-  //     color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-  //         .withOpacity(1.0),
-  //     cardNumber: '5662 9876 XXXX XXXX',
-  //     cardHolder: 'JUAN M',
-  //     cardExpiration: '06/2024',
-  //     cvv: '12312',
-  //     isDefault: false,
-  //   ));
-
-  //   return Future.delayed(Duration(seconds: 1), () => _creditCardList);
-  // }
+  @override
+  Future<CreditCard> addCreditCard(CreditCard item) async {
+    _creditCardList.add(item);
+    return item;
+  }
 }

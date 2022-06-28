@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -187,10 +188,11 @@ class PayPage extends GetView<PayController> {
                     inputFormatter: controller.cardExpirationFormatter,
                     controller: controller.cardExpiration,
                     keyboardType: TextInputType.datetime,
-                    labelText: 'Fecha de vencimiento',
+                    labelText: 'Vencimiento',
                     prefixIcon: Icons.date_range,
                   ),
                 ),
+                SizedBox(width: 10),
                 Expanded(
                   child: CustomInputField(
                     inputFormatter: controller.cardCVVFormatter,
@@ -222,7 +224,7 @@ class PayPage extends GetView<PayController> {
                   ),
                   onPressed: () {
                     controller.addCreditCard();
-                    Navigator.pushNamed(context, '/add-credit-card');
+                    Navigator.pop(context, '/add-credit-card');
                   },
                   label: const Text('Agregar Tarjeta',
                       style: TextStyle(

@@ -78,10 +78,12 @@ class CheckOutPage extends GetView<CheckOutController> {
         Expanded(
             child: TabBarView(
           children: [
-            Center(
-              child: _totalBuyDelivery(context),
+            Expanded(
+              child: Center(
+                child: _totalBuyDelivery(context),
+              ),
             ),
-            Center(child: _buttonConfirmTakeAway(context)),
+            Expanded(child: Center(child: _buttonConfirmTakeAway(context))),
           ],
         ))
       ],
@@ -129,7 +131,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                 'Forma de Pago:',
                 style: TextStyle(color: Colors.black),
               ),
-              subtitle: Text('5456 4569 1234 5678'),
+              subtitle: Text('5625 2356 XXXX'),
             ),
             Divider(thickness: 2),
             Column(

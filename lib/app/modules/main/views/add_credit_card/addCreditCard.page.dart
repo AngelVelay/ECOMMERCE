@@ -2,12 +2,13 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
+import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:string_to_hex/string_to_hex.dart';
 
 import '../tab-home/tab-home.page.dart';
 import 'addCreditCard.controller.dart';
 
-class addCreditCard extends GetView<AddCardController> {
+class addCreditCard extends GetView<PayController> {
   // @override
   // final AddCardController controller;
 

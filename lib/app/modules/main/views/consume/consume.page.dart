@@ -190,14 +190,15 @@ class consumeInfo extends GetView<ConsumeController> {
                 controller.selectedDeliveryType(
                     controller.shoppingList$.value[index], context);
               },
-              child:
-                  _consumeListItem(context, controller.shoppingList$[index]));
+              child: _consumeListItem(
+                  context, controller.shoppingList$[index], controller));
         },
       );
     }));
   }
 
-  static Widget _consumeListItem(BuildContext context, dynamic item) {
+  static Widget _consumeListItem(
+      BuildContext context, dynamic item, ConsumeController controller) {
     return ListTile(
       // shape: RoundedRectangleBorder(
       //     borderRadius: BorderRadius.circular(10)),
@@ -231,7 +232,10 @@ class consumeInfo extends GetView<ConsumeController> {
           ]),
         ],
       ),
-      trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 20),
+      // ignore: unrelated_type_equality_checks
+      trailing: item.deliveryType == DeliveryType.envioADomicilio
+          ? Icon(Icons.delivery_dining_rounded, color: Colors.grey)
+          : Icon(Icons.store, color: Colors.grey),
     );
   }
 }
