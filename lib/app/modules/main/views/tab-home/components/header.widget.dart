@@ -4,6 +4,7 @@ import 'package:jexpoints/app/components/button-qr-generate/button-qr-generate.d
 import 'package:jexpoints/app/components/circular-progress-bar/circular-progress-bar.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/components/shopipng-cart.widget.dart';
+import 'package:jexpoints/app/modules/main/views/tab-home/components/user-number-card.dart';
 
 import '../tab-home.controller.dart';
 import 'address-add.widget.dart';
@@ -30,11 +31,12 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     return SizedBox(
       height: expandedHeight + expandedHeight / 2,
       child: Stack(children: [
+        //_userCardNumber(percent, appBarSize),
         _minimizedHeader(context, percent, appBarSize),
         _header(context, percent),
-        _qrCode(context, percent),
-        // _searchInput(context, percent),
-        _zipCodeLabelWrapper(context, percent)
+        // _qrCode(context, percent),
+        // // _searchInput(context, percent),
+        // _zipCodeLabelWrapper(context, percent)
       ]),
     );
   }
@@ -55,110 +57,140 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     return SizedBox(
         height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
         child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: const Color(0xFF222222),
-            elevation: 0.0,
-            title: Opacity(
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xFF222222),
+          elevation: 0.0,
+          title: Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Spacer(),
-                  _zipCodeLabel(context),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () => controller.toSearch(controller),
-                    icon: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    children: [
+                      const CircularProgressBar(
+                        AvatarSize: 23,
+                        percent: 0.8,
+                        sizeProgressBar: 26,
+                      ),
+                      const SizedBox(width: 10),
+                      Obx(() {
+                        return Text(
+                            controller.user$.value.employee != null
+                                ? controller.user$.value.employee!.name
+                                : '',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white));
+                      }),
+                    ],
                   ),
-                  HomeShoppingCart()
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => controller.toSearch(controller),
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                      ),
+                      HomeShoppingCart(),
+                    ],
+                  )
                 ],
-              ),
-            )));
+              )),
+        ));
   }
+
+  // Widget _userCardNumber(double percent, double appBarSize) {
+  //   return Positioned(
+  //     child: Opacity(
+  //       opacity: percent,
+  //       child: userCardNumber(),
+  //     ),
+  //   );
+  // }
 
   Widget _header(BuildContext context, double percent) {
     return Positioned(
-      top: 20,
-      child: Opacity(
-          opacity: percent,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const CircularProgressBar(
-                      AvatarSize: 23,
-                      percent: 0.8,
-                      sizeProgressBar: 26,
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      children: [
-                        Obx(() {
-                          return Text(
-                              controller.user$.value.employee != null
-                                  ? controller.user$.value.employee!.name
-                                  : '',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white));
-                        }),
-                        Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                width: 130,
-                                height: 35,
-                                color: const Color(0xFF43578d),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const FadeInImage(
-                                        placeholder: AssetImage(
-                                            'assets/images/estrella.png'),
-                                        image: AssetImage(
-                                            'assets/images/estrella.png')),
-                                    Container(width: 10),
-                                    const Text('35 pts',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Colors.white)),
-                                  ],
-                                ),
-                              ),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => controller.toSearch(controller),
-                      icon: const Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: HomeShoppingCart(),
-                    )
-                  ],
-                )
-              ],
-            ),
-          )),
-    );
+        top: 20,
+        child: Opacity(
+            opacity: percent,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(children: [
+                    userCardNumber(),
+                    //     const CircularProgressBar(
+                    //       AvatarSize: 23,
+                    //       percent: 0.8,
+                    //       sizeProgressBar: 26,
+                    //     ),
+                    //     const SizedBox(width: 10),
+                    //     Column(
+                    //       children: [
+                    //         Obx(() {
+                    //           return Text(
+                    //               controller.user$.value.employee != null
+                    //                   ? controller.user$.value.employee!.name
+                    //                   : '',
+                    //               style: const TextStyle(
+                    //                   fontWeight: FontWeight.bold,
+                    //                   fontSize: 20,
+                    //                   color: Colors.white));
+                    //         }),
+                    //         Padding(
+                    //             padding: const EdgeInsets.all(5),
+                    //             child: ClipRRect(
+                    //               borderRadius: BorderRadius.circular(20),
+                    //               child: Container(
+                    //                 width: 130,
+                    //                 height: 35,
+                    //                 color: const Color(0xFF43578d),
+                    //                 child: Row(
+                    //                   mainAxisAlignment: MainAxisAlignment.start,
+                    //                   children: [
+                    //                     const FadeInImage(
+                    //                         placeholder: AssetImage(
+                    //                             'assets/images/estrella.png'),
+                    //                         image: AssetImage(
+                    //                             'assets/images/estrella.png')),
+                    //                     Container(width: 10),
+                    //                     const Text('35 pts',
+                    //                         style: TextStyle(
+                    //                             fontWeight: FontWeight.bold,
+                    //                             fontSize: 20,
+                    //                             color: Colors.white)),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             )),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     IconButton(
+                    //       onPressed: () => controller.toSearch(controller),
+                    //       icon: const Icon(
+                    //         Icons.search,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(10.0),
+                    //       child: HomeShoppingCart(),
+                    //     )
+                    //   ],
+                    // )
+                  ])
+                ],
+              ),
+            )));
   }
 
   // Widget _searchInput(BuildContext context, double percent) {

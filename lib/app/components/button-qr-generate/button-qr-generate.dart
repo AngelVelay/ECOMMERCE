@@ -25,13 +25,12 @@ class ButtonQRScanner extends StatelessWidget {
         child: ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xFF222222)),
+                  MaterialStateProperty.all<Color>(const Color(0xFF000000)),
             ),
             onPressed: () {
               showCupertinoModalPopup(
-                context: context, 
-                builder: (BuildContext context) => _actionSheet(context)
-              );
+                  context: context,
+                  builder: (BuildContext context) => _actionSheet(context));
             },
             child: FadeInImage(
                 height: height,
@@ -49,38 +48,32 @@ class ButtonQRScanner extends StatelessWidget {
     ]);
   }
 
-
-  static Widget _actionSheet(BuildContext context){
+  static Widget _actionSheet(BuildContext context) {
     return CupertinoActionSheet(
       title: const Text('¿Para que quieres tu QR?'),
       // message: const Text('Selecciona una opcion'),
       actions: [
         CupertinoActionSheetAction(
-          onPressed: () => _goTo(context, 'discount'), 
-          child: const Text('Descuento')
-        ),
+            onPressed: () => _goTo(context, 'discount'),
+            child: const Text('Descuento')),
         CupertinoActionSheetAction(
-          onPressed: () => _goTo(context, 'accumulate'), 
-          child: const Text('Acumular')
-        ),
+            onPressed: () => _goTo(context, 'accumulate'),
+            child: const Text('Acumular')),
         CupertinoActionSheetAction(
-          onPressed: () => _goTo(context, 'change'), 
-          child: const Text('Canjear')
-        ),
+            onPressed: () => _goTo(context, 'change'),
+            child: const Text('Canjear')),
       ],
       cancelButton: CupertinoActionSheetAction(
-        onPressed: () => _close(context), 
-        child: const Text('Cancelar')
-      ),
+          onPressed: () => _close(context), child: const Text('Cancelar')),
     );
   }
 
-  static _goTo(BuildContext context, String type){    
-    Navigator.pop(context);    
-    Get.toNamed('/generate-qr', arguments: { "type" : type });    
+  static _goTo(BuildContext context, String type) {
+    Navigator.pop(context);
+    Get.toNamed('/generate-qr', arguments: {"type": type});
   }
 
-  static _close(BuildContext context){
+  static _close(BuildContext context) {
     Navigator.pop(context);
   }
 }

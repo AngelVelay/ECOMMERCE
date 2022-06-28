@@ -27,12 +27,14 @@ class HomePage extends GetView<HomeController> {
                 floating: true,
                 delegate: HomeHeader(
                   controller,
-                  expandedHeight: 130,
+                  expandedHeight: 170,
                 ),
               ),
               SliverToBoxAdapter(
                 child: Column(children: [
-                  _coupons(),
+                  const SizedBox(height: 15),
+
+                  // _coupons(),
                   _flyerList(),
                   const HomeTopProducts(),
                   const SizedBox(height: 15),
