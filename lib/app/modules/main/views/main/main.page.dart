@@ -11,7 +11,7 @@ class MainPage extends GetView<MainController> {
     return Scaffold(
         extendBody: true,
         bottomNavigationBar: CurvedNavigationBar(
-          key: controller.bottomNavigationKey,
+          // key: controller.bottomNavigationKey,
           index: 0,
           height: 60.0,
           items: const [

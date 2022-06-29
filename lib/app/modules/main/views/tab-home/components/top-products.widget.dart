@@ -60,7 +60,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://tenor.com/view/loading-gif-9212724.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 150,
+                    height: 160,
                     fit: BoxFit.cover,
                   ),
                 ])),

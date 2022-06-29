@@ -17,6 +17,7 @@ class CatalogosController extends GetxController {
   final keywordCtrl = TextEditingController();
 
   late var catalogueList$ = <Catalogue>[].obs;
+  late var catalogueList1$ = <Catalogue>[].obs;
   late var findedProducts$ = <Product>[].obs;
 
   CatalogosController(this.catalogoService, this.productsService);
@@ -25,6 +26,7 @@ class CatalogosController extends GetxController {
   void onInit() async {
     super.onInit();
     catalogueList$.value = await catalogoService.get();
+    catalogueList1$.value = await catalogoService.getSantoGallo();
   }
 
   toSearch(CatalogosController controller) {
