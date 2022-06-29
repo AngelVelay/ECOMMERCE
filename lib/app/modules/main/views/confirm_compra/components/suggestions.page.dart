@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/components/cart-controls.widget.dart';
-import '../tab-home.controller.dart';
 
-class HomeTopProducts extends GetView<HomeController> {
-  const HomeTopProducts({Key? key}) : super(key: key);
+import '../../tab-home/tab-home.controller.dart';
+
+class SuggestionsProducts extends GetView<HomeController> {
+  const SuggestionsProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class HomeTopProducts extends GetView<HomeController> {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Lo mas vendido',
+            child: Text('Sugerencias',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -45,7 +46,7 @@ class HomeTopProducts extends GetView<HomeController> {
 
   Widget _itemWidget(BuildContext context, Product item) {
     return Container(
-      width: 130,
+      width: 150,
       height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -60,7 +61,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://tenor.com/view/loading-gif-9212724.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 160,
+                    height: 150,
                     fit: BoxFit.cover,
                   ),
                 ])),

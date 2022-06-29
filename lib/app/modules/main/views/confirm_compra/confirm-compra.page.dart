@@ -11,6 +11,7 @@ import '../../entities/product.type.dart';
 import '../tab-home/components/cart-controls.widget.dart';
 import '../tab-home/tab-home.controller.dart';
 import '../tab-home/tab-home.page.dart';
+import 'components/suggestions.page.dart';
 
 class ConfirmPagoPage extends GetView<HomeController> {
   const ConfirmPagoPage({Key? key}) : super(key: key);
@@ -24,21 +25,27 @@ class ConfirmPagoPage extends GetView<HomeController> {
             title: Text('Confirmar Compra'),
             backgroundColor: Color(0xff222222),
           ),
-          body: Column(
+          body: Stack(
             children: [
               Text(''),
-              // Expanded(child: _cartProductList(context)),
-             _cartProductList(context),
+              Column(
+                children: [
+                  Expanded(child: _cartProductList(context)),
+                  Expanded(child: SuggestionsProducts()),
+                ],
+              ),
 
+              _dragrable(context)
               // Expanded(
-                 Column(
-                  children: [
-                    _applyCoupon(context),
-                    _totalBuy(context, controller),
-                    // PopularProducts('Sugerencias de Compra'),
-                    _buttonConfirm(context)
-                  ],
-                ),
+              //   child: Column(
+              //     children: [
+
+              //       // _applyCoupon(context),
+              //       // _totalBuy(context, controller),
+              //       // // PopularProducts('Sugerencias de Compra'),
+              //       // _buttonConfirm(context)
+              //     ],
+              //   ),
               // )
             ],
           ),
@@ -81,26 +88,26 @@ class ConfirmPagoPage extends GetView<HomeController> {
                   )),
             ),
             Expanded(
-                child:ListTile(
-              title: Text(
-                item.name,
-                style: Theme.of(context).textTheme.headline5,
+              child: ListTile(
+                title: Text(
+                  item.name,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '\$ ${item.price}',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      '${item.points} pts',
+                      style: Theme.of(context).textTheme.headline5,
+                    )
+                  ],
+                ),
               ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    '\$ ${item.price}',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    '${item.points} pts',
-                    style: Theme.of(context).textTheme.headline5,
-                  )
-                ],
-              ),
-            ),
             ),
             SizedBox(
                 width: 80,
@@ -306,7 +313,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
       child: Row(
         children: [
           const Expanded(
-          child: CustomInputField(
+            child: CustomInputField(
               keyboardType: TextInputType.datetime,
               labelText: 'Código de Cupón',
               prefixIcon: Icons.card_giftcard,
@@ -317,24 +324,24 @@ class ConfirmPagoPage extends GetView<HomeController> {
               Get.toNamed('/apply-coupon');
             },
             // child: Expanded(
-              child: Container(
-                height: 60,
-                width: 100,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: const Color(0xFF43578d),
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10),
-                        topRight: Radius.circular(10))),
-                child: const Text(
-                  'Aplicar',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+            child: Container(
+              height: 60,
+              width: 100,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: const Color(0xFF43578d),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              child: const Text(
+                'Aplicar',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
             ),
+          ),
           // ),
         ],
       ),
@@ -383,7 +390,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
               child: Column(
                 children: const [
                   Expanded(
-                  child: FadeInImage(
+                    child: FadeInImage(
                         height: 600,
                         width: 600,
                         fit: BoxFit.cover,
@@ -401,5 +408,34 @@ class ConfirmPagoPage extends GetView<HomeController> {
             nextScreen: controller.toHome(),
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: const Color(0xFFffffff)));
+  }
+
+  Widget _dragrable(context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.1,
+      minChildSize: 0.1,
+      maxChildSize: 0.4,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: const Color(0xFF2d3447)),
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: [
+                  // _applyCoupon(context),
+                  _totalBuy(context, controller),
+                  _buttonConfirm(context),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

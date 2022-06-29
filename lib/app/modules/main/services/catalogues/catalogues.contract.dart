@@ -4,4 +4,7 @@ import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 
 abstract class ICatalogueService {
   Future<List<Catalogue>> get();
+ Future<List<Catalogue>> getSantoGallo();
 }
+
+

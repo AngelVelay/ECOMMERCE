@@ -33,12 +33,13 @@ class DetailPage extends GetView<DetailController> {
   static Widget _center(BuildContext context, DetailController controller) {
     return Column(
       children: [
-        Text(controller.name.toString(), style: const TextStyle(fontSize: 25)),
+        Text(controller.name.toString(),
+            style: const TextStyle(fontSize: 25, color: Colors.white)),
         const Padding(
           padding: EdgeInsets.all(10.0),
           child: Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ',
-              style: TextStyle(fontSize: 16)),
+              style: TextStyle(fontSize: 16, color: Colors.white)),
         ),
       ],
     );

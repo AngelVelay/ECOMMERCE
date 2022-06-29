@@ -9,8 +9,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // classpath 'com.android.tools.build:gradle:3.3.2'
-        // implementation 'com.android.support:multidex:2.0.1'
     }
 }
 allprojects {
@@ -26,15 +24,8 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
-    // project.buildDir = "${rootProject.buildDir}/${project.name}"
-
-
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-// defaultConfig {
-//     multiDexEnabled true
-// }
