@@ -56,7 +56,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
     final size = MediaQuery.of(context).size.height * 0.85;
 
     return Container(
-        height: size - 162,
+        height: size - 350,
         child: Obx(() {
           return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -88,26 +88,27 @@ class ConfirmPagoPage extends GetView<HomeController> {
                   )),
             ),
             Expanded(
-                child: ListTile(
-              title: Text(
-                item.name,
-                style: Theme.of(context).textTheme.headline5,
+              child: ListTile(
+                title: Text(
+                  item.name,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '\$ ${item.price}',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      '${item.points} pts',
+                      style: Theme.of(context).textTheme.headline5,
+                    )
+                  ],
+                ),
               ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    '\$ ${item.price}',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    '${item.points} pts',
-                    style: Theme.of(context).textTheme.headline5,
-                  )
-                ],
-              ),
-            )),
+            ),
             SizedBox(
                 width: 80,
                 child: HomeCartControls(
@@ -322,26 +323,26 @@ class ConfirmPagoPage extends GetView<HomeController> {
             onTap: () {
               Get.toNamed('/apply-coupon');
             },
-            child: Expanded(
-              child: Container(
-                height: 60,
-                width: 100,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: const Color(0xFF43578d),
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10),
-                        topRight: Radius.circular(10))),
-                child: const Text(
-                  'Aplicar',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+            // child: Expanded(
+            child: Container(
+              height: 60,
+              width: 100,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: const Color(0xFF43578d),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              child: const Text(
+                'Aplicar',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
+          // ),
         ],
       ),
     );
