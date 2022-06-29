@@ -27,9 +27,11 @@ class ConfirmPagoPage extends GetView<HomeController> {
           body: Column(
             children: [
               Text(''),
-              Expanded(child: _cartProductList(context)),
-              Expanded(
-                child: Column(
+              // Expanded(child: _cartProductList(context)),
+             _cartProductList(context),
+
+              // Expanded(
+                 Column(
                   children: [
                     _applyCoupon(context),
                     _totalBuy(context, controller),
@@ -37,7 +39,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                     _buttonConfirm(context)
                   ],
                 ),
-              )
+              // )
             ],
           ),
         ));
@@ -47,7 +49,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
     final size = MediaQuery.of(context).size.height * 0.85;
 
     return Container(
-        height: size - 162,
+        height: size - 350,
         child: Obx(() {
           return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -79,7 +81,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                   )),
             ),
             Expanded(
-                child: ListTile(
+                child:ListTile(
               title: Text(
                 item.name,
                 style: Theme.of(context).textTheme.headline5,
@@ -98,7 +100,8 @@ class ConfirmPagoPage extends GetView<HomeController> {
                   )
                 ],
               ),
-            )),
+            ),
+            ),
             SizedBox(
                 width: 80,
                 child: HomeCartControls(
@@ -303,7 +306,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
       child: Row(
         children: [
           const Expanded(
-            child: CustomInputField(
+          child: CustomInputField(
               keyboardType: TextInputType.datetime,
               labelText: 'Código de Cupón',
               prefixIcon: Icons.card_giftcard,
@@ -313,7 +316,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
             onTap: () {
               Get.toNamed('/apply-coupon');
             },
-            child: Expanded(
+            // child: Expanded(
               child: Container(
                 height: 60,
                 width: 100,
@@ -332,7 +335,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                 ),
               ),
             ),
-          ),
+          // ),
         ],
       ),
     );
@@ -380,7 +383,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
               child: Column(
                 children: const [
                   Expanded(
-                    child: FadeInImage(
+                  child: FadeInImage(
                         height: 600,
                         width: 600,
                         fit: BoxFit.cover,

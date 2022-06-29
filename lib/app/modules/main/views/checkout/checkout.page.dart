@@ -78,12 +78,12 @@ class CheckOutPage extends GetView<CheckOutController> {
         Expanded(
             child: TabBarView(
           children: [
-            Expanded(
-              child: Center(
+            // Expanded(
+               Center(
                 child: _totalBuyDelivery(context),
               ),
-            ),
-            Expanded(child: Center(child: _buttonConfirmTakeAway(context))),
+            // ),
+             Center(child: _buttonConfirmTakeAway(context)),
           ],
         ))
       ],
@@ -194,11 +194,13 @@ class CheckOutPage extends GetView<CheckOutController> {
                 ),
               ],
             ),
-            Column(
-              children: [
-                Timeline(),
-                _buttonConfirmDelivery(context),
-              ],
+            Center(
+              child: Column(
+                children: [
+                  Timeline(),
+                  _buttonConfirmDelivery(context),
+                ],
+              ),
             )
           ],
         ),
@@ -413,13 +415,14 @@ class CheckOutPage extends GetView<CheckOutController> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
-                  child: Expanded(
+                  // child: Expanded(
                       child: QrImage(
                     data: data,
                     gapless: true,
                     size: 200,
                     errorCorrectionLevel: QrErrorCorrectLevel.H,
-                  )),
+                  )
+                  // ),
                 ),
               )
             ],
@@ -528,14 +531,14 @@ Widget _gifConfirm() {
             height: 600,
             child: Column(
               children: const [
-                Expanded(
-                  child: FadeInImage(
+                // Expanded(
+                   FadeInImage(
                       height: 600,
                       width: 600,
                       fit: BoxFit.cover,
                       placeholder: AssetImage('assets/images/delivery.gif'),
                       image: AssetImage('assets/images/delivery.gif')),
-                ),
+                // ),
                 Text('Tu pedido esta en camino...',
                     style: TextStyle(
                         color: Colors.black,

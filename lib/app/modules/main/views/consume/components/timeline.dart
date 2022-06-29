@@ -13,7 +13,7 @@ class Timeline extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 100,
-      child: Expanded(
+      // child: Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -69,7 +69,7 @@ class Timeline extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      // ),
     );
   }
 }

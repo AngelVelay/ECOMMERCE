@@ -120,7 +120,7 @@ class PointsPage extends GetView<PointsController> {
       SingleChildScrollView(
         dragStartBehavior: DragStartBehavior.start,
         scrollDirection: Axis.vertical,
-        child: Expanded(
+        // child: Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
             child: GridView.builder(
@@ -137,7 +137,7 @@ class PointsPage extends GetView<PointsController> {
                     _topListItem(context, controller.topProductList[index])),
           ),
         ),
-      ),
+      // ),
     ]);
   }
 
@@ -149,8 +149,8 @@ class PointsPage extends GetView<PointsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: Container(
+          // Expanded(
+            Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -164,7 +164,7 @@ class PointsPage extends GetView<PointsController> {
                 ),
               ),
             ),
-          ),
+          // ),
           // const Text(
           //   // products is out demo list
           //   'Nombre de producto',
@@ -237,11 +237,11 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           child: Opacity(
               opacity: percent,
               child: Column(children: [
-                Expanded(
-                  child: const SizedBox(
-                    height: 30,
-                  ),
-                ),
+                // Expanded(
+                  // child: const SizedBox(
+                    // height: 30,
+                  // ),
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30 * percent),
                   child: PointsViewer(
@@ -275,8 +275,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   title: '',
                   color: Colors.white,
                 ),
-                Expanded(
-                  child: SizedBox(
+                // Expanded(
+                   SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 31,
                       child: const FadeInImage(
@@ -285,7 +285,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                               AssetImage('assets/images/esperanza_banner.png'),
                           image: AssetImage(
                               'assets/images/esperanza_banner.png'))),
-                )
+                // )
               ])),
         )
       ]),
