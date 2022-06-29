@@ -11,6 +11,7 @@ import '../../entities/product.type.dart';
 import '../tab-home/components/cart-controls.widget.dart';
 import '../tab-home/tab-home.controller.dart';
 import '../tab-home/tab-home.page.dart';
+import 'components/suggestions.page.dart';
 
 class ConfirmPagoPage extends GetView<HomeController> {
   const ConfirmPagoPage({Key? key}) : super(key: key);
@@ -24,20 +25,28 @@ class ConfirmPagoPage extends GetView<HomeController> {
             title: Text('Confirmar Compra'),
             backgroundColor: Color(0xff222222),
           ),
-          body: Column(
+          body: Stack(
             children: [
               Text(''),
-              Expanded(child: _cartProductList(context)),
-              Expanded(
-                child: Column(
-                  children: [
-                    _applyCoupon(context),
-                    _totalBuy(context, controller),
-                    // PopularProducts('Sugerencias de Compra'),
-                    _buttonConfirm(context)
-                  ],
-                ),
-              )
+              Column(
+                children: [
+                  Expanded(child: _cartProductList(context)),
+                  Expanded(child: SuggestionsProducts()),
+                ],
+              ),
+
+              _dragrable(context)
+              // Expanded(
+              //   child: Column(
+              //     children: [
+
+              //       // _applyCoupon(context),
+              //       // _totalBuy(context, controller),
+              //       // // PopularProducts('Sugerencias de Compra'),
+              //       // _buttonConfirm(context)
+              //     ],
+              //   ),
+              // )
             ],
           ),
         ));
@@ -398,5 +407,34 @@ class ConfirmPagoPage extends GetView<HomeController> {
             nextScreen: controller.toHome(),
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: const Color(0xFFffffff)));
+  }
+
+  Widget _dragrable(context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.1,
+      minChildSize: 0.1,
+      maxChildSize: 0.4,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: const Color(0xFF2d3447)),
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: [
+                  // _applyCoupon(context),
+                  _totalBuy(context, controller),
+                  _buttonConfirm(context),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
