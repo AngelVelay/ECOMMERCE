@@ -2,11 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'catagolos.controller.dart';
+
 class CatalogosPage extends GetView<CatalogosController> {
   const CatalogosPage({Key? key}) : super(key: key);
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff222222),
       child: SafeArea(
@@ -27,7 +28,7 @@ class CatalogosPage extends GetView<CatalogosController> {
     );
   }
 
-    Widget _tabBar(context, controller) {
+  Widget _tabBar(context, controller) {
     return Column(
       children: [
         Padding(
@@ -44,10 +45,10 @@ class CatalogosPage extends GetView<CatalogosController> {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.black,
               tabs: const [
-                 Tab(
+                Tab(
                   text: 'Esperanza',
                 ),
-                 Tab(
+                Tab(
                   text: 'Santo Gallo',
                 ),
               ],
@@ -57,10 +58,10 @@ class CatalogosPage extends GetView<CatalogosController> {
         Expanded(
             child: TabBarView(
           children: [
-               Center(
-                child: _ListCatalogue(context, controller),
-              ),
-             Center(child: _ListCatalogue1(context, controller)),
+            Center(
+              child: _ListCatalogue(context, controller),
+            ),
+            Center(child: _ListCatalogue1(context, controller)),
           ],
         ))
       ],
@@ -75,23 +76,23 @@ class CatalogosPage extends GetView<CatalogosController> {
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Obx((() {
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.catalogueList$.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 1,
-                    ),
-                    itemBuilder: (context, index) => _ListItemCatalogue(
-                        context, controller.catalogueList$[index]));
-              })),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Obx((() {
+              return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.catalogueList$.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12.0,
+                    crossAxisSpacing: 10.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) => _ListItemCatalogue(
+                      context, controller.catalogueList$[index]));
+            })),
+          ),
         ),
       ),
     ]);
@@ -105,38 +106,44 @@ class CatalogosPage extends GetView<CatalogosController> {
       child: Column(
         children: [
           GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/catalogs-list');
-      },
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
-                    image: NetworkImage(product.image),
-                    width: double.nan,
-                    height: 150,
-                    fit: BoxFit.cover,
+            onTap: () {
+              Navigator.pushNamed(context, '/catalogs-list');
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        placeholder: NetworkImage(product.image),
+                        image: NetworkImage(product.image),
+                      ),
+                    ),
                   ),
-                ])),
+                ),
+                const SizedBox(height: 3),
+                Text(product.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white)),
+              ],
+            ),
           ),
-          const SizedBox(height: 3),
-          Text(product.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: false,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white)),
         ],
       ),
     );
-
   }
 
-
-
-static Widget _ListCatalogue1(
+  static Widget _ListCatalogue1(
       BuildContext context, CatalogosController controller) {
     return Column(children: [
       SizedBox(
@@ -144,23 +151,23 @@ static Widget _ListCatalogue1(
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Obx((() {
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.catalogueList1$.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 1,
-                    ),
-                    itemBuilder: (context, index) => _ListItemCatalogue1(
-                        context, controller.catalogueList1$[index]));
-              })),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Obx((() {
+              return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.catalogueList1$.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12.0,
+                    crossAxisSpacing: 10.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) => _ListItemCatalogue1(
+                      context, controller.catalogueList1$[index]));
+            })),
+          ),
         ),
       ),
     ]);
@@ -174,9 +181,9 @@ static Widget _ListCatalogue1(
       child: Column(
         children: [
           GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/catalogs-list');
-      },
+            onTap: () {
+              Navigator.pushNamed(context, '/catalogs-list');
+            },
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Stack(children: [
@@ -200,10 +207,5 @@ static Widget _ListCatalogue1(
         ],
       ),
     );
-
   }
-
-
-
-  
 }

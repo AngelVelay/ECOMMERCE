@@ -545,10 +545,36 @@ class ProfilePage extends GetView<ProfileController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      item.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                    Row(
+                      children: [
+                        Text(
+                          item.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                        SizedBox(width: 50),
+                        TextButton.icon(
+                            icon: Icon(Icons.share, color: Colors.white),
+                            style: ButtonStyle(
+                                side: MaterialStateProperty.all(
+                                    const BorderSide(
+                                        width: 2, color: Colors.white)),
+                                padding: MaterialStateProperty.all(
+                                    const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10)),
+                                textStyle: MaterialStateProperty.all(
+                                    TextStyle(fontSize: 15))),
+                            onPressed: () {
+                              controller.shareData(item);
+                            },
+                            label: Text(
+                              item.code,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )),
+                      ],
                     )
                   ],
                 ),

@@ -68,12 +68,12 @@ class CheckOutPage extends GetView<CheckOutController> {
         Expanded(
             child: TabBarView(
           children: [
-            // Expanded(
-               Center(
+            Expanded(
+              child: Center(
                 child: _totalBuyDelivery(context),
               ),
-            // ),
-             Center(child: _buttonConfirmTakeAway(context)),
+            ),
+            Expanded(child: Center(child: _buttonConfirmTakeAway(context))),
           ],
         ))
       ],
@@ -409,14 +409,13 @@ class CheckOutPage extends GetView<CheckOutController> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
-                  // child: Expanded(
+                  child: Expanded(
                       child: QrImage(
                     data: data,
                     gapless: true,
                     size: 200,
                     errorCorrectionLevel: QrErrorCorrectLevel.H,
-                  )
-                  // ),
+                  )),
                 ),
               )
             ],
@@ -525,14 +524,14 @@ Widget _gifConfirm() {
             height: 600,
             child: Column(
               children: const [
-                // Expanded(
-                   FadeInImage(
+                Expanded(
+                  child: FadeInImage(
                       height: 600,
                       width: 600,
                       fit: BoxFit.cover,
                       placeholder: AssetImage('assets/images/delivery.gif'),
                       image: AssetImage('assets/images/delivery.gif')),
-                // ),
+                ),
                 Text('Tu pedido esta en camino...',
                     style: TextStyle(
                         color: Colors.black,

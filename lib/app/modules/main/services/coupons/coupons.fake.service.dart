@@ -20,6 +20,7 @@ class CouponsFakeService implements ICouponsService {
         order: 0,
         validTo: DateTime.parse('2022-06-25 23:59:59'),
         couponTypeId: CouponTypeEnum.amount,
+        code: '3X2D0N45',
         amount: 100),
     Coupon(
         id: 2,
@@ -36,6 +37,7 @@ class CouponsFakeService implements ICouponsService {
         order: 0,
         validTo: DateTime.parse('2022-06-20 23:59:59'),
         couponTypeId: CouponTypeEnum.amount,
+        code: '2X1P4ND0',
         amount: 100),
     Coupon(
         id: 2,
@@ -52,6 +54,7 @@ class CouponsFakeService implements ICouponsService {
         order: 0,
         validTo: DateTime.parse('2022-06-20 23:59:59'),
         couponTypeId: CouponTypeEnum.amount,
+        code: '15%D3SC',
         amount: 100),
     Coupon(
         id: 2,
@@ -68,6 +71,7 @@ class CouponsFakeService implements ICouponsService {
         order: 0,
         validTo: DateTime.parse('2022-06-20 23:59:59'),
         couponTypeId: CouponTypeEnum.percentage,
+        code: '30%D3SC',
         amount: 10),
   ];
 

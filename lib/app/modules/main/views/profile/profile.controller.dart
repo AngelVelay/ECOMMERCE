@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
 import 'package:jexpoints/app/shared/values/globals.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../components/map_ubication/map_ubication.dart';
 import '../../../auth/auth.module.dart';
@@ -53,6 +54,10 @@ class ProfileController extends GetxController {
   toDetail(Coupon item) {
     selectedCoupon$.value = item;
     Get.toNamed(MainRouting.COUPON_DETAIL_ROUTE, arguments: [item]);
+  }
+
+  shareData(Coupon item) async {
+    await Share.shareFilesWithResult([item.url, item.code], text: item.title);
   }
 
   consumeTap(BuildContext context) {
