@@ -414,7 +414,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
     return DraggableScrollableSheet(
       initialChildSize: 0.1,
       minChildSize: 0.1,
-      maxChildSize: 0.4,
+      maxChildSize: 0.5,
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
           decoration: const BoxDecoration(
@@ -429,6 +429,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                 children: [
                   // _applyCoupon(context),
                   _totalBuy(context, controller),
+                  _applyCoupon(context),
                   _buttonConfirm(context),
                 ],
               ),

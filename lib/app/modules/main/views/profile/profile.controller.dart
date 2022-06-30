@@ -11,25 +11,31 @@ import '../../../auth/auth.module.dart';
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
 import '../../entities/coupon.type.dart';
+import '../../entities/reviews.type.dart';
 import '../../main.module.dart';
 import '../../services/coupons/coupons.contract.dart';
+import '../../services/reviews/reviews.contract.dart';
 
 class ProfileController extends GetxController {
   late IAuthService _repo;
   final ICouponsService _couponsService;
+  final IReviewsService _reviewsService;
   var user = User.fromVoid().obs;
   var coupons$ = <Coupon>[].obs;
+  var reviews$ = <Review>[].obs;
   var selectedCoupon$ = Coupon.fromVoid().obs;
 
-  ProfileController(this._repo, this._couponsService);
+  ProfileController(this._repo, this._couponsService, this._reviewsService);
 
   @override
   void onInit() async {
     var coupons = await _couponsService.get();
+    var reviews = await _reviewsService.get();
     var formatter = DateFormat('dd/MM/yyyy');
     for (var e in coupons) {
       e.formattedValidTo = formatter.format(e.validTo);
     }
+    reviews$.value = reviews;
     coupons$.value = coupons;
     _curretUser();
     super.onInit();
@@ -57,7 +63,11 @@ class ProfileController extends GetxController {
   }
 
   shareData(Coupon item) async {
-    await Share.shareFilesWithResult([item.url, item.code], text: item.title);
+    await Share.share(
+      item.url,
+      subject: '''Codigo: ${item.code}\n'''
+          '''Titulo: ${item.title}\n''',
+    );
   }
 
   consumeTap(BuildContext context) {

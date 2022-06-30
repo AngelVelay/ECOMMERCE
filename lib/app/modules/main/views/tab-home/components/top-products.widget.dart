@@ -65,7 +65,6 @@ class HomeTopProducts extends GetView<HomeController> {
                   ),
                 ])),
           ),
-          const SizedBox(height: 3),
           Text(item.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -78,7 +77,7 @@ class HomeTopProducts extends GetView<HomeController> {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           HomeCartControls(item)
         ],

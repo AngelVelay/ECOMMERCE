@@ -7,6 +7,7 @@ import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
@@ -141,7 +142,8 @@ class MainBinding implements Bindings {
             CreditCardFakeService()),
         fenix: true);
     Get.lazyPut<ProfileController>(
-        () => ProfileController(authService, CouponsFakeService()),
+        () => ProfileController(
+            authService, CouponsFakeService(), ReviewsFakeService()),
         fenix: true);
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()),
@@ -156,8 +158,8 @@ class MainBinding implements Bindings {
     Get.lazyPut<CheckOutController>(
         () => CheckOutController(AddressFakeService(), CreditCardFakeService()),
         fenix: true);
-    Get.lazyPut<ProfileController>(
-        () => ProfileController(AuthFakeService(), CouponsFakeService()));
+    Get.lazyPut<ProfileController>(() => ProfileController(
+        AuthFakeService(), CouponsFakeService(), ReviewsFakeService()));
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()));
     Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
@@ -178,8 +180,8 @@ class ProfileBinding implements Bindings {
   var authService = AuthFakeService();
   @override
   void dependencies() {
-    Get.lazyPut<ProfileController>(
-        () => ProfileController(AuthFakeService(), CouponsFakeService()));
+    Get.lazyPut<ProfileController>(() => ProfileController(
+        AuthFakeService(), CouponsFakeService(), ReviewsFakeService()));
   }
 }
 

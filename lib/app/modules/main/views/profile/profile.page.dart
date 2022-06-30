@@ -329,7 +329,9 @@
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/entities/reviews.type.dart';
 
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import 'package:jexpoints/app/shared/theme/app_theme.dart';
@@ -461,7 +463,7 @@ class ProfilePage extends GetView<ProfileController> {
                   text: 'Cupones',
                 ),
                 Tab(
-                  text: 'Descuentos',
+                  text: 'Reseñas',
                 ),
               ],
             ),
@@ -478,12 +480,102 @@ class ProfilePage extends GetView<ProfileController> {
               padding: EdgeInsets.symmetric(vertical: 30),
               child: _couponList(context),
             ),
-            Center(
-              child: Text('Descuentos'),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: _reviewList(context),
             ),
           ],
         ))
       ],
+    );
+  }
+
+  Widget _reviewList(BuildContext context) {
+    return Obx(() {
+      return SingleChildScrollView(
+          child: ListView.builder(
+              // separatorBuilder: (context, index) => const Divider(thickness: 2),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: controller.reviews$.length,
+              itemBuilder: (context, index) {
+                return _reviewListItem(context, controller.reviews$[index]);
+              }));
+    });
+  }
+
+  Widget _reviewListItem(BuildContext context, Review item) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: DottedBorder(
+          color: Colors.white,
+          strokeWidth: 1,
+          dashPattern: const [15, 10],
+          radius: const Radius.circular(10),
+          borderType: BorderType.RRect,
+          child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          item.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image(
+                        image: NetworkImage(item.productURL),
+                        width: 100,
+                        height: 100,
+                      )),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Flexible(
+                      child: Text(
+                    '"${item.comment}"',
+                    style: const TextStyle(
+                        color: Colors.white70, fontStyle: FontStyle.italic),
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RatingBar.builder(
+                      initialRating: item.rating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    )
+                  ],
+                )
+              ]))),
     );
   }
 
@@ -553,9 +645,9 @@ class ProfilePage extends GetView<ProfileController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20),
                         ),
-                        SizedBox(width: 50),
+                        SizedBox(width: 70),
                         TextButton.icon(
-                            icon: Icon(Icons.share, color: Colors.white),
+                            icon: Icon(Icons.copy_rounded, color: Colors.white),
                             style: ButtonStyle(
                                 side: MaterialStateProperty.all(
                                     const BorderSide(
