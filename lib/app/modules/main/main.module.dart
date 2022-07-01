@@ -28,6 +28,7 @@ import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.page.dart';
+import 'package:jexpoints/app/modules/main/views/pickup-cart/pickup-cart.page.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.controller.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
@@ -45,6 +46,7 @@ import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
 import 'views/coupons/coupons.page.dart';
+import 'views/pickup-cart/pickup-cart.controller.dart';
 
 class MainRouting {
   static const MAIN_ROUTE = '/main';
@@ -66,6 +68,7 @@ class MainRouting {
   static const CHECKOUT_ROUTE = '/checkout';
   static const COUPONS_ROUTE = '/coupons';
   static const COUPON_DETAIL_ROUTE = '/coupon/detail';
+  static const PICKUP_ROUTE = '/pickup';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -126,6 +129,11 @@ class MainRouting {
         name: COUPON_DETAIL_ROUTE,
         page: () => const CouponDetailPage(),
         binding: CouponDetailBinding()),
+    GetPage(
+      name: PICKUP_ROUTE,
+      page: () => PickupPage(),
+      binding: PickUpBinding(),
+    ),
   ];
 }
 
@@ -296,5 +304,12 @@ class CouponDetailBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CouponDetailController>(() => CouponDetailController());
+  }
+}
+
+class PickUpBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PickUpController>(() => PickUpController());
   }
 }

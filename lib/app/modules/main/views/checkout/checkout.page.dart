@@ -55,10 +55,10 @@ class CheckOutPage extends GetView<CheckOutController> {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.black,
               tabs: const [
-                 Tab(
+                Tab(
                   text: 'Envio a Domicilio',
                 ),
-                 Tab(
+                Tab(
                   text: 'Recoger en Sucursal',
                 ),
               ],
@@ -94,7 +94,7 @@ class CheckOutPage extends GetView<CheckOutController> {
               padding: EdgeInsets.all(10.0),
               child: Text(
                 'Envio a Domicilio',
-                style:  TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20),
               ),
             ),
             ListTile(
@@ -116,12 +116,12 @@ class CheckOutPage extends GetView<CheckOutController> {
                   '${controller.selectedAddress.street} #${controller.selectedAddress.number} CP:${controller.selectedAddress.zipcode} '),
             ),
             const ListTile(
-              trailing:  Icon(Icons.credit_score_sharp),
-              title:  Text(
+              trailing: Icon(Icons.credit_score_sharp),
+              title: Text(
                 'Forma de Pago:',
                 style: TextStyle(color: Colors.black),
               ),
-              subtitle:  Text('5625 2356 XXXX'),
+              subtitle: Text('5625 2356 XXXX'),
             ),
             const Divider(thickness: 2),
             Column(
@@ -129,7 +129,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                 ListTile(
                   title: const Text(
                     'Cupon de descuento',
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
@@ -149,16 +149,16 @@ class CheckOutPage extends GetView<CheckOutController> {
                 const ListTile(
                   title: Text(
                     'Envio',
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
                   ),
-                  leading:  Icon(
+                  leading: Icon(
                     Icons.local_shipping,
                     color: Colors.black,
                   ),
-                  trailing:  Text(
+                  trailing: Text(
                     '\$ 50.00',
                     style: TextStyle(
                         fontSize: 20,
@@ -169,7 +169,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                 ListTile(
                   title: const Text(
                     'Total',
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
@@ -187,7 +187,7 @@ class CheckOutPage extends GetView<CheckOutController> {
             Center(
               child: Column(
                 children: [
-                  const Timeline(),
+                  // const Timeline(),
                   _buttonConfirmDelivery(context),
                 ],
               ),
@@ -216,52 +216,50 @@ class CheckOutPage extends GetView<CheckOutController> {
               ),
             ),
             const ListTile(
-              trailing:  Icon(Icons.location_on),
-              title:  Text(
+              trailing: Icon(Icons.location_on),
+              title: Text(
                 'Enviar a:',
                 style: TextStyle(color: Colors.black),
               ),
-              subtitle:  Text('Calle falsa 123'),
+              subtitle: Text('Calle falsa 123'),
             ),
             const ListTile(
-              trailing:  Icon(Icons.credit_score_sharp),
-              title:  Text(
+              trailing: Icon(Icons.credit_score_sharp),
+              title: Text(
                 'Forma de Pago:',
-                style:  TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
-              subtitle:  Text('Calle falsa 123'),
+              subtitle: Text('Calle falsa 123'),
             ),
             const Divider(thickness: 2),
             Column(
               children: [
-                Builder(
-                  builder: (context) {
-                    return const ListTile(
-                      title:  Text(
-                        'Total',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      leading:  Icon(
-                        Icons.attach_money,
-                        color: Colors.black,
-                      ),
-                      trailing:  Text(
-                        '\$ 100.00',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    );
-                  }
-                ),
+                Builder(builder: (context) {
+                  return const ListTile(
+                    title: Text(
+                      'Total',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    leading: Icon(
+                      Icons.attach_money,
+                      color: Colors.black,
+                    ),
+                    trailing: Text(
+                      '\$ 100.00',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  );
+                }),
                 const ListTile(
                   title: Text(
                     'Envio',
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
@@ -272,7 +270,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                   ),
                   trailing: Text(
                     '\$ 50.00',
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.red),
@@ -332,96 +330,132 @@ class CheckOutPage extends GetView<CheckOutController> {
   Widget _buttonConfirmTakeAway(context) {
     final String data =
         "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
-    return Center(
-      child: TicketWidget(
-        width: 350.0,
-        height: 500.0,
-        isCornerRounded: true,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      children: [
+        Center(
+          child: TicketWidget(
+            width: 350.0,
+            height: 500.0,
+            isCornerRounded: true,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    width: 120.0,
-                    height: 25.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(width: 1.0, color: Colors.green),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Sucursal',
-                        style: const TextStyle(color: Colors.green),
-                      ),
-                    ),
-                  ),
                   Row(
-                    children: const <Widget>[
-                       Text(
-                        'Esperanza',
-                        style:  TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                       Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child:  Icon(
-                          Icons.location_on,
-                          color: Colors.pink,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: 120.0,
+                        height: 25.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          border: Border.all(width: 1.0, color: Colors.green),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Sucursal',
+                            style: const TextStyle(color: Colors.green),
+                          ),
                         ),
                       ),
+                      Row(
+                        children: const <Widget>[
+                          Text(
+                            'Esperanza',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Icon(
+                              Icons.location_on,
+                              color: Colors.pink,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      'Ticket de Compra',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: Column(
+                      children: <Widget>[
+                        ticketDetailsWidget('Numero de Pedido', '4568538',
+                            'Fecha', '24-12-2022'),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, right: 15.0),
+                          child: ticketDetailsWidget(
+                              'Descuento', '200', 'Cupon', '66BDFDC'),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, right: 40.0),
+                          child: ticketDetailsWidget(
+                              'Total a Pagar', '100', 'Puntos', '21'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Expanded(
+                          child: QrImage(
+                        data: data,
+                        gapless: true,
+                        size: 200,
+                        errorCorrectionLevel: QrErrorCorrectLevel.H,
+                      )),
+                    ),
                   )
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child:  Text(
-                  'Ticket de Compra',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: Column(
-                  children: <Widget>[
-                    ticketDetailsWidget(
-                        'Numero de Pedido', '4568538', 'Fecha', '24-12-2022'),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12.0, right: 15.0),
-                      child: ticketDetailsWidget(
-                          'Descuento', '\$200', 'Cupon', '66BDFDC'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12.0, right: 40.0),
-                      child: ticketDetailsWidget(
-                          'Total a Pagar', '\$100', 'Puntos', '21'),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Expanded(
-                      child: QrImage(
-                    data: data,
-                    gapless: true,
-                    size: 200,
-                    errorCorrectionLevel: QrErrorCorrectLevel.H,
-                  )),
-                ),
-              )
-            ],
+            ),
           ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
+            height: 60,
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton.icon(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color(0xFF43578d),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: const BorderSide(color: Colors.black)))),
+              icon: const Icon(
+                Icons.check,
+                size: 20,
+              ),
+              onPressed: () {
+                controller.toPickup();
+              },
+              label: const Text('Recoger Pedido',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white)),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -541,7 +575,7 @@ Widget _gifConfirm() {
             ),
           ),
           // nextScreen: const HomePage(),
-          nextScreen:  const MainPage(),
+          nextScreen: const MainPage(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: const Color(0xFFffffff)));
 }

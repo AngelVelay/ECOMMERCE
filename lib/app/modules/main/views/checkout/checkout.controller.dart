@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../entities/credit-card.dart';
+import '../../main.module.dart';
 import '../../services/address/address.contract.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 import '../tab-home/components/address-choose.widget.dart';
@@ -58,5 +59,9 @@ class CheckOutController extends GetxController {
         ],
       ),
     );
+  }
+
+  toPickup() {
+    Get.toNamed(MainRouting.PICKUP_ROUTE);
   }
 }

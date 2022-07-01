@@ -127,6 +127,13 @@ class ConfirmPagoPage extends GetView<HomeController> {
       () {
         return Column(
           children: [
+            const Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100.0),
+              child: Divider(
+                color: Colors.white,
+                thickness: 3,
+              ),
+            ),
             ListTile(
               title: Text(
                 'Subtotal',
@@ -139,7 +146,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
             ),
             ListTile(
               title: Text(
-                'Cupón de Descuento',
+                'Descuento',
                 style: Theme.of(context).textTheme.headline4,
               ),
               trailing: Text(
