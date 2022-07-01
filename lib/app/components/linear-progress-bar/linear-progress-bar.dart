@@ -10,9 +10,9 @@ class LinearProgressBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15),
       child: LinearPercentIndicator(
-        width: 300,
+        width: 200,
         animation: true,
-        lineHeight: 35.0,
+        lineHeight: 25.0,
         animationDuration: 2000,
         trailing: Text(trailing, style: TextStyle(fontWeight: FontWeight.bold)),
         // leading: Text(
@@ -20,7 +20,7 @@ class LinearProgressBar extends StatelessWidget {
         //   style: TextStyle(fontWeight: FontWeight.bold),
         // ),
         percent: 0.9,
-        center: Text("Nivel Oro",
+        center: const Text("Nivel Oro",
             style: TextStyle(
                 fontSize: 12,
                 color: Colors.white,

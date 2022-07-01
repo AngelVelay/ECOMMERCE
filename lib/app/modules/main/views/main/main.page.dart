@@ -19,7 +19,7 @@ class MainPage extends GetView<MainController> {
             Icon(Icons.grid_view, size: 30),
             Icon(Icons.credit_card, size: 30),
             Icon(Icons.place_outlined, size: 30),
-            Icon(Icons.person_outline_outlined, size: 30),
+            // Icon(Icons.person_outline_outlined, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.page.dart';
 
 import '../catalogos/catalogos.page.dart';
 import '../points/points.page.dart';
@@ -22,9 +23,9 @@ class MainController extends GetxController {
   final screens = [
     const HomePage(),
     const CatalogosPage(),
-    const PointsPage(),
-     UbicationsPage(),
-    const ProfilePage(),
+    const RewardsPage(),
+    const UbicationsPage(),
+    // const ProfilePage(),
   ];
 
   changeTab(int index) {

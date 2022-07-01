@@ -36,6 +36,7 @@ import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.co
 import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.page.dart';
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.page.dart';
+import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
@@ -69,6 +70,7 @@ class MainRouting {
   static const COUPONS_ROUTE = '/coupons';
   static const COUPON_DETAIL_ROUTE = '/coupon/detail';
   static const PICKUP_ROUTE = '/pickup';
+  static const REWARDS_ROUTE = '/rewards';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -134,6 +136,10 @@ class MainRouting {
       page: () => PickupPage(),
       binding: PickUpBinding(),
     ),
+    GetPage(
+        name: PROFILE_ROUTE,
+        page: () => ProfilePage(),
+        binding: ProfileBinding()),
   ];
 }
 
@@ -176,6 +182,10 @@ class MainBinding implements Bindings {
         CatalogosController(CatalogueFakeService(), ProductsFakeService()));
     Get.lazyPut<CheckOutController>(() =>
         CheckOutController(AddressFakeService(), CreditCardFakeService()));
+    Get.lazyPut<RewardsController>(
+        () => RewardsController(
+            authService, CouponsFakeService(), ReviewsFakeService()),
+        fenix: true);
   }
 
   @override
