@@ -11,138 +11,25 @@ class CatalogsListPage extends GetView<CatalogosListController> {
   Widget build(BuildContext context) {
     controller.category = category;
     controller.catalogList(context);
-    return Container(
-      color: const Color(0xff2222222),
-      child: SafeArea(
-        left: false,
-        right: false,
-        child: Scaffold(
+    return SafeArea(
+      left: false,
+      right: false,
+      child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(0XFF2222222),
             title: const Text('Catalogo de productos'),
           ),
-          // body: CustomScrollView(
-          //   slivers: <Widget>[
-          //     SliverFillRemaining(
-          //       child: Container(
-          //           // color: Color(0xff2222222),
-          //           padding: const EdgeInsets.only(top: 20),
-          //           child: SingleChildScrollView(
-          //             child: Column(children: [
-          //               _productList(context, controller, category),
-          //             ]),
-          //           )),
-          //     )
-          //   ],
-          // ),
-
-          // BARRA DE BUSQUEDA
-          body: CustomScrollView(
-            slivers: <Widget>[
-              SliverFillRemaining(
-                child: Container(
-
-                    // color: Color(0xff2222222),
-                    padding: const EdgeInsets.only(top: 20),
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        Form(
-                  child: Container(
-                      width: MediaQuery.of(context).size.width - 50,
-                      height: 50,
-                      child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed('/catalogs-list');
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFfffffff),
-                              border: Border.all(color: Colors.grey),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                            child: Row(children: const [
-                              SizedBox(width: 10),
-                              Icon(
-                                Icons.search,
-                                color: Colors.black54,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Buscar producto...',
-                                style: TextStyle(color: Colors.black54),
-                                // Theme.of(context).textTheme.headline2
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.food_bank,
-                                color: Colors.black54,
-                              ),
-                              SizedBox(width: 10),
-                            ]),
-                          ))),
-                ),
-                        _productList(context, controller, category),
-                      ]),
-                    )),
-              )
-            ],
-          ),
-
-          // body: SingleChildScrollView(
-          //   child: Column(
-          //     children: [
-
-          //       // Form(
-          //       //   child: Padding(
-          //       //     padding: const EdgeInsets.all(20.0),
-          //       //     child: Container(
-          //       //         decoration: BoxDecoration(
-          //       //           color: Color(0xFFfffffff),
-          //       //           borderRadius: BorderRadius.circular(20),
-          //       //         ),
-          //       //         width: MediaQuery.of(context).size.width - 50,
-          //       //         child: TextField(
-          //       //           cursorColor: Colors.black,
-          //       //           style: TextStyle(color: Colors.black),
-          //       //           decoration: InputDecoration(
-          //       //               hintText: 'Busca un producto',
-          //       //               floatingLabelBehavior:
-          //       //                   FloatingLabelBehavior.always,
-          //       //               border: OutlineInputBorder(
-          //       //                 borderRadius: BorderRadius.circular(20),
-          //       //                 borderSide: BorderSide(
-          //       //                   width: 2,
-          //       //                   color: Colors.black,
-          //       //                 ),
-          //       //               ),
-          //       //               focusedBorder: OutlineInputBorder(
-          //       //                 borderRadius: BorderRadius.circular(20),
-          //       //                 borderSide: BorderSide(
-          //       //                   width: 2,
-          //       //                   color: Colors.black,
-          //       //                 ),
-          //       //               ),
-          //       //               prefixIcon: Icon(
-          //       //                 Icons.search,
-          //       //                 color: Colors.black,
-          //       //               ),
-          //       //               suffixIcon:
-          //       //                   Icon(Icons.food_bank, color: Colors.black)),
-          //       //         )),
-          //       //   ),
-          //       // ),
-          //       _productList(context, controller, category),
-          //     ],
-          //   ),
-          // ),
-        ),
-      ),
+          body: SingleChildScrollView(
+            child: Column(children: <Widget>[
+              const SizedBox(height: 20),
+              _searchInput(context),
+              const SizedBox(height: 20),
+              _productList(context, category),
+            ]),
+          )),
     );
   }
 
-  Widget _searchInput(
-      BuildContext context, CatalogosListController controller) {
+  Widget _searchInput(BuildContext context) {
     return Positioned(
       right: 20,
       top: 50,
@@ -150,14 +37,14 @@ class CatalogsListPage extends GetView<CatalogosListController> {
         opacity: 0.5,
         child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFfffffff),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
             width: MediaQuery.of(context).size.width - 50,
             child: TextField(
-              // controller: controller.keywordCtrl,
-              // onEditingComplete: () => controller.search(context),
-              autofocus: true,
+              controller: controller.keywordCtrl,
+              onEditingComplete: () => controller.search(context),
+              // autofocus: true,
               cursorColor: Colors.black,
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
@@ -188,8 +75,7 @@ class CatalogsListPage extends GetView<CatalogosListController> {
   }
 
   // List
-  Widget _productList(
-      BuildContext context, CatalogosListController controller, category) {
+  Widget _productList(BuildContext context, category) {
     return SingleChildScrollView(
       child: Obx(() {
         return GridView.builder(

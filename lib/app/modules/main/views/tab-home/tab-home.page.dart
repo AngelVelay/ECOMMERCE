@@ -12,38 +12,34 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff222222),
-      child: SafeArea(
-        left: false,
-        right: false,
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: const Color(0xff222222),
-          body: CustomScrollView(
-            slivers: [
-              SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: HomeHeader(
-                  controller,
-                  expandedHeight: 170,
-                ),
+    return SafeArea(
+      left: false,
+      right: false,
+      bottom: false,
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              floating: true,
+              delegate: HomeHeader(
+                controller,
+                expandedHeight: 170,
               ),
-              SliverToBoxAdapter(
-                child: Column(children: [
-                  const SizedBox(height: 15),
+            ),
+            SliverToBoxAdapter(
+              child: Column(children: [
+                const SizedBox(height: 15),
 
-                  // _coupons(),
-                  _flyerList(),
-                  const HomeTopProducts(),
-                  const SizedBox(height: 15),
-                  const HomeFavoriteProducts(),
-                  const SizedBox(height: 70),
-                ]),
-              )
-            ],
-          ),
+                // _coupons(),
+                _flyerList(),
+                const HomeTopProducts(),
+                const SizedBox(height: 15),
+                const HomeFavoriteProducts(),
+                const SizedBox(height: 70),
+              ]),
+            )
+          ],
         ),
       ),
     );

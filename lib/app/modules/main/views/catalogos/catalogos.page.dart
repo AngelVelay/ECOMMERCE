@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'catagolos.controller.dart';
 
@@ -11,23 +9,15 @@ class CatalogosPage extends GetView<CatalogosController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff222222),
-      child: SafeArea(
-        bottom: false,
-        child: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-              appBar: AppBar(
-                 automaticallyImplyLeading: false,
-                backgroundColor: const Color(0xff2222222),
-                title: const Text('Tienda'),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: _tabBar(context, controller),
-              )),
-        ),
+    return SafeArea(
+      bottom: false,
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+            body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: _tabBar(context, controller),
+        )),
       ),
     );
   }
@@ -198,7 +188,6 @@ class CatalogosPage extends GetView<CatalogosController> {
               softWrap: false,
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white)),
-
         ],
       ),
     );
@@ -206,6 +195,7 @@ class CatalogosPage extends GetView<CatalogosController> {
 
   static _goTo(BuildContext context, String category) {
     // Navigator.pop(context);
-    Get.toNamed(MainRouting.CATALOGS_LIST_ROUTE, arguments: {"category": category});
+    Get.toNamed(MainRouting.CATALOGS_LIST_ROUTE,
+        arguments: {"category": category});
   }
 }
