@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/components/cart-controls.widget.dart';
 
 import '../../../entities/product.type.dart';
+import '../../catalogs_list/catagolos_list.controller.dart';
 import '../catagolos.controller.dart';
 
 class CatalogSearchPage extends GetView<CatalogosController> {
@@ -21,18 +22,18 @@ class CatalogSearchPage extends GetView<CatalogosController> {
         child: Scaffold(
           body: CustomScrollView(
             slivers: <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: CustomSliverDelegate(
-                  controller,
-                  expandedHeight: 80,
-                ),
-              ),
+              // SliverPersistentHeader(
+                // pinned: true,
+                // floating: true,
+                // delegate: CustomSliverDelegate(
+                  // controller,
+                  // expandedHeight: 80,
+                // ),
+              // ),
               SliverFillRemaining(
                   child: SingleChildScrollView(
                 child: Column(children: [
-                  _productList(context, controller),
+                  // _productList(context, controller),
                 ]),
               )),
             ],
@@ -49,7 +50,7 @@ class CatalogSearchPage extends GetView<CatalogosController> {
         return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: controller.findedProducts$.length,
+            itemCount: controller.catalogsList$.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 12.0,
@@ -57,7 +58,7 @@ class CatalogSearchPage extends GetView<CatalogosController> {
               childAspectRatio: 1,
             ),
             itemBuilder: (context, index) =>
-                _productItem(context, controller.findedProducts$[index]));
+                _productItem(context, controller.catalogsList$[index]));
       }),
     );
   }
@@ -169,8 +170,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             ),
             width: MediaQuery.of(context).size.width - 50,
             child: TextField(
-              controller: controller.keywordCtrl,
-              onEditingComplete: () => controller.search(context),
+              // controller: controller.keywordCtrl,
+              // onEditingComplete: () => controller.search(context),
               autofocus: true,
               cursorColor: Colors.black,
               style: const TextStyle(color: Colors.black),

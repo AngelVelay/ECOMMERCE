@@ -24,7 +24,7 @@ class CatalogueFakeService implements ICatalogueService {
     ),
     Catalogue(
       id: 4,
-      name: 'Pan Artesanal',
+      name: 'Pan',
       image:
           'https://phantom-elmundo.unidadeditorial.es/a01aaaa7dd38471dbdcd5607bdcc631d/resize/414/f/jpg/assets/multimedia/imagenes/2020/07/08/15942185940528.jpg',
     ),

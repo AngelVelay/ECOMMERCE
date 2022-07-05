@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:custom_info_window/custom_info_window.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_style.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
+// import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 
 class UbicationsController extends GetxController {
+  CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
   var ubications = [];
   Set<Marker> allMarkers = <Marker>{}.obs;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{}.obs;
@@ -60,6 +65,7 @@ class UbicationsController extends GetxController {
                 double.parse(element['longitude']));
           },
         ),
+
       ));
       contador++;
     });

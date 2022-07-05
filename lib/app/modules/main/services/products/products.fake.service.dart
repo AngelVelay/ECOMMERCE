@@ -13,6 +13,7 @@ class ProductsFakeService implements IProductsService {
       isFavorite: false,
       topRate: 0,
       points: 50,
+      category: "Pan"
     ),
     Product(
       id: 2,
@@ -24,6 +25,8 @@ class ProductsFakeService implements IProductsService {
       isFavorite: true,
       topRate: 4,
       points: 65,
+      category: "Pan"
+
     ),
     Product(
       id: 3,
@@ -35,6 +38,7 @@ class ProductsFakeService implements IProductsService {
       isFavorite: false,
       topRate: 1,
       points: 14,
+      category: "Pan"
     ),
     Product(
       id: 4,
@@ -46,6 +50,7 @@ class ProductsFakeService implements IProductsService {
       isFavorite: false,
       topRate: 3,
       points: 32,
+      category: "Pasteleria"
     ),
     Product(
       id: 5,
@@ -57,6 +62,43 @@ class ProductsFakeService implements IProductsService {
       isFavorite: true,
       topRate: 2,
       points: 21,
+      category: "Pasteleria"
+    ),
+    Product(
+      id: 3,
+      url:
+          'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/mantecada-0401739096921747.jpg',
+      name: 'MANTECADA VAINILLA',
+      price: 80.00,
+      cartValue: 0,
+      isFavorite: false,
+      topRate: 1,
+      points: 14,
+      category: "Pan"
+    ),
+    Product(
+      id: 4,
+      url:
+          'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/supremo-chocolate-0145492964491943.jpg',
+      name: 'SUPREMO DE CHOCOLATE',
+      price: 10,
+      cartValue: 0,
+      isFavorite: false,
+      topRate: 3,
+      points: 32,
+      category: "Pasteleria"
+    ),
+    Product(
+      id: 5,
+      url:
+          'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/mms-00650849812967167.jpg',
+      name: 'M&M\'S',
+      price: 40,
+      cartValue: 0,
+      isFavorite: true,
+      topRate: 2,
+      points: 21,
+      category: "Pasteleria"
     )
   ];
 
