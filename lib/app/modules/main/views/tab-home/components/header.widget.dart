@@ -280,7 +280,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           const SizedBox(width: 10),
           Text(
             controller.selectedAddress$.value.id != 0
-                ? 'CP. ${controller.selectedAddress$.value.zipcode}'
+                ? 'CP. ${controller.selectedAddress$.value.zipCode}'
                 : 'Agregar domicilio',
             style: const TextStyle(fontSize: 15, color: Colors.white),
           ),

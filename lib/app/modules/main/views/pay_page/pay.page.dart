@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
-import '../../../../components/custom_input/custom_input.dart';
+import 'package:jexpoints/app/components/custom_input/custom_input.dart';
 
 class PayPage extends GetView<PayController> {
   @override
@@ -34,7 +31,7 @@ class PayPage extends GetView<PayController> {
                       _buildTitleSection(
                           title: "Agrega una nueva tarjeta", subTitle: ""),
                       _buildCreditCard(
-                          color: Color(0xFF000000),
+                          color: const Color(0xFF000000),
                           cardExpiration: controller.cardExpiration$.value,
                           cardHolder: controller.cardHolder$.value,
                           cardNumber: controller.cardNumber$.value),
@@ -57,7 +54,7 @@ class PayPage extends GetView<PayController> {
           padding: const EdgeInsets.only(left: 8.0, top: 16.0),
           child: Text(
             '$title',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
@@ -65,7 +62,7 @@ class PayPage extends GetView<PayController> {
           padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
           child: Text(
             '$subTitle',
-            style: TextStyle(fontSize: 21, color: Colors.white),
+            style: const TextStyle(fontSize: 21, color: Colors.white),
           ),
         )
       ],

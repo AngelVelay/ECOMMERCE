@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 
-import '../../../entities/location.type.dart';
+import '../../../entities/address.type.dart';
 import '../tab-home.controller.dart';
 import 'address-add.widget.dart';
 
@@ -38,7 +38,7 @@ class HomeAddressSelect extends GetView<HomeController> {
         },
       ),
       const SizedBox(width: 10),
-      Text('${item.street} No.${item.number}, CP. ${item.zipcode}'),
+      Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipCode}'),
     ]);
   }
 

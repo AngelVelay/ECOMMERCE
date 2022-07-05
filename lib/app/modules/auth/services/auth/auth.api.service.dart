@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/branch.type.dart';
+import 'package:jexpoints/app/modules/auth/entities/membership.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/security_token.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/signin.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/signup.type.dart';
@@ -78,7 +79,8 @@ class AuthApiService extends BaseService implements IAuthService {
         isActive: true,
         username: registrationUser.email,
         passwordSalt: '',
-        id: 0);
+        id: 0,
+        membership: Membership.fromVoid());
     user?.code = '12345';
     return user;
   }

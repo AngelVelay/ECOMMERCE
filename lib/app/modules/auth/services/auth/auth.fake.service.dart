@@ -3,6 +3,7 @@ import 'package:jexpoints/app/core/data/services/base-service.service.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/branch.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/employee.type.dart';
+import 'package:jexpoints/app/modules/auth/entities/membership.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/signup.type.dart';
 import '../../entities/user.type.dart';
 import 'auth.contract.dart';
@@ -21,7 +22,14 @@ class AuthFakeService extends BaseService implements IAuthService {
             email: 'jcarballido@jexbit.mx',
             name: 'Angel Velay',
             isActive: true,
-            isBySystem: false))
+            isBySystem: false),
+        membership: Membership(
+            cardNumber: '5645891265893212',
+            levelName: 'Oro',
+            points: 44,
+            nextLevel: 'Platino',
+            nextLevelPoints: 23,
+            levelPercentage: 0.8))
   ];
 
   AuthFakeService() : super('');
@@ -58,7 +66,8 @@ class AuthFakeService extends BaseService implements IAuthService {
         username: registrationUser.email,
         passwordSalt: '',
         phoneNumber: registrationUser.phoneNumber,
-        id: 0);
+        id: 0,
+        membership: Membership.fromVoid());
     user?.code = '12345';
     return user;
   }

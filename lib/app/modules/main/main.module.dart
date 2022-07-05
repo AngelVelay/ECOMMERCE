@@ -12,6 +12,9 @@ import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.d
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.controller.dart';
 import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.page.dart';
+import 'package:jexpoints/app/modules/main/views/address-detail/address-detail.page.dart';
+import 'package:jexpoints/app/modules/main/views/address/address.controller.dart';
+import 'package:jexpoints/app/modules/main/views/address/address.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
 import 'package:jexpoints/app/modules/main/views/checkout/checkout.controller.dart';
@@ -28,6 +31,8 @@ import 'package:jexpoints/app/modules/main/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.page.dart';
+import 'package:jexpoints/app/modules/main/views/payment-methods/payment-methods.controller.dart';
+import 'package:jexpoints/app/modules/main/views/payment-methods/payment-methods.page.dart';
 import 'package:jexpoints/app/modules/main/views/pickup-cart/pickup-cart.page.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.controller.dart';
 import 'package:jexpoints/app/modules/main/views/points/points.page.dart';
@@ -37,6 +42,7 @@ import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.pa
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.page.dart';
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.controller.dart';
+import 'package:jexpoints/app/modules/main/views/terms/terms.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.controller.dart';
 import 'package:jexpoints/app/modules/main/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/ubications.controller.dart';
@@ -46,6 +52,7 @@ import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
+import 'views/address-detail/address-detail.controller.dart';
 import 'views/coupons/coupons.page.dart';
 import 'views/pickup-cart/pickup-cart.controller.dart';
 
@@ -71,6 +78,10 @@ class MainRouting {
   static const COUPON_DETAIL_ROUTE = '/coupon/detail';
   static const PICKUP_ROUTE = '/pickup';
   static const REWARDS_ROUTE = '/rewards';
+  static const ADDRESS_ROUTE = '/address';
+  static const ADDRESS_DETAIL_ROUTE = '/address-detail';
+  static const PAYMENT_METHODS_ROUTE = '/payment-methods';
+  static const TERMS_ROUTE = '/terms';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -140,6 +151,19 @@ class MainRouting {
         name: PROFILE_ROUTE,
         page: () => ProfilePage(),
         binding: ProfileBinding()),
+    GetPage(
+        name: ADDRESS_ROUTE,
+        page: () => AddressPage(),
+        binding: AddressBinding()),
+    GetPage(
+        name: ADDRESS_DETAIL_ROUTE,
+        page: () => const AddressDetailPage(),
+        binding: AddressDetailBinding()),
+    GetPage(
+        name: PAYMENT_METHODS_ROUTE,
+        page: () => PaymentMethodsPage(),
+        binding: PaymentMethodsBinding()),
+    GetPage(name: TERMS_ROUTE, page: () => TermsPage())
   ];
 }
 
@@ -182,9 +206,7 @@ class MainBinding implements Bindings {
         CatalogosController(CatalogueFakeService(), ProductsFakeService()));
     Get.lazyPut<CheckOutController>(() =>
         CheckOutController(AddressFakeService(), CreditCardFakeService()));
-    Get.lazyPut<RewardsController>(
-        () => RewardsController(
-            authService, CouponsFakeService(), ReviewsFakeService()),
+    Get.lazyPut<RewardsController>(() => RewardsController(authService),
         fenix: true);
   }
 
@@ -321,5 +343,29 @@ class PickUpBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PickUpController>(() => PickUpController());
+  }
+}
+
+class AddressBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AddressController>(
+        () => AddressController(AddressFakeService()));
+  }
+}
+
+class AddressDetailBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AddressDetailController>(
+        () => AddressDetailController(AddressFakeService()));
+  }
+}
+
+class PaymentMethodsBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PaymentMethodsController>(
+        () => PaymentMethodsController(CreditCardFakeService()));
   }
 }

@@ -1,38 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:jexpoints/app/modules/main/views/consume/components/consume-search.page.dart';
-
-import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
-import '../../../../components/map_ubication/map_ubication.dart';
 import '../../entities/my-shopping.type.dart';
-import '../profile/profile.page.dart';
-import 'components/timeline.dart';
 import 'consume.controller.dart';
 
 class ConsumePage extends GetView<ConsumeController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Color(0xff2222222),
-        child: SafeArea(
-          left: false,
-          right: false,
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('Mis Compras'),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () =>
-                      showSearch(context: context, delegate: ConsumeSerarch()),
-                )
-              ],
-              backgroundColor: Color(0xff2222222),
-            ),
-            body: consumeInfo(),
-          ),
-        ));
+    return SafeArea(
+      top: false,
+      left: false,
+      right: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Mis Compras'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () =>
+                  showSearch(context: context, delegate: ConsumeSerarch()),
+            )
+          ],
+        ),
+        body: consumeInfo(),
+      ),
+    );
   }
 }
 

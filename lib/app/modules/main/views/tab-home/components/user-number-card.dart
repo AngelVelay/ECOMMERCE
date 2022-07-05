@@ -1,12 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../../../../../components/button-qr-generate/button-qr-generate.dart';
 
 // ignore: camel_case_types
@@ -16,7 +10,7 @@ class userCardNumber extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.95,
+      width: MediaQuery.of(context).size.width - 20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,7 +34,7 @@ Column _buildTitleSection({@required title, @required subTitle}) {
         padding: const EdgeInsets.only(left: 8.0, top: 16.0),
         child: Text(
           '$title',
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
@@ -68,8 +62,8 @@ Widget _buildCreditCard(BuildContext context,
       borderRadius: BorderRadius.circular(14),
     ),
     child: Container(
-      height: 229,
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 22.0),
+      height: 200,
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,8 +74,8 @@ Widget _buildCreditCard(BuildContext context,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Numero de Usuario',
+                const Text(
+                  'Número',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 10,
@@ -89,8 +83,8 @@ Widget _buildCreditCard(BuildContext context,
                   ),
                 ),
                 Text(
-                  '$cardNumber',
-                  style: TextStyle(
+                  cardNumber,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 21,
                   ),
@@ -121,14 +115,14 @@ Row _buildLogosBlock() {
     children: <Widget>[
       Image.asset(
         "assets/images/logo_esperanza.png",
-        height: 80,
+        height: 60,
         width: 150,
       ),
-      Image.asset(
-        "assets/images/splash.gif",
-        height: 60,
-        width: 80,
-      ),
+      // Image.asset(
+      //   "assets/images/splash.gif",
+      //   height: 60,
+      //   width: 80,
+      // ),
     ],
   );
 }
@@ -139,13 +133,13 @@ Column _buildDetailsBlock({required String label, required String value}) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text(
-        '$label',
-        style: TextStyle(
+        label,
+        style: const TextStyle(
             color: Colors.grey, fontSize: 10, fontWeight: FontWeight.bold),
       ),
       Text(
-        '$value',
-        style: TextStyle(
+        value,
+        style: const TextStyle(
             color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
       )
     ],
@@ -154,13 +148,12 @@ Column _buildDetailsBlock({required String label, required String value}) {
 
 Widget _qrCode(BuildContext context) {
   return Container(
-      padding: const EdgeInsets.only(left: 20),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-        ButtonQRScanner(
-          height: 50,
-          width: 50,
-          title: '',
-          color: Colors.white,
-        )
-      ]));
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
+    ButtonQRScanner(
+      height: 50,
+      width: 50,
+      title: '',
+      color: Colors.white,
+    )
+  ]));
 }

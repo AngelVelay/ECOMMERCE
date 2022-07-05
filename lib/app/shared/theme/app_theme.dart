@@ -23,10 +23,8 @@ final ThemeData appTheme = ThemeData(
       headline5: TextStyle(fontSize: 15.0, color: Colors.white),
       headline6: TextStyle(
           fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
-      bodyText1:
-          TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.white),
-      bodyText2:
-          TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
+      bodyText1: TextStyle(fontSize: 14.0, color: Colors.white),
+      bodyText2: TextStyle(fontSize: 14.0, color: Colors.black),
       subtitle1: TextStyle(
           fontSize: 15.0, color: Colors.white, fontWeight: FontWeight.bold),
     ),

@@ -40,6 +40,18 @@ class PayController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    var args = Get.arguments;
+    var card = CreditCard(
+        id: 0,
+        color: Colors.white,
+        cardNumber: '',
+        cardHolder: '',
+        cardExpiration: '',
+        cvv: '',
+        isDefault: false);
+    if (args != null) {
+      card = args[0];
+    }
 
     cardNumber.addListener(() {
       cardNumber$.value = cardNumber.text;

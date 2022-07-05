@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:jexpoints/app/core/data/entities/IEntityBase.dart';
+import 'package:jexpoints/app/modules/auth/entities/membership.type.dart';
 
 import 'employee.type.dart';
 
@@ -10,6 +11,7 @@ class User {
     required this.username,
     required this.passwordSalt,
     required this.id,
+    required this.membership,
     this.employeeId,
     this.employee,
     this.phoneNumber,
@@ -24,6 +26,7 @@ class User {
   String? employeeId;
   Employee? employee;
   String? code;
+  Membership? membership;
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
 
@@ -37,6 +40,7 @@ class User {
         employee: json["employee"] == null
             ? null
             : Employee.fromJson(json["employee"]),
+        membership: Membership.fromJson(json["membership"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,6 +52,7 @@ class User {
         "employeeId": employeeId,
         "employee":
             employee == null ? null : Employee.fromJson(employee!.toJson()),
+        "membership": Membership.fromJson(membership!.toJson()),
       };
 
   factory User.fromVoid() => User(
@@ -55,7 +60,8 @@ class User {
       isActive: false,
       username: '',
       passwordSalt: '',
-      id: 0);
+      id: 0,
+      membership: Membership.fromVoid());
 
   // @override
   // Future<User> fromRawJson<User>(String str) async =>
