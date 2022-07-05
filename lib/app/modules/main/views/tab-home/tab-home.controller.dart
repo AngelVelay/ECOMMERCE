@@ -15,6 +15,7 @@ import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search
 import '../../entities/coupon.type.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 import '../../services/products/products.contract.dart';
+import '../catalogs_list/catalogs_list.page.dart';
 
 class HomeController extends GetxController {
   final IProductsService productsService;
@@ -40,6 +41,8 @@ class HomeController extends GetxController {
   late var defaultCoupon$ = Coupon.fromVoid().obs;
   late double total$ = 0.0;
   late double subtotal$ = 0.0;
+  var category = "";
+
 
   HomeController(this.productsService, this.authService, this.flyersService,
       this.addressService, this.couponsService, this.creditCardService);

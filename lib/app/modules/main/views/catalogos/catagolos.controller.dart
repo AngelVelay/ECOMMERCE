@@ -14,11 +14,9 @@ class CatalogosController extends GetxController {
   final ICatalogueService catalogoService;
   final IProductsService productsService;
 
-  final keywordCtrl = TextEditingController();
-
   late var catalogueList$ = <Catalogue>[].obs;
-  late var catalogueList1$ = <Catalogue>[].obs;
-  late var findedProducts$ = <Product>[].obs;
+  late var catalogueListSantoGallo$ = <Catalogue>[].obs;
+  late var catalogsList$ = <Product>[].obs;
 
   CatalogosController(this.catalogoService, this.productsService);
 
@@ -26,19 +24,14 @@ class CatalogosController extends GetxController {
   void onInit() async {
     super.onInit();
     catalogueList$.value = await catalogoService.get();
-    catalogueList1$.value = await catalogoService.getSantoGallo();
+    catalogueListSantoGallo$.value = await catalogoService.getSantoGallo();
   }
 
-  toSearch(CatalogosController controller) {
-    Get.to(() => CatalogSearchPage(controller));
+    catalogList(BuildContext context) async {
+    catalogsList$.value = await productsService.catalogsList();
   }
 
-  search(BuildContext context) async {
-    findedProducts$.value = await productsService.search(keywordCtrl.text);
-    FocusScope.of(context).unfocus();
-  }
-
-  toProductDetail(Product item) {
+    toProductDetail(Product item) {
     Get.toNamed(MainRouting.DETAIL_ROUTE, arguments: {
       'url': item.url,
       'name': item.name,

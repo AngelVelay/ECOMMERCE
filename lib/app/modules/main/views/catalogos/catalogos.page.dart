@@ -1,12 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'catagolos.controller.dart';
+
 class CatalogosPage extends GetView<CatalogosController> {
   const CatalogosPage({Key? key}) : super(key: key);
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff222222),
       child: SafeArea(
@@ -15,6 +19,7 @@ class CatalogosPage extends GetView<CatalogosController> {
           length: 2,
           child: Scaffold(
               appBar: AppBar(
+                 automaticallyImplyLeading: false,
                 backgroundColor: const Color(0xff2222222),
                 title: const Text('Tienda'),
               ),
@@ -27,13 +32,13 @@ class CatalogosPage extends GetView<CatalogosController> {
     );
   }
 
-    Widget _tabBar(context, controller) {
+  Widget _tabBar(context, controller) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            height: 60,
+            height: 30,
             decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(25.0)),
@@ -44,10 +49,10 @@ class CatalogosPage extends GetView<CatalogosController> {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.black,
               tabs: const [
-                 Tab(
+                Tab(
                   text: 'Esperanza',
                 ),
-                 Tab(
+                Tab(
                   text: 'Santo Gallo',
                 ),
               ],
@@ -57,10 +62,10 @@ class CatalogosPage extends GetView<CatalogosController> {
         Expanded(
             child: TabBarView(
           children: [
-               Center(
-                child: _ListCatalogue(context, controller),
-              ),
-             Center(child: _ListCatalogue1(context, controller)),
+            Center(
+              child: _ListCatalogue(context, controller),
+            ),
+            Center(child: _ListCatalogue1(context, controller)),
           ],
         ))
       ],
@@ -75,23 +80,23 @@ class CatalogosPage extends GetView<CatalogosController> {
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Obx((() {
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.catalogueList$.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 1,
-                    ),
-                    itemBuilder: (context, index) => _ListItemCatalogue(
-                        context, controller.catalogueList$[index]));
-              })),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Obx((() {
+              return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.catalogueList$.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12.0,
+                    crossAxisSpacing: 10.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) => _ListItemCatalogue(
+                      context, controller.catalogueList$[index]));
+            })),
+          ),
         ),
       ),
     ]);
@@ -99,9 +104,9 @@ class CatalogosPage extends GetView<CatalogosController> {
 
   static Widget _ListItemCatalogue(BuildContext context, dynamic product) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/catalogs-list');
-      },
+      onTap:
+          // Navigator.pushNamed(context, '/catalogs-list');
+          () => _goTo(context, product.name),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -115,7 +120,8 @@ class CatalogosPage extends GetView<CatalogosController> {
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage(
                   fit: BoxFit.cover,
-                  placeholder: NetworkImage(product.image),
+                  placeholder: const NetworkImage(
+                      'https://tenor.com/view/loading-gif-9212724.gif'),
                   image: NetworkImage(product.image),
                 ),
               ),
@@ -133,9 +139,7 @@ class CatalogosPage extends GetView<CatalogosController> {
     );
   }
 
-
-
-static Widget _ListCatalogue1(
+  static Widget _ListCatalogue1(
       BuildContext context, CatalogosController controller) {
     return Column(children: [
       SizedBox(
@@ -143,23 +147,23 @@ static Widget _ListCatalogue1(
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Obx((() {
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.catalogueList1$.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 1,
-                    ),
-                    itemBuilder: (context, index) => _ListItemCatalogue1(
-                        context, controller.catalogueList1$[index]));
-              })),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Obx((() {
+              return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.catalogueListSantoGallo$.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12.0,
+                    crossAxisSpacing: 10.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) => _ListItemCatalogue1(
+                      context, controller.catalogueListSantoGallo$[index]));
+            })),
+          ),
         ),
       ),
     ]);
@@ -173,9 +177,7 @@ static Widget _ListCatalogue1(
       child: Column(
         children: [
           GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/catalogs-list');
-      },
+            onTap: () => _goTo(context, product.name),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Stack(children: [
@@ -196,13 +198,14 @@ static Widget _ListCatalogue1(
               softWrap: false,
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white)),
+
         ],
       ),
     );
-
   }
 
-
-
-  
+  static _goTo(BuildContext context, String category) {
+    // Navigator.pop(context);
+    Get.toNamed(MainRouting.CATALOGS_LIST_ROUTE, arguments: {"category": category});
+  }
 }

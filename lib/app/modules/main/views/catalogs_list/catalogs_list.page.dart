@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import '../../entities/product.type.dart';
-import '../tab-home/tab-home.controller.dart';
+import 'catagolos_list.controller.dart';
 
-class CatalogsListPage extends GetView<HomeController> {
+class CatalogsListPage extends GetView<CatalogosListController> {
+  var category = Get.arguments['category'];
+
   @override
   Widget build(BuildContext context) {
+    controller.category = category;
     controller.catalogList(context);
     return Container(
       color: const Color(0xff2222222),
@@ -18,33 +21,181 @@ class CatalogsListPage extends GetView<HomeController> {
             backgroundColor: Color(0XFF2222222),
             title: const Text('Catalogo de productos'),
           ),
+          // body: CustomScrollView(
+          //   slivers: <Widget>[
+          //     SliverFillRemaining(
+          //       child: Container(
+          //           // color: Color(0xff2222222),
+          //           padding: const EdgeInsets.only(top: 20),
+          //           child: SingleChildScrollView(
+          //             child: Column(children: [
+          //               _productList(context, controller, category),
+          //             ]),
+          //           )),
+          //     )
+          //   ],
+          // ),
+
+          // BARRA DE BUSQUEDA
           body: CustomScrollView(
             slivers: <Widget>[
               SliverFillRemaining(
                 child: Container(
+
                     // color: Color(0xff2222222),
                     padding: const EdgeInsets.only(top: 20),
                     child: SingleChildScrollView(
                       child: Column(children: [
-                        _productList(context, controller),
+                        Form(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width - 50,
+                      height: 50,
+                      child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/catalogs-list');
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFfffffff),
+                              border: Border.all(color: Colors.grey),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            child: Row(children: const [
+                              SizedBox(width: 10),
+                              Icon(
+                                Icons.search,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Buscar producto...',
+                                style: TextStyle(color: Colors.black54),
+                                // Theme.of(context).textTheme.headline2
+                              ),
+                              Spacer(),
+                              Icon(
+                                Icons.food_bank,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(width: 10),
+                            ]),
+                          ))),
+                ),
+                        _productList(context, controller, category),
                       ]),
                     )),
               )
             ],
           ),
+
+          // body: SingleChildScrollView(
+          //   child: Column(
+          //     children: [
+
+          //       // Form(
+          //       //   child: Padding(
+          //       //     padding: const EdgeInsets.all(20.0),
+          //       //     child: Container(
+          //       //         decoration: BoxDecoration(
+          //       //           color: Color(0xFFfffffff),
+          //       //           borderRadius: BorderRadius.circular(20),
+          //       //         ),
+          //       //         width: MediaQuery.of(context).size.width - 50,
+          //       //         child: TextField(
+          //       //           cursorColor: Colors.black,
+          //       //           style: TextStyle(color: Colors.black),
+          //       //           decoration: InputDecoration(
+          //       //               hintText: 'Busca un producto',
+          //       //               floatingLabelBehavior:
+          //       //                   FloatingLabelBehavior.always,
+          //       //               border: OutlineInputBorder(
+          //       //                 borderRadius: BorderRadius.circular(20),
+          //       //                 borderSide: BorderSide(
+          //       //                   width: 2,
+          //       //                   color: Colors.black,
+          //       //                 ),
+          //       //               ),
+          //       //               focusedBorder: OutlineInputBorder(
+          //       //                 borderRadius: BorderRadius.circular(20),
+          //       //                 borderSide: BorderSide(
+          //       //                   width: 2,
+          //       //                   color: Colors.black,
+          //       //                 ),
+          //       //               ),
+          //       //               prefixIcon: Icon(
+          //       //                 Icons.search,
+          //       //                 color: Colors.black,
+          //       //               ),
+          //       //               suffixIcon:
+          //       //                   Icon(Icons.food_bank, color: Colors.black)),
+          //       //         )),
+          //       //   ),
+          //       // ),
+          //       _productList(context, controller, category),
+          //     ],
+          //   ),
+          // ),
         ),
       ),
     );
   }
 
+  Widget _searchInput(
+      BuildContext context, CatalogosListController controller) {
+    return Positioned(
+      right: 20,
+      top: 50,
+      child: Opacity(
+        opacity: 0.5,
+        child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFfffffff),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            width: MediaQuery.of(context).size.width - 50,
+            child: TextField(
+              // controller: controller.keywordCtrl,
+              // onEditingComplete: () => controller.search(context),
+              autofocus: true,
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                  hintText: 'Ingresa una palabra',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  suffixIcon: const Icon(Icons.food_bank, color: Colors.black)),
+            )),
+      ),
+    );
+  }
+
   // List
-  Widget _productList(BuildContext context, HomeController controller) {
+  Widget _productList(
+      BuildContext context, CatalogosListController controller, category) {
     return SingleChildScrollView(
       child: Obx(() {
         return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: controller.catalogsList$.length,
+            itemCount: controller.findedProducts$.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 12.0,
@@ -52,7 +203,7 @@ class CatalogsListPage extends GetView<HomeController> {
               childAspectRatio: 1,
             ),
             itemBuilder: (context, index) =>
-                _productItem(context, controller.catalogsList$[index]));
+                _productItem(context, controller.findedProducts$[index]));
       }),
     );
   }

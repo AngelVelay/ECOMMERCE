@@ -16,6 +16,7 @@ import 'package:jexpoints/app/modules/main/views/address-detail/address-detail.p
 import 'package:jexpoints/app/modules/main/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/views/address/address.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
+import 'package:jexpoints/app/modules/main/views/catalogs_list/catagolos_list.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
 import 'package:jexpoints/app/modules/main/views/checkout/checkout.controller.dart';
 import 'package:jexpoints/app/modules/main/views/checkout/checkout.page.dart';
@@ -129,7 +130,7 @@ class MainRouting {
     GetPage(
         name: CATALOGS_LIST_ROUTE,
         page: () => CatalogsListPage(),
-        binding: ConfirmPagodBinding()),
+        binding: CatalogsListBinding()),
     GetPage(
         name: CHECKOUT_ROUTE,
         page: () => CheckOutPage(),
@@ -208,6 +209,8 @@ class MainBinding implements Bindings {
         CheckOutController(AddressFakeService(), CreditCardFakeService()));
     Get.lazyPut<RewardsController>(() => RewardsController(authService),
         fenix: true);
+    Get.lazyPut<CatalogosListController>(() =>
+        CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
   }
 
   @override
@@ -312,7 +315,7 @@ class ConfirmPagodBinding implements Bindings {
 class CatalogsListBinding implements Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<CatalogosListController>(() => CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
   }
 }
 

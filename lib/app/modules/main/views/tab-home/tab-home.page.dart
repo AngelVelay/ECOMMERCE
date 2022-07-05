@@ -39,7 +39,7 @@ class HomePage extends GetView<HomeController> {
                   const HomeTopProducts(),
                   const SizedBox(height: 15),
                   const HomeFavoriteProducts(),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 70),
                 ]),
               )
             ],
