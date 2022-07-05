@@ -39,12 +39,16 @@ class UbicationsPage extends GetView<UbicationsController> {
                     onTap: (position) {
                       _customInfoWindowController.hideInfoWindow!();
                     },
+                    compassEnabled: false,
                     onCameraMove: (position){
                       _customInfoWindowController.onCameraMove!();
                     },
                     // onMapCreated: controller.onMapCreated);
                     onMapCreated: (GoogleMapController controller) {
                       _customInfoWindowController.googleMapController = controller;
+
+// showInfoWindows();
+
                     });
               } else {
                 return const Center(
@@ -53,12 +57,13 @@ class UbicationsPage extends GetView<UbicationsController> {
               }
             }),
           ),
-          CustomInfoWindow(
-            controller: _customInfoWindowController,
-            height: 100,
-            width: 300,
-            offset: 35,
-          ),
         ]));
   }
+
+  showInfoWindows(){
+
+
+  }
+
+
 }

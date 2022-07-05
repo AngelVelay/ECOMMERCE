@@ -52,7 +52,7 @@ class CatalogsListPage extends GetView<CatalogosListController> {
                       height: 50,
                       child: GestureDetector(
                           onTap: () {
-                            // Get.toNamed('/search');
+                            Get.toNamed('/catalogs-list');
                           },
                           child: Container(
                             decoration: BoxDecoration(

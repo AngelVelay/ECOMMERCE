@@ -6,11 +6,17 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_style.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 // import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 
-class UbicationsController extends GetxController {
+class MapPage extends StatefulWidget {
+  @override
+  UbicationsController createState() => UbicationsController();
+}
+
+class UbicationsController extends State<MapPage> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   var ubications = [];
@@ -21,8 +27,13 @@ class UbicationsController extends GetxController {
   var isLoading = false.obs;
 
   @override
-  void onInit() {
-    super.onInit();
+  // void onInit() {
+  //   super.onInit();
+  //   fetchPost();
+  // }
+
+  void initState() {
+    super.initState();
     fetchPost();
   }
 
@@ -52,22 +63,30 @@ class UbicationsController extends GetxController {
               .buffer
               .asUint8List();
 
-      allMarkers.add(Marker(
-        markerId: MarkerId(contador.toString()),
-        position: LatLng(double.parse(element['latitude']),
-            double.parse(element['longitude'])),
-        icon: BitmapDescriptor.fromBytes(bytes),
-        infoWindow: InfoWindow(
-          title: element['name'],
-          snippet: element['description'],
-          onTap: () async {
-            MapUtils.openMap(double.parse(element['latitude']),
-                double.parse(element['longitude']));
-          },
-        ),
+      setState() {
+        allMarkers.add(Marker(
+          markerId: MarkerId(contador.toString()),
+          position: LatLng(double.parse(element['latitude']),
+              double.parse(element['longitude'])),
+          icon: BitmapDescriptor.fromBytes(bytes),
+          infoWindow: InfoWindow(
+            title: element['name'],
+            snippet: element['description'],
+            onTap: () async {
+              MapUtils.openMap(double.parse(element['latitude']),
+                  double.parse(element['longitude']));
+            },
+          ),
+        ));
+      }
 
-      ));
       contador++;
     });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
