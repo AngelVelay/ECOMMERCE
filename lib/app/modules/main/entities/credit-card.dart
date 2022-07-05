@@ -26,7 +26,7 @@ class CreditCard {
   bool isDefault;
 
   factory CreditCard.fromVoid() => CreditCard(
-        id: 1,
+        id: 0,
         color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
             .withOpacity(1.0),
         cardNumber: '',

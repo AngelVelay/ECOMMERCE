@@ -13,6 +13,8 @@ import 'views/password/password.controller.dart';
 import 'views/recovery/recovery.controller.dart';
 import 'views/signup/signup.controller.dart';
 import 'views/signup/signup.page.dart';
+import 'views/user-detail/user-detail.controller.dart';
+import 'views/user-detail/user-detail.page.dart';
 import 'views/verification/verification.page.dart';
 
 class AuthRouting {
@@ -22,12 +24,13 @@ class AuthRouting {
   static const SIGNUP_SUCCESS_ROUTE = '/signup-success';
   static const SPLASH_ROUTE = '/splash';
   static const PASSWORD_ROUTE = '/password';
+  static const USER_DETAILS_ROUTE = '/user-details';
 
   static final IAuthService authService = AuthFakeService();
 
   static final routes = [
     GetPage(name: LOGIN_ROUTE, page: () => LoginPage(), binding: AuthBinding()),
-    GetPage(name: SIGNUP_ROUTE, page: () => SignupPage()),
+    GetPage(name: SIGNUP_ROUTE, page: () => const SignupPage()),
     GetPage(name: VERIFICATION_ROUTE, page: () => VerificationPage()),
     GetPage(name: SPLASH_ROUTE, page: () => const SplashPage()),
     GetPage(name: SIGNUP_SUCCESS_ROUTE, page: () => const SignupSuccessPage()),
@@ -35,6 +38,10 @@ class AuthRouting {
         name: PASSWORD_ROUTE,
         page: () => const PasswordPage(),
         binding: PasswordBinding()),
+    GetPage(
+        name: USER_DETAILS_ROUTE,
+        page: () => const UserDetailPage(),
+        binding: UserDetailsBinding()),
   ];
 }
 
@@ -59,5 +66,13 @@ class PasswordBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<PasswordController>(
         () => PasswordController(AuthFakeService()));
+  }
+}
+
+class UserDetailsBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<UserDetailController>(
+        () => UserDetailController(AuthFakeService()));
   }
 }

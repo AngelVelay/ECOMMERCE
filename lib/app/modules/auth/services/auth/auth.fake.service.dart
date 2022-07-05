@@ -16,13 +16,16 @@ class AuthFakeService extends BaseService implements IAuthService {
         username: 'jcarballido@jexbit.mx',
         passwordSalt: '',
         id: 1,
+        phoneNumber: '5524895623',
+        name: 'Angel Avelay',
         employee: Employee(
-            organizationId: 'sdf',
-            organization: null,
-            email: 'jcarballido@jexbit.mx',
-            name: 'Angel Velay',
-            isActive: true,
-            isBySystem: false),
+          organizationId: 'sdf',
+          organization: null,
+          email: 'jcarballido@jexbit.mx',
+          name: 'Angel Velay',
+          isActive: true,
+          isBySystem: false,
+        ),
         membership: Membership(
             cardNumber: '5645891265893212',
             levelName: 'Oro',
@@ -60,14 +63,7 @@ class AuthFakeService extends BaseService implements IAuthService {
 
   @override
   Future<User?> signUp(Signup registrationUser) async {
-    user = User(
-        organizationId: '',
-        isActive: true,
-        username: registrationUser.email,
-        passwordSalt: '',
-        phoneNumber: registrationUser.phoneNumber,
-        id: 0,
-        membership: Membership.fromVoid());
+    user = User.fromVoid();
     user?.code = '12345';
     return user;
   }

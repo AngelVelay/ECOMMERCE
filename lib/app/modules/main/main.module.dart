@@ -145,12 +145,12 @@ class MainRouting {
         binding: CouponDetailBinding()),
     GetPage(
       name: PICKUP_ROUTE,
-      page: () => PickupPage(),
+      page: () => const PickupPage(),
       binding: PickUpBinding(),
     ),
     GetPage(
         name: PROFILE_ROUTE,
-        page: () => ProfilePage(),
+        page: () => const ProfilePage(),
         binding: ProfileBinding()),
     GetPage(
         name: ADDRESS_ROUTE,
@@ -162,9 +162,9 @@ class MainRouting {
         binding: AddressDetailBinding()),
     GetPage(
         name: PAYMENT_METHODS_ROUTE,
-        page: () => PaymentMethodsPage(),
+        page: () => const PaymentMethodsPage(),
         binding: PaymentMethodsBinding()),
-    GetPage(name: TERMS_ROUTE, page: () => TermsPage())
+    GetPage(name: TERMS_ROUTE, page: () => TermsPage()),
   ];
 }
 
@@ -315,7 +315,8 @@ class ConfirmPagodBinding implements Bindings {
 class CatalogsListBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CatalogosListController>(() => CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
+    Get.lazyPut<CatalogosListController>(() =>
+        CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
   }
 }
 

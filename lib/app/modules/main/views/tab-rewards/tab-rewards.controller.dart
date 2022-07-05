@@ -27,6 +27,7 @@ class RewardsController extends GetxController {
     Menu(Icons.card_membership, MainRouting.PAYMENT_METHODS_ROUTE,
         'Formas Pago'),
     Menu(Icons.home, MainRouting.ADDRESS_ROUTE, 'Domicilios'),
+    Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
     Menu(Icons.article_outlined, MainRouting.TERMS_ROUTE, 'Terms y Cond.'),
   ];
 
@@ -54,5 +55,9 @@ class RewardsController extends GetxController {
 
   toRoute(String route) {
     Get.toNamed(route);
+  }
+
+  toUserDetails() {
+    Get.toNamed(AuthRouting.USER_DETAILS_ROUTE);
   }
 }

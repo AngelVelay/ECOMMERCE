@@ -73,5 +73,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Se requiere usar la camara</string>	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se requiere acceso al album de fotos</string>
 </dict>
 </plist>

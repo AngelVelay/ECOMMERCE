@@ -12,16 +12,18 @@ class User {
     required this.passwordSalt,
     required this.id,
     required this.membership,
+    required this.phoneNumber,
+    required this.name,
     this.employeeId,
     this.employee,
-    this.phoneNumber,
   });
 
   String organizationId;
   bool isActive;
   String username;
   String passwordSalt;
-  String? phoneNumber;
+  String phoneNumber;
+  String name;
   int id;
   String? employeeId;
   Employee? employee;
@@ -36,6 +38,8 @@ class User {
         username: json["username"],
         passwordSalt: json["passwordSalt"],
         id: json["id"],
+        phoneNumber: json["phoneNumber"],
+        name: json["name"],
         employeeId: json["employeeId"],
         employee: json["employee"] == null
             ? null
@@ -49,6 +53,8 @@ class User {
         "username": username,
         "passwordSalt": passwordSalt,
         "id": id,
+        "phoneNumber": phoneNumber,
+        "name": name,
         "employeeId": employeeId,
         "employee":
             employee == null ? null : Employee.fromJson(employee!.toJson()),
@@ -61,6 +67,8 @@ class User {
       username: '',
       passwordSalt: '',
       id: 0,
+      phoneNumber: '',
+      name: '',
       membership: Membership.fromVoid());
 
   // @override

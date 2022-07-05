@@ -17,7 +17,6 @@ class AddCardController extends GetxController {
   void onInit() async {
     super.onInit();
     creditCardList$.value = await creditCardService.get();
-    creditCardList$.value = await creditCardService.getFromCurrent();
     if (creditCardList$.isNotEmpty) {
       selectedCreditCard.value = creditCardList$
               .where((element) => element.isDefault)

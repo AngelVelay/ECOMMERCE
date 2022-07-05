@@ -7,77 +7,46 @@ import 'package:jexpoints/app/components/custom_input/custom_input.dart';
 class PayPage extends GetView<PayController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Color(0xff2222222),
-        child: SafeArea(
-          left: false,
-          right: false,
-          bottom: false,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color(0xff2222222),
-              title: Text(
-                'Agregar metodo de pago',
-                style: Theme.of(context).textTheme.headline3,
-              ),
-            ),
-            body: SingleChildScrollView(
-              child: Obx((() {
-                return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildTitleSection(
-                          title: "Agrega una nueva tarjeta", subTitle: ""),
-                      _buildCreditCard(
-                          color: const Color(0xFF000000),
-                          cardExpiration: controller.cardExpiration$.value,
-                          cardHolder: controller.cardHolder$.value,
-                          cardNumber: controller.cardNumber$.value),
-                      _formCreditCard(context, controller),
-                    ],
-                  ),
-                );
-              })),
-            ),
-          ),
-        ));
-  }
-
-// Build the title section
-  Column _buildTitleSection({@required title, @required subTitle}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0, top: 16.0),
-          child: Text(
-            '$title',
-            style: const TextStyle(
-                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+    return SafeArea(
+      left: false,
+      right: false,
+      bottom: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            controller.card$.value.id == 0
+                ? 'Agregar metodo de pago'
+                : 'Datos de tarjeta',
+            style: Theme.of(context).textTheme.headline3,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
-          child: Text(
-            '$subTitle',
-            style: const TextStyle(fontSize: 21, color: Colors.white),
-          ),
-        )
-      ],
+        body: SingleChildScrollView(
+          child: Obx((() {
+            return Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  _buildCreditCard(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _formCreditCard(context),
+                ],
+              ),
+            );
+          })),
+        ),
+      ),
     );
   }
 
 // Build the credit card widget
-  Card _buildCreditCard(
-      {required Color color,
-      required String cardNumber,
-      required String cardHolder,
-      required String cardExpiration}) {
+  Card _buildCreditCard() {
     return Card(
       elevation: 4.0,
-      color: color,
+      color: const Color(0xFF000000),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
       ),
@@ -92,8 +61,8 @@ class PayPage extends GetView<PayController> {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
-                '$cardNumber',
-                style: TextStyle(
+                controller.cardNumber$.value,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 21,
                 ),
@@ -104,10 +73,11 @@ class PayPage extends GetView<PayController> {
               children: <Widget>[
                 _buildDetailsBlock(
                   label: 'Nombre',
-                  value: cardHolder,
+                  value: controller.cardHolder$.value,
                 ),
                 _buildDetailsBlock(
-                    label: 'Numero de Expiración', value: cardExpiration),
+                    label: 'Numero de Expiración',
+                    value: controller.cardExpiration$.value)
               ],
             ),
           ],
@@ -141,20 +111,20 @@ class PayPage extends GetView<PayController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          '$label',
-          style: TextStyle(
+          label,
+          style: const TextStyle(
               color: Colors.grey, fontSize: 9, fontWeight: FontWeight.bold),
         ),
         Text(
-          '$value',
-          style: TextStyle(
+          value,
+          style: const TextStyle(
               color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
         )
       ],
     );
   }
 
-  Widget _formCreditCard(BuildContext context, PayController controller) {
+  Widget _formCreditCard(BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -177,7 +147,7 @@ class PayPage extends GetView<PayController> {
               labelText: 'Numero de tarjeta',
               prefixIcon: Icons.credit_card,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 30),
             Row(
               children: [
                 Expanded(
@@ -189,7 +159,7 @@ class PayPage extends GetView<PayController> {
                     prefixIcon: Icons.date_range,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 20),
                 Expanded(
                   child: CustomInputField(
                     inputFormatter: controller.cardCVVFormatter,
@@ -219,12 +189,12 @@ class PayPage extends GetView<PayController> {
                     Icons.monetization_on,
                     size: 20,
                   ),
-                  onPressed: () {
-                    controller.addCreditCard();
-                    Navigator.pop(context, '/add-credit-card');
-                  },
-                  label: const Text('Agregar Tarjeta',
-                      style: TextStyle(
+                  onPressed: () => controller.save(context),
+                  label: Text(
+                      controller.card$.value.id == 0
+                          ? 'Agregar Tarjeta'
+                          : 'Guardar datos',
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           color: Colors.white)),

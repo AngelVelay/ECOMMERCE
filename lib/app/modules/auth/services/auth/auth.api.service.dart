@@ -74,13 +74,7 @@ class AuthApiService extends BaseService implements IAuthService {
 
   @override
   Future<User?> signUp(Signup registrationUser) async {
-    user = User(
-        organizationId: '',
-        isActive: true,
-        username: registrationUser.email,
-        passwordSalt: '',
-        id: 0,
-        membership: Membership.fromVoid());
+    user = User.fromVoid();
     user?.code = '12345';
     return user;
   }

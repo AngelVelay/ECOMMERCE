@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.controller.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -44,14 +45,25 @@ class RewardsPage extends GetView<RewardsController> {
     return Container(
       color: const Color(0XFF222222),
       child: Column(children: [
-        const Padding(
-          padding: EdgeInsets.all(10.0),
-          child: CircularProgressBar(
-            sizeProgressBar: 55.0,
-            AvatarSize: 50,
-            percent: 8,
+        Stack(children: [
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: CircularProgressBar(
+              sizeProgressBar: 55.0,
+              AvatarSize: 50,
+              percent: 8,
+            ),
           ),
-        ),
+          Positioned(
+              top: 80,
+              left: 90,
+              child: CircleIconButton(
+                iconData: Icons.edit,
+                onPressed: () => controller.toUserDetails(),
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+              ))
+        ]),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

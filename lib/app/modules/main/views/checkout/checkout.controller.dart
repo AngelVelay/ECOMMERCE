@@ -28,7 +28,7 @@ class CheckOutController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    selectedCreditCard$.value = await creditCardService.getFromCurrent();
+    selectedCreditCard$.value = await creditCardService.get();
     selectedCreditCard$.value = selectedCreditCard;
   }
 

@@ -8,6 +8,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../main.module.dart';
 import '../../services/creditCard/creditCard.contract.dart';
+import '../payment-methods/payment-methods.controller.dart';
 
 class PayController extends GetxController {
   final ICreditCardService creditCardService;
@@ -21,6 +22,7 @@ class PayController extends GetxController {
   late var cardHolder = TextEditingController();
   late var cardExpiration = TextEditingController();
   late var cardCVV = TextEditingController();
+  late var card$ = CreditCard.fromVoid().obs;
 
   RxString cardCVV$ = ''.obs;
   RxString cardNumber$ = ''.obs;
@@ -41,16 +43,18 @@ class PayController extends GetxController {
   void onInit() async {
     super.onInit();
     var args = Get.arguments;
-    var card = CreditCard(
-        id: 0,
-        color: Colors.white,
-        cardNumber: '',
-        cardHolder: '',
-        cardExpiration: '',
-        cvv: '',
-        isDefault: false);
     if (args != null) {
-      card = args[0];
+      card$.value = args[0] as CreditCard;
+      cardNumber.text = card$.value.cardNumber;
+      cardNumber$.value = card$.value.cardNumber;
+      cardHolder.text = card$.value.cardHolder;
+      cardHolder$.value = card$.value.cardHolder;
+      cardCVV.text = card$.value.cvv;
+      cardCVV$.value = card$.value.cvv;
+      cardExpiration.text = card$.value.cardExpiration;
+      cardExpiration$.value = card$.value.cardExpiration;
+    } else {
+      card$.value = CreditCard.fromVoid();
     }
 
     cardNumber.addListener(() {
@@ -69,7 +73,6 @@ class PayController extends GetxController {
     });
 
     creditCardList$.value = await creditCardService.get();
-    creditCardList$.value = await creditCardService.getFromCurrent();
     if (creditCardList$.isNotEmpty) {
       selectedCreditCard.value = creditCardList$
               .where((element) => element.isDefault)
@@ -90,18 +93,14 @@ class PayController extends GetxController {
     super.dispose();
   }
 
-  addCreditCard() {
-    creditCardList$.add(CreditCard(
-      id: creditCardList$.length + 1,
-      color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-          .withOpacity(1.0),
-      cardNumber: cardNumber$.value,
-      cardHolder: cardHolder$.value,
-      cardExpiration: cardExpiration$.value,
-      cvv: cardCVV$.value,
-      isDefault: false,
-    ));
-    return creditCardList$.value;
+  void save(BuildContext context) async {
+    var cardToAdd = card$.value;
+    cardToAdd.cardNumber = cardNumber$.value;
+    cardToAdd.cardHolder = cardHolder$.value;
+    cardToAdd.cardExpiration = cardExpiration$.value;
+    cardToAdd.cvv = cardCVV$.value;
+    await creditCardService.save(cardToAdd);
+    Get.back();
   }
 
   creditCardSelect(CreditCard item, BuildContext context) {

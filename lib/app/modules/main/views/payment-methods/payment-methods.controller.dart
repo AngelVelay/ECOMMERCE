@@ -13,7 +13,7 @@ class PaymentMethodsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    paymentMethods$.value = await _paymentMethodsService.getFromCurrent();
+    paymentMethods$.value = await _paymentMethodsService.get();
   }
 
   toAdd() {
