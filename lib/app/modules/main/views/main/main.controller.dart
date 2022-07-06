@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.page.dart';
 
+import '../../services/creditCard/creditCard.contract.dart';
 import '../catalogos/catalogos.page.dart';
 import '../points/points.page.dart';
 import '../profile/profile.page.dart';
+import '../tab-home/components/shopipng-cart.widget.dart';
 import '../tab-home/tab-home.page.dart';
+import '../tab-shopping-cart/tab-shoppin-cart.page.dart';
 import '../ubications/ubications.page.dart';
 
 class TabItem {
@@ -18,13 +21,19 @@ class TabItem {
 }
 
 class MainController extends GetxController {
+  late ICreditCardService creditCardService;
+
   var pageIndex$ = 0.obs;
+  late var cartItems$ = 0.obs;
+
   GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
   final screens = [
     const HomePage(),
     const CatalogosPage(),
     const RewardsPage(),
     const UbicationsPage(),
+    ShoppingCartPage(),
+
     // const ProfilePage(),
   ];
 

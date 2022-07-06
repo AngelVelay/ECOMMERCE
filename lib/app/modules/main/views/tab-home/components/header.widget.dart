@@ -94,7 +94,6 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                           color: Colors.white,
                         ),
                       ),
-                      HomeShoppingCart(),
                     ],
                   )
                 ],

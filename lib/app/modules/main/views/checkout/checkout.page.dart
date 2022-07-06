@@ -113,7 +113,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                 style: TextStyle(color: Colors.black),
               ),
               subtitle: Text(
-                  '${controller.selectedAddress.street} #${controller.selectedAddress.number} CP:${controller.selectedAddress.zipcode} '),
+                  '${controller.selectedAddress.street} #${controller.selectedAddress.outsideNumber} CP:${controller.selectedAddress.zipCode} '),
             ),
             const ListTile(
               trailing: Icon(Icons.credit_score_sharp),
@@ -575,8 +575,7 @@ Widget _gifConfirm() {
             ),
           ),
           // nextScreen: const HomePage(),
-          nextScreen: const MainPage(),
+          nextScreen: MainPage(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: const Color(0xFFffffff)));
 }
-// 

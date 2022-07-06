@@ -159,7 +159,10 @@ class consumeInfo extends GetView<ConsumeController> {
   Widget build(BuildContext context) {
     return Column(children: [
       // List Header
-      _consumeList(context, controller),
+      Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: _consumeList(context, controller),
+      ),
     ]);
   }
 

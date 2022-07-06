@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 
 import '../../../entities/address.type.dart';
+import '../../map-add-address/map-add-address.page.dart';
 import '../tab-home.controller.dart';
 import 'address-add.widget.dart';
 
@@ -14,9 +15,11 @@ class HomeAddressSelect extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [_list(context), _button(context)],
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [_list(context), _button(context)],
+      ),
     );
   }
 
@@ -43,21 +46,27 @@ class HomeAddressSelect extends GetView<HomeController> {
   }
 
   Widget _button(BuildContext context) {
-    return ElevatedButton.icon(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            const Color(0xFF43578d),
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: const BorderSide(color: Colors.black)))),
-      icon: const Icon(Icons.location_on),
-      onPressed: () {
-        SheetUtils.show(context, HomeAddressAdd(controller),
-            title: 'Agregar Domicilio');
-      },
-      label: const Text('Agrega una nueva dirección'),
+    return Container(
+      height: 50,
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              const Color(0xFF43578d),
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: const BorderSide(color: Colors.black)))),
+        icon: const Icon(Icons.location_on),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return AddAdressPage();
+          }));
+          // SheetUtils.show(context, HomeAddressAdd(controller),
+          //     title: 'Agregar Domicilio');
+        },
+        label: const Text('Agrega una nueva dirección'),
+      ),
     );
   }
 }
