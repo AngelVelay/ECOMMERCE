@@ -28,6 +28,7 @@ class HomeController extends GetxController {
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <Flyer>[].obs;
   late var productList$ = <Product>[].obs;
+  late var variableProductsList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
@@ -43,7 +44,6 @@ class HomeController extends GetxController {
   late double subtotal$ = 0.0;
   var category = "";
 
-
   HomeController(this.productsService, this.authService, this.flyersService,
       this.addressService, this.couponsService, this.creditCardService);
 
@@ -57,6 +57,7 @@ class HomeController extends GetxController {
     total$ = 0.0;
     subtotal$ = 0.0;
 
+    variableProductsList$.value = await productsService.getProductsVariable();
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();

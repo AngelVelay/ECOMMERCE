@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
+import '../variable-products/variable-products.page.dart';
 import 'catagolos.controller.dart';
 
 class CatalogosPage extends GetView<CatalogosController> {
@@ -156,6 +157,17 @@ class CatalogosPage extends GetView<CatalogosController> {
           ),
         ),
       ),
+      TextButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => VariableProductsPage()));
+          },
+          child: Text(
+            'Paquetes',
+            style: TextStyle(color: Colors.white),
+          ))
     ]);
   }
 
