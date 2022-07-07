@@ -34,6 +34,7 @@ class MainController extends GetxController {
     const UbicationsPage(),
     ShoppingCartPage(),
 
+     UbicationsPage(),
     // const ProfilePage(),
   ];
 

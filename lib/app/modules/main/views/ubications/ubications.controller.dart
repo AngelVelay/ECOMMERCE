@@ -6,18 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:jexpoints/app/modules/main/views/ubications/ubications.page.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_style.dart';
 import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 // import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 
-class MapPage extends StatefulWidget {
-  @override
-  UbicationsController createState() => UbicationsController();
-}
-
-class UbicationsController extends State<MapPage> {
-  CustomInfoWindowController _customInfoWindowController =
+class UbicationsController extends GetxController {
+  final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   var ubications = [];
   Set<Marker> allMarkers = <Marker>{}.obs;
@@ -27,14 +21,11 @@ class UbicationsController extends State<MapPage> {
   var isLoading = false.obs;
 
   @override
-  // void onInit() {
-  //   super.onInit();
-  //   fetchPost();
-  // }
-
-  void initState() {
-    super.initState();
+  void onInit() {
+    super.onInit();
     fetchPost();
+     final CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
@@ -63,30 +54,89 @@ class UbicationsController extends State<MapPage> {
               .buffer
               .asUint8List();
 
-      setState() {
-        allMarkers.add(Marker(
-          markerId: MarkerId(contador.toString()),
+      allMarkers.add(Marker(
+          markerId: MarkerId(element['id']),
           position: LatLng(double.parse(element['latitude']),
               double.parse(element['longitude'])),
           icon: BitmapDescriptor.fromBytes(bytes),
-          infoWindow: InfoWindow(
-            title: element['name'],
-            snippet: element['description'],
-            onTap: () async {
-              MapUtils.openMap(double.parse(element['latitude']),
-                  double.parse(element['longitude']));
-            },
-          ),
-        ));
-      }
-
+          // infoWindow: InfoWindow(
+          //   title: element['name'],
+          //   snippet: element['description'],
+          // ),
+          onTap: () {
+            _customInfoWindowController.addInfoWindow!(
+              GestureDetector(
+                child: Container(
+                  width: 300,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 300,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              scale: .2,
+                              image: NetworkImage(
+                                  "http://201.151.139.54/FileManagerDoctos/jexbit/" +
+                                      element['geoIcon']),
+                              fit: BoxFit.fitWidth,
+                              filterQuality: FilterQuality.high),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          // color: Colors.red,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                element['name'],
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '.3 mi.',
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Text(
+                          element['description'],
+                          maxLines: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () async {
+                  MapUtils.openMap(double.parse(element['latitude']),
+                      double.parse(element['longitude']));
+                },
+              ),
+              LatLng(double.parse(element['latitude']),
+                  double.parse(element['longitude'])),
+            );
+          }));
       contador++;
     });
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

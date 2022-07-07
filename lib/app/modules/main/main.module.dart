@@ -98,10 +98,10 @@ class MainRouting {
         name: GENERATE_QR_ROUTE,
         page: () => QrGeneratePage(),
         binding: QrGenerateBinding()),
-    GetPage(
-        name: UBICATIONS_ROUTE,
-        page: () => UbicationsPage(),
-        binding: UbicationsBinding()),
+    // GetPage(
+    //     name: UBICATIONS_ROUTE,
+    //     page: () => UbicationsPage(),
+    //     binding: UbicationsBinding()),
     GetPage(
         name: UBICATIONS_LIST_ROUTE,
         page: () => UbicationsListPage(),
@@ -245,13 +245,13 @@ class QrGenerateBinding implements Bindings {
   }
 }
 
-class UbicationsBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<UbicationsController>(() => UbicationsController(),
-        fenix: true);
-  }
-}
+// class UbicationsBinding implements Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut<UbicationsController>(() => UbicationsController(),
+//         fenix: true);
+//   }
+// }
 
 class UbicationsListBinding implements Bindings {
   @override

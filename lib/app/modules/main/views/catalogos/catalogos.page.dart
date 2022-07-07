@@ -35,7 +35,7 @@ class CatalogosPage extends GetView<CatalogosController> {
                 borderRadius: BorderRadius.circular(25.0)),
             child: TabBar(
               indicator: BoxDecoration(
-                  color: const Color(0xff2222222),
+                  color: Colors.black,
                   borderRadius: BorderRadius.circular(25.0)),
               labelColor: Colors.white,
               unselectedLabelColor: Colors.black,

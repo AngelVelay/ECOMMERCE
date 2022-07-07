@@ -33,8 +33,8 @@ class CatalogsListPage extends GetView<CatalogosListController> {
     return Positioned(
       right: 20,
       top: 50,
-      child: Opacity(
-        opacity: 0.5,
+      // child: Opacity(
+        // opacity: 0.5,
         child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -70,7 +70,7 @@ class CatalogsListPage extends GetView<CatalogosListController> {
                   ),
                   suffixIcon: const Icon(Icons.food_bank, color: Colors.black)),
             )),
-      ),
+      // ),
     );
   }
 
