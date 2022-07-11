@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.contract.dart';
 
@@ -13,7 +14,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 0,
         points: 50,
-        category: "Pan"),
+        category: Categories.panderia),
     Product(
         id: 2,
         url:
@@ -24,7 +25,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: true,
         topRate: 4,
         points: 65,
-        category: "Pan"),
+        category: Categories.panderia),
     Product(
         id: 3,
         url:
@@ -35,7 +36,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 1,
         points: 14,
-        category: "Pan"),
+        category: Categories.panderia),
     Product(
         id: 4,
         url:
@@ -46,7 +47,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 3,
         points: 32,
-        category: "Pasteleria"),
+        category: Categories.panderia),
     Product(
         id: 5,
         url:
@@ -57,7 +58,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: true,
         topRate: 2,
         points: 21,
-        category: "Pasteleria"),
+        category: Categories.panderia),
     Product(
         id: 3,
         url:
@@ -68,7 +69,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 1,
         points: 14,
-        category: "Pan"),
+        category: Categories.panderia),
     Product(
         id: 4,
         url:
@@ -79,7 +80,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 3,
         points: 32,
-        category: "Pasteleria"),
+        category: Categories.pasteleria),
     Product(
         id: 5,
         url:
@@ -90,7 +91,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: true,
         topRate: 2,
         points: 21,
-        category: "Pasteleria"),
+        category: Categories.pasteleria),
     // Product(
     //     id: 6,
     //     url: 'assets/images_products/arroz.png',
@@ -175,46 +176,6 @@ class ProductsFakeService implements IProductsService {
 
   final _productsVariables = <Product>[
     Product(
-        id: 6,
-        url: 'assets/images_products/arroz.png',
-        name: 'Arroz',
-        price: 9.00,
-        cartValue: 0,
-        isFavorite: false,
-        topRate: 0,
-        points: 50,
-        category: "Complemento"),
-    Product(
-        id: 7,
-        url: 'assets/images_products/fusili.png',
-        name: 'Fusili',
-        price: 9.00,
-        cartValue: 0,
-        isFavorite: true,
-        topRate: 4,
-        points: 65,
-        category: "Complemento"),
-    // Product(
-    //     id: 8,
-    //     url: 'assets/images_products/pure.png',
-    //     name: 'Pure de papa',
-    //     price: 80.00,
-    //     cartValue: 0,
-    //     isFavorite: false,
-    //     topRate: 1,
-    //     points: 14,
-    //     category: "Complemento"),
-    Product(
-        id: 9,
-        url: 'assets/images_products/frijoles.png',
-        name: 'frijoles',
-        price: 10,
-        cartValue: 0,
-        isFavorite: false,
-        topRate: 3,
-        points: 32,
-        category: "Complemento"),
-    Product(
         id: 10,
         url: 'assets/images_products/pollo2.png',
         name: 'Pollo Rostizado',
@@ -223,7 +184,7 @@ class ProductsFakeService implements IProductsService {
         isFavorite: true,
         topRate: 2,
         points: 21,
-        category: "Rosticeria"),
+        category: Categories.rosticeria),
     Product(
         id: 11,
         url: 'assets/images_products/Coca-Cola.png',
@@ -233,7 +194,53 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 1,
         points: 14,
-        category: "Rosticeria"),
+        category: Categories.refrescos,
+        quantity: {
+          Quantity.chica: 600,
+          Quantity.media: 2,
+          Quantity.grande: 3,
+        }),
+    Product(
+        id: 6,
+        url: 'assets/images_products/arroz.png',
+        name: 'Arroz',
+        price: 9.00,
+        cartValue: 0,
+        isFavorite: false,
+        topRate: 0,
+        points: 50,
+        category: Categories.complemento),
+    Product(
+        id: 7,
+        url: 'assets/images_products/fusili.png',
+        name: 'Fusili',
+        price: 9.00,
+        cartValue: 0,
+        isFavorite: true,
+        topRate: 4,
+        points: 65,
+        category: Categories.complemento),
+    // Product(
+    //     id: 8,
+    //     url: 'assets/images_products/pure.png',
+    //     name: 'Pure de papa',
+    //     price: 80.00,
+    //     cartValue: 0,
+    //     isFavorite: false,
+    //     topRate: 1,
+    //     points: 14,
+    //     category: Categories.complemento),
+    Product(
+        id: 9,
+        url: 'assets/images_products/frijoles.png',
+        name: 'frijoles',
+        price: 10,
+        cartValue: 0,
+        isFavorite: false,
+        topRate: 3,
+        points: 32,
+        category: Categories.complemento),
+
     Product(
         id: 12,
         url: 'assets/images_products/papas.png',
@@ -243,7 +250,12 @@ class ProductsFakeService implements IProductsService {
         isFavorite: false,
         topRate: 3,
         points: 32,
-        category: "Rosticeria"),
+        category: Categories.papas,
+        quantity: {
+          Quantity.chica: 125,
+          Quantity.media: 250,
+          Quantity.grande: 500,
+        }),
     Product(
         id: 13,
         url: 'assets/images_products/salsa.png',
@@ -253,8 +265,10 @@ class ProductsFakeService implements IProductsService {
         isFavorite: true,
         topRate: 2,
         points: 21,
-        category: "Rosticeria")
+        category: Categories.antojoExtra),
   ];
+
+  List<Product> productsPack = [];
 
   @override
   Future<List<Product>> getProductsVariable() async {
@@ -292,4 +306,10 @@ class ProductsFakeService implements IProductsService {
     print(result);
     return result;
   }
+
+  // @override
+  // Future<List<Product>> addVariableProducts(Product product) {
+  //   productsPack.add(product);
+  //   return Future.value(productsPack);
+  // }
 }

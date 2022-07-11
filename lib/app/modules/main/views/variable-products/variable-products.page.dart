@@ -1,4 +1,6 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 import '../../entities/product.type.dart';
@@ -22,19 +24,50 @@ class VariableProductsPage extends GetView<VariableProductsController> {
         ),
         body: Column(
           children: [
-            Expanded(flex: 1, child: _orderPack()),
+            Expanded(child: _orderPack(controllerHome.productsPackList$)),
+            SizedBox(height: 20),
             Expanded(
-                flex: 1,
-                child: Obx(() {
-                  return orderListComplements();
-                })),
-            Container(
-              height: 200,
-              child: Expanded(
-                  flex: 1,
-                  child: Obx(() {
-                    return complemetsList();
-                  })),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Text('Agrega productos al paquete',
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          height: 250,
+                          child: Expanded(child: Obx(() {
+                            return complemetsList();
+                          })),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text('Agrega un complemento',
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          height: 250,
+                          child: Expanded(
+                              flex: 1,
+                              child: Obx(() {
+                                return complemetsList();
+                              })),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -42,14 +75,43 @@ class VariableProductsPage extends GetView<VariableProductsController> {
     );
   }
 
-  Widget _orderPack() {
-    return Stack(
-      children: [Image.asset('assets/images/container.png')],
-    );
+  Widget _orderPack(item) {
+    return Stack(children: [
+      Center(child: Image.asset('assets/images/container.png')),
+      Obx(() {
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+          ),
+          itemCount: item.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onDoubleTap: () => Badge(
+                badgeColor: Colors.grey,
+                badgeContent: const Icon(
+                  Icons.remove,
+                  color: Colors.black,
+                  size: 20,
+                ),
+              ),
+              child: Container(
+                margin: EdgeInsets.all(30),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  child: Image.asset(item[index].url),
+                ),
+              ),
+            );
+          },
+        );
+      })
+    ]);
   }
 
   Widget orderListComplements() {
     return ListView.builder(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemBuilder: ((context, index) {
         return orderListItem(controllerHome.variableProductsList$[index]);
@@ -105,7 +167,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                 fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 10),
-          ChipVariable()
+          ChipVariable(item)
         ],
       ),
     );
@@ -113,6 +175,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
 
   Widget complemetsList() {
     return ListView.builder(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemBuilder: ((context, index) {
         return complemetsListItem(controllerHome.variableProductsList$[index]);
@@ -123,107 +186,92 @@ class VariableProductsPage extends GetView<VariableProductsController> {
 
   Widget complemetsListItem(Product item) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(10)),
-      width: 120,
-      height: 100,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => controllerHome.toProductDetail(item),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
-                    image: AssetImage(item.url),
-                    width: double.infinity,
-                    height: 80,
-                    fit: BoxFit.contain,
-                  ),
-                  const Align(
-                      alignment: Alignment.bottomRight,
-                      child: Icon(Icons.add_circle_rounded,
-                          color: Colors.white, size: 30)),
-                ])),
-          ),
-          Divider(
-            color: Colors.white,
-            thickness: 1,
-          ),
-          Text(item.name,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.white),
+            borderRadius: BorderRadius.circular(10)),
+        width: 120,
+        height: 100,
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            GestureDetector(
+              // onTap: () => controllerHome.toProductDetail(item),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(children: [
+                    FadeInImage(
+                      placeholder: const NetworkImage(
+                          'https://tenor.com/view/loading-gif-9212724.gif'),
+                      image: AssetImage(item.url),
+                      width: double.infinity,
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          icon: Icon(Icons.add_circle_rounded),
+                          color: Colors.white,
+                          iconSize: 30.0,
+                          onPressed: () {
+                            controllerHome.addProductToPack(item);
+                            print(item.name);
+                          },
+                        )),
+                  ])),
+            ),
+            const Divider(
+              color: Colors.white,
+              thickness: 1,
+            ),
+            Text(item.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 15)),
+            Text(
+              '\$ ${item.price}',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 15)),
-          Text(
-            '\$ ${item.price}',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          SizedBox(height: 10),
-          ChipVariable()
-        ],
-      ),
-    );
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 10),
+            item.quantity?.values.isNotEmpty == true
+                ? ChipVariable(item)
+                : const Chip(
+                    label: Text('1 Pieza'),
+                    backgroundColor: Colors.white,
+                  ),
+          ],
+        ));
   }
 
-  Widget ChipVariable() {
+  Widget ChipVariable(Product item) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Chip(
-            labelPadding: EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.white70,
-              child: Text(
-                '1',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            label: Text(
-              'Variable',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.blue,
-            elevation: 6.0,
-            shadowColor: Colors.grey[60],
-            padding: EdgeInsets.all(8.0),
+        scrollDirection: Axis.horizontal,
+        child: GestureDetector(
+          onTap: () {},
+          child: Row(
+            children: [
+              for (var i = 0; i < item.quantity!.values.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Chip(
+                    label: Text(
+                      item.category.name == 'refrescos'
+                          ? '${item.quantity!.values.elementAt(i)} Litro'
+                          : '${item.quantity!.values.elementAt(i)} gr',
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+            ],
           ),
-          SizedBox(
-            width: 5,
-          ),
-          Chip(
-            labelPadding: EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.white70,
-              child: Text(
-                '1',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            label: Text(
-              'Variable',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.blue,
-            elevation: 6.0,
-            shadowColor: Colors.grey[60],
-            padding: EdgeInsets.all(8.0),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

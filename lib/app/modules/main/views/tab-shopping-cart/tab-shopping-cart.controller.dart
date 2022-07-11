@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../entities/product.type.dart';
 import '../../main.module.dart';
 import '../../services/products/products.contract.dart';
+import '../variable-products/variable-products.page.dart';
 
 class ShoppingCartController extends GetxController {
   late final IProductsService productsService;

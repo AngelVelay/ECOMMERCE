@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import '../../entities/product.type.dart';
 import '../tab-home/components/cart-controls.widget.dart';
 import '../tab-home/tab-home.controller.dart';
+import '../variable-products/variable-products.page.dart';
 import 'tab-shopping-cart.controller.dart';
 
 class ShoppingCartPage extends StatelessWidget {

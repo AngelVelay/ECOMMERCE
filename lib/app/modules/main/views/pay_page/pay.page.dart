@@ -133,7 +133,7 @@ class PayPage extends GetView<PayController> {
             CustomInputField(
               maxLength: 16,
               inputFormatter:
-                  FilteringTextInputFormatter.allow(RegExp(r'[A-Z," "]')),
+                  FilteringTextInputFormatter.allow(RegExp(r'[A-Z,a-z," "]')),
               controller: controller.cardHolder,
               keyboardType: TextInputType.text,
               labelText: 'Nombre del titular',

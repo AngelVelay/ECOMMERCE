@@ -3,7 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/components/header.widget.dart';
+import '../variable-products/variable-products.page.dart';
 import 'components/favorite-products.widget.dart';
+import 'components/rosticeria-products.dart';
 import 'components/top-products.widget.dart';
 import 'tab-home.controller.dart';
 
@@ -36,6 +38,8 @@ class HomePage extends GetView<HomeController> {
                 const HomeTopProducts(),
                 const SizedBox(height: 15),
                 const HomeFavoriteProducts(),
+                const SizedBox(height: 15),
+                const RositceriaProducts(),
                 const SizedBox(height: 70),
               ]),
             )
@@ -122,5 +126,28 @@ class HomePage extends GetView<HomeController> {
                     image: NetworkImage(item.url),
                   ),
                 ))));
+  }
+
+  _makePackage(product, BuildContext context) async {
+    product.contains('Coca-Cola') && product.contains('Pollo Rostizado')
+        ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Row(
+              children: [
+                const Text('Deseas hacer un paquete?'),
+                ElevatedButton(
+                  child: Text('Si'),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VariableProductsPage()));
+                    // Get.toNamed(,
+                    //     arguments: {'productsPackList': productsPackList$});
+                  },
+                ),
+              ],
+            ),
+          ))
+        : const SizedBox();
   }
 }

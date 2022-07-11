@@ -8,4 +8,6 @@ abstract class IProductsService {
   Future<List<Product>> getFavorites();
 
   Future<List<Product>> getProductsVariable();
+
+  // Future <List<Product>> addVariableProducts(Product product);
 }

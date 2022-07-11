@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
+import '../../variable-products/variable-products.page.dart';
 import '../tab-home.controller.dart';
 
 class HomeCartControls extends GetView<HomeController> {
@@ -39,7 +40,28 @@ class HomeCartControls extends GetView<HomeController> {
       CircleIconButton(
         backgroundColor: labelColor,
         iconData: Icons.add,
-        onPressed: () => controller.addCart(item),
+        onPressed: () {
+          controller.addCart(item, context);
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //   content: Row(
+          //     children: [
+          //       const Text('Deseas hacer un paquete?'),
+          //       SizedBox(width: 50),
+          //       ElevatedButton(
+          //         child: Text('Si'),
+          //         onPressed: () {
+          //           Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                   builder: (context) => VariableProductsPage()));
+          //           // Get.toNamed(,
+          //           //     arguments: {'productsPackList': productsPackList$});
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ));
+        },
         size: 25,
         foregroundColor: altColor,
       ),

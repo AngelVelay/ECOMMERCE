@@ -1,3 +1,27 @@
+enum Categories {
+  rosticeria,
+  pasteleria,
+  panderia,
+  refrescos,
+  papas,
+  antojoExtra,
+  comida,
+  bebida,
+  complemento,
+  otro
+}
+
+enum Quantity {
+  chica,
+  media,
+  grande,
+}
+
+// enum ProductType {
+//   product,
+//   cart,
+// }
+
 class Product {
   Product({
     required this.id,
@@ -9,6 +33,7 @@ class Product {
     required this.topRate,
     required this.points,
     required this.category,
+    this.quantity,
   });
 
   int id;
@@ -19,7 +44,8 @@ class Product {
   bool isFavorite;
   int topRate;
   int points;
-  String category;
+  Categories category;
+  Map<Quantity, dynamic>? quantity;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -31,6 +57,23 @@ class Product {
         topRate: json["topRate"],
         points: json["points"],
         category: json["category"],
+        quantity: json["quantity"],
+      );
+  factory Product.fromVoid() => Product(
+        id: 1,
+        name: '',
+        url: '',
+        price: 0,
+        cartValue: 0,
+        isFavorite: false,
+        topRate: 0,
+        points: 0,
+        category: Categories.otro,
+        quantity: {
+          Quantity.chica: 0,
+          Quantity.media: 0,
+          Quantity.grande: 0,
+        },
       );
 
   Map<String, dynamic> toJson() => {

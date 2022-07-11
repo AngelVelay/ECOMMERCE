@@ -67,18 +67,18 @@ class CatalogosListController extends GetxController {
   }
 
   catalogList(BuildContext context) async {
-
     catalogsList$.value = await productsService.catalogsList();
 
     findedProducts$.value = catalogsList$
-        .where((e) => e.category.toLowerCase().contains(category.toLowerCase()))
+        .where((e) => e.category.toString().contains(category.toLowerCase()))
         .toList();
     print(category);
 
     productList$.value = findedProducts$.value;
 
     findedProducts$.value = productList$
-        .where((e) => e.name.toLowerCase().contains(keywordCtrl.text.toLowerCase()))
+        .where((e) =>
+            e.name.toLowerCase().contains(keywordCtrl.text.toLowerCase()))
         .toList();
   }
 
@@ -87,10 +87,9 @@ class CatalogosListController extends GetxController {
   }
 
   search(BuildContext context) async {
-
     // productList$.value = await productsService.search(keywordCtrl.text);
     findedProducts$.value = productList$
-        .where((e) => e.category.toLowerCase().contains(category.toLowerCase()))
+        .where((e) => e.category.toString().contains(category.toLowerCase()))
         .toList();
     FocusScope.of(context).unfocus();
   }

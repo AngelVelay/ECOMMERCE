@@ -1,5 +1,17 @@
+// ignore_for_file: iterable_contains_unrelated_type
+
 import 'package:flutter/material.dart'
-    show BuildContext, FocusScope, Navigator, TextEditingController;
+    show
+        BuildContext,
+        ElevatedButton,
+        FocusScope,
+        MaterialPageRoute,
+        Navigator,
+        Row,
+        ScaffoldMessenger,
+        SnackBar,
+        Text,
+        TextEditingController;
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
@@ -15,7 +27,7 @@ import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search
 import '../../entities/coupon.type.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 import '../../services/products/products.contract.dart';
-import '../catalogs_list/catalogs_list.page.dart';
+import '../variable-products/variable-products.page.dart';
 
 class HomeController extends GetxController {
   final IProductsService productsService;
@@ -28,6 +40,7 @@ class HomeController extends GetxController {
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <Flyer>[].obs;
   late var productList$ = <Product>[].obs;
+  late var productsPackList$ = <Product>[].obs;
   late var variableProductsList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
@@ -58,6 +71,8 @@ class HomeController extends GetxController {
     subtotal$ = 0.0;
 
     variableProductsList$.value = await productsService.getProductsVariable();
+    // productsPackList$.value = await productsService.addVariableProducts(
+    //      productsPackList$.value);
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();
@@ -73,7 +88,7 @@ class HomeController extends GetxController {
     }
   }
 
-  addCart(Product item) {
+  addCart(Product item, context) {
     item.cartValue++;
     if (!cartProducts$.any((element) => element.id == item.id)) {
       cartProducts$.add(item);
@@ -180,5 +195,11 @@ class HomeController extends GetxController {
 
   toHome() {
     Get.off(MainRouting.MAIN_ROUTE);
+  }
+
+  addProductToPack(Product item) {
+    if (!productsPackList$.any((element) => element.id == item.id)) {
+      productsPackList$.add(item);
+    }
   }
 }
