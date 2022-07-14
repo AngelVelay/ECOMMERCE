@@ -134,7 +134,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
     // );
 
     final response = await http.get(
-      Uri.parse('https://mocki.io/v1/2438a421-ceb5-4666-8c24-569ffb874263'),
+      Uri.parse('https://mocki.io/v1/8b1235d2-34cb-4f4a-a445-9b3406ed4ed2'),
     );
 
     ubications = json.decode(response.body);
@@ -192,7 +192,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                     GestureDetector(
                       child: Container(
                         width: 300,
-                        height: 100,
+                        height: 60,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               scale: .2,
@@ -201,10 +201,10 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                                       element['baner']),
                               fit: BoxFit.fitWidth,
                               filterQuality: FilterQuality.high),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          color: Colors.black,
+                          // borderRadius: const BorderRadius.all(
+                          //   Radius.circular(10.0),
+                          // ),
+                          // color: Colors.black,
                         ),
                       ),
                       onTap: () async {
@@ -220,16 +220,104 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 88,
+                            width: 250,
+                            height: 30,
                             child: Text(
-                              element['name'],
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                              softWrap: false,
-                            ),
+                        element['name'],
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                           ),
-                          const Spacer(),
-                          Container(
+                          // const Spacer(),
+                          // Container(
+                          //   width: 50,
+                          //   height: 80,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //         image: NetworkImage(imgUber),
+                          //         fit: BoxFit.fitWidth,
+                          //         filterQuality: FilterQuality.high),
+                          //     borderRadius: const BorderRadius.all(
+                          //       Radius.circular(10.0),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Container(
+                          //   width: 50,
+                          //   height: 80,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //         scale: .2,
+                          //         image: NetworkImage(imgDidi),
+                          //         fit: BoxFit.fitWidth,
+                          //         filterQuality: FilterQuality.high),
+                          //     borderRadius: const BorderRadius.all(
+                          //       Radius.circular(10.0),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Container(
+                          //   width: 50,
+                          //   height: 80,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //         scale: .2,
+                          //         image: NetworkImage(imgGallo),
+                          //         fit: BoxFit.fitWidth,
+                          //         filterQuality: FilterQuality.high),
+                          //     borderRadius: const BorderRadius.all(
+                          //       Radius.circular(10.0),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Container(
+                          //   width: 50,
+                          //   height: 80,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //         scale: .2,
+                          //         image: NetworkImage(imgEsp),
+                          //         fit: BoxFit.fitWidth,
+                          //         filterQuality: FilterQuality.high),
+                          //     borderRadius: const BorderRadius.all(
+                          //       Radius.circular(10.0),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        element['description'],
+                        maxLines: 2,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        "Telefono: 5512345678",
+                        maxLines: 2,
+                      ),
+                    ),
+                     const Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        "Horario: 8:00 a.m. a 9:00 p.m.",
+                        maxLines: 2,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
                             width: 50,
                             height: 80,
                             decoration: BoxDecoration(
@@ -242,7 +330,10 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                               ),
                             ),
                           ),
-                          Container(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
                             width: 50,
                             height: 80,
                             decoration: BoxDecoration(
@@ -256,7 +347,10 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                               ),
                             ),
                           ),
-                          Container(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
                             width: 50,
                             height: 80,
                             decoration: BoxDecoration(
@@ -270,7 +364,10 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                               ),
                             ),
                           ),
-                          Container(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
                             width: 50,
                             height: 80,
                             decoration: BoxDecoration(
@@ -284,22 +381,8 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text(
-                        element['description'],
-                        maxLines: 2,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text(
-                        "Telefono: 5512345678",
-                        maxLines: 2,
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -309,6 +392,11 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
             );
           }));
       contador++;
+
+      if (mounted) {
+        setState(() {});
+        return;
+      }
     });
   }
 
@@ -330,29 +418,33 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
       ),
       body: Stack(
         children: [
-          // if(_markers.length > 10){},
           Padding(
             padding: const EdgeInsets.only(bottom: 60),
-            child: GoogleMap(
-              onTap: (position) {
-                _customInfoWindowController.hideInfoWindow!();
-              },
-              onCameraMove: (position) {
-                _customInfoWindowController.onCameraMove!();
-              },
-              onMapCreated: (GoogleMapController controller) async {
-                _customInfoWindowController.googleMapController = controller;
-              },
-              markers: _markers,
-              initialCameraPosition: CameraPosition(
-                target: _latLng,
-                zoom: _zoom,
-              ),
-            ),
+            child: _markers.length > 150
+                ? GoogleMap(
+                    onTap: (position) {
+                      _customInfoWindowController.hideInfoWindow!();
+                    },
+                    onCameraMove: (position) {
+                      _customInfoWindowController.onCameraMove!();
+                    },
+                    onMapCreated: (GoogleMapController controller) async {
+                      _customInfoWindowController.googleMapController =
+                          controller;
+                    },
+                    markers: _markers,
+                    initialCameraPosition: CameraPosition(
+                      target: _latLng,
+                      zoom: _zoom,
+                    ),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
           ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
-            height: 260,
+            height: 248,
             width: 300,
             offset: 35,
           ),
