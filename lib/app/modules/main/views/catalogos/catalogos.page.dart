@@ -67,7 +67,7 @@ class CatalogosPage extends GetView<CatalogosController> {
       BuildContext context, CatalogosController controller) {
     return Column(children: [
       SizedBox(
-        height: 555,
+        height: MediaQuery.of(context).size.height * 0.8,
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
@@ -80,8 +80,8 @@ class CatalogosPage extends GetView<CatalogosController> {
                   itemCount: controller.catalogueList$.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 12.0,
-                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 30.0,
+                    crossAxisSpacing: 30.0,
                     childAspectRatio: 1,
                   ),
                   itemBuilder: (context, index) => _ListItemCatalogue(
@@ -112,13 +112,13 @@ class CatalogosPage extends GetView<CatalogosController> {
                 child: FadeInImage(
                   fit: BoxFit.cover,
                   placeholder: const NetworkImage(
-                      'https://tenor.com/view/loading-gif-9212724.gif'),
+                      'https://acegif.com/wp-content/uploads/loading-11.gif'),
                   image: NetworkImage(product.image),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 3),
+          const SizedBox(height: 5),
           Text(product.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -134,7 +134,7 @@ class CatalogosPage extends GetView<CatalogosController> {
       BuildContext context, CatalogosController controller) {
     return Column(children: [
       SizedBox(
-        height: 555,
+        height: MediaQuery.of(context).size.height * 0.7,
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,
@@ -147,8 +147,8 @@ class CatalogosPage extends GetView<CatalogosController> {
                   itemCount: controller.catalogueListSantoGallo$.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 12.0,
-                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 30.0,
+                    crossAxisSpacing: 30.0,
                     childAspectRatio: 1,
                   ),
                   itemBuilder: (context, index) => _ListItemCatalogue1(
@@ -172,28 +172,31 @@ class CatalogosPage extends GetView<CatalogosController> {
   }
 
   static Widget _ListItemCatalogue1(BuildContext context, dynamic product) {
-    return Container(
-      width: 130,
-      height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+    return GestureDetector(
+      onTap:
+          // Navigator.pushNamed(context, '/catalogs-list');
+          () => _goTo(context, product.name),
       child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => _goTo(context, product.name),
-            child: ClipRRect(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
-                    image: NetworkImage(product.image),
-                    width: double.nan,
-                    height: 150,
-                    fit: BoxFit.cover,
-                  ),
-                ])),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  placeholder: const NetworkImage(
+                      'https://acegif.com/wp-content/uploads/loading-11.gif'),
+                  image: NetworkImage(product.image),
+                ),
+              ),
+            ),
           ),
-          const SizedBox(height: 3),
+          const SizedBox(height: 5),
           Text(product.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

@@ -137,7 +137,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: AssetImage(item.url),
                     width: double.infinity,
                     height: 120,
@@ -201,7 +201,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                   child: Stack(children: [
                     FadeInImage(
                       placeholder: const NetworkImage(
-                          'https://tenor.com/view/loading-gif-9212724.gif'),
+                          'https://acegif.com/wp-content/uploads/loading-11.gif'),
                       image: AssetImage(item.url),
                       width: double.infinity,
                       height: 80,

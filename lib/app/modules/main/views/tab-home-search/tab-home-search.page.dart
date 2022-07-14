@@ -45,18 +45,37 @@ class HomeSearchPage extends GetView<HomeController> {
   Widget _productList(BuildContext context, HomeController controller) {
     return SingleChildScrollView(
       child: Obx(() {
-        return GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: controller.findedProducts$.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 12.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 1,
-            ),
-            itemBuilder: (context, index) =>
-                _productItem(context, controller.findedProducts$[index]));
+        return controller.findedProducts$.isEmpty
+            ? SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.search_off_sharp,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "No se encontaron resultados de búsqueda",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              )
+            : GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.findedProducts$.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12.0,
+                  crossAxisSpacing: 10.0,
+                  childAspectRatio: 1,
+                ),
+                itemBuilder: (context, index) =>
+                    _productItem(context, controller.findedProducts$[index]));
       }),
     );
   }
@@ -75,7 +94,7 @@ class HomeSearchPage extends GetView<HomeController> {
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
                     height: 115,
@@ -89,19 +108,19 @@ class HomeSearchPage extends GetView<HomeController> {
               maxLines: 1,
               softWrap: false,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black)),
+              style: const TextStyle(color: Colors.white)),
           Text(
             '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           HomeCartControls(
             item,
-            labelColor: Colors.black,
-            altColor: Colors.white,
+            labelColor: Colors.white,
+            altColor: Colors.black,
           )
         ],
       ),
@@ -168,6 +187,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               borderRadius: BorderRadius.circular(20),
             ),
             width: MediaQuery.of(context).size.width - 50,
+            height: 50,
             child: TextField(
               controller: controller.keywordCtrl,
               onEditingComplete: () => controller.search(context),

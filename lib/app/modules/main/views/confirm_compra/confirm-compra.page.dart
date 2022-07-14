@@ -6,6 +6,7 @@ import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.c
 import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 
 import '../../../../components/custom_input/custom_input.dart';
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../entities/product.type.dart';
 
 import '../tab-home/components/cart-controls.widget.dart';
@@ -136,7 +137,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
             ),
             ListTile(
               title: Text(
-                'Subtotal',
+                'Total',
                 style: Theme.of(context).textTheme.headline4,
               ),
               trailing: Text(
@@ -159,7 +160,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
             ),
             ListTile(
               title: Text(
-                'Total a pagar',
+                'Pagar',
                 style: Theme.of(context).textTheme.headline4,
               ),
               trailing: Text(
@@ -167,152 +168,11 @@ class ConfirmPagoPage extends GetView<HomeController> {
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       'Subtotal',
-            //       style: Theme.of(context).textTheme.headline4,
-            //     ),
-            //     Text(
-            //       '\$480',
-            //       style: Theme.of(context).textTheme.headline4,
-            //     )
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: const [
-            //     Text(
-            //       'Envio',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.normal,
-            //           color: Colors.black),
-            //     ),
-            //     Text(
-            //       '\$50',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black),
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: const [
-            //     Text(
-            //       'Cupon de Descuento',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.normal,
-            //           color: Colors.black),
-            //     ),
-            //     Text(
-            //       ' - \$50',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.red),
-            //     ),
-            //   ],
-            // ),
-            // Divider(
-            //   color: Colors.black,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: const [
-            //     Text(
-            //       'Total a Pagar',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black),
-            //     ),
-            //     Text(
-            //       '\$480',
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black),
-            //     ),
-            //   ],
-            // ),
           ],
         );
       },
     );
   }
-
-  // Widget _confirmarCompra(context,ConfirmPagoController controller) {
-  //   return ListView.builder(
-  //       scrollDirection: Axis.vertical,
-  //       shrinkWrap: true,
-  //       itemCount: controller.cartProducts$.length,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         return SingleChildScrollView(
-  //           child: Container(
-  //             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //             child: GestureDetector(
-  //               onTap: () {},
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                 children: [
-  //                   Container(
-  //                     height: 80,
-  //                     child: ClipRRect(
-  //                         borderRadius: BorderRadius.circular(20),
-  //                         child: FadeInImage(
-  //                           placeholder: const NetworkImage(
-  //                               'https://tenor.com/view/loading-gif-9212724.gif'),
-  //                           image: NetworkImage(cartProducts$.),
-  //                               // productsList[index]['url'].toString()),
-  //                         )),
-  //                   ),
-  //                   Expanded(
-  //                       child: ListTile(
-  //                     title: Text(
-  //                       '${productsList[index]['title']}',
-  //                       style: const TextStyle(
-  //                         fontSize: 20,
-  //                         fontWeight: FontWeight.bold,
-  //                       ),
-  //                     ),
-  //                     subtitle: Row(
-  //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                       children: [
-  //                         Text(
-  //                           '\$ ${productsList[index]['precio']}',
-  //                           style: const TextStyle(
-  //                             fontSize: 15,
-  //                           ),
-  //                         ),
-  //                         Text(
-  //                           '${productsList[index]['puntos']} pts',
-  //                           style: const TextStyle(
-  //                               fontSize: 15, fontWeight: FontWeight.bold),
-  //                         ),
-  //                         Row(
-  //                           children: const [
-  //                             Icon(Icons.remove_circle_outline_outlined,
-  //                                 size: 25, color: Colors.black),
-  //                             Text('1', style: TextStyle(fontSize: 25)),
-  //                             Icon(Icons.add_circle_outline_outlined,
-  //                                 size: 25, color: Colors.black),
-  //                           ],
-  //                         )
-  //                       ],
-  //                     ),
-  //                   ))
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
 
   Widget _applyCoupon(context) {
     return Padding(
@@ -357,34 +217,39 @@ class ConfirmPagoPage extends GetView<HomeController> {
 
   Widget _buttonConfirm(context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        child: ElevatedButton.icon(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xFF43578d),
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.black)))),
-          icon: const Icon(
-            Icons.monetization_on,
-            size: 20,
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: CustomRoundedButton(
+            text: 'Proceder a pagar',
+            onPressed: () {
+              controller.toCheckout();
+            },
+            // child: ElevatedButton.icon(
+            //   style: ButtonStyle(
+            //       backgroundColor: MaterialStateProperty.all<Color>(
+            //         const Color(0xFF43578d),
+            //       ),
+            //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //           RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(18.0),
+            //               side: const BorderSide(color: Colors.black)))),
+            //   icon: const Icon(
+            //     Icons.monetization_on,
+            //     size: 20,
+            //   ),
+            //   onPressed: () {
+            //     controller.toCheckout();
+            //   },
+            //   label: const Text('Pagar',
+            //       style: TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 20,
+            //           color: Colors.white)),
+            // ),
           ),
-          onPressed: () {
-            controller.toCheckout();
-          },
-          label: const Text('Pagar',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white)),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget _gifConfirm() {
@@ -419,6 +284,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
 
   Widget _dragrable(context) {
     return DraggableScrollableSheet(
+      snap: true,
       initialChildSize: 0.1,
       minChildSize: 0.1,
       maxChildSize: 0.5,

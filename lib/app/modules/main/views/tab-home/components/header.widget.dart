@@ -57,58 +57,50 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     return SizedBox(
         height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
         child: AppBar(
+          elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF222222),
-          elevation: 0.0,
-          title: Opacity(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const CircularProgressBar(
-                        AvatarSize: 23,
-                        percent: 0.8,
-                        sizeProgressBar: 26,
-                      ),
-                      const SizedBox(width: 10),
-                      Obx(() {
-                        return Text(
-                            controller.user$.value.employee != null
-                                ? controller.user$.value.employee!.name
-                                : '',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white));
-                      }),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => controller.toSearch(controller),
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              )),
+              child: CircularProgressBar(
+                AvatarSize: 20,
+                percent: 0.8,
+                sizeProgressBar: 25,
+              ),
+            ),
+          ),
+          title: Opacity(
+            opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+            child: Obx(() {
+              return Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    controller.user$.value.employee != null
+                        ? controller.user$.value.employee!.name
+                        : '',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white)),
+              );
+            }),
+          ),
+          actions: [
+            Opacity(
+              opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+              child: IconButton(
+                onPressed: () => controller.toSearch(controller),
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ));
   }
-
-  // Widget _userCardNumber(double percent, double appBarSize) {
-  //   return Positioned(
-  //     child: Opacity(
-  //       opacity: percent,
-  //       child: userCardNumber(),
-  //     ),
-  //   );
-  // }
 
   Widget _header(BuildContext context, double percent) {
     return Positioned(
@@ -121,120 +113,11 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(children: [
-                    userCardNumber(),
-                    //     const CircularProgressBar(
-                    //       AvatarSize: 23,
-                    //       percent: 0.8,
-                    //       sizeProgressBar: 26,
-                    //     ),
-                    //     const SizedBox(width: 10),
-                    //     Column(
-                    //       children: [
-                    //         Obx(() {
-                    //           return Text(
-                    //               controller.user$.value.employee != null
-                    //                   ? controller.user$.value.employee!.name
-                    //                   : '',
-                    //               style: const TextStyle(
-                    //                   fontWeight: FontWeight.bold,
-                    //                   fontSize: 20,
-                    //                   color: Colors.white));
-                    //         }),
-                    //         Padding(
-                    //             padding: const EdgeInsets.all(5),
-                    //             child: ClipRRect(
-                    //               borderRadius: BorderRadius.circular(20),
-                    //               child: Container(
-                    //                 width: 130,
-                    //                 height: 35,
-                    //                 color: const Color(0xFF43578d),
-                    //                 child: Row(
-                    //                   mainAxisAlignment: MainAxisAlignment.start,
-                    //                   children: [
-                    //                     const FadeInImage(
-                    //                         placeholder: AssetImage(
-                    //                             'assets/images/estrella.png'),
-                    //                         image: AssetImage(
-                    //                             'assets/images/estrella.png')),
-                    //                     Container(width: 10),
-                    //                     const Text('35 pts',
-                    //                         style: TextStyle(
-                    //                             fontWeight: FontWeight.bold,
-                    //                             fontSize: 20,
-                    //                             color: Colors.white)),
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             )),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ),
-                    // Row(
-                    //   children: [
-                    //     IconButton(
-                    //       onPressed: () => controller.toSearch(controller),
-                    //       icon: const Icon(
-                    //         Icons.search,
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //     Padding(
-                    //       padding: const EdgeInsets.all(10.0),
-                    //       child: HomeShoppingCart(),
-                    //     )
-                    //   ],
-                    // )
-                  ])
+                  Column(children: [userCardNumber(), _zipCodeLabel(context)])
                 ],
               ),
             )));
   }
-
-  // Widget _searchInput(BuildContext context, double percent) {
-  //   return Positioned(
-  //     left: 25,
-  //     top: 145,
-  //     child: Opacity(
-  //       opacity: percent,
-  //       child: Form(
-  //         child: SizedBox(
-  //             width: MediaQuery.of(context).size.width - 50,
-  //             height: 50,
-  //             child: GestureDetector(
-  //                 onTap: () => controller.toSearch(controller),
-  //                 child: Container(
-  //                   decoration: BoxDecoration(
-  //                     color: const Color(0xfffffffff),
-  //                     border: Border.all(color: Colors.grey),
-  //                     borderRadius:
-  //                         const BorderRadius.all(Radius.circular(10.0)),
-  //                   ),
-  //                   child: Row(children: const [
-  //                     SizedBox(width: 10),
-  //                     Icon(
-  //                       Icons.search,
-  //                       color: Colors.black54,
-  //                     ),
-  //                     SizedBox(width: 10),
-  //                     Text(
-  //                       'Buscar',
-  //                       style: TextStyle(color: Colors.black54),
-  //                       // Theme.of(context).textTheme.headline2
-  //                     ),
-  //                     Spacer(),
-  //                     Icon(
-  //                       Icons.food_bank,
-  //                       color: Colors.black54,
-  //                     ),
-  //                     SizedBox(width: 10),
-  //                   ]),
-  //                 ))),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _qrCode(BuildContext context, double percent) {
     return Positioned(

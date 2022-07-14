@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-enum Estatus { esperando, pagado, enCamino, entregado }
+enum Estatus {
+  pendiente,
+  aceptado,
+  esperando,
+  pagado,
+  enCamino,
+  entregado,
+  cancelado
+}
 
 enum DeliveryType { envioADomicilio, retiroEnTienda }
 
@@ -23,8 +31,8 @@ class MyShopping {
   String costo;
   String puntos;
   String fecha;
-  Estatus estatus;
   DeliveryType deliveryType;
+  Map<Estatus, String>? estatus;
 
   factory MyShopping.fromVoid() => MyShopping(
         id: 1,
@@ -34,7 +42,15 @@ class MyShopping {
         costo: '',
         puntos: '',
         fecha: '',
-        estatus: Estatus.esperando,
+        estatus: {
+          Estatus.pendiente: 'Pendiente',
+          Estatus.aceptado: 'Aceptado',
+          Estatus.esperando: 'Esperando',
+          Estatus.pagado: 'Pagado',
+          Estatus.enCamino: 'En camino',
+          Estatus.entregado: 'Entregado',
+          Estatus.cancelado: 'Cancelado',
+        },
         deliveryType: DeliveryType.retiroEnTienda,
       );
 

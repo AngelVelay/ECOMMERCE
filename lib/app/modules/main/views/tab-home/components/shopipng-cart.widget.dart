@@ -4,6 +4,7 @@ import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/components/cart-controls.widget.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
+import '../../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../../../../components/points/points.widget.dart';
 
 class HomeShoppingCart extends GetView<HomeController> {
@@ -58,11 +59,11 @@ class HomeShoppingCart extends GetView<HomeController> {
                         controller.cartProducts$[index]);
                   });
             }))
-        : Container(
+        : SizedBox(
             height: size - 162,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.remove_shopping_cart_outlined,
                   color: Colors.grey,
@@ -91,7 +92,7 @@ class HomeShoppingCart extends GetView<HomeController> {
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
                     placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                   )),
             ),
@@ -137,35 +138,37 @@ class HomeShoppingCart extends GetView<HomeController> {
 
   Widget _button() {
     return controller.cartProducts$.length > 0
-        ? Padding(
-            padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
-            child: SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF43578d),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: const BorderSide(color: Colors.black)))),
-                icon: const Icon(
-                  Icons.monetization_on,
-                  size: 20,
-                ),
-                onPressed: controller.cartProducts$.length > 0
-                    ? () => controller.toAddCreditCard()
-                    : null,
-                label: const Text('Pagar',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white)),
-              ),
-            ),
-          )
+        ? CustomRoundedButton(
+            text: 'Pagar', onPressed: () => controller.toAddCreditCard())
+        // ? Padding(
+        //     padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
+        //     child: SizedBox(
+        //       height: 60,
+        //       width: double.infinity,
+        //       child: ElevatedButton.icon(
+        //         style: ButtonStyle(
+        //             backgroundColor: MaterialStateProperty.all<Color>(
+        //               const Color(0xFF43578d),
+        //             ),
+        //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //                 RoundedRectangleBorder(
+        //                     borderRadius: BorderRadius.circular(18.0),
+        //                     side: const BorderSide(color: Colors.black)))),
+        //         icon: const Icon(
+        //           Icons.monetization_on,
+        //           size: 20,
+        //         ),
+        //         onPressed: controller.cartProducts$.length > 0
+        //             ? () => controller.toAddCreditCard()
+        //             : null,
+        //         label: const Text('Pagar',
+        //             style: TextStyle(
+        //                 fontWeight: FontWeight.bold,
+        //                 fontSize: 20,
+        //                 color: Colors.white)),
+        //       ),
+        //     ),
+        //   )
         : Container();
   }
 }

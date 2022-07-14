@@ -210,9 +210,25 @@ class consumeInfo extends GetView<ConsumeController> {
                 style: Theme.of(context).textTheme.headline5,
               ),
             ),
-            Text(
-              '${item.fecha}',
-              style: Theme.of(context).textTheme.headline5,
+            Row(
+              children: [
+                Text(
+                  '${item.fecha}',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                item.estatus.values.first == 'Cancelado'
+                    ? Text(
+                        ' Pedido ${item.estatus.values.first}',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : Text(
+                        ' Pedido ${item.estatus.values.first}',
+                        style: TextStyle(color: Colors.green),
+                      ),
+              ],
             ),
           ]),
           Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -229,8 +245,8 @@ class consumeInfo extends GetView<ConsumeController> {
       ),
       // ignore: unrelated_type_equality_checks
       trailing: item.deliveryType == DeliveryType.envioADomicilio
-          ? Icon(Icons.delivery_dining_rounded, color: Colors.grey)
-          : Icon(Icons.store, color: Colors.grey),
+          ? const Icon(Icons.delivery_dining_rounded, color: Colors.grey)
+          : const Icon(Icons.store, color: Colors.grey),
     );
   }
 }

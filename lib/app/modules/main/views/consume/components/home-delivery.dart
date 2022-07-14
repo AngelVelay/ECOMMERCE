@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'timeline.dart';
 
 class HomeDelivery extends StatelessWidget {
-  HomeDelivery({Key? key}) : super(key: key);
+  const HomeDelivery({Key? key}) : super(key: key);
   // final CheckOutController checkOutController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(
       child: Column(
         children: [_totalBuyDelivery(context), const Timeline()],
       ),

@@ -263,7 +263,9 @@ class UbicationsListBinding implements Bindings {
 class DetailBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DetailController>(() => DetailController());
+    Get.lazyPut<DetailController>(
+      () => DetailController(ReviewsFakeService(), ProductsFakeService()),
+    );
   }
 }
 

@@ -13,8 +13,8 @@ class SignupPage extends GetView<SignupController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registro de usuario'),
-        backgroundColor: Colors.white70,
-        foregroundColor: Colors.black87,
+        backgroundColor: Color(0xff2222222),
+        foregroundColor: Colors.white,
       ),
       body: GestureDetector(
         onTap: () {},
@@ -48,7 +48,7 @@ Widget _imageWidget(BuildContext context) {
         ),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.black38, width: 3),
+          border: Border.all(color: Colors.white, width: 3),
           // icon: Icon(Icons.add_photo_alternate_rounded)),
         ))
   ]));
@@ -75,18 +75,48 @@ Widget _formWidget(BuildContext context, SignupController controller) {
             FormBuilderTextField(
               name: 'name',
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
                   labelText: 'Nombre',
-                  suffixIcon: Icon(Icons.person)),
+                  labelStyle: TextStyle(color: Colors.white),
+                  suffixIcon: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  )),
               validator: FormBuilderValidators.required(),
               keyboardType: TextInputType.text,
             ),
             FormBuilderTextField(
               name: 'email',
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
                   labelText: 'Correo Electrónico',
-                  suffixIcon: Icon(Icons.email)),
+                  labelStyle: TextStyle(color: Colors.white),
+                  suffixIcon: Icon(
+                    Icons.email,
+                    color: Colors.white,
+                  )),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.email(),
                 FormBuilderValidators.required(),
@@ -96,9 +126,24 @@ Widget _formWidget(BuildContext context, SignupController controller) {
             FormBuilderTextField(
               name: 'phoneNumber',
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
                   labelText: 'Teléfono',
-                  suffixIcon: Icon(Icons.phone)),
+                  labelStyle: TextStyle(color: Colors.white),
+                  suffixIcon: Icon(
+                    Icons.phone,
+                    color: Colors.white,
+                  )),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.numeric(),
                 FormBuilderValidators.required(),

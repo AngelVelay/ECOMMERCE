@@ -12,6 +12,7 @@ class QrGeneratePage extends GetView<QrGenerateController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('Escanea tu codigo',
               style: TextStyle(color: Colors.white)),

@@ -51,13 +51,33 @@ class CouponsPage extends GetView<CouponsController> {
               padding: const EdgeInsets.all(15),
               child: Column(children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       item.title,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(color: Colors.white, fontSize: 20),
-                    )
+                    ),
+                    TextButton.icon(
+                      style: ButtonStyle(
+                          side: MaterialStateProperty.all(
+                              const BorderSide(width: 2, color: Colors.white)),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10)),
+                          textStyle: MaterialStateProperty.all(
+                              TextStyle(fontSize: 15))),
+                      onPressed: () {
+                        controller.copyCoupon(item);
+                      },
+                      label: Text(
+                        item.code,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      icon: Icon(Icons.copy_rounded, color: Colors.white),
+                    ),
                   ],
                 ),
                 const SizedBox(

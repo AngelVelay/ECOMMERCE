@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
 import 'package:jexpoints/app/shared/values/assets.globals.dart';
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../../main/main.module.dart';
 
 class SignupSuccessPage extends StatelessWidget {
@@ -38,7 +39,8 @@ Widget _headerWidget(BuildContext context) {
     SizedBox(height: 20),
     Text(
       '¡¡¡FELICIDADES!!!',
-      style: TextStyle(fontSize: 30),
+      style: TextStyle(
+          fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
       textAlign: TextAlign.center,
     ),
     SizedBox(
@@ -46,7 +48,8 @@ Widget _headerWidget(BuildContext context) {
     ),
     Text(
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown ',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      style: TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
       textAlign: TextAlign.center,
     ),
   ]);
@@ -55,7 +58,7 @@ Widget _headerWidget(BuildContext context) {
 Widget _verifyButtonWidget(BuildContext context) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-    child: CustomButton(
+    child: CustomRoundedButton(
         text: 'Comenzar'.toUpperCase(),
         onPressed: () {
           Get.toNamed(MainRouting.MAIN_ROUTE);

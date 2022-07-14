@@ -24,6 +24,8 @@ class CatalogosListController extends GetxController {
   late var cartItems$ = 0.obs;
   var category = "";
 
+  final categoria = Get.arguments['category'];
+
   CatalogosListController(this.catalogoService, this.productsService);
 
   @override

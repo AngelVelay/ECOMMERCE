@@ -112,4 +112,32 @@ class PayController extends GetxController {
       'selectedCreditCard': selectedCreditCard.value,
     });
   }
+
+  creditCardLogo() async {
+    if (cardNumber.text.characters.first == '4') {
+      return Image.asset(
+        'assets/images/visa.png',
+        height: 40,
+        width: 40,
+      );
+    } else if (cardNumber.text.characters.first == '5') {
+      return Image.asset(
+        'assets/images/mastercard.png',
+        height: 40,
+        width: 40,
+      );
+    } else if (cardNumber.text.characters.first == '3') {
+      return Image.asset(
+        'assets/images/amex.png',
+        height: 40,
+        width: 40,
+      );
+    } else {
+      return Image.asset(
+        'assets/images/credit-card.png',
+        height: 40,
+        width: 40,
+      );
+    }
+  }
 }

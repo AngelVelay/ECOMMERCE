@@ -8,16 +8,30 @@ class CustomRoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return TextButton(
+    //     child: Text(text, style: TextStyle(fontSize: 16)),
+    //     style: ButtonStyle(
+    //         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+    //         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    //         backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+    //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    //             RoundedRectangleBorder(
+    //                 borderRadius: BorderRadius.circular(25.0),
+    //                 side: BorderSide(color: Colors.black87)))),
+    //     onPressed: onPressed);
+
     return TextButton(
-        child: Text(text, style: TextStyle(fontSize: 16)),
+        child: Text(text,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(20)),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Color(0xFF43578d)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                    side: BorderSide(color: Colors.black87)))),
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Colors.black)))),
         onPressed: onPressed);
   }
 }

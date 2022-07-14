@@ -21,8 +21,8 @@ class VerificationPage extends GetView<VerificationController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verificación'),
-        backgroundColor: Colors.white70,
-        foregroundColor: Colors.black87,
+        backgroundColor: Color(0xff2222222),
+        foregroundColor: Colors.white,
       ),
       body: GestureDetector(
         onTap: () {},
@@ -65,7 +65,8 @@ Widget _headerWidget(BuildContext context, VerificationController controller) {
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         'Verificación de código',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         textAlign: TextAlign.center,
       ),
     ),
@@ -78,11 +79,11 @@ Widget _headerWidget(BuildContext context, VerificationController controller) {
               TextSpan(
                   text: controller.phoneNumber,
                   style: const TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 15)),
             ],
-            style: const TextStyle(color: Colors.black54, fontSize: 15)),
+            style: const TextStyle(color: Colors.white, fontSize: 15)),
         textAlign: TextAlign.center,
       ),
     )
@@ -153,14 +154,14 @@ Widget _footerWidget(BuildContext context, VerificationController controller) {
     children: [
       const Text(
         "¿No recibiste el código? ",
-        style: TextStyle(color: Colors.black54, fontSize: 15),
+        style: TextStyle(color: Colors.white, fontSize: 15),
       ),
       TextButton(
         onPressed: () => controller.resend(),
         child: const Text(
           "Volver a enviar",
           style: TextStyle(
-              color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+              color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       )
     ],

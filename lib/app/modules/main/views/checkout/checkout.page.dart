@@ -7,6 +7,7 @@ import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.page.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../main/main.page.dart';
 import 'checkout.controller.dart';
 
@@ -292,39 +293,49 @@ class CheckOutPage extends GetView<CheckOutController> {
 
   Widget _buttonConfirmDelivery(context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        child: ElevatedButton.icon(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color(0xFF43578d),
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.black)))),
-          icon: const Icon(
-            Icons.check,
-            size: 20,
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: CustomRoundedButton(
+            text: 'Enviar Pedido',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => _gifConfirm(),
+                ),
+              );
+            },
+            // child: ElevatedButton.icon(
+            //   style: ButtonStyle(
+            //       backgroundColor: MaterialStateProperty.all<Color>(
+            //         const Color(0xFF43578d),
+            //       ),
+            //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //           RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(18.0),
+            //               side: const BorderSide(color: Colors.black)))),
+            //   icon: const Icon(
+            //     Icons.check,
+            //     size: 20,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => _gifConfirm(),
+            //       ),
+            //     );
+            //   },
+            //   label: const Text('Enviar Pedido',
+            //       style: TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 20,
+            //           color: Colors.white)),
+            // ),
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => _gifConfirm(),
-              ),
-            );
-          },
-          label: const Text('Enviar Pedido',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white)),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget _buttonConfirmTakeAway(context) {
@@ -431,30 +442,36 @@ class CheckOutPage extends GetView<CheckOutController> {
           child: SizedBox(
             height: 60,
             width: MediaQuery.of(context).size.width,
-            child: ElevatedButton.icon(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    const Color(0xFF43578d),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: const BorderSide(color: Colors.black)))),
-              icon: const Icon(
-                Icons.check,
-                size: 20,
-              ),
+            child: CustomRoundedButton(
+              text: 'Recoger Pedido',
               onPressed: () {
                 controller.toPickup();
               },
-              label: const Text('Recoger Pedido',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white)),
+              // child: ElevatedButton.icon(
+              //   style: ButtonStyle(
+              //       backgroundColor: MaterialStateProperty.all<Color>(
+              //         const Color(0xFF43578d),
+              //       ),
+              //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //           RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(18.0),
+              //               side: const BorderSide(color: Colors.black)))),
+              //   icon: const Icon(
+              //     Icons.check,
+              //     size: 20,
+              //   ),
+              //   onPressed: () {
+              //     controller.toPickup();
+              //   },
+              //   label: const Text('Recoger Pedido',
+              //       style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //           fontSize: 20,
+              //           color: Colors.white)),
+              // ),
             ),
           ),
-        ),
+        )
       ],
     );
   }

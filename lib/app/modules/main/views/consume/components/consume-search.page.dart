@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
+
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
 
 import '../../../entities/my-shopping.type.dart';
@@ -14,15 +10,33 @@ class ConsumeSerarch extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-        primaryColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+            toolbarHeight: 70, backgroundColor: Color(0XFF222222)),
+        primaryColor: Colors.black,
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: Theme.of(context).textTheme.headline4,
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-        ),
+            contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20, vertical: 10), // change height
+
+            filled: true,
+            fillColor: const Color(0xFFFFFFFF),
+            hintStyle: const TextStyle(color: Colors.black),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(
+                color: Colors.black,
+                width: 2.0,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(
+                color: Colors.black,
+                width: 2.0,
+              ),
+            ),
+            border: InputBorder.none),
         textTheme: Theme.of(context).textTheme.copyWith(
-              headline6: TextStyle(color: Colors.white),
+              headline6: const TextStyle(color: Colors.black),
             ));
   }
 
@@ -72,7 +86,7 @@ class ConsumeSerarch extends SearchDelegate {
         child: const Center(
           child: Icon(
             Icons.search_off_rounded,
-            color: Colors.black,
+            color: Colors.grey,
             size: 130,
           ),
         ),

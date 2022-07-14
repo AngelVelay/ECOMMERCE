@@ -21,12 +21,21 @@ class CustomInputText extends StatelessWidget {
       validator: validator,
       initialValue: initialValue,
       decoration: InputDecoration(
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 0.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2.0,
+          ),
         ),
         // border: const OutlineInputBorder(),
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.grey),
+        labelStyle: const TextStyle(color: Colors.white),
         fillColor: Colors.white,
       ),
     );

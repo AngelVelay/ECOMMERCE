@@ -143,6 +143,7 @@ class HomeController extends GetxController {
       'url': item.url,
       'name': item.name,
       'price': item.price,
+      'topRate': item.topRate
     });
   }
 

@@ -309,7 +309,6 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
             );
           }));
       contador++;
-      setState(() {});
     });
   }
 

@@ -5,6 +5,7 @@ import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/views/pay_page/pay.controller.dart';
 import 'package:string_to_hex/string_to_hex.dart';
 
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../tab-home/tab-home.page.dart';
 import 'addCreditCard.controller.dart';
 
@@ -24,24 +25,29 @@ class addCreditCard extends GetView<PayController> {
         child: Scaffold(
             appBar: AppBar(
               backgroundColor: Color(0xff2222222),
-              title: Text('Selecciona un metodo de Pago'),
+              title: Text('Metodo de Pago'),
+              actions: [
+                IconButton(
+                  iconSize: 30,
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    Get.toNamed("/pay");
+                  },
+                )
+              ],
             ),
             body: Column(
               children: [
-                Expanded(child: _chooseCreditCard(context)),
+                Expanded(flex: 2, child: _chooseCreditCard(context)),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
-                        height: 50,
-                      ),
                       _anotherPayWay(),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _buttonConfirm(context),
-                          _addCreditCard(),
                         ],
                       )
                     ],
@@ -105,20 +111,21 @@ Card _buildCreditCard(
       borderRadius: BorderRadius.circular(14),
     ),
     child: Container(
-      height: 180,
-      padding: const EdgeInsets.only(left: 16.0, right: 80.0, bottom: 22.0),
+      height: 150,
+      width: 300,
+      padding: const EdgeInsets.only(left: 16.0, right: 10.0, bottom: 22.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildLogosBlock(),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.only(top: 5.0),
             child: Text(
               '$cardNumber',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 21,
+                fontSize: 15,
               ),
             ),
           ),
@@ -128,9 +135,6 @@ Card _buildCreditCard(
               _buildDetailsBlock(
                 label: 'Nombre',
                 value: cardHolder,
-              ),
-              SizedBox(
-                width: 50,
               ),
               _buildDetailsBlock(
                   label: 'Fecha de Expiración', value: cardExpiration),
@@ -154,8 +158,8 @@ Row _buildLogosBlock() {
       ),
       Image.asset(
         "assets/images/mastercard.png",
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
       ),
     ],
   );
@@ -174,7 +178,7 @@ Column _buildDetailsBlock({required String label, required String value}) {
       Text(
         value,
         style: TextStyle(
-            color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
       )
     ],
   );
@@ -190,11 +194,11 @@ Column _anotherPayWay() {
       ),
       SizedBox(height: 10),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
@@ -205,24 +209,22 @@ Column _anotherPayWay() {
                       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png'),
                   placeholder: NetworkImage(
                       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png'),
-                  width: 80,
-                  height: 80,
                 ),
               )),
+          SizedBox(width: 60),
           Container(
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                 ),
                 onPressed: () {},
                 child: FadeInImage(
+                  fit: BoxFit.cover,
                   image: NetworkImage(
                       'https://s3.cointelegraph.com/storage/uploads/view/3278bdc14c74dd4e85732b776d0e5b1d.png'),
                   placeholder: AssetImage('assets/images/face-id.png'),
-                  width: 80,
-                  height: 80,
                 ),
               )),
         ],
@@ -235,35 +237,41 @@ Widget _buttonConfirm(context) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SizedBox(
-      height: 50,
+      height: 60,
       width: MediaQuery.of(context).size.width,
-      child: ElevatedButton.icon(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              Color(0xFF43578d),
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.black)))),
-        icon: const Icon(
-          Icons.monetization_on,
-          size: 20,
-        ),
+      child: CustomRoundedButton(
+        text: 'Confirmar Compra',
         onPressed: () {
           Get.toNamed('/confirm-compra');
         },
-        label: const Text(' Confirmar Compra',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.white)),
       ),
+      // child: ElevatedButton.icon(
+      //   style: ButtonStyle(
+      //       backgroundColor: MaterialStateProperty.all<Color>(
+      //         Color(0xFF43578d),
+      //       ),
+      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //           RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(18.0),
+      //               side: BorderSide(color: Colors.black)))),
+      //   icon: const Icon(
+      //     Icons.monetization_on,
+      //     size: 20,
+      //   ),
+      //   onPressed: () {
+      //     Get.toNamed('/confirm-compra');
+      //   },
+      //   label: const Text(' Confirmar Compra',
+      //       style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //           fontSize: 20,
+      //           color: Colors.white)),
+      // ),
     ),
   );
 }
 
-Row _addCreditCard() {
+Widget _addCreditCard() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: [

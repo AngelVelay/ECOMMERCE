@@ -14,8 +14,8 @@ class PasswordPage extends GetView<PasswordController> {
     return Scaffold(
         appBar: AppBar(
             title: const Text('Finalizar registro'),
-            backgroundColor: Colors.white70,
-            foregroundColor: Colors.black87),
+            backgroundColor: Color(0xff2222222),
+            foregroundColor: Colors.white),
         body: Column(children: [
           const SizedBox(height: 30),
           _image(context),
@@ -39,7 +39,7 @@ class PasswordPage extends GetView<PasswordController> {
           ),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.black38, width: 3),
+            border: Border.all(color: Colors.white, width: 3),
           ))
     ]));
   }
@@ -55,9 +55,27 @@ class PasswordPage extends GetView<PasswordController> {
                 name: 'password',
                 controller: controller.passwordTextCtrl,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2.0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2.0,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
                     labelText: 'Contraseña',
-                    suffixIcon: Icon(Icons.vpn_key)),
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: Icon(Icons.vpn_key, color: Colors.white)),
                 validator: FormBuilderValidators.required(),
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -66,9 +84,27 @@ class PasswordPage extends GetView<PasswordController> {
                 name: 'confirmPassword',
                 controller: controller.confirmPasswordTextCtrl,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2.0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2.0,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
                     labelText: 'Confirmación de Contraseña',
-                    suffixIcon: Icon(Icons.vpn_key)),
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: Icon(Icons.vpn_key, color: Colors.white)),
                 validator: (value) {
                   return controller.confirmValidate();
                 },

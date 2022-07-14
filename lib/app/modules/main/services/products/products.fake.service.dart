@@ -12,7 +12,7 @@ class ProductsFakeService implements IProductsService {
         price: 9.00,
         cartValue: 0,
         isFavorite: false,
-        topRate: 0,
+        topRate: 3,
         points: 50,
         category: Categories.panderia),
     Product(
@@ -34,7 +34,7 @@ class ProductsFakeService implements IProductsService {
         price: 80.00,
         cartValue: 0,
         isFavorite: false,
-        topRate: 1,
+        topRate: 4,
         points: 14,
         category: Categories.panderia),
     Product(
@@ -56,7 +56,7 @@ class ProductsFakeService implements IProductsService {
         price: 40,
         cartValue: 0,
         isFavorite: true,
-        topRate: 2,
+        topRate: 5,
         points: 21,
         category: Categories.panderia),
     Product(
@@ -67,7 +67,7 @@ class ProductsFakeService implements IProductsService {
         price: 80.00,
         cartValue: 0,
         isFavorite: false,
-        topRate: 1,
+        topRate: 5,
         points: 14,
         category: Categories.panderia),
     Product(
@@ -78,7 +78,7 @@ class ProductsFakeService implements IProductsService {
         price: 10,
         cartValue: 0,
         isFavorite: false,
-        topRate: 3,
+        topRate: 4,
         points: 32,
         category: Categories.pasteleria),
     Product(
@@ -89,7 +89,7 @@ class ProductsFakeService implements IProductsService {
         price: 40,
         cartValue: 0,
         isFavorite: true,
-        topRate: 2,
+        topRate: 4,
         points: 21,
         category: Categories.pasteleria),
     // Product(

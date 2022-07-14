@@ -4,6 +4,7 @@ import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../recovery/recovery.page.dart';
 import 'login.controller.dart';
 
@@ -23,21 +24,55 @@ class LoginPage extends GetView<LoginController> {
       TextField(
         obscureText: false,
         controller: controller.username,
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), labelText: "Usuario"),
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 2.0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 2.0,
+            ),
+          ),
+          labelText: "Usuario",
+          labelStyle: TextStyle(color: Colors.white),
+        ),
       ),
       TextField(
         obscureText: true,
         controller: controller.password,
         decoration: InputDecoration(
-            border: OutlineInputBorder(), labelText: "Contraseña"),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 2.0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 2.0,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
+          ),
+          labelText: "Contraseña",
+          labelStyle: TextStyle(color: Colors.white),
+        ),
       ).paddingOnly(top: 16),
       Container(
           alignment: Alignment.centerRight,
           child: TextButton(
             child: Text(
               "¿Olvidaste tu contraseña?",
-              style: TextStyle(color: Colors.black87),
+              style: TextStyle(color: Colors.white),
             ),
             onPressed: () => {
               showModalBottomSheet<void>(
@@ -50,14 +85,17 @@ class LoginPage extends GetView<LoginController> {
       Container(
           width: double.infinity,
           child: Obx(() {
-            return CustomButton(
+            return CustomRoundedButton(
                 text: '${controller.loginText}',
                 onPressed: () => controller.singIn());
           })),
       Spacer(),
       Column(
         children: [
-          Text('Ingresa tambien con:'),
+          Text(
+            'Ingresa tambien con:',
+            style: TextStyle(color: Colors.white),
+          ),
           SizedBox(height: 20),
           Platform.isIOS
               ? Row(

@@ -122,7 +122,7 @@ class HomePage extends GetView<HomeController> {
                     height: 3000,
                     fit: BoxFit.fill,
                     placeholder: const NetworkImage(
-                        'https://tenor.com/view/loading-gif-9212724.gif'),
+                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                   ),
                 ))));

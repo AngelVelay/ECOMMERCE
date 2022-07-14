@@ -97,7 +97,7 @@ class PayPage extends GetView<PayController> {
           width: 18,
         ),
         Image.asset(
-          "assets/images/mastercard.png",
+          "assets/images/visa.png",
           height: 50,
           width: 50,
         ),
