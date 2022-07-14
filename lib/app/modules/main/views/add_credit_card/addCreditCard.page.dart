@@ -29,7 +29,7 @@ class addCreditCard extends GetView<PayController> {
               actions: [
                 IconButton(
                   iconSize: 30,
-                  icon: Icon(Icons.add),
+                  icon: Icon(Icons.add_card_rounded),
                   onPressed: () {
                     Get.toNamed("/pay");
                   },
