@@ -59,6 +59,7 @@ class PayController extends GetxController {
 
     cardNumber.addListener(() {
       cardNumber$.value = cardNumber.text;
+      creditCardLogo() => cardNumber.text;
     });
     cardHolder.addListener(() {
       cardHolder$.value = cardHolder.text;
