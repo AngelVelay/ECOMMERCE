@@ -47,7 +47,7 @@ class HomeTopProducts extends GetView<HomeController> {
     return Container(
       width: 130,
       height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
           GestureDetector(
@@ -60,7 +60,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 160,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                 ])),

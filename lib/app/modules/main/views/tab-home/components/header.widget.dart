@@ -113,7 +113,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(children: [userCardNumber(), _zipCodeLabel(context)])
+                  Column(children: [userCardNumber()])
                 ],
               ),
             )));

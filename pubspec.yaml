@@ -89,3 +89,5 @@ flutter:
   assets:
     - assets/images/
     - assets/images_products/
+    - assets/banners/
+    - assets/background_cards/

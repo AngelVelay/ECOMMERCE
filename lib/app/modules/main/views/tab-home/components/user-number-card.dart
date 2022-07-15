@@ -55,57 +55,125 @@ Widget _buildCreditCard(BuildContext context,
     required String cardNumber,
     required String cardHolder,
     required String cardExpiration}) {
-  return Card(
-    elevation: 4.0,
-    color: color,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(14),
-    ),
-    child: Container(
-      height: 200,
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _buildLogosBlock(),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Número',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+  return Container(
+      height: 230,
+      child: Stack(fit: StackFit.expand, children: [
+        Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Image.asset(
+            'assets/background_cards/silver.jpg',
+            fit: BoxFit.fill,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(20),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Center(
+            child: Container(
+              height: 200,
+              padding:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _buildLogosBlock(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Número',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          cardNumber,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 21,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  cardNumber,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 21,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildDetailsBlock(
+                        label: 'Nombre',
+                        value: cardHolder,
+                      ),
+                      _qrCode(context),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildDetailsBlock(
-                label: 'Nombre',
-                value: cardHolder,
-              ),
-              _qrCode(context),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
+        )
+      ]));
+
+  // return Card(
+  //   elevation: 4.0,
+  //   color: color,
+  //   shape: RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.circular(14),
+  //   ),
+  //   child: Container(
+  //     height: 200,
+  //     padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: <Widget>[
+  //         _buildLogosBlock(),
+  //         Padding(
+  //           padding: const EdgeInsets.only(top: 16.0),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               const Text(
+  //                 'Número',
+  //                 style: TextStyle(
+  //                   color: Colors.grey,
+  //                   fontSize: 10,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //               Text(
+  //                 cardNumber,
+  //                 style: const TextStyle(
+  //                   color: Colors.white,
+  //                   fontSize: 21,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             _buildDetailsBlock(
+  //               label: 'Nombre',
+  //               value: cardHolder,
+  //             ),
+  //             _qrCode(context),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   ),
+  // );
 }
 
 // Build the top row containing logos
@@ -147,13 +215,12 @@ Column _buildDetailsBlock({required String label, required String value}) {
 }
 
 Widget _qrCode(BuildContext context) {
-  return Container(
-      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
+  return Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
     ButtonQRScanner(
       height: 50,
       width: 50,
       title: '',
       color: Colors.white,
     )
-  ]));
+  ]);
 }

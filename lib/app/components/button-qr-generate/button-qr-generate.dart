@@ -20,12 +20,17 @@ class ButtonQRScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+      Container(
+        height: 50,
+        width: width,
         child: ElevatedButton(
             style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                      side: BorderSide(color: Colors.white))),
               backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xFF000000)),
+                  MaterialStateProperty.all<Color>(const Color(0XFFFFFFFF)),
             ),
             onPressed: () {
               showCupertinoModalPopup(
@@ -33,12 +38,14 @@ class ButtonQRScanner extends StatelessWidget {
                   builder: (BuildContext context) => _actionSheet(context));
             },
             child: FadeInImage(
+                fit: BoxFit.contain,
                 height: height,
                 width: width,
                 placeholder: const NetworkImage(
                     'https://tenor.com/view/loading-gif-9212724.gif'),
                 image: const NetworkImage(
-                    'https://img.icons8.com/wired/2x/ffffff/qr-code.png'))),
+                  'https://cdn-icons-png.flaticon.com/512/888/888154.png',
+                ))),
       ),
       Text(
         title,
