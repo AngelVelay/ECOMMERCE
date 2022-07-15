@@ -18,7 +18,7 @@ class HomeTopProducts extends GetView<HomeController> {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Lo mas vendido',
+            child: Text('Top Semanal',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -45,9 +45,9 @@ class HomeTopProducts extends GetView<HomeController> {
 
   Widget _itemWidget(BuildContext context, Product item) {
     return Container(
-      width: 130,
-      height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 150,
+      height: 150,
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
           GestureDetector(
@@ -60,7 +60,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 160,
+                    height: 150,
                     fit: BoxFit.cover,
                   ),
                 ])),

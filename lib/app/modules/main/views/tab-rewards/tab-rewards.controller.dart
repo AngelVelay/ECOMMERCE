@@ -19,7 +19,7 @@ class Menu {
 class RewardsController extends GetxController {
   final IAuthService _repo;
 
-  var user = User.fromVoid().obs;
+  var user$ = User.fromVoid().obs;
   List<Menu> menuItems = [
     Menu(Icons.shopping_basket, MainRouting.CONSUME_ROUTE, 'Mis Compras'),
     Menu(Icons.card_giftcard, MainRouting.COUPONS_ROUTE, 'Cupones'),
@@ -47,7 +47,7 @@ class RewardsController extends GetxController {
   _curretUser() async {
     var existingUser = await _repo.checkUser();
     if (existingUser != null) {
-      user.value = existingUser;
+      user$.value = existingUser;
     } else {
       Get.toNamed(AuthRouting.LOGIN_ROUTE);
     }

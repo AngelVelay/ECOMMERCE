@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.controller.dart';
@@ -31,7 +32,9 @@ class RewardsPage extends GetView<RewardsController> {
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         children: [
-          _header(),
+          Obx(() {
+            return _header();
+          }),
           const SizedBox(height: 20),
           const userCardNumber(),
           const SizedBox(height: 20),
@@ -68,8 +71,8 @@ class RewardsPage extends GetView<RewardsController> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Angel Velay',
-                style: TextStyle(
+            Text(controller.user$.value.name,
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Colors.white)),
@@ -87,11 +90,11 @@ class RewardsPage extends GetView<RewardsController> {
 
   Widget _pointsIndicator() {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            width: 130,
+            width: 180,
             height: 40,
             color: const Color(0xFF43578d),
             child: Row(
@@ -100,12 +103,15 @@ class RewardsPage extends GetView<RewardsController> {
                 const FadeInImage(
                     placeholder: AssetImage('assets/images/estrella.png'),
                     image: AssetImage('assets/images/estrella.png')),
-                Container(width: 10),
-                const Text('35 pts',
-                    style: TextStyle(
+                const SizedBox(width: 10),
+                Text('${controller.user$.value.membership?.points} pts',
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                         color: Colors.white)),
+                Text(
+                    '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
+                    style: const TextStyle(fontSize: 13, color: Colors.white))
               ],
             ),
           ),

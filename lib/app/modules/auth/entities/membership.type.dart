@@ -8,11 +8,13 @@ class Membership {
     required this.levelPercentage,
     required this.nextLevel,
     required this.nextLevelPoints,
+    required this.pointsValue,
   });
 
   String cardNumber;
   String levelName;
   int points;
+  double pointsValue;
   double levelPercentage;
   int nextLevelPoints;
   String nextLevel;
@@ -27,6 +29,7 @@ class Membership {
         levelPercentage: json["levelPercentage"],
         nextLevelPoints: json["nextLevelPoints"],
         nextLevel: json["nextLevel"],
+        pointsValue: json["pointsValue"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,6 +39,7 @@ class Membership {
         "nextLevelPoints": nextLevelPoints,
         "nextLevel": nextLevel,
         "levelPercentage": levelPercentage,
+        "pointsValue": pointsValue,
       };
 
   factory Membership.fromVoid() => Membership(
@@ -44,5 +48,6 @@ class Membership {
       points: 0,
       nextLevelPoints: 0,
       nextLevel: '',
-      levelPercentage: 0);
+      levelPercentage: 0,
+      pointsValue: 0);
 }

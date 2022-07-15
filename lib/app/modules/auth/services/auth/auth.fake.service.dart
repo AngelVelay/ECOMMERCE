@@ -30,6 +30,7 @@ class AuthFakeService extends BaseService implements IAuthService {
             cardNumber: '5645891265893212',
             levelName: 'Oro',
             points: 44,
+            pointsValue: 4.40,
             nextLevel: 'Platino',
             nextLevelPoints: 23,
             levelPercentage: 0.8))
