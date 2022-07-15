@@ -91,9 +91,10 @@ Widget _buildCreditCard(BuildContext context,
                         const Text(
                           'Número',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.white,
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                         Text(
@@ -101,6 +102,7 @@ Widget _buildCreditCard(BuildContext context,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 21,
+                            fontFamily: 'Montserrat-Bold',
                           ),
                         ),
                       ],
@@ -113,7 +115,10 @@ Widget _buildCreditCard(BuildContext context,
                         label: 'Nombre',
                         value: cardHolder,
                       ),
-                      _qrCode(context),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: _qrCode(context),
+                      ),
                     ],
                   ),
                 ],
@@ -122,64 +127,11 @@ Widget _buildCreditCard(BuildContext context,
           ),
         )
       ]));
-
-  // return Card(
-  //   elevation: 4.0,
-  //   color: color,
-  //   shape: RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.circular(14),
-  //   ),
-  //   child: Container(
-  //     height: 200,
-  //     padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: <Widget>[
-  //         _buildLogosBlock(),
-  //         Padding(
-  //           padding: const EdgeInsets.only(top: 16.0),
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               const Text(
-  //                 'Número',
-  //                 style: TextStyle(
-  //                   color: Colors.grey,
-  //                   fontSize: 10,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //               Text(
-  //                 cardNumber,
-  //                 style: const TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 21,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             _buildDetailsBlock(
-  //               label: 'Nombre',
-  //               value: cardHolder,
-  //             ),
-  //             _qrCode(context),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   ),
-  // );
 }
 
 // Build the top row containing logos
 Row _buildLogosBlock() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
       Image.asset(
         "assets/images/logo_esperanza.png",
@@ -191,6 +143,12 @@ Row _buildLogosBlock() {
       //   height: 60,
       //   width: 80,
       // ),
+      Text('Platino',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontFamily: 'NewYork',
+          )),
     ],
   );
 }
@@ -203,24 +161,26 @@ Column _buildDetailsBlock({required String label, required String value}) {
       Text(
         label,
         style: const TextStyle(
-            color: Colors.grey, fontSize: 10, fontWeight: FontWeight.bold),
+          color: Colors.white,
+          fontSize: 10,
+          fontFamily: 'Montserrat',
+          fontWeight: FontWeight.bold,
+        ),
       ),
       Text(
         value,
         style: const TextStyle(
-            color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+            color: Colors.white, fontSize: 15, fontFamily: 'Montserrat-Bold'),
       )
     ],
   );
 }
 
 Widget _qrCode(BuildContext context) {
-  return Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
-    ButtonQRScanner(
-      height: 50,
-      width: 50,
-      title: '',
-      color: Colors.white,
-    )
-  ]);
+  return const ButtonQRScanner(
+    height: 50,
+    width: 50,
+    title: '',
+    color: Colors.white,
+  );
 }

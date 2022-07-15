@@ -21,37 +21,50 @@ class ButtonQRScanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        height: 50,
-        width: width,
-        child: ElevatedButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                      side: BorderSide(color: Colors.white))),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0XFFFFFFFF)),
-            ),
-            onPressed: () {
-              showCupertinoModalPopup(
-                  context: context,
-                  builder: (BuildContext context) => _actionSheet(context));
-            },
-            child: FadeInImage(
-                fit: BoxFit.contain,
-                height: height,
-                width: width,
-                placeholder: const NetworkImage(
-                    'https://tenor.com/view/loading-gif-9212724.gif'),
-                image: const NetworkImage(
-                  'https://cdn-icons-png.flaticon.com/512/888/888154.png',
-                ))),
-      ),
-      Text(
-        title,
-        style:
-            TextStyle(fontSize: 20, color: color, fontWeight: FontWeight.bold),
+        color: Colors.white,
+        child: IconButton(
+          icon: Image.network(
+            'https://cdn-icons-png.flaticon.com/512/747/747470.png',
+            width: width,
+            height: height,
+          ),
+          iconSize: 40,
+          onPressed: () {
+            showCupertinoModalPopup(
+                context: context,
+                builder: (BuildContext context) => _actionSheet(context));
+          },
+        ),
       )
+      // child: ElevatedButton(
+      //     style: ButtonStyle(
+      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //           const RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.zero,
+      //               side: BorderSide(color: Colors.white))),
+      //       backgroundColor:
+      //           MaterialStateProperty.all<Color>(const Color(0XFFFFFFFF)),
+      //     ),
+      //     onPressed: () {
+      //       showCupertinoModalPopup(
+      //           context: context,
+      //           builder: (BuildContext context) => _actionSheet(context));
+      //     },
+      //     child: FadeInImage(
+      //         fit: BoxFit.cover,
+      //         height: height,
+      //         width: width,
+      //         placeholder: const NetworkImage(
+      //             'https://tenor.com/view/loading-gif-9212724.gif'),
+      //         image: const NetworkImage(
+      //           'https://cdn-icons-png.flaticon.com/512/888/888154.png',
+      //         ))),
+
+      // Text(
+      //   title,
+      //   style:
+      //       TextStyle(fontSize: 20, color: color, fontWeight: FontWeight.bold),
+      // )
     ]);
   }
 

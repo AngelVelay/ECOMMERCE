@@ -130,7 +130,7 @@ class ShoppingCartPage extends StatelessWidget {
   Widget _button() {
     return controller.cartProducts$.length > 0
         ? Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(15.0),
             child: SizedBox(
               width: double.infinity,
               height: 60,

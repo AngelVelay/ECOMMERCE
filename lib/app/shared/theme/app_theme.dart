@@ -9,7 +9,7 @@ final ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xff2222222),
 
   // Define the default font family.
-  fontFamily: 'Hind',
+  fontFamily: 'Montserrat-Bold',
 
   // Define the default TextTheme. Use this to specify the default
   // text styling for headlines, titles, bodies of text, and more.

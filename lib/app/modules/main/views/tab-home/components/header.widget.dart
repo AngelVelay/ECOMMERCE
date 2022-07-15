@@ -83,7 +83,8 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: Colors.white)),
+                        color: Colors.white,
+                        fontFamily: 'Montserrat-Bold')),
               );
             }),
           ),

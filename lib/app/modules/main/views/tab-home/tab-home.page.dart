@@ -31,9 +31,8 @@ class HomePage extends GetView<HomeController> {
             ),
             SliverToBoxAdapter(
               child: Column(children: [
-                const SizedBox(height: 15),
-
                 // _coupons(),
+                _welcomeGreeting(),
                 _flyerList(),
                 const HomeTopProducts(),
                 const SizedBox(height: 15),
@@ -46,6 +45,29 @@ class HomePage extends GetView<HomeController> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _welcomeGreeting() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          '¡Hola! ',
+          style: TextStyle(
+              fontSize: 15, fontFamily: 'NewYork', color: Colors.white),
+        ),
+        const Text(
+          'bienvenido a ',
+          style: TextStyle(
+              fontSize: 15, fontFamily: 'Montserrat', color: Colors.white),
+        ),
+        Image.asset(
+          "assets/images/logo_esperanza.png",
+          height: 60,
+          width: 150,
+        ),
+      ],
     );
   }
 
@@ -83,8 +105,7 @@ class HomePage extends GetView<HomeController> {
   }
 
   Widget _flyerList() {
-    return SizedBox(
-        child: ListView(
+    return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -104,12 +125,12 @@ class HomePage extends GetView<HomeController> {
           );
         })
       ],
-    ));
+    );
   }
 
   Widget _flyerItem(Flyer item) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         child: SizedBox(
             width: 600,
             height: 600,
@@ -119,7 +140,6 @@ class HomePage extends GetView<HomeController> {
                   onTap: () => controller.toFlyer(item),
                   child: FadeInImage(
                     width: 600,
-                    height: 3000,
                     fit: BoxFit.fill,
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),

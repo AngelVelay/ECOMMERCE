@@ -67,7 +67,6 @@ class CatalogosPage extends GetView<CatalogosController> {
       BuildContext context, CatalogosController controller) {
     return Column(children: [
       SizedBox(
-        height: MediaQuery.of(context).size.height * 0.8,
         child: SingleChildScrollView(
           dragStartBehavior: DragStartBehavior.start,
           scrollDirection: Axis.vertical,

@@ -12,7 +12,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 260,
+      height: 285,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,11 +25,27 @@ class HomeFavoriteProducts extends GetView<HomeController> {
   }
 
   Widget _header() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Text('Favoritos',
-          style: TextStyle(
-              fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              // Image.asset(
+              //   'assets/images/top_semanal.png',
+              //   height: 35,
+              //   fit: BoxFit.cover,
+              // ),
+              Text('Lo mas vendido',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'NewYork',
+                      fontSize: 30,
+                      color: Colors.white)),
+              SizedBox(height: 10),
+            ],
+          )),
     );
   }
 
@@ -47,9 +63,9 @@ class HomeFavoriteProducts extends GetView<HomeController> {
 
   Widget _item(BuildContext context, Product item) {
     return Container(
-      width: 200,
-      height: 200,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 130,
+      height: 190,
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
           GestureDetector(
@@ -62,7 +78,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 150,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                   // const Align(
@@ -75,14 +91,19 @@ class HomeFavoriteProducts extends GetView<HomeController> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 20)),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontFamily: 'Montserrat-Bold')),
           Text(
             '\$ ${item.price}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 15,
+                fontFamily: 'Montserrat-Bold',
+                color: Colors.white),
           ),
           HomeCartControls(item)
         ],

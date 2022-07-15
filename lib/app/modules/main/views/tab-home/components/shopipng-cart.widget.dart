@@ -14,7 +14,7 @@ class HomeShoppingCart extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size.height * 0.85;
+    size = MediaQuery.of(context).size.height;
 
     return GestureDetector(
       onTap: () {
@@ -41,12 +41,15 @@ class HomeShoppingCart extends GetView<HomeController> {
 
   Widget _cartSheetContent(BuildContext context) {
     return Column(
-      children: [_cartProductList(context), _button()],
+      children: [
+        _cartProductList(context),
+        _button(),
+      ],
     );
   }
 
   Widget _cartProductList(BuildContext context) {
-    return controller.cartProducts$.length > 0
+    return controller.cartProducts$.isNotEmpty
         ? SizedBox(
             height: size - 162,
             child: Obx(() {
@@ -137,9 +140,11 @@ class HomeShoppingCart extends GetView<HomeController> {
   }
 
   Widget _button() {
-    return controller.cartProducts$.length > 0
-        ? CustomRoundedButton(
-            text: 'Pagar', onPressed: () => controller.toAddCreditCard())
+    return controller.cartProducts$.isNotEmpty
+        ? SizedBox(
+            child: CustomRoundedButton(
+                text: 'Pagar', onPressed: () => controller.toAddCreditCard()),
+          )
         // ? Padding(
         //     padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
         //     child: SizedBox(
