@@ -2,17 +2,17 @@ import 'dart:convert';
 
 class Branch {
   Branch({
-    required this.companyId,
     required this.externalCode,
     required this.externalId,
     required this.name,
     required this.isActive,
     required this.isBySystem,
+    this.companyId,
     this.id,
     this.company,
   });
 
-  String companyId;
+  String? companyId;
   String externalCode;
   int externalId;
   String name;

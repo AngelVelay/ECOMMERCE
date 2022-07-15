@@ -109,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ).paddingSymmetric(horizontal: 10),
       const Divider(thickness: 2),
-      consumeInfo()
     ]);
   }
 }

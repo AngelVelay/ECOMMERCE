@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
+import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
-
-import '../../../entities/my-shopping.type.dart';
 
 class ConsumeSerarch extends SearchDelegate {
   @override
@@ -47,7 +45,7 @@ class ConsumeSerarch extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
         },
@@ -58,7 +56,7 @@ class ConsumeSerarch extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         close(context, null);
       },
@@ -72,8 +70,8 @@ class ConsumeSerarch extends SearchDelegate {
     return FutureBuilder(
       future: controller.getByName(query),
       builder: (_, snapshot) => snapshot.hasData
-          ? consumeInfo(snapshot.data as List<MyShopping>)
-          : Center(
+          ? consumeInfo(snapshot.data as List<Order>)
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );
@@ -95,7 +93,7 @@ class ConsumeSerarch extends SearchDelegate {
     return Container();
   }
 
-  Widget consumeInfo(List<MyShopping> data) {
+  Widget consumeInfo(List<Order> data) {
     // return ListView.builder(
     //     itemCount: data.length,
     //     itemBuilder: (context, index) {
@@ -117,7 +115,7 @@ class ConsumeSerarch extends SearchDelegate {
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
-                controller.selectedDeliveryType(
+                controller.showDetail(
                     controller.shoppingList$.value[index], context);
               },
               child: _consumeListItem(context, data[index]));

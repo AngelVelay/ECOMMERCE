@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
-import '../../checkout/checkout.controller.dart';
+import '../../../entities/order.type.dart';
 
-class QrPickUp extends StatelessWidget {
-  QrPickUp({Key? key}) : super(key: key);
-  // final CheckOutController checkOutController = Get.find();
+class OrderDetailPickup extends StatelessWidget {
+  const OrderDetailPickup({Key? key}) : super(key: key);
+
   final String data =
       "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
 

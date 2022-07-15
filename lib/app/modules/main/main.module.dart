@@ -24,6 +24,7 @@ import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.c
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.controller.dart';
 import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
+import 'package:jexpoints/app/modules/main/views/consume/order-detail.controller.dart';
 import 'package:jexpoints/app/modules/main/views/coupon-detail/coupon-detail.controller.dart';
 import 'package:jexpoints/app/modules/main/views/coupon-detail/coupon-detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/coupons/coupons.controller.dart';
@@ -230,10 +231,12 @@ class ProfileBinding implements Bindings {
 
 class ConsumeBinding implements Bindings {
   var authService = AuthFakeService();
+  var shoppingService = ShoppingFakeService();
   @override
   void dependencies() {
-    Get.lazyPut<ConsumeController>(
-        () => ConsumeController(ShoppingFakeService()));
+    Get.lazyPut<ConsumeController>(() => ConsumeController(shoppingService));
+    Get.lazyPut<OrderDetailController>(
+        () => OrderDetailController(shoppingService));
   }
 }
 

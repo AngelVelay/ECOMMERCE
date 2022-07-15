@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:jexpoints/app/modules/main/views/consume/components/timeline.dart';
+import 'package:jexpoints/app/modules/main/views/consume/components/tracker.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.page.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
@@ -281,7 +281,7 @@ class CheckOutPage extends GetView<CheckOutController> {
             ),
             Column(
               children: [
-                const Timeline(),
+                const Tracker(),
                 _buttonConfirmDelivery(context),
               ],
             )

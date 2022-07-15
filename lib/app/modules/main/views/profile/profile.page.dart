@@ -602,7 +602,6 @@ class ProfilePage extends GetView<ProfileController> {
         ],
       ).paddingSymmetric(horizontal: 10),
       const Divider(thickness: 2),
-      consumeInfo()
     ]);
   }
 

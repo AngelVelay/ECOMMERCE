@@ -5,8 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class Timeline extends StatelessWidget {
-  const Timeline({Key? key}) : super(key: key);
+class Tracker extends StatelessWidget {
+  const Tracker({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

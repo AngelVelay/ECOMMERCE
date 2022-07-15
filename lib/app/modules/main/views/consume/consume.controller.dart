@@ -1,21 +1,17 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:jexpoints/app/modules/main/entities/my-shopping.type.dart';
+import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
-import 'package:jexpoints/app/modules/main/views/checkout/checkout.page.dart';
-import 'package:jexpoints/app/modules/main/views/consume/consume.page.dart';
-
-import '../../../../components/map_ubication/map_ubication.dart';
-import 'components/home-delivery.dart';
-import 'components/qr-pickup.dart';
-import 'components/timeline.dart';
+import 'package:jexpoints/app/modules/main/views/consume/order-detail.controller.dart';
+import 'components/order-detail-delivery.dart';
+import 'components/order-detail-pickup.dart';
 
 class ConsumeController extends GetxController {
   final IShoppingService shoppingService;
 
-  late var shoppingList$ = <MyShopping>[].obs;
+  late var shoppingList$ = <Order>[].obs;
   final keywordCtrl = TextEditingController();
-  late var findedProducts$ = <MyShopping>[].obs;
+  late var findedProducts$ = <Order>[].obs;
 
   ConsumeController(this.shoppingService);
 
@@ -31,16 +27,16 @@ class ConsumeController extends GetxController {
   }
 
   @override
-  Future<List<MyShopping>> getByName(String query) async {
+  Future<List<Order>> getByName(String query) async {
     //filter by name
     return shoppingList$.value.where((element) {
       return element.name.toLowerCase().contains(query.toLowerCase());
     }).toList();
   }
 
-  consumeTapMap(BuildContext context) {
+  showDetailPickup(BuildContext context, Order order) {
     showModalBottomSheet(
-      backgroundColor: Color(0XFF22222222),
+      backgroundColor: const Color(0XFF22222222),
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -50,15 +46,15 @@ class ConsumeController extends GetxController {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (context) => Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.7,
-          child: QrPickUp(),
+          child: const OrderDetailPickup(),
         ),
       ),
     );
   }
 
-  consumeTapDeliveryInfo(BuildContext context) {
+  showDetailDelivery(BuildContext context, Order order) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -71,16 +67,18 @@ class ConsumeController extends GetxController {
         padding: const EdgeInsets.all(5.0),
         child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.7,
-            child: HomeDelivery()),
+            child: const OrderDetailDelivery()),
       ),
     );
   }
 
-  void selectedDeliveryType(MyShopping item, BuildContext context) {
+  void showDetail(Order item, BuildContext context) {
+    var ctrl = Get.find<OrderDetailController>();
+    ctrl.setOrder(item);
     if (item.deliveryType == DeliveryType.envioADomicilio) {
-      consumeTapDeliveryInfo(context);
+      showDetailDelivery(context, item);
     } else {
-      consumeTapMap(context);
+      showDetailPickup(context, item);
     }
   }
 }
