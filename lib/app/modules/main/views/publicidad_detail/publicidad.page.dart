@@ -27,7 +27,7 @@ class PublicidadPage extends GetView<PublicidadController> {
           child: FadeInImage(
             fit: BoxFit.contain,
             placeholder: const AssetImage('assets/images/loading.gif'),
-            image: NetworkImage(controller.image.toString()),
+            image: AssetImage(controller.image.toString()),
           )),
     );
   }

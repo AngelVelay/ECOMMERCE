@@ -25,7 +25,7 @@ class HomeCartControls extends GetView<HomeController> {
               backgroundColor: labelColor,
               iconData: Icons.remove,
               onPressed: () => controller.deleteCart(item),
-              size: 25,
+              size: 15,
               foregroundColor: altColor,
             )
           : Container(),
@@ -62,7 +62,7 @@ class HomeCartControls extends GetView<HomeController> {
           //   ),
           // ));
         },
-        size: 25,
+        size: 15,
         foregroundColor: altColor,
       ),
     ]);

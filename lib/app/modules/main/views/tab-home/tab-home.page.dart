@@ -123,7 +123,7 @@ class HomePage extends GetView<HomeController> {
                     fit: BoxFit.fill,
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.url),
+                    image: AssetImage(item.url),
                   ),
                 ))));
   }
