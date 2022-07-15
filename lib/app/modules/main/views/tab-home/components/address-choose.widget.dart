@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 
+import '../../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../../entities/address.type.dart';
 import '../../map-add-address/map-add-address.page.dart';
 import '../tab-home.controller.dart';
@@ -47,26 +48,14 @@ class HomeAddressSelect extends GetView<HomeController> {
 
   Widget _button(BuildContext context) {
     return Container(
-      height: 50,
-      child: ElevatedButton.icon(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              const Color(0xFF43578d),
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: const BorderSide(color: Colors.black)))),
-        icon: const Icon(Icons.location_on),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return AddAdressPage();
-          }));
-          // SheetUtils.show(context, HomeAddressAdd(controller),
-          //     title: 'Agregar Domicilio');
-        },
-        label: const Text('Agrega una nueva dirección'),
-      ),
-    );
+        height: 60,
+        child: CustomRoundedButton(
+          text: 'Agrega una nueva dirección',
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return AddAdressPage();
+            }));
+          },
+        ));
   }
 }

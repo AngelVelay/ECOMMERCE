@@ -223,14 +223,14 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                             width: 250,
                             height: 30,
                             child: Text(
-                        element['name'],
-                        maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                              element['name'],
+                              maxLines: 2,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           // const Spacer(),
                           // Container(
@@ -305,7 +305,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                         maxLines: 2,
                       ),
                     ),
-                     const Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
                       child: Text(
                         "Horario: 8:00 a.m. a 9:00 p.m.",
@@ -402,53 +402,55 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff2222222),
-        title: const Text('Ubicaciones'),
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.list_alt),
-            onPressed: () {
-              Navigator.pushNamed(context, '/ubications-list');
-            },
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 60),
-            child: _markers.length > 150
-                ? GoogleMap(
-                    onTap: (position) {
-                      _customInfoWindowController.hideInfoWindow!();
-                    },
-                    onCameraMove: (position) {
-                      _customInfoWindowController.onCameraMove!();
-                    },
-                    onMapCreated: (GoogleMapController controller) async {
-                      _customInfoWindowController.googleMapController =
-                          controller;
-                    },
-                    markers: _markers,
-                    initialCameraPosition: CameraPosition(
-                      target: _latLng,
-                      zoom: _zoom,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xff2222222),
+          title: const Text('Ubicaciones'),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.list_alt),
+              onPressed: () {
+                Navigator.pushNamed(context, '/ubications-list');
+              },
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: _markers.length > 150
+                  ? GoogleMap(
+                      onTap: (position) {
+                        _customInfoWindowController.hideInfoWindow!();
+                      },
+                      onCameraMove: (position) {
+                        _customInfoWindowController.onCameraMove!();
+                      },
+                      onMapCreated: (GoogleMapController controller) async {
+                        _customInfoWindowController.googleMapController =
+                            controller;
+                      },
+                      markers: _markers,
+                      initialCameraPosition: CameraPosition(
+                        target: _latLng,
+                        zoom: _zoom,
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-          ),
-          CustomInfoWindow(
-            controller: _customInfoWindowController,
-            height: 248,
-            width: 300,
-            offset: 35,
-          ),
-        ],
+            ),
+            CustomInfoWindow(
+              controller: _customInfoWindowController,
+              height: 248,
+              width: 300,
+              offset: 35,
+            ),
+          ],
+        ),
       ),
     );
   }

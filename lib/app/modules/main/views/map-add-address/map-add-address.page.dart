@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jexpoints/app/modules/main/views/map-add-address/map-add-adress.controller.dart';
 
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
+
 class AddAdressPage extends StatelessWidget {
   AddAdressController con = Get.put(AddAdressController());
 
@@ -31,26 +33,16 @@ class AddAdressPage extends StatelessWidget {
 
   Widget _buttonAccept(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomCenter,
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 30),
-      child: ElevatedButton.icon(
-        icon: Icon(Icons.check),
-        onPressed: () => con.selectRefPoint(context),
-        label: const Text(
-          'Seleccionar direccion',
-          style: TextStyle(color: Colors.white, fontSize: 25),
-        ),
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              const Color(0xFF43578d),
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: const BorderSide(color: Colors.black)))),
-      ),
-    );
+        alignment: Alignment.bottomCenter,
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 30),
+        child: Container(
+          height: 60,
+          child: CustomRoundedButton(
+            text: 'Agregar nueva dirección',
+            onPressed: () => con.selectRefPoint(context),
+          ),
+        ));
   }
 
   Widget _cardAddress() {

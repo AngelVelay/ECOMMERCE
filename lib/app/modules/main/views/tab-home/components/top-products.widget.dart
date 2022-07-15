@@ -12,22 +12,11 @@ class HomeTopProducts extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 300,
+      height: 295,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-<<<<<<< Updated upstream
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Top Semanal',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-          ),
-=======
           _header(),
->>>>>>> Stashed changes
           const SizedBox(height: 10),
           _listWidget(context),
         ],
@@ -39,7 +28,7 @@ class HomeTopProducts extends GetView<HomeController> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -75,8 +64,8 @@ class HomeTopProducts extends GetView<HomeController> {
 
   Widget _itemWidget(BuildContext context, Product item) {
     return Container(
-      width: 150,
-      height: 150,
+      width: 130,
+      height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
@@ -90,7 +79,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 150,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                 ])),

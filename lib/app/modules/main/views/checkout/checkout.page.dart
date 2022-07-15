@@ -106,7 +106,12 @@ class CheckOutPage extends GetView<CheckOutController> {
                   size: 40,
                 ),
                 onPressed: () {
-                  controller.adreesTap(context);
+                  showDialog<void>(
+                      context: context,
+                      builder: (_) =>
+                          _alertDialog(context, CheckOutController));
+
+                  // controller.adreesTap(context);
                 },
               ),
               title: const Text(
@@ -531,40 +536,32 @@ class CheckOutPage extends GetView<CheckOutController> {
     );
   }
 }
-// return Padding(
-//   padding: const EdgeInsets.all(20.0),
-//   child: SizedBox(
-//     height: 60,
-//     width: MediaQuery.of(context).size.width,
-//     child: ElevatedButton.icon(
-//       style: ButtonStyle(
-//           backgroundColor: MaterialStateProperty.all<Color>(
-//             const Color(0xFF43578d),
-//           ),
-//           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-//               RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(18.0),
-//                   side: const BorderSide(color: Colors.black)))),
-//       icon: const Icon(
-//         Icons.place,
-//         size: 20,
-//       ),
-//       onPressed: () {
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => UbicationsPage(),
-//           ),
-//         );
-//       },
-//       label: const Text('Ver Sucursales',
-//           style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//               fontSize: 20,
-//               color: Colors.white)),
-//     ),
-//   ),
-// );
+
+Widget _alertDialog(context, controller) {
+  final controller = Get.find<CheckOutController>();
+  return AlertDialog(
+    title: const Text(
+      'Si cambias de domicilio puede que pierdas productos de tu carrito',
+      style: TextStyle(color: Colors.black),
+    ),
+    content: Text('¿Esta seguro de cambiar de domicilio?',
+        style: TextStyle(color: Colors.black)),
+    actions: <Widget>[
+      TextButton(
+        child: Text('Cancelar', style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      TextButton(
+        child: Text('Aceptar', style: TextStyle(color: Colors.black)),
+        onPressed: () {
+          controller.adreesTap(context);
+        },
+      ),
+    ],
+  );
+}
 
 Widget _gifConfirm() {
   return Center(
