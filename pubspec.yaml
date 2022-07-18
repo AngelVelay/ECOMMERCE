@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   intl:
 
-  get: ^4.6.1
+  get: ^4.6.5
   http: ^0.13.3
   json_annotation: any
   cupertino_icons: ^1.0.2

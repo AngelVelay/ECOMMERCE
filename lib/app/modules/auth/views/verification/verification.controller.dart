@@ -28,7 +28,7 @@ class VerificationController extends GetxController {
 
   @override
   void onInit() {
-    phoneNumber = _authService.user!.phoneNumber!;
+    phoneNumber = _authService.user!.phoneNumber;
     super.onInit();
   }
 

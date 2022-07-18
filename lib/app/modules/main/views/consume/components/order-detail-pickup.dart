@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
-
 import '../../../entities/order.type.dart';
 
 class OrderDetailPickup extends StatelessWidget {
   const OrderDetailPickup({Key? key}) : super(key: key);
-
-  final String data =
-      "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +87,7 @@ class OrderDetailPickup extends StatelessWidget {
                 child: Center(
                   child: Expanded(
                       child: QrImage(
-                    data: data,
+                    data: 'blablablabla',
                     gapless: true,
                     size: 150,
                     errorCorrectionLevel: QrErrorCorrectLevel.H,
@@ -103,6 +99,10 @@ class OrderDetailPickup extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _title() {
+    return Container();
   }
 
   Widget ticketDetailsWidget(String firstTitle, String firstDesc,

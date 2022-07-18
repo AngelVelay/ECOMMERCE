@@ -21,21 +21,23 @@ class Order {
       {required this.id,
       required this.name,
       required this.address,
-      required this.compra,
-      required this.costo,
-      required this.puntos,
-      required this.fecha,
+      required this.total,
+      required this.subtotal,
+      required this.points,
+      required this.date,
       required this.orderStatusId,
       required this.orderStatusName,
-      required this.deliveryType});
+      required this.deliveryType,
+      required this.deliveryAmount});
 
   int id;
   String name;
   String address;
-  String compra;
-  double costo;
-  double puntos;
-  String fecha;
+  double subtotal;
+  double deliveryAmount;
+  double total;
+  double points;
+  String date;
   double? discount;
   DeliveryType deliveryType;
   String orderStatusName;
@@ -45,41 +47,43 @@ class Order {
   CreditCard? paymentMethod;
 
   factory Order.fromVoid() => Order(
-        id: 1,
-        name: '',
-        address: '',
-        compra: '',
-        costo: 0,
-        puntos: 0,
-        fecha: '',
-        orderStatusId: 0,
-        orderStatusName: '',
-        deliveryType: DeliveryType.retiroEnTienda,
-      );
+      id: 1,
+      name: '',
+      address: '',
+      total: 0,
+      subtotal: 0,
+      points: 0,
+      date: '',
+      orderStatusId: 0,
+      orderStatusName: '',
+      deliveryType: DeliveryType.retiroEnTienda,
+      deliveryAmount: 0);
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["id"],
         name: json["name"],
         address: json["address"],
-        compra: json["compra"],
-        costo: json["costo"],
-        puntos: json["puntos"],
-        fecha: json["fecha"],
+        total: json["total"],
+        subtotal: json["subtotal"],
+        points: json["points"],
+        date: json["date"],
         orderStatusId: json["orderStatusId"],
         orderStatusName: json["orderStatusName"],
         deliveryType: json["deliveryType"],
+        deliveryAmount: json["deliveryAmount"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "address": address,
-        "compra": compra,
-        "costo": costo,
-        "puntos": puntos,
-        "fecha": fecha,
+        "total": total,
+        "subtotal": subtotal,
+        "points": points,
+        "date": date,
         "orderStatusId": orderStatusId,
         "orderStatusName": orderStatusName,
         "deliveryType": deliveryType,
+        "deliveryAmount": deliveryAmount,
       };
 }

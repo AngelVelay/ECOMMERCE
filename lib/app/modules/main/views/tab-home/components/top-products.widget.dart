@@ -16,18 +16,7 @@ class HomeTopProducts extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-<<<<<<< Updated upstream
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('Top Semanal',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-          ),
-=======
           _header(),
->>>>>>> Stashed changes
           const SizedBox(height: 10),
           _listWidget(context),
         ],

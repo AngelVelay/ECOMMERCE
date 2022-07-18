@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:jexpoints/app/modules/main/views/consume/components/consume-search.page.dart';
+import 'package:jexpoints/app/shared/values/globals.dart';
 import '../../entities/order.type.dart';
 import 'consume.controller.dart';
 
@@ -58,7 +60,7 @@ class ConsumePage extends GetView<ConsumeController> {
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width - 145,
+              width: MediaQuery.of(context).size.width - 155,
               child: Text(
                 item.name,
                 overflow: TextOverflow.ellipsis,
@@ -68,7 +70,7 @@ class ConsumePage extends GetView<ConsumeController> {
             Row(
               children: [
                 Text(
-                  item.fecha,
+                  item.date,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 const SizedBox(
@@ -87,11 +89,11 @@ class ConsumePage extends GetView<ConsumeController> {
           ]),
           Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
             Text(
-              '\$${item.costo}.00',
+              Globals.CURRENCY_FORMATTER.format(item.total),
               style: Theme.of(context).textTheme.headline5,
             ),
             Text(
-              '${item.puntos} pts',
+              '${Globals.NODECIMALS_FORMATTER.format(item.points)} pts',
               style: Theme.of(context).textTheme.headline5,
             ),
           ]),
