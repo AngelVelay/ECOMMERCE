@@ -91,6 +91,10 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+              child: _zipCodeLabel(context),
+            ),
+            Opacity(
+              opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
               child: IconButton(
                 onPressed: () => controller.toSearch(controller),
                 icon: const Icon(
@@ -167,7 +171,6 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                 : 'Agregar domicilio',
             style: const TextStyle(fontSize: 15, color: Colors.white),
           ),
-          const SizedBox(width: 3),
           const Icon(
             Icons.keyboard_arrow_down,
             color: Colors.white,

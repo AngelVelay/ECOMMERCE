@@ -12,7 +12,7 @@ class HomeTopProducts extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 300,
+      height: 295,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -28,7 +28,7 @@ class HomeTopProducts extends GetView<HomeController> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -64,8 +64,8 @@ class HomeTopProducts extends GetView<HomeController> {
 
   Widget _itemWidget(BuildContext context, Product item) {
     return Container(
-      width: 150,
-      height: 150,
+      width: 130,
+      height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
@@ -79,7 +79,7 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: 150,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                 ])),

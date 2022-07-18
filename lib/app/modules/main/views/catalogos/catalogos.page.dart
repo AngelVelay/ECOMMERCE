@@ -156,17 +156,17 @@ class CatalogosPage extends GetView<CatalogosController> {
           ),
         ),
       ),
-      TextButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => VariableProductsPage()));
-          },
-          child: Text(
-            'Paquetes',
-            style: TextStyle(color: Colors.white),
-          ))
+      // TextButton(
+      //     onPressed: () {
+      //       Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //               builder: (context) => VariableProductsPage()));
+      //     },
+      //     child: Text(
+      //       'Paquetes',
+      //       style: TextStyle(color: Colors.white),
+      //     ))
     ]);
   }
 
