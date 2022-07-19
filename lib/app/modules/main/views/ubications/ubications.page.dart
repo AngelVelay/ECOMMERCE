@@ -144,7 +144,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
           element['geoIcon'];
 
       if (element['IsActive'] == "1") {
-        imgUber = "https://i.postimg.cc/R0jN2DnZ/5f4921b668ecc70004ae7047.png";
+        imgUber = "https://i.postimg.cc/Dww5HCMZ/kisspng-uber-eats-pizza-food-delivery-restaurant-eat-street-express-5b2aa8d8708556-31785519152952239.png";
       } else {
         imgUber = "https://fondosmil.com/fondo/17536.jpg";
       }
@@ -154,13 +154,13 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
         imgDidi = "https://fondosmil.com/fondo/17536.jpg";
       }
       if (element['IsActive'] == "1") {
-        imgGallo = "https://santogallo.com/_assets/images/logo.png";
+        imgGallo = "https://i.postimg.cc/v8g8JWvd/Santo-Gallo-logo.png";
       } else {
         imgGallo = "https://fondosmil.com/fondo/17536.jpg";
       }
       if (element['IsActive'] == "1") {
         imgEsp =
-            "https://media.glassdoor.com/sql/2701591/pastelerias-esperanza-squarelogo-1633693225130.png";
+            "https://i.postimg.cc/k5KBPWC4/Esperanza-Logo.png";
       } else {
         imgUber = "https://fondosmil.com/fondo/17536.jpg";
       }
@@ -195,7 +195,6 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                         height: 60,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              scale: .2,
                               image: NetworkImage(
                                   "http://201.151.139.54/FileManagerDoctos/jexbit/" +
                                       element['baner']),
@@ -232,62 +231,6 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                               ),
                             ),
                           ),
-                          // const Spacer(),
-                          // Container(
-                          //   width: 50,
-                          //   height: 80,
-                          //   decoration: BoxDecoration(
-                          //     image: DecorationImage(
-                          //         image: NetworkImage(imgUber),
-                          //         fit: BoxFit.fitWidth,
-                          //         filterQuality: FilterQuality.high),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(10.0),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   width: 50,
-                          //   height: 80,
-                          //   decoration: BoxDecoration(
-                          //     image: DecorationImage(
-                          //         scale: .2,
-                          //         image: NetworkImage(imgDidi),
-                          //         fit: BoxFit.fitWidth,
-                          //         filterQuality: FilterQuality.high),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(10.0),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   width: 50,
-                          //   height: 80,
-                          //   decoration: BoxDecoration(
-                          //     image: DecorationImage(
-                          //         scale: .2,
-                          //         image: NetworkImage(imgGallo),
-                          //         fit: BoxFit.fitWidth,
-                          //         filterQuality: FilterQuality.high),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(10.0),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   width: 50,
-                          //   height: 80,
-                          //   decoration: BoxDecoration(
-                          //     image: DecorationImage(
-                          //         scale: .2,
-                          //         image: NetworkImage(imgEsp),
-                          //         fit: BoxFit.fitWidth,
-                          //         filterQuality: FilterQuality.high),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(10.0),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -355,8 +298,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                             height: 80,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  scale: .2,
-                                  image: NetworkImage(imgGallo),
+                                  image: NetworkImage(imgEsp),
                                   fit: BoxFit.fitWidth,
                                   filterQuality: FilterQuality.high),
                               borderRadius: const BorderRadius.all(
@@ -373,7 +315,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   scale: .2,
-                                  image: NetworkImage(imgEsp),
+                                  image: NetworkImage(imgGallo),
                                   fit: BoxFit.fitWidth,
                                   filterQuality: FilterQuality.high),
                               borderRadius: const BorderRadius.all(
@@ -445,7 +387,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
             ),
             CustomInfoWindow(
               controller: _customInfoWindowController,
-              height: 248,
+              height: 250,
               width: 300,
               offset: 35,
             ),
