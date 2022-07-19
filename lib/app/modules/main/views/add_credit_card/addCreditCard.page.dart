@@ -63,7 +63,7 @@ class addCreditCard extends GetView<PayController> {
     return SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.only(
-                top: 20.0, left: 8.0, right: 8.0, bottom: 20),
+                top: 20.0, left: 8.0, right: 5.0, bottom: 20),
             child: Obx((() {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,12 +187,12 @@ Column _buildDetailsBlock({required String label, required String value}) {
 Column _anotherPayWay() {
   return Column(
     children: [
-      Text(
+      const Text(
         'Tambien puedes pagar con :',
         style: TextStyle(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -2,6 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
+import '../../../../core/utils/sheet.utils.dart';
+import '../tab-home/components/address-add.widget.dart';
+import '../tab-home/components/address-choose.widget.dart';
+import '../tab-home/tab-home.controller.dart';
 import '../variable-products/variable-products.page.dart';
 import 'catagolos.controller.dart';
 
@@ -26,6 +30,10 @@ class CatalogosPage extends GetView<CatalogosController> {
   Widget _tabBar(context, controller) {
     return Column(
       children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: _zipCodeLabel(context),
+        ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
@@ -53,10 +61,17 @@ class CatalogosPage extends GetView<CatalogosController> {
         Expanded(
             child: TabBarView(
           children: [
-            Center(
-              child: _ListCatalogue(context, controller),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                child: _ListCatalogue(context, controller),
+              ),
             ),
-            Center(child: _ListCatalogue1(context, controller)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                  child: _ListCatalogue1(context, controller)),
+            ),
           ],
         ))
       ],
@@ -211,5 +226,55 @@ class CatalogosPage extends GetView<CatalogosController> {
     // Navigator.pop(context);
     Get.toNamed(MainRouting.CATALOGS_LIST_ROUTE,
         arguments: {"category": category});
+  }
+
+  Widget _zipCodeLabel(BuildContext context) {
+    final controllerHome = Get.find<HomeController>();
+    return Obx(() {
+      return GestureDetector(
+        onTap: () => {
+          if (controllerHome.selectedAddress$.value.id != 0)
+            {
+              SheetUtils.show(context, HomeAddressSelect(controllerHome),
+                  title: 'Selecciona un domicilio')
+            }
+          else
+            {
+              SheetUtils.show(context, HomeAddressAdd(controllerHome),
+                  title: 'Agrega un domicilio')
+            }
+        },
+        child: Row(children: [
+          // Icon(
+          //   Icons.location_on,
+          //   size: 20,
+          // ),
+          const SizedBox(width: 10),
+          Text(
+            controllerHome.selectedAddress$.value.id != 0
+                ? 'CP. ${controllerHome.selectedAddress$.value.zipCode}'
+                : 'Agregar domicilio',
+            style: const TextStyle(fontSize: 15, color: Colors.white),
+          ),
+          const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.white,
+          )
+        ]),
+      );
+    });
+  }
+
+  Widget _zipCodeLabelWrapper(BuildContext context, double percent) {
+    return Positioned(
+        top: 150,
+        child: Opacity(
+            opacity: percent,
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [_zipCodeLabel(context)]))));
   }
 }

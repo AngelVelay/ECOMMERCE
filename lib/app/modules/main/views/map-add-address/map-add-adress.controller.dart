@@ -47,7 +47,8 @@ class AddAdressController extends GetxController {
         'lat': addressLatLng!.latitude,
         'lng': addressLatLng!.longitude,
       };
-      Navigator.pop(context, data);
+      // Navigator.pop(context, data);
+      Navigator.pushNamed(context, '/confirm-compra');
     }
   }
 

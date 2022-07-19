@@ -351,13 +351,13 @@ class CheckOutPage extends GetView<CheckOutController> {
         Center(
           child: TicketWidget(
             width: 350.0,
-            height: 500.0,
+            height: 450.0,
             isCornerRounded: true,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -371,7 +371,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                         child: const Center(
                           child: Text(
                             'Sucursal',
-                            style: const TextStyle(color: Colors.green),
+                            style: TextStyle(color: Colors.green),
                           ),
                         ),
                       ),
@@ -408,19 +408,22 @@ class CheckOutPage extends GetView<CheckOutController> {
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Column(
                       children: <Widget>[
-                        ticketDetailsWidget('Numero de Pedido', '4568538',
-                            'Fecha', '24-12-2022'),
+                        ticketDetailsWidget(
+                            'Numero de Pedido',
+                            '${controller.numeroPedido}',
+                            'Fecha',
+                            '${controller.date}'),
                         Padding(
                           padding:
                               const EdgeInsets.only(top: 12.0, right: 15.0),
-                          child: ticketDetailsWidget(
-                              'Descuento', '200', 'Cupon', '66BDFDC'),
+                          child: ticketDetailsWidget('Descuento',
+                              '${controller.coupons}', 'Cupon', '66BDFDC'),
                         ),
                         Padding(
                           padding:
                               const EdgeInsets.only(top: 12.0, right: 40.0),
-                          child: ticketDetailsWidget(
-                              'Total a Pagar', '100', 'Puntos', '21'),
+                          child: ticketDetailsWidget('Total a Pagar',
+                              '${controller.total}', 'Puntos', '30'),
                         ),
                       ],
                     ),
@@ -430,9 +433,9 @@ class CheckOutPage extends GetView<CheckOutController> {
                     child: Center(
                       child: Expanded(
                           child: QrImage(
-                        data: data,
+                        data: controller.data,
                         gapless: true,
-                        size: 200,
+                        size: 150.0,
                         errorCorrectionLevel: QrErrorCorrectLevel.H,
                       )),
                     ),
@@ -540,12 +543,13 @@ class CheckOutPage extends GetView<CheckOutController> {
 Widget _alertDialog(context, controller) {
   final controller = Get.find<CheckOutController>();
   return AlertDialog(
+    backgroundColor: Color(0xff222222),
     title: const Text(
       'Si cambias de domicilio puede que pierdas productos de tu carrito',
-      style: TextStyle(color: Colors.black),
+      style: TextStyle(color: Colors.white),
     ),
     content: Text('¿Esta seguro de cambiar de domicilio?',
-        style: TextStyle(color: Colors.black)),
+        style: TextStyle(color: Colors.white)),
     actions: <Widget>[
       TextButton(
         child: Text('Cancelar', style: TextStyle(color: Colors.red)),
@@ -554,7 +558,7 @@ Widget _alertDialog(context, controller) {
         },
       ),
       TextButton(
-        child: Text('Aceptar', style: TextStyle(color: Colors.black)),
+        child: Text('Aceptar', style: TextStyle(color: Colors.blue)),
         onPressed: () {
           controller.adreesTap(context);
         },

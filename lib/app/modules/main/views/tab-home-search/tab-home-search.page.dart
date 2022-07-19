@@ -59,7 +59,11 @@ class HomeSearchPage extends GetView<HomeController> {
                     SizedBox(height: 10),
                     Text(
                       "No se encontaron resultados de búsqueda",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          overflow: TextOverflow.ellipsis),
                     ),
                   ],
                 ),

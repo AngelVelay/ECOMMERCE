@@ -150,6 +150,7 @@ class HomeController extends GetxController {
   addressSelect(Address item, BuildContext context) {
     selectedAddress$.value = item;
     Navigator.pop(context);
+    // Get.toNamed('/confirm-compra');
   }
 
   toPayment() {

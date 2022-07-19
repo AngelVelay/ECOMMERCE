@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math';
+
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:intl/intl.dart';
 
 import '../../entities/credit-card.dart';
 import '../../main.module.dart';
@@ -18,6 +21,9 @@ class CheckOutController extends GetxController {
 
   final String data =
       "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
+  final String date = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
+  final int numeroPedido = Random().nextInt(10000);
 
   final total = Get.arguments['total'];
   final cartProducts = Get.arguments['cartProducts'];
@@ -45,9 +51,9 @@ class CheckOutController extends GetxController {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (context) => Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Text(
               'Cambiar dirección',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -63,5 +69,16 @@ class CheckOutController extends GetxController {
 
   toPickup() {
     Get.toNamed(MainRouting.PICKUP_ROUTE);
+  }
+
+  randomNumber() {
+    var rng = Random();
+    for (var i = 0; i < 10; i++) {
+      rng.nextInt(10);
+    }
+  }
+
+  dateTime() {
+    DateTime.now();
   }
 }

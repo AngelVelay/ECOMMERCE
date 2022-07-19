@@ -101,7 +101,12 @@ class PayController extends GetxController {
     cardToAdd.cardExpiration = cardExpiration$.value;
     cardToAdd.cvv = cardCVV$.value;
     await creditCardService.save(cardToAdd);
-    Get.back();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => addCreditCard(),
+      ),
+    );
   }
 
   creditCardSelect(CreditCard item, BuildContext context) {

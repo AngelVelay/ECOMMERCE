@@ -36,7 +36,7 @@ class AddAdressPage extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         width: double.infinity,
         margin: const EdgeInsets.only(bottom: 30),
-        child: Container(
+        child: SizedBox(
           height: 60,
           child: CustomRoundedButton(
             text: 'Agregar nueva dirección',

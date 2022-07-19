@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../entities/product.type.dart';
+import '../checkout/map_pickup/ubications.page.dart';
 import '../tab-home/components/cart-controls.widget.dart';
 import '../tab-home/tab-home.controller.dart';
 import '../ubications/ubications.page.dart';
@@ -26,7 +27,7 @@ class PickupPage extends GetView<HomeController> {
   Widget _MapPickup() {
     return const Expanded(
       flex: 2,
-      child: UbicationsPage(),
+      child: MapPickupPage(),
     );
   }
 
@@ -103,7 +104,7 @@ class PickupPage extends GetView<HomeController> {
 
   Widget _totalBuy(context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
