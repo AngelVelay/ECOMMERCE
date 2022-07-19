@@ -60,17 +60,6 @@ class ProductsFakeService implements IProductsService {
         points: 21,
         category: Categories.panderia),
     Product(
-        id: 3,
-        url:
-            'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/mantecada-0401739096921747.jpg',
-        name: 'MANTECADA VAINILLA',
-        price: 80.00,
-        cartValue: 0,
-        isFavorite: false,
-        topRate: 5,
-        points: 14,
-        category: Categories.panderia),
-    Product(
         id: 4,
         url:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/supremo-chocolate-0145492964491943.jpg',
