@@ -20,7 +20,7 @@ class ShoppingCartPage extends StatelessWidget {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Color(0xff2222222),
-            title: const Text('Mi carrito'),
+            title: const Text('Mi carrito').paddingSymmetric(horizontal: 10),
           ),
           body: Column(children: [
             _cartProductList(
@@ -28,7 +28,7 @@ class ShoppingCartPage extends StatelessWidget {
               controller,
             ),
             _button()
-          ])),
+          ]).paddingSymmetric(horizontal: 20)),
     );
   }
 
@@ -128,20 +128,24 @@ class ShoppingCartPage extends StatelessWidget {
 
   Widget _button() {
     return controller.cartProducts$.isNotEmpty
-        ? Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: CustomRoundedButton(
-                    text: 'Pagar',
-                    onPressed: () => controller.toAddCreditCard()),
-              ),
-            ),
-          )
+        ? CustomRoundedButton(
+                text: '     Pagar     ',
+                onPressed: () => controller.toAddCreditCard())
+            .paddingSymmetric(horizontal: 20)
+        // Expanded(
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(
+        //         horizontal: 20.0,
+        //       ),
+        //       child: SizedBox(
+        //         width: double.infinity,
+        //         height: 60,
+        //         child: CustomRoundedButton(
+        //             text: 'Pagar',
+        //             onPressed: () => controller.toAddCreditCard()),
+        //       ),
+        //     ),
+        //   )
         : Container();
     // ? Padding(
     //     padding: const EdgeInsets.only(

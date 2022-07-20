@@ -111,7 +111,7 @@ class ProductsFakeService implements IProductsService {
         price: 80.00,
         cartValue: 0,
         isFavorite: false,
-        topRate: 1,
+        topRate: 40,
         points: 14,
         category: Categories.rosticeria),
     Product(
@@ -122,7 +122,7 @@ class ProductsFakeService implements IProductsService {
         price: 10,
         cartValue: 0,
         isFavorite: false,
-        topRate: 3,
+        topRate: 40,
         points: 32,
         category: Categories.rosticeria),
     Product(
@@ -133,7 +133,7 @@ class ProductsFakeService implements IProductsService {
         price: 40,
         cartValue: 0,
         isFavorite: true,
-        topRate: 2,
+        topRate: 40,
         points: 21,
         category: Categories.rosticeria),
     Product(
@@ -144,7 +144,7 @@ class ProductsFakeService implements IProductsService {
         price: 80.00,
         cartValue: 0,
         isFavorite: false,
-        topRate: 1,
+        topRate: 40,
         points: 14,
         category: Categories.rosticeria),
     Product(
@@ -155,7 +155,7 @@ class ProductsFakeService implements IProductsService {
         price: 10,
         cartValue: 0,
         isFavorite: false,
-        topRate: 3,
+        topRate: 40,
         points: 32,
         category: Categories.rosticeria),
     Product(
@@ -166,7 +166,7 @@ class ProductsFakeService implements IProductsService {
         price: 40,
         cartValue: 0,
         isFavorite: true,
-        topRate: 2,
+        topRate: 50,
         points: 21,
         category: Categories.rosticeria)
   ];
@@ -274,7 +274,7 @@ class ProductsFakeService implements IProductsService {
 
   @override
   Future<List<Product>> getTop() async {
-    return _products.where((element) => element.topRate > 0).toList();
+    return _products.where((element) => element.topRate > 0).take(10).toList();
   }
 
   @override
