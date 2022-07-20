@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class CircularProgressBar extends StatelessWidget {

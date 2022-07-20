@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
 import 'package:jexpoints/app/shared/values/assets.globals.dart';
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
-import '../../../main/main.module.dart';
 
 class SignupSuccessPage extends StatelessWidget {
   const SignupSuccessPage({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class SignupSuccessPage extends StatelessWidget {
           const SizedBox(height: 8),
           _headerWidget(context),
           const Spacer(flex: 1),
-          _verifyButtonWidget(context),
+          // _verifyButtonWidget(context),
           const SizedBox(height: 30),
         ],
       ),
@@ -55,13 +54,13 @@ Widget _headerWidget(BuildContext context) {
   ]);
 }
 
-Widget _verifyButtonWidget(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-    child: CustomRoundedButton(
-        text: 'Comenzar'.toUpperCase(),
-        onPressed: () {
-          Get.toNamed(MainRouting.MAIN_ROUTE);
-        }),
-  );
-}
+// Widget _verifyButtonWidget(BuildContext context) {
+//   return Container(
+//     margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+//     child: CustomRoundedButton(
+//         text: 'Comenzar'.toUpperCase(),
+//         onPressed: () {
+//           Get.toNamed(MainRouting.MAIN_ROUTE);
+//         }),
+//   );
+// }
