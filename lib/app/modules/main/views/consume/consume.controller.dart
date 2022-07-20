@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
 import 'package:jexpoints/app/modules/main/views/consume/order-detail.controller.dart';
@@ -56,8 +55,21 @@ class ConsumeController extends GetxController {
   }
 
   showDetailDelivery(BuildContext context, Order order) {
-    SheetUtils.show(context, const OrderDetailDelivery(),
-        title: 'Pedido #${order.id}');
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            child: const OrderDetailDelivery()),
+      ),
+    );
   }
 
   void showDetail(Order item, BuildContext context) {

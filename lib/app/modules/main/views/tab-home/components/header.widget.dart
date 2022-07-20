@@ -60,40 +60,34 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF222222),
-          title: Opacity(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: Image.asset(
-                'assets/cards/card_title_platino.png',
-                width: 200,
-              )),
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 15.0),
-          //   child: Opacity(
-          //     opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-          //     child: CircularProgressBar(
-          //       AvatarSize: 20,
-          //       percent: 0.8,
-          //       sizeProgressBar: 25,
-          //     ),
-          //   ),
-          // ),
-          // title: Opacity(
-          //   opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-          //   child: Obx(() {
-          //     return Container(
-          //       alignment: Alignment.centerLeft,
-          //       child: Text(
-          //           controller.user$.value.employee != null
-          //               ? controller.user$.value.employee!.name
-          //               : '',
-          //           style: const TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: 20,
-          //               color: Colors.white,
-          //               fontFamily: 'Montserrat-Bold')),
-          //     );
-          //   }),
-          // ),
+              child: CircularProgressBar(
+                AvatarSize: 20,
+                percent: 0.8,
+                sizeProgressBar: 25,
+              ),
+            ),
+          ),
+          title: Opacity(
+            opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+            child: Obx(() {
+              return Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    controller.user$.value.employee != null
+                        ? controller.user$.value.employee!.name
+                        : '',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontFamily: 'Montserrat-Bold')),
+              );
+            }),
+          ),
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
@@ -115,7 +109,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   Widget _header(BuildContext context, double percent) {
     return Positioned(
-        top: 10,
+        top: 20,
         child: Opacity(
             opacity: percent,
             child: Container(
@@ -175,10 +169,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
             controller.selectedAddress$.value.id != 0
                 ? 'CP. ${controller.selectedAddress$.value.zipCode}'
                 : 'Agregar domicilio',
-            style: const TextStyle(
-                fontSize: 13,
-                fontFamily: 'Montserrat-Regular',
-                color: Colors.white),
+            style: const TextStyle(fontSize: 15, color: Colors.white),
           ),
           const Icon(
             Icons.keyboard_arrow_down,

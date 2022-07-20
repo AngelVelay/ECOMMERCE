@@ -99,6 +99,7 @@ class ConsumePage extends GetView<ConsumeController> {
           ]),
         ],
       ),
+      // ignore: unrelated_type_equality_checks
       leading: item.deliveryType == DeliveryType.envioADomicilio
           ? const Icon(Icons.delivery_dining_rounded, color: Colors.grey)
           : const Icon(Icons.store, color: Colors.grey),

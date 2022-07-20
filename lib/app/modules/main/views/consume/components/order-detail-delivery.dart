@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:jexpoints/app/components/dashed-line/dashed-line.dart';
-import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/views/consume/order-detail.controller.dart';
 import 'tracker.dart';
 
@@ -18,14 +16,11 @@ class OrderDetailDelivery extends GetView<OrderDetailController> {
 
   Widget _content(context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _title(),
-        const DividerDash(color: Colors.grey),
         _deliverySummary(),
-        const DividerDash(color: Colors.grey),
-        _details(),
+        const Divider(thickness: 2),
         _totals(),
         const Tracker()
       ],
@@ -34,110 +29,102 @@ class OrderDetailDelivery extends GetView<OrderDetailController> {
 
   Widget _title() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          const Text(
-            'Envío a domicilio',
-            style: TextStyle(fontSize: 14),
+        const Padding(
+          padding: EdgeInsets.only(left: 10.0, top: 10, right: 10, bottom: 5),
+          child: Text(
+            'Envío a Domicilio',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
-          const Spacer(),
-          Text(
-            controller.order$.value.orderStatusName,
-            style: TextStyle(
-                fontSize: 14,
-                color: controller.order$.value.orderStatusId ==
-                        OrderStatusEnum.canceled
-                    ? Colors.red
-                    : controller.order$.value.orderStatusId ==
-                            OrderStatusEnum.delivered
-                        ? Colors.green
-                        : Colors.amber[800]),
-          ),
-        ]),
-        Row(
-          children: [
-            Text(
-              controller.order$.value.date,
-              style: const TextStyle(fontSize: 12),
-            ),
-            const Spacer(),
-          ],
-        )
+        ),
+        Text(
+          controller.order$.value.orderStatusName,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
       ],
-    ).paddingOnly(bottom: 10);
+    );
   }
 
   Widget _deliverySummary() {
     return Column(children: [
-      Row(children: [
-        const Icon(
-          Icons.location_on,
-          color: Colors.black,
-          size: 30,
-        ),
-        const SizedBox(width: 10),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text(
-            'Enviado a:',
-            style: TextStyle(fontSize: 10, color: Colors.grey),
+      ListTile(
+          trailing: const Icon(
+            Icons.location_on,
+            color: Colors.black,
+            size: 30,
           ),
-          Text(
-            '${controller.order$.value.deliveredAddress!.street} ${controller.order$.value.deliveredAddress!.outsideNumber}',
-            style: const TextStyle(fontWeight: FontWeight.w300),
-          )
-        ]),
-        const Spacer(),
-      ]),
-      const SizedBox(
-        height: 10,
+          title: const Text(
+            'Enviado a:',
+            style: TextStyle(color: Colors.black),
+          ),
+          subtitle: controller.order$.value.deliveredAddress != null
+              ? Text(controller.order$.value.deliveredAddress!.street)
+              : const Text('')),
+      ListTile(
+        trailing: const Icon(Icons.credit_card, color: Colors.black, size: 30),
+        title: const Text(
+          'Forma de Pago:',
+          style: TextStyle(color: Colors.black),
+        ),
+        subtitle: controller.order$.value.paymentMethod != null
+            ? Text(controller.order$.value.paymentMethod!.cardNumber)
+            : const Text(''),
       ),
-      Row(
-        children: [
-          const Icon(Icons.credit_card, color: Colors.black, size: 30),
-          const SizedBox(width: 10),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text(
-              'Forma de Pago:',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
-            Text(controller.order$.value.paymentMethod!.cardNumber)
-          ]),
-          const Spacer(),
-        ],
-      ),
-    ]).paddingSymmetric(vertical: 10);
-  }
-
-  Widget _details() {
-    return Container();
+    ]);
   }
 
   Widget _totals() {
     return Column(
       children: [
-        _totalRow('Subtotal', controller.order$.value.subtotal),
-        controller.order$.value.discount != null
-            ? _totalRow('Descuento', controller.order$.value.discount!)
-            : Container(),
-        _totalRow('Envío', controller.order$.value.deliveryAmount),
-        _totalRow('Total', controller.order$.value.total)
+        controller.order$.value.discount == null
+            ? Container()
+            : ListTile(
+                title: const Text(
+                  'Cupon de descuento',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black),
+                ),
+                leading: const Icon(
+                  Icons.card_giftcard_rounded,
+                  color: Colors.black,
+                ),
+                trailing: Text(
+                  ' - ${controller.order$.value.discount!.toString()}',
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                ),
+              ),
+        ListTile(
+          title: const Text(
+            'Envío',
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          trailing: Text(
+            NumberFormat.currency(locale: 'en_US', symbol: '\$ ')
+                .format(controller.order$.value.deliveryAmount),
+            style: const TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
+        ListTile(
+          title: const Text(
+            'Total',
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          trailing: Text(
+            NumberFormat.currency(locale: 'en_US', symbol: '\$ ')
+                .format(controller.order$.value.total),
+            style: const TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
       ],
     );
-  }
-
-  Widget _totalRow(String label, double value) {
-    return Row(children: [
-      Text(
-        label,
-        style: const TextStyle(fontSize: 15, color: Colors.black),
-      ),
-      const Spacer(),
-      Text(
-        NumberFormat.currency(locale: 'en_US', symbol: '\$ ').format(value),
-        style: const TextStyle(fontSize: 15, color: Colors.black),
-      ),
-    ]).paddingSymmetric(vertical: 5);
   }
 }

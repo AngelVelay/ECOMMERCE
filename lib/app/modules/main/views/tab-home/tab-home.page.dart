@@ -8,7 +8,6 @@ import 'components/favorite-products.widget.dart';
 import 'components/rosticeria-products.dart';
 import 'components/top-products.widget.dart';
 import 'tab-home.controller.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -27,22 +26,20 @@ class HomePage extends GetView<HomeController> {
               floating: true,
               delegate: HomeHeader(
                 controller,
-                expandedHeight: 150,
+                expandedHeight: 170,
               ),
             ),
             SliverToBoxAdapter(
               child: Column(children: [
+                // _coupons(),
                 _welcomeGreeting(),
-                _coupons(),
-                const SizedBox(height: 20),
                 _flyerList(),
                 const HomeTopProducts(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 const HomeFavoriteProducts(),
-                const SizedBox(height: 20),
-                _socials()
-                // const RositceriaProducts(),
-                // const SizedBox(height: 70),
+                const SizedBox(height: 15),
+                const RositceriaProducts(),
+                const SizedBox(height: 70),
               ]),
             )
           ],
@@ -58,12 +55,12 @@ class HomePage extends GetView<HomeController> {
         const Text(
           '¡Hola! ',
           style: TextStyle(
-              fontSize: 14, fontFamily: 'NewYork', color: Colors.white),
+              fontSize: 15, fontFamily: 'NewYork', color: Colors.white),
         ),
         const Text(
           'bienvenido a ',
           style: TextStyle(
-              fontSize: 13, fontFamily: 'Montserrat', color: Colors.white),
+              fontSize: 15, fontFamily: 'Montserrat', color: Colors.white),
         ),
         Image.asset(
           "assets/images/logo_esperanza.png",
@@ -77,33 +74,32 @@ class HomePage extends GetView<HomeController> {
   Widget _coupons() {
     return Obx(() {
       return controller.defaultCoupon$.value.id != 0
-          ? DottedBorder(
-              color: Colors.white,
-              strokeWidth: 1,
-              dashPattern: const [5, 3],
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              radius: const Radius.circular(50),
-              borderType: BorderType.RRect,
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ? Container(
+              width: double.infinity,
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: const Color(0xFFc59400), width: 3),
+                // color: Colors.black
+              ),
+              child: Row(children: [
                 GestureDetector(
-                    // onTap: () => controller.toCouponDetail(),
-                    onTap: () => controller.toCoupons(),
+                    onTap: () => controller.toCouponDetail(),
                     child: Text(
                         controller.defaultCoupon$.value.shortDescription,
-                        style: const TextStyle(
-                            fontSize: 13, color: Colors.white))),
-                // const Spacer(),
-                // GestureDetector(
-                //     onTap: () {
-                //       controller.toCoupons();
-                //     },
-                //     child: const Text(
-                //       'Ver más',
-                //       style: TextStyle(color: Colors.white, fontSize: 9),
-                //     ))
+                        style: const TextStyle(color: Colors.white))),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      controller.toCoupons();
+                    },
+                    child: const Text(
+                      'Ver mas',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ))
               ]),
-            ).paddingOnly(left: 35, right: 35, bottom: 10)
+            ).paddingOnly(left: 15, right: 15, bottom: 10)
           : Container();
     });
   }
@@ -173,14 +169,5 @@ class HomePage extends GetView<HomeController> {
             ),
           ))
         : const SizedBox();
-  }
-
-  Widget _socials() {
-    return SizedBox(
-        width: double.infinity,
-        child: Image.asset(
-          'assets/home/rrss.png',
-          fit: BoxFit.fill,
-        )).paddingAll(10);
   }
 }

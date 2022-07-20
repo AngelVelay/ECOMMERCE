@@ -12,7 +12,7 @@ class HomeTopProducts extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 305,
+      height: 295,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -20,7 +20,7 @@ class HomeTopProducts extends GetView<HomeController> {
           const SizedBox(height: 10),
           _listWidget(context),
         ],
-      ).paddingOnly(left: 10),
+      ),
     );
   }
 
@@ -28,8 +28,7 @@ class HomeTopProducts extends GetView<HomeController> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-          padding:
-              const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -38,24 +37,12 @@ class HomeTopProducts extends GetView<HomeController> {
                 height: 35,
                 fit: BoxFit.cover,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text('Top ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Montserrat-Regular',
-                          fontSize: 30,
-                          color: Colors.white)),
-                  Text('Semanal',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'NewYork',
-                          fontSize: 30,
-                          color: Colors.white)),
-                ],
-              ),
+              const Text('Top Semanal',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'NewYork',
+                      fontSize: 30,
+                      color: Colors.white)),
               const SizedBox(height: 10),
             ],
           )),
@@ -76,10 +63,9 @@ class HomeTopProducts extends GetView<HomeController> {
   }
 
   Widget _itemWidget(BuildContext context, Product item) {
-    double itemSize = 130;
     return Container(
-      width: itemSize,
-      height: itemSize,
+      width: 130,
+      height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
@@ -93,13 +79,10 @@ class HomeTopProducts extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.url),
                     width: double.infinity,
-                    height: itemSize,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                 ])),
-          ),
-          const SizedBox(
-            height: 5,
           ),
           Text(item.name,
               overflow: TextOverflow.ellipsis,
@@ -108,15 +91,15 @@ class HomeTopProducts extends GetView<HomeController> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 13,
-                  fontFamily: 'Montserrat-Regular')),
+                  fontSize: 15,
+                  fontFamily: 'Montserrat-Bold')),
           Text(
-            '\$ ${item.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
+            '\$ ${item.price}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 13,
+                fontSize: 15,
                 fontFamily: 'Montserrat-Bold',
                 color: Colors.white),
           ),

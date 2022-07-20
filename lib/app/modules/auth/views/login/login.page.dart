@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
+import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
+import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../recovery/recovery.page.dart';
 import 'login.controller.dart';
 

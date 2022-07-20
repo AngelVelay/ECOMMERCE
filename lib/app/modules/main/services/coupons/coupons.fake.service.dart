@@ -8,9 +8,10 @@ class CouponsFakeService implements ICouponsService {
     Coupon(
         id: 1,
         name: 'Cupon de prueba 1',
-        url: 'https://i.postimg.cc/DZkq32br/10OFF.jpg',
+        url:
+            'https://i.postimg.cc/DZkq32br/10OFF.jpg',
         title: '10% OFF',
-        shortDescription: '✨  10% OFF en tu primera compra  ✨',
+        shortDescription: '10% OFF en tu primera compra',
         description:
             'Utiliza este cupon para obtener un 10% de descuento en tu primera compra.',
         terms:
@@ -24,7 +25,8 @@ class CouponsFakeService implements ICouponsService {
     Coupon(
         id: 2,
         name: 'Cupon 2',
-        url: 'https://i.postimg.cc/L5mLhNDh/2x1.jpg',
+        url:
+            'https://i.postimg.cc/L5mLhNDh/2x1.jpg',
         title: '2x1 en Pan Dulce',
         shortDescription: 'Pan al 2x1',
         description:
@@ -40,7 +42,8 @@ class CouponsFakeService implements ICouponsService {
     Coupon(
         id: 2,
         name: 'Cupon 2',
-        url: 'https://i.postimg.cc/2jxngNjW/HAPPY-HOUR.jpg',
+        url:
+            'https://i.postimg.cc/2jxngNjW/HAPPY-HOUR.jpg',
         title: 'Happy Hour',
         shortDescription: 'Happy Hour',
         description:
@@ -56,7 +59,8 @@ class CouponsFakeService implements ICouponsService {
     Coupon(
         id: 2,
         name: 'Cupon 2',
-        url: 'https://i.postimg.cc/8cwWvMX4/REFIERE-AMIGOS.jpg',
+        url:
+            'https://i.postimg.cc/8cwWvMX4/REFIERE-AMIGOS.jpg',
         title: 'Refire Amigos',
         shortDescription: 'Refire Amigos',
         description:

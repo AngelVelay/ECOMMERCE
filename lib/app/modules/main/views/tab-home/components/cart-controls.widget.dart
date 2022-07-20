@@ -33,7 +33,7 @@ class HomeCartControls extends GetView<HomeController> {
       (item.cartValue > 0)
           ? Text(
               '${item.cartValue}',
-              style: TextStyle(color: labelColor, fontSize: 13),
+              style: TextStyle(color: labelColor, fontSize: 15),
             )
           : Container(),
       const Spacer(),

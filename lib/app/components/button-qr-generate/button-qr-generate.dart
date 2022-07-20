@@ -28,7 +28,7 @@ class ButtonQRScanner extends StatelessWidget {
             width: width,
             height: height,
           ),
-          iconSize: 20,
+          iconSize: 40,
           onPressed: () {
             showCupertinoModalPopup(
                 context: context,
