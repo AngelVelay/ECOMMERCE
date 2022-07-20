@@ -8,9 +8,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/shared/values/enviroments.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import '../../../home/home.module.dart';
 import '../../services/auth/auth.contract.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
@@ -48,7 +48,7 @@ class LoginController extends GetxController {
     var user = await _service.singIn(username.text, password.text);
     loginText.value = 'Ingresar';
     if (user != null) {
-      Get.toNamed(MainRouting.MAIN_ROUTE);
+      Get.toNamed(HomeRouting.HOME_ROUTE);
     } else {
       MsgUtils.error('Algo salio mal');
     }
@@ -57,7 +57,7 @@ class LoginController extends GetxController {
   _checkLogueInUser() async {
     var currentUser = await _service.checkUser();
     if (currentUser != null && currentUser.id != 0) {
-      Get.toNamed(MainRouting.MAIN_ROUTE);
+      Get.toNamed(HomeRouting.HOME_ROUTE);
     }
   }
 
@@ -69,7 +69,7 @@ class LoginController extends GetxController {
     try {
       final result = await _googleSignIn.signIn();
       if (result != null) {
-        Get.toNamed(MainRouting.MAIN_ROUTE);
+        Get.toNamed(HomeRouting.HOME_ROUTE);
       }
     } catch (error) {
       // TODO: Exception Handler
@@ -81,7 +81,7 @@ class LoginController extends GetxController {
     final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       final AccessToken accessToken = result.accessToken!;
-      Get.toNamed(MainRouting.MAIN_ROUTE);
+      Get.toNamed(HomeRouting.HOME_ROUTE);
     } else {
       // TODO: Exception Handler
       // print(result.status);
@@ -112,7 +112,7 @@ class LoginController extends GetxController {
     }
 
     if (isAuthenticated) {
-      Get.toNamed(MainRouting.MAIN_ROUTE);
+      Get.toNamed(HomeRouting.HOME_ROUTE);
     } else {
       const IOSAuthMessages(
         lockOut: 'Ingresa con Face ID',

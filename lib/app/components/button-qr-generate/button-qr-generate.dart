@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
-import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 
 class ButtonQRScanner extends StatelessWidget {
   final String title;
