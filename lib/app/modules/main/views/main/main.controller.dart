@@ -1,11 +1,9 @@
-import 'package:badges/badges.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.page.dart';
-
 import '../../services/creditCard/creditCard.contract.dart';
-import '../catalogos/catalogos.page.dart';
+import '../store/store.page.dart';
 import '../tab-home/tab-home.controller.dart';
 import '../tab-home/tab-home.page.dart';
 import '../tab-shopping-cart/tab-shoppin-cart.page.dart';
@@ -31,7 +29,7 @@ class MainController extends GetxController {
 
   late List<TabItem> navigationItems = [
     TabItem(const HomePage(), 'Inicio', icon: Icons.home),
-    TabItem(const CatalogosPage(), 'Tienda',
+    TabItem(const StorePage(), 'Tienda',
         assetPath: 'assets/icons_tab_bar/heart.png', icon: Icons.store),
     TabItem(const RewardsPage(), 'Rewards',
         assetPath: 'assets/icons_tab_bar/star.png', icon: Icons.star),

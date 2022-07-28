@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:jexpoints/app/modules/main/entities/category.type.dart';
 
-class Catalogue {
-  Catalogue({
+class BusinessLine {
+  BusinessLine({
     required this.id,
     required this.name,
-    required this.image,
   });
 
   int id;
   String name;
-  String image;
+  List<Category>? categories;
 
-  factory Catalogue.fromJson(Map<String, dynamic> json) => Catalogue(
+  factory BusinessLine.fromJson(Map<String, dynamic> json) => BusinessLine(
         id: json["id"],
         name: json["name"],
-        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "image": image,
       };
 }

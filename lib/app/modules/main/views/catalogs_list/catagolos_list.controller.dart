@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/main/entities/catalogues-tab.dart';
-
+import 'package:jexpoints/app/modules/main/entities/business-line.type.dart';
+import 'package:jexpoints/app/modules/main/entities/category.type.dart';
+import 'package:jexpoints/app/modules/main/services/business-lines/business-lines.contract.dart';
 import '../../entities/product.type.dart';
 import '../../main.module.dart';
-import '../../services/catalogues/catalogues.contract.dart';
+import '../../services/categories/categories.contract.dart';
 import '../../services/products/products.contract.dart';
-import '../catalogos/components/catalog-search.dart';
 
 class CatalogosListController extends GetxController {
-  late final ICatalogueService catalogoService;
+  late final ICategoriesService categoriesService;
+  late final IBusinessLinesService businessLinesService;
   late final IProductsService productsService;
 
   late final keywordCtrl = TextEditingController();
 
-  late var catalogueList$ = <Catalogue>[].obs;
-  late var catalogueListSantoGallo$ = <Catalogue>[].obs;
+  late var categoriesList$ = <Category>[].obs;
+  late var businessLines$ = <BusinessLine>[].obs;
+
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
@@ -26,13 +28,20 @@ class CatalogosListController extends GetxController {
 
   final categoria = Get.arguments['category'];
 
-  CatalogosListController(this.catalogoService, this.productsService);
+  CatalogosListController(this.categoriesService, this.productsService);
 
   @override
   void onInit() async {
     super.onInit();
-    catalogueList$.value = await catalogoService.get();
-    catalogueListSantoGallo$.value = await catalogoService.getSantoGallo();
+    var categories = await categoriesService.get();
+    var businessLines = await businessLinesService.get();
+
+    businessLines.forEach((bl) {
+      bl.categories = categories
+          .where((element) => element.businessLineId == bl.id)
+          .toList();
+    });
+    businessLines$.value = businessLines;
   }
 
   addCart(Product item) {

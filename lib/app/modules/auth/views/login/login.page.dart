@@ -71,7 +71,7 @@ class LoginPage extends GetView<LoginController> {
           Container(
               alignment: Alignment.centerRight,
               child: TextButton(
-                child: Text(
+                child: const Text(
                   "¿Olvidaste tu contraseña?",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -83,17 +83,19 @@ class LoginPage extends GetView<LoginController> {
                       }),
                 },
               )),
-          Container(
+          SizedBox(
               width: double.infinity,
               child: Obx(() {
                 return CustomRoundedButton(
-                    text: '${controller.loginText}',
-                    onPressed: () => controller.singIn());
+                  text: '${controller.loginText}',
+                  onPressed: () => controller.singIn(),
+                  style: CustomRoundenButtonStyle.whiteBordered,
+                );
               })),
-          Spacer(),
+          const Spacer(),
           Column(
             children: [
-              Text(
+              const Text(
                 'Ingresa tambien con:',
                 style: TextStyle(color: Colors.white),
               ),
@@ -129,7 +131,7 @@ class LoginPage extends GetView<LoginController> {
                                 primary: Colors.white54,
                               ),
                               onPressed: () => controller.faceID(),
-                              child: FadeInImage(
+                              child: const FadeInImage(
                                 image: AssetImage('assets/images/face-id.png'),
                                 placeholder:
                                     AssetImage('assets/images/face-id.png'),
