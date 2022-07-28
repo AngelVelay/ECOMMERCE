@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomRoundedButton extends StatelessWidget {
-  CustomRoundedButton({required this.text, required this.onPressed});
+class CustomRoundedButtonAlt extends StatelessWidget {
+  CustomRoundedButtonAlt({required this.text, required this.onPressed});
 
   final GestureTapCallback onPressed;
   final String text;

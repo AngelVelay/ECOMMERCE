@@ -25,30 +25,6 @@ class userCardNumber extends GetView<HomeController> {
   }
 }
 
-// Build the title section
-Column _buildTitleSection({@required title, @required subTitle}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 8.0, top: 16.0),
-        child: Text(
-          '$title',
-          style: const TextStyle(
-              fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
-        child: Text(
-          '$subTitle',
-          style: TextStyle(fontSize: 21, color: Colors.white),
-        ),
-      )
-    ],
-  );
-}
-
 // Build the credit card widget
 Widget _buildCreditCard(BuildContext context,
     {required Color color,
@@ -58,61 +34,81 @@ Widget _buildCreditCard(BuildContext context,
   return Container(
       height: 230,
       child: Stack(fit: StackFit.expand, children: [
-        Card(
-          semanticContainer: true,
+        // Card(
+        //   color: Colors.transparent,
+        //   semanticContainer: true,
+        //   clipBehavior: Clip.antiAliasWithSaveLayer,
+        //   child: Image.asset(
+        //     'assets/background_cards/silver.jpg',
+        //     fit: BoxFit.fill,
+        //   ),
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(20.0),
+        //   ),
+        //   elevation: 10,
+        //   shadowColor: Colors.black87,
+
+        //   margin: const EdgeInsets.all(20),
+        // ),
+        Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.asset(
             'assets/background_cards/silver.jpg',
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+          margin: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(.3),
+                blurRadius: 3, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: const Offset(
+                  5.0, // Move to right  horizontally
+                  5.0, // Move to bottom Vertically
+                ),
+              )
+            ],
           ),
-          elevation: 5,
-          margin: EdgeInsets.all(20),
         ),
+
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Center(
             child: Container(
               height: 200,
-              padding:
-                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
+              padding: const EdgeInsets.only(top: 22, left: 22.0, right: 22.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   _buildLogosBlock(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Número',
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Número',
                           style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontStyle: FontStyle.italic)),
+                      const SizedBox(height: 3),
+                      Text(
+                        cardNumber,
+                        style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat',
-                          ),
-                        ),
-                        Text(
-                          cardNumber,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                            fontFamily: 'Montserrat-Bold',
-                          ),
-                        ),
-                      ],
-                    ),
+                            fontSize: 17,
+                            fontFamily: 'Montserrat-Medium',
+                            letterSpacing: 1.8),
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: 0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _buildDetailsBlock(
-                        label: 'Nombre',
+                        label: 'Miembro',
                         value: cardHolder,
                       ),
                       Padding(
@@ -130,25 +126,18 @@ Widget _buildCreditCard(BuildContext context,
 }
 
 // Build the top row containing logos
-Row _buildLogosBlock() {
-  return Row(
+Widget _buildLogosBlock() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Image.asset(
-        "assets/images/logo_esperanza.png",
-        height: 60,
-        width: 150,
+        "assets/cards/card_title_platino.png",
+        width: 270,
       ),
-      // Image.asset(
-      //   "assets/images/splash.gif",
-      //   height: 60,
-      //   width: 80,
-      // ),
-      Text('Platino',
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontFamily: 'NewYork',
-          )),
+      const Text(
+        'Programa de Recompensas',
+        style: TextStyle(color: Colors.white, fontSize: 10),
+      )
     ],
   );
 }
@@ -161,12 +150,9 @@ Column _buildDetailsBlock({required String label, required String value}) {
       Text(
         label,
         style: const TextStyle(
-          color: Colors.white,
-          fontSize: 10,
-          fontFamily: 'Montserrat',
-          fontWeight: FontWeight.bold,
-        ),
+            color: Colors.white, fontSize: 10, fontStyle: FontStyle.italic),
       ),
+      const SizedBox(height: 3),
       Text(
         value,
         style: const TextStyle(
@@ -178,8 +164,8 @@ Column _buildDetailsBlock({required String label, required String value}) {
 
 Widget _qrCode(BuildContext context) {
   return const ButtonQRScanner(
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     title: '',
     color: Colors.white,
   );
