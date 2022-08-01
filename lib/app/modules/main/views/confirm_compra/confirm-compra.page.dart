@@ -85,7 +85,7 @@ class ConfirmPagoPage extends GetView<HomeController> {
                   child: FadeInImage(
                     placeholder: const NetworkImage(
                         'https://tenor.com/view/loading-gif-9212724.gif'),
-                    image: NetworkImage(item.url),
+                    image: NetworkImage(item.imageLink),
                   )),
             ),
             Expanded(

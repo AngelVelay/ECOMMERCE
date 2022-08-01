@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/business-lines/business-lines.api.service.dart';
 import 'package:jexpoints/app/modules/main/services/business-lines/business-lines.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/categories/categories.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
@@ -15,8 +16,6 @@ import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.p
 import 'package:jexpoints/app/modules/main/views/address-detail/address-detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/views/address/address.page.dart';
-import 'package:jexpoints/app/modules/main/views/catalogs_list/catagolos_list.controller.dart';
-import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
 import 'package:jexpoints/app/modules/main/views/checkout/checkout.controller.dart';
 import 'package:jexpoints/app/modules/main/views/checkout/checkout.page.dart';
 import 'package:jexpoints/app/modules/main/views/confirm_compra/confirm-compra.controller.dart';
@@ -42,6 +41,8 @@ import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.co
 import 'package:jexpoints/app/modules/main/views/publicidad_detail/publicidad.page.dart';
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.page.dart';
+import 'package:jexpoints/app/modules/main/views/store-category-products/store-category-products.controller.dart';
+import 'package:jexpoints/app/modules/main/views/store-category-products/store-category-products.page.dart';
 import 'package:jexpoints/app/modules/main/views/store/store.controller.dart';
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.controller.dart';
 import 'package:jexpoints/app/modules/main/views/terms/terms.page.dart';
@@ -51,6 +52,7 @@ import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
+import 'services/products/products.api.service.dart';
 import 'views/address-detail/address-detail.controller.dart';
 import 'views/coupons/coupons.page.dart';
 import 'views/pickup-cart/pickup-cart.controller.dart';
@@ -68,11 +70,11 @@ class MainRouting {
   static const DETAIL_ROUTE = '/detail';
   static const PUBLICIDAD_ROUTE = '/publicidad';
   static const STORE_ROUTE = '/store';
+  static const STORE_CATEGORY_PRODUCTS_ROUTE = '/store-category-products';
   static const PAY_ROUTE = '/pay';
   static const POINTS_ROUTE = '/points';
   static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
   static const CONFIRM_COMPRA_ROUTE = '/confirm-compra';
-  static const CATALOGS_LIST_ROUTE = '/catalogs-list';
   static const CHECKOUT_ROUTE = '/checkout';
   static const COUPONS_ROUTE = '/coupons';
   static const COUPON_DETAIL_ROUTE = '/coupon/detail';
@@ -127,9 +129,9 @@ class MainRouting {
         page: () => ConfirmPagoPage(),
         binding: ConfirmPagodBinding()),
     GetPage(
-        name: CATALOGS_LIST_ROUTE,
-        page: () => CatalogsListPage(),
-        binding: CatalogsListBinding()),
+        name: STORE_CATEGORY_PRODUCTS_ROUTE,
+        page: () => StoreCategoryProductsPage(),
+        binding: StoreCategoryProductsBinding()),
     GetPage(
         name: CHECKOUT_ROUTE,
         page: () => CheckOutPage(),
@@ -172,7 +174,7 @@ class MainBinding implements Bindings {
   MainBinding() {
     Get.lazyPut<HomeController>(
         () => HomeController(
-            ProductsFakeService(),
+            ProductsApiService(),
             authService,
             FlyersFakeService(),
             AddressFakeService(),
@@ -190,8 +192,7 @@ class MainBinding implements Bindings {
         fenix: true);
     Get.lazyPut<PointsController>(() => PointsController(), fenix: true);
     Get.lazyPut<StoreController>(
-        () => StoreController(BusinessLinesFakeService(),
-            CategoriesFakeService(), ProductsFakeService()),
+        () => StoreController(BusinessLinesApiService()),
         fenix: true);
     // Get.lazyPut<CatalogosController>(
     //     () =>
@@ -284,10 +285,8 @@ class PublicidadBinding implements Bindings {
 class StoreBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<StoreController>(() => StoreController(
-        BusinessLinesFakeService(),
-        CategoriesFakeService(),
-        ProductsFakeService()));
+    Get.lazyPut<StoreController>(
+        () => StoreController(BusinessLinesApiService()));
   }
 }
 
@@ -321,11 +320,11 @@ class ConfirmPagodBinding implements Bindings {
   }
 }
 
-class CatalogsListBinding implements Bindings {
+class StoreCategoryProductsBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CatalogosListController>(() => CatalogosListController(
-        CategoriesFakeService(), ProductsFakeService()));
+    Get.lazyPut<StoreCategoryProductsController>(
+        () => StoreCategoryProductsController(ProductsApiService()));
   }
 }
 

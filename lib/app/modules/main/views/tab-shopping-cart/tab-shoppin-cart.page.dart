@@ -80,7 +80,7 @@ class ShoppingCartPage extends StatelessWidget {
                   child: FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.url),
+                    image: NetworkImage(item.imageLink),
                   )),
             ),
             Expanded(

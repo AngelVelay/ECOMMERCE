@@ -20,20 +20,13 @@ class DetailController extends GetxController {
   late var favoriteProducts$ = <Product>[].obs;
   late var findedProducts$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
-  late var itemDetail = Product(
-      id: 1,
-      url: Get.arguments['url'],
-      name: Get.arguments['name'],
-      price: Get.arguments['price'],
-      cartValue: 0,
-      isFavorite: false,
-      topRate: Get.arguments['topRate'],
-      points: 50,
-      category: Categories.panderia);
+  late Product itemDetail;
 
   @override
   void onInit() async {
     super.onInit();
+
+    itemDetail = Get.arguments['product'];
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     var reviews = await _reviewsService.get();
@@ -42,13 +35,8 @@ class DetailController extends GetxController {
   }
 
   addCart(Product item, context) {
-    item.cartValue++;
+    item.cartValue = item.cartValue! + 1;
     cartProducts$.add(itemDetail);
-
-    // item.cartValue++;
-    // if (!cartProducts$.any((element) => element.name == itemDetail.name)) {
-    //   cartProducts$.add(itemDetail);
-    // }
 
     cartProducts$.refresh();
     productList$.refresh();
@@ -59,7 +47,7 @@ class DetailController extends GetxController {
   }
 
   deleteCart(Product item) {
-    item.cartValue--;
+    item.cartValue = item.cartValue! - 1;
     if (item.cartValue == 0) {
       cartProducts$.remove(item);
     }
@@ -73,13 +61,7 @@ class DetailController extends GetxController {
 
   _updateCartItems() {
     cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+        cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();
   }
-
-  final imageUrl = Get.arguments['url'];
-  final name = Get.arguments['name'];
-  final price = Get.arguments['price'];
-  final points = Get.arguments['points'];
-  final rate = Get.arguments['topRate'];
 }

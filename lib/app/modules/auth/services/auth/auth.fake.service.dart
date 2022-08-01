@@ -36,7 +36,7 @@ class AuthFakeService extends BaseService implements IAuthService {
             levelPercentage: 0.8))
   ];
 
-  AuthFakeService() : super('');
+  AuthFakeService() : super();
 
   @override
   Future<User?> singIn(String username, String password) async {

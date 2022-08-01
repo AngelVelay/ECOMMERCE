@@ -4,16 +4,14 @@ import 'package:jexpoints/app/modules/main/services/business-lines/business-line
 class BusinessLinesFakeService implements IBusinessLinesService {
   final _list = <BusinessLine>[
     BusinessLine(
-      id: 1,
+      id: '1',
       name: 'Esperanza',
+      isActive: true,
     ),
     BusinessLine(
-      id: 2,
+      id: '2',
       name: 'Santo Gallo',
-    ),
-    BusinessLine(
-      id: 3,
-      name: 'Otro',
+      isActive: true,
     ),
   ];
 

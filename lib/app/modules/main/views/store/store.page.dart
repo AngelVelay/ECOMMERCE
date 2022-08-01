@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/business-line.type.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
 import '../../../../core/utils/sheet.utils.dart';
 import '../../entities/category.type.dart';
 import '../tab-home/components/address-add.widget.dart';
@@ -120,9 +119,7 @@ class StorePage extends GetView<StoreController> {
 
   Widget _gridItem(BuildContext context, Category category) {
     return GestureDetector(
-      onTap:
-          // Navigator.pushNamed(context, '/catalogs-list');
-          () => _goTo(context, category.name),
+      onTap: () => controller.toCategoryProducts(category),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -139,7 +136,7 @@ class StorePage extends GetView<StoreController> {
                 fit: BoxFit.fill,
                 placeholder: const NetworkImage(
                     'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                image: NetworkImage(category.image),
+                image: NetworkImage(category.imageLink!),
               ),
             ),
           )),
@@ -153,12 +150,6 @@ class StorePage extends GetView<StoreController> {
         ],
       ),
     );
-  }
-
-  static _goTo(BuildContext context, String category) {
-    // Navigator.pop(context);
-    Get.toNamed(MainRouting.CATALOGS_LIST_ROUTE,
-        arguments: {"category": category});
   }
 
   Widget _zipCodeLabel(BuildContext context) {

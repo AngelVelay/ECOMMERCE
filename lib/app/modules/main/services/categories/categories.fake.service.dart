@@ -4,65 +4,75 @@ import 'categories.contract.dart';
 class CategoriesFakeService implements ICategoriesService {
   final _categoryList = <Category>[
     Category(
-        id: 2,
+        id: '1',
         name: 'Pasteleria',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/pastel-vegano-0513474608544947.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 3,
+        id: '2',
         name: 'Postres',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/pay-queso-individual-0222490481204582.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 4,
+        id: '3',
         name: 'Pan',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/mantecada-0250189888873226.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 5,
+        id: '4',
         name: 'Muffins',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/muffin-marmoleado-0578852714774596.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 6,
+        id: '5',
         name: 'Gelatinas',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/estrella-fresa-019621345363381.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 7,
+        id: '6',
         name: 'Bocadillos',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/chapata-milanesa-0643137035725236.jpg',
-        businessLineId: 1),
+        businessLineId: '1',
+        isActive: true),
     Category(
-        id: 1,
+        id: '7',
         name: 'Rosticeria',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/division/sgpollo-rostizado-0851114673936327.jpg',
-        businessLineId: 2),
+        businessLineId: '2',
+        isActive: true),
     Category(
-        id: 2,
+        id: '8',
         name: 'Complementos',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/arroz-0736434051178598.jpg',
-        businessLineId: 2),
+        businessLineId: '2',
+        isActive: true),
     Category(
-        id: 3,
+        id: '9',
         name: 'Salsas',
-        image:
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/habanero-00048088030912023.jpg',
-        businessLineId: 2),
+        businessLineId: '2',
+        isActive: true),
     Category(
-        id: 4,
-        name: 'Papas Fritas',
-        image:
+        id: '10',
+        name: 'Papas',
+        imageLink:
             'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/papas-saladas-051149212034023.jpg',
-        businessLineId: 3)
+        businessLineId: '2',
+        isActive: true)
   ];
 
   @override

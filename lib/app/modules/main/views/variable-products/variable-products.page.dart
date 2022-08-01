@@ -138,7 +138,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: AssetImage(item.url),
+                    image: AssetImage(item.imageLink),
                     width: double.infinity,
                     height: 120,
                     fit: BoxFit.contain,
@@ -202,7 +202,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                     FadeInImage(
                       placeholder: const NetworkImage(
                           'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                      image: AssetImage(item.url),
+                      image: AssetImage(item.imageLink),
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.contain,
@@ -262,7 +262,7 @@ class VariableProductsPage extends GetView<VariableProductsController> {
                   padding: const EdgeInsets.all(2.0),
                   child: Chip(
                     label: Text(
-                      item.category.name == 'refrescos'
+                      item.category?.name == 'refrescos'
                           ? '${item.quantity!.values.elementAt(i)} Litro'
                           : '${item.quantity!.values.elementAt(i)} gr',
                       style: const TextStyle(color: Colors.black),

@@ -4,7 +4,7 @@ import '../../entities/employee.type.dart';
 import 'employees.contract.dart';
 
 class EmployeesApiService extends BaseService implements IEmployeeService {
-  EmployeesApiService() : super('Empleados');
+  EmployeesApiService() : super(apiMethod: 'Empleados');
 
   @override
   Future<List<Employee>> getAll() {

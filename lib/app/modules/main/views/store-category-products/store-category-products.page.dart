@@ -3,21 +3,20 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import '../../entities/product.type.dart';
 import '../tab-home/components/cart-controls.widget.dart';
-import 'catagolos_list.controller.dart';
+import 'store-category-products.controller.dart';
 
-class CatalogsListPage extends GetView<CatalogosListController> {
+class StoreCategoryProductsPage
+    extends GetView<StoreCategoryProductsController> {
   var category = Get.arguments['category'];
 
   @override
   Widget build(BuildContext context) {
-    controller.category = category;
-    controller.catalogList(context);
     return SafeArea(
       left: false,
       right: false,
       child: Scaffold(
           appBar: AppBar(
-            title: Text('${controller.category}'),
+            title: Text('${controller.category.name}'),
           ),
           body: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -41,7 +40,8 @@ class CatalogsListPage extends GetView<CatalogosListController> {
           height: 50,
           child: TextField(
             controller: controller.keywordCtrl,
-            onEditingComplete: () => controller.search(context),
+            // onEditingComplete: () => controller.search(context),
+            onEditingComplete: () {},
             // autofocus: true,
             cursorColor: Colors.black,
             style: const TextStyle(color: Colors.black),
@@ -125,7 +125,7 @@ class CatalogsListPage extends GetView<CatalogosListController> {
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.url),
+                    image: NetworkImage(item.imageLink),
                     width: double.infinity,
                     height: 115,
                     fit: BoxFit.cover,

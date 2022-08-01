@@ -2,7 +2,7 @@ import 'package:jexpoints/app/core/data/services/base-service.service.dart';
 import '../../../auth/services/user/user.contract.dart';
 
 class UserApiService extends BaseService implements IUserService {
-  UserApiService() : super('Users');
+  UserApiService() : super(apiMethod: 'Users');
 
   @override
   Future<void> recoveryPassword(String email) {
