@@ -65,7 +65,9 @@ class ShoppingFakeService implements IShoppingService {
         externalId: 201,
         name: "Prueba de sucursal",
         isActive: true,
-        isBySystem: false);
+        isBySystem: false,
+        description: "Heroes de Churubusco",
+        id: 20);
     finded.paymentMethod = MockData.creditCardList.first;
 
     return finded;

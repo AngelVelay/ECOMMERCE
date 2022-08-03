@@ -23,11 +23,10 @@ class RewardsController extends GetxController {
   List<Menu> menuItems = [
     Menu(Icons.shopping_basket, MainRouting.CONSUME_ROUTE, 'Mis Compras'),
     Menu(Icons.card_giftcard, MainRouting.COUPONS_ROUTE, 'Cupones'),
-    // Menu(Icons.comment, MainRouting.COUPONS_ROUTE, 'Reseñas'),
-    Menu(Icons.card_membership, MainRouting.PAYMENT_METHODS_ROUTE,
-        'Formas Pago'),
+    Menu(Icons.card_membership, MainRouting.PAYMENT_METHODS_ROUTE,'Formas Pago'),
     Menu(Icons.home, MainRouting.ADDRESS_ROUTE, 'Domicilios'),
     Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
+    Menu(Icons.fact_check_outlined , MainRouting.BILLING_ROUTE, 'Facturación'),
     Menu(Icons.article_outlined, MainRouting.TERMS_ROUTE, 'Terms y Cond.'),
   ];
 

@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/branch/branch.api.service.dart';
 import 'package:jexpoints/app/modules/main/services/catalogues/catalogues.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
@@ -15,6 +16,8 @@ import 'package:jexpoints/app/modules/main/views/add_credit_card/addCreditCard.p
 import 'package:jexpoints/app/modules/main/views/address-detail/address-detail.page.dart';
 import 'package:jexpoints/app/modules/main/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/views/address/address.page.dart';
+import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.controller.dart';
+import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.page.dart';
 import 'package:jexpoints/app/modules/main/views/catalogos/catagolos.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogs_list/catagolos_list.controller.dart';
 import 'package:jexpoints/app/modules/main/views/catalogs_list/catalogs_list.page.dart';
@@ -55,6 +58,8 @@ import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart
 import 'package:jexpoints/app/modules/main/views/tab-home/tab-home.controller.dart';
 
 import 'views/address-detail/address-detail.controller.dart';
+import 'views/billing/billing_apply/billing_apply.controller.dart';
+import 'views/billing/billing_apply/billing_apply.dart';
 import 'views/coupons/coupons.page.dart';
 import 'views/pickup-cart/pickup-cart.controller.dart';
 
@@ -84,6 +89,8 @@ class MainRouting {
   static const ADDRESS_DETAIL_ROUTE = '/address-detail';
   static const PAYMENT_METHODS_ROUTE = '/payment-methods';
   static const TERMS_ROUTE = '/terms';
+  static const BILLING_ROUTE='/billing';
+  static const BILLING_APPLY_ROUTE='/billing-apply';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -99,6 +106,14 @@ class MainRouting {
         name: GENERATE_QR_ROUTE,
         page: () => QrGeneratePage(),
         binding: QrGenerateBinding()),
+    GetPage(
+        name: BILLING_ROUTE,
+        page: () => const BillingPage(),
+        ),
+    GetPage(
+        name: BILLING_APPLY_ROUTE,
+        page: () => const BillingApplyPage(),
+        ), 
     // GetPage(
     //     name: UBICATIONS_ROUTE,
     //     page: () => UbicationsPage(),
@@ -217,7 +232,10 @@ class MainBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MainController>(() => MainController(), fenix: true);
-  }
+    Get.lazyPut<BillingController>(() => BillingController(authService), fenix: true);
+    Get.lazyPut<BillingApplyController>(() =>
+    BillingApplyController(BranchService()));
+    }
 }
 
 class ProfileBinding implements Bindings {
