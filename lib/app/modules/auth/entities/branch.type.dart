@@ -7,18 +7,20 @@ class Branch {
     required this.name,
     required this.isActive,
     required this.isBySystem,
+    required this.id,
+    required this.description,
     this.companyId,
-    this.id,
     this.company,
   });
 
   String? companyId;
+  String description;
   String externalCode;
   int externalId;
   String name;
   bool isActive;
   bool isBySystem;
-  String? id;
+  int id;
   dynamic company;
 
   factory Branch.fromRawJson(String str) => Branch.fromJson(json.decode(str));
@@ -34,6 +36,7 @@ class Branch {
         isBySystem: json["isBySystem"],
         id: json["id"],
         company: json["company"],
+        description:json["description"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +48,6 @@ class Branch {
         "isBySystem": isBySystem,
         "id": id,
         "company": company,
+        "description":description
       };
 }

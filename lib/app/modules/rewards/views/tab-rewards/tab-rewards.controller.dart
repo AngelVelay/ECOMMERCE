@@ -32,6 +32,9 @@ class RewardsController extends GetxController {
     Menu(Icons.home, HomeRouting.ADDRESS_ROUTE, 'Domicilios'),
     Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
     Menu(Icons.article_outlined, RewardsRouting.TERMS_ROUTE, 'Terms y Cond.'),
+
+    Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
+    Menu(Icons.fact_check_outlined, MainRouting.BILLING_ROUTE, 'Facturación'),
   ];
 
   RewardsController(this._repo);

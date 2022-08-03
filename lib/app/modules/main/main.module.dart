@@ -5,14 +5,18 @@ import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
+import 'package:jexpoints/app/modules/main/services/branch/branch.api.service.dart';
+import 'package:jexpoints/app/modules/main/services/branch/branch.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/business-lines/business-lines.api.service.dart';
-
 import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
+
+import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.controller.dart';
+import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.page.dart';
 
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 
@@ -32,12 +36,14 @@ import '../store/views/store/store.controller.dart';
 
 import 'services/products/products.api.service.dart';
 
+import 'views/billing/billing_apply/billing_apply.controller.dart';
+import 'views/billing/billing_apply/billing_apply.dart';
+
 class MainRouting {
   static const MAIN_ROUTE = '/main';
 
   // static const HOME_ROUTE = '/home';
   static const PROFILE_ROUTE = '/profile';
-
   // static const CONSUME_ROUTE = '/consume';
   // static const GENERATE_QR_ROUTE = '/generate-qr';
   // static const UBICATIONS_ROUTE = '/ubications';
@@ -59,6 +65,8 @@ class MainRouting {
   // static const ADDRESS_DETAIL_ROUTE = '/address-detail';
   // static const PAYMENT_METHODS_ROUTE = '/payment-methods';
   // static const TERMS_ROUTE = '/terms';
+  static const BILLING_ROUTE = '/billing';
+  static const BILLING_APPLY_ROUTE = '/billing-apply';
 
   static final routes = [
     GetPage(name: MAIN_ROUTE, page: () => MainPage(), binding: MainBinding()),
@@ -66,6 +74,15 @@ class MainRouting {
         name: PROFILE_ROUTE,
         page: () => ProfilePage(),
         binding: ProfileBinding()),
+
+    GetPage(
+      name: BILLING_ROUTE,
+      page: () => const BillingPage(),
+    ),
+    GetPage(
+      name: BILLING_APPLY_ROUTE,
+      page: () => const BillingApplyPage(),
+    ),
     // GetPage(
     //     name: CONSUME_ROUTE,
     //     page: () => ConsumePage(),
@@ -195,6 +212,11 @@ class MainBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MainController>(() => MainController(), fenix: true);
+    Get.lazyPut<BillingController>(() => BillingController(authService),
+        fenix: true);
+    Get.lazyPut<BillingApplyController>(
+        () => BillingApplyController(BranchFakesService()),
+        fenix: true);
   }
 }
 
