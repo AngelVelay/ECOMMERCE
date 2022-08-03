@@ -27,7 +27,6 @@ import 'package:jexpoints/app/modules/main/views/tab-home-search/tab-home-search
 import '../../entities/coupon.type.dart';
 import '../../services/creditCard/creditCard.contract.dart';
 import '../../services/products/products.contract.dart';
-import '../variable-products/variable-products.page.dart';
 
 class HomeController extends GetxController {
   final IProductsService productsService;
@@ -89,7 +88,7 @@ class HomeController extends GetxController {
   }
 
   addCart(Product item, context) {
-    item.cartValue++;
+    item.cartValue = item.cartValue! + 1;
     if (!cartProducts$.any((element) => element.id == item.id)) {
       cartProducts$.add(item);
     }
@@ -103,7 +102,7 @@ class HomeController extends GetxController {
   }
 
   deleteCart(Product item) {
-    item.cartValue--;
+    item.cartValue = item.cartValue! - 1;
     if (item.cartValue == 0) {
       cartProducts$.remove(item);
     }
@@ -117,7 +116,7 @@ class HomeController extends GetxController {
 
   _updateCartItems() {
     cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+        cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();
   }
 
@@ -130,17 +129,13 @@ class HomeController extends GetxController {
     FocusScope.of(context).unfocus();
   }
 
-  catalogList(BuildContext context) async {
-    catalogsList$.value = await productsService.catalogsList();
-  }
-
   toFlyer(Flyer item) {
     Get.toNamed(MainRouting.PUBLICIDAD_ROUTE, arguments: item.url);
   }
 
   toProductDetail(Product item) {
     Get.toNamed(MainRouting.DETAIL_ROUTE, arguments: {
-      'url': item.url,
+      'url': item.imageLink,
       'name': item.name,
       'price': item.price,
       'topRate': item.topRate
@@ -180,7 +175,7 @@ class HomeController extends GetxController {
 
   subtotalBuy() {
     return subtotal$ = double.parse(cartProducts$
-        .map((e) => e.price * e.cartValue)
+        .map((e) => e.price * e.cartValue!)
         .reduce((a, b) => a + b)
         .toString());
   }

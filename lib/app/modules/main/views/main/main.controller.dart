@@ -2,41 +2,44 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.page.dart';
-
 import '../../services/creditCard/creditCard.contract.dart';
-import '../catalogos/catalogos.page.dart';
-import '../points/points.page.dart';
-import '../profile/profile.page.dart';
-import '../tab-home/components/shopipng-cart.widget.dart';
+import '../store/store.page.dart';
+import '../tab-home/tab-home.controller.dart';
 import '../tab-home/tab-home.page.dart';
 import '../tab-shopping-cart/tab-shoppin-cart.page.dart';
 import '../ubications/ubications.page.dart';
 
 class TabItem {
-  final IconData icon;
   final Widget page;
   final String label;
+  final String? assetPath;
+  final IconData? icon;
+  final BottomNavigationBarItem? content;
+  final RxInt? badgeValue;
 
-  TabItem(this.icon, this.page, this.label);
+  TabItem(this.page, this.label,
+      {this.assetPath, this.icon, this.content, this.badgeValue});
 }
 
 class MainController extends GetxController {
   late ICreditCardService creditCardService;
+  final HomeController controllerHome = Get.find();
 
   var pageIndex$ = 0.obs;
-  late var cartItems$ = 0.obs;
+
+  late List<TabItem> navigationItems = [
+    TabItem(const HomePage(), 'Inicio', icon: Icons.home),
+    TabItem(const StorePage(), 'Tienda',
+        assetPath: 'assets/icons_tab_bar/heart.png', icon: Icons.store),
+    TabItem(const RewardsPage(), 'Rewards',
+        assetPath: 'assets/icons_tab_bar/star.png', icon: Icons.star),
+    TabItem(const UbicationsPage(), 'Sucursales',
+        assetPath: 'assets/icons_tab_bar/marker.png', icon: Icons.location_on),
+    TabItem(ShoppingCartPage(), 'Carrito',
+        icon: Icons.shopping_cart, badgeValue: controllerHome.cartItems$)
+  ];
 
   GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
-  final screens = [
-    const HomePage(),
-    const CatalogosPage(),
-    const RewardsPage(),
-    const UbicationsPage(),
-    ShoppingCartPage(),
-
-     UbicationsPage(),
-    // const ProfilePage(),
-  ];
 
   changeTab(int index) {
     pageIndex$.value = index;

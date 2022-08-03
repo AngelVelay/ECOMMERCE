@@ -17,7 +17,7 @@ import 'auth.contract.dart';
 class AuthApiService extends BaseService implements IAuthService {
   final String authUrl = Enviroments.AUTH_API_URL;
 
-  AuthApiService() : super("Auth", url: Enviroments.AUTH_API_URL);
+  AuthApiService() : super(apiMethod: "Auth", url: Enviroments.AUTH_API_URL);
 
   @override
   User? user;

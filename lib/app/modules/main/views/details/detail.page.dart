@@ -31,14 +31,14 @@ class DetailPage extends GetView<DetailController> {
         child: FadeInImage(
           fit: BoxFit.contain,
           placeholder: const AssetImage('assets/images/loading.gif'),
-          image: NetworkImage(controller.imageUrl),
+          image: NetworkImage(controller.itemDetail.imageLink),
         ));
   }
 
   static Widget _center(BuildContext context, DetailController controller) {
     return Column(
       children: [
-        Text(controller.name.toString(),
+        Text(controller.itemDetail.name.toString(),
             style: const TextStyle(fontSize: 25, color: Colors.white)),
         _rateProducts(controller.itemDetail),
         const Padding(
@@ -50,7 +50,7 @@ class DetailPage extends GetView<DetailController> {
         SizedBox(
           height: 10,
         ),
-        Text('\$ ${controller.price} MXN',
+        Text('\$ ${controller.itemDetail.price} MXN',
             style: const TextStyle(
                 fontSize: 25,
                 color: Colors.white,

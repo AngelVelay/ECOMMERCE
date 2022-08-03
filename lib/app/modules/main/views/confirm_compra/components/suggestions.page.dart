@@ -59,7 +59,7 @@ class SuggestionsProducts extends GetView<HomeController> {
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.url),
+                    image: NetworkImage(item.imageLink),
                     width: double.infinity,
                     height: 150,
                     fit: BoxFit.cover,

@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/form-controls/custom-button.widget.dart';
-import '../../../../components/form-controls/custom-rounded-button.widget.dart';
+import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
 import '../recovery/recovery.page.dart';
 import 'login.controller.dart';
 
@@ -72,7 +71,7 @@ class LoginPage extends GetView<LoginController> {
           Container(
               alignment: Alignment.centerRight,
               child: TextButton(
-                child: Text(
+                child: const Text(
                   "¿Olvidaste tu contraseña?",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -84,17 +83,19 @@ class LoginPage extends GetView<LoginController> {
                       }),
                 },
               )),
-          Container(
+          SizedBox(
               width: double.infinity,
               child: Obx(() {
                 return CustomRoundedButton(
-                    text: '${controller.loginText}',
-                    onPressed: () => controller.singIn());
+                  text: '${controller.loginText}',
+                  onPressed: () => controller.singIn(),
+                  style: CustomRoundenButtonStyle.whiteBordered,
+                );
               })),
-          Spacer(),
+          const Spacer(),
           Column(
             children: [
-              Text(
+              const Text(
                 'Ingresa tambien con:',
                 style: TextStyle(color: Colors.white),
               ),
@@ -130,7 +131,7 @@ class LoginPage extends GetView<LoginController> {
                                 primary: Colors.white54,
                               ),
                               onPressed: () => controller.faceID(),
-                              child: FadeInImage(
+                              child: const FadeInImage(
                                 image: AssetImage('assets/images/face-id.png'),
                                 placeholder:
                                     AssetImage('assets/images/face-id.png'),

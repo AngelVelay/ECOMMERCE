@@ -34,7 +34,7 @@ class ConfirmPagoController extends GetxController {
   }
 
   addCart(Product item) {
-    item.cartValue++;
+    item.cartValue = item.cartValue! + 1;
     if (!cartProducts$.any((element) => element.id == item.id)) {
       cartProducts$.add(item);
     }
@@ -48,7 +48,7 @@ class ConfirmPagoController extends GetxController {
   }
 
   deleteCart(Product item) {
-    item.cartValue--;
+    item.cartValue = item.cartValue! - 1;
     if (item.cartValue == 0) {
       cartProducts$.remove(item);
     }
@@ -62,13 +62,13 @@ class ConfirmPagoController extends GetxController {
 
   _updateCartItems() {
     cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+        cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();
   }
 
   totalBuy() {
     _total$.value = int.parse(cartProducts$
-        .map((e) => e.price * e.cartValue)
+        .map((e) => e.price * e.cartValue!)
         .reduce((a, b) => a + b)
         .toString());
   }

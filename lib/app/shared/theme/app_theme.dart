@@ -5,11 +5,11 @@ final ThemeData appTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Color(0XFF222222),
   indicatorColor: Color(0XFF222222),
-  appBarTheme: const AppBarTheme(backgroundColor: Color.fromRGBO(0, 0, 0, 1)),
+  appBarTheme: const AppBarTheme(backgroundColor: Color(0XFF222222)),
   scaffoldBackgroundColor: const Color(0xff2222222),
 
   // Define the default font family.
-  fontFamily: 'Montserrat-Bold',
+  fontFamily: 'Montserrat-Regular',
 
   // Define the default TextTheme. Use this to specify the default
   // text styling for headlines, titles, bodies of text, and more.

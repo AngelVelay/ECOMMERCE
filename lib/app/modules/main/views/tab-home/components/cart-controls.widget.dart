@@ -20,7 +20,7 @@ class HomeCartControls extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      (item.cartValue > 0)
+      (item.cartValue! > 0)
           ? CircleIconButton(
               backgroundColor: labelColor,
               iconData: Icons.remove,
@@ -30,10 +30,10 @@ class HomeCartControls extends GetView<HomeController> {
             )
           : Container(),
       const Spacer(),
-      (item.cartValue > 0)
+      (item.cartValue! > 0)
           ? Text(
               '${item.cartValue}',
-              style: TextStyle(color: labelColor, fontSize: 15),
+              style: TextStyle(color: labelColor, fontSize: 13),
             )
           : Container(),
       const Spacer(),

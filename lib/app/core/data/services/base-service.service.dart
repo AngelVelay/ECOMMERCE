@@ -7,10 +7,10 @@ import '../providers/api.provider.dart';
 
 class BaseService extends IBaseService {
   final provider = ApiProvider.instance;
-  late String _apiMethod;
+  late String? _apiMethod;
   late String? _url;
 
-  BaseService(String apiMethod, {String? url}) {
+  BaseService(String s, {String? apiMethod, String? url}) {
     _apiMethod = apiMethod;
     _url = url;
   }

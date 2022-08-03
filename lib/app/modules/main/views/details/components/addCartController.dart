@@ -22,7 +22,7 @@ class addCartControls extends GetView<DetailController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
       child: Row(children: [
-        (item.cartValue > 0)
+        (item.cartValue! > 0)
             ? CircleIconButton(
                 backgroundColor: labelColor,
                 iconData: Icons.remove,
@@ -32,7 +32,7 @@ class addCartControls extends GetView<DetailController> {
               )
             : Container(),
         const Spacer(),
-        (item.cartValue > 0)
+        (item.cartValue! > 0)
             ? Text(
                 '${item.cartValue}',
                 style: TextStyle(

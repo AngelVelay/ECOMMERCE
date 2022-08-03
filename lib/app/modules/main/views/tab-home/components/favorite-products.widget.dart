@@ -31,19 +31,24 @@ class HomeFavoriteProducts extends GetView<HomeController> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              // Image.asset(
-              //   'assets/images/top_semanal.png',
-              //   height: 35,
-              //   fit: BoxFit.cover,
-              // ),
-              Text('Lo mas vendido',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'NewYork',
-                      fontSize: 30,
-                      color: Colors.white)),
-              SizedBox(height: 10),
+            children: [
+              Image.asset(
+                'assets/images/top_semanal.png',
+                height: 35,
+                fit: BoxFit.cover,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+                Text('Mis  ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30, color: Colors.white)),
+                Text('Favoritos',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'NewYork',
+                        fontSize: 30,
+                        color: Colors.white)),
+              ]),
+              const SizedBox(height: 10),
             ],
           )),
     );
@@ -76,7 +81,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.url),
+                    image: NetworkImage(item.imageLink),
                     width: double.infinity,
                     height: 130,
                     fit: BoxFit.cover,
