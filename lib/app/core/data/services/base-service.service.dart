@@ -10,7 +10,7 @@ class BaseService extends IBaseService {
   late String? _apiMethod;
   late String? _url;
 
-  BaseService(String s, {String? apiMethod, String? url}) {
+  BaseService({String? apiMethod, String? url}) {
     _apiMethod = apiMethod;
     _url = url;
   }

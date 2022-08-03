@@ -1,10 +1,9 @@
-
 import 'package:jexpoints/app/core/data/services/base-service.service.dart';
 import 'package:jexpoints/app/modules/auth/entities/branch.type.dart';
 import 'branch.contract.dart';
 
-class BranchService extends BaseService implements IBranchService{
-BranchService() :super('Sucursales');
+class BranchApiService extends BaseService implements IBranchService {
+  BranchApiService() : super(apiMethod: 'Sucursales');
 
   @override
   Future<List<Branch>> getAll() {
@@ -17,7 +16,4 @@ BranchService() :super('Sucursales');
     // TODO: implement getById
     throw UnimplementedError();
   }
-
-
-
 }
