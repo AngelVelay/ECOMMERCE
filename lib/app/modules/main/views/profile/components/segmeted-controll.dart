@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../consume/consume.page.dart';
 import '../profile.controller.dart';
 
 void main() {

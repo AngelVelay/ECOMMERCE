@@ -1,13 +1,13 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/main/views/tab-rewards/tab-rewards.page.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.page.dart';
+import '../../../rewards/views/tab-rewards/tab-rewards.page.dart';
+import '../../../store/views/store/store.page.dart';
+import '../../../store/views/tab-shopping-cart/tab-shoppin-cart.page.dart';
+import '../../../ubications/views/ubications/ubications.page.dart';
 import '../../services/creditCard/creditCard.contract.dart';
-import '../store/store.page.dart';
-import '../tab-home/tab-home.controller.dart';
-import '../tab-home/tab-home.page.dart';
-import '../tab-shopping-cart/tab-shoppin-cart.page.dart';
-import '../ubications/ubications.page.dart';
 
 class TabItem {
   final Widget page;

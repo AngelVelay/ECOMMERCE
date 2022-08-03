@@ -339,8 +339,6 @@ import 'package:jexpoints/app/shared/theme/app_theme.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../../components/linear-progress-bar/linear-progress-bar.dart';
 import '../../entities/coupon.type.dart';
-import '../consume/consume.page.dart';
-import '../coupons/coupons.page.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({Key? key}) : super(key: key);

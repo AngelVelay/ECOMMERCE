@@ -3,7 +3,6 @@ import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
-import 'package:jexpoints/app/modules/main/views/map-add-address/map-add-adress.controller.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
 
 class ShoppingFakeService implements IShoppingService {

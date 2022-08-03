@@ -77,5 +77,12 @@
 	<string>Se requiere usar la camara</string>	
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Se requiere acceso al album de fotos</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>...</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>...</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>...</string>
 </dict>
 </plist>

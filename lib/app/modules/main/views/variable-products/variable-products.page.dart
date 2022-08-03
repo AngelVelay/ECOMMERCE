@@ -2,10 +2,10 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
 import '../../entities/product.type.dart';
-import '../tab-home/components/cart-controls.widget.dart';
-import '../tab-home/tab-home.controller.dart';
+
 import 'variable-products.controller.dart';
 
 class VariableProductsPage extends GetView<VariableProductsController> {

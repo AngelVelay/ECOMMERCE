@@ -5,6 +5,8 @@ import 'package:jexpoints/app/modules/auth/auth.module.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
+import '../../../rewards/rewards.module.dart';
+import '../../../ubications/ubications.module.dart';
 
 class MenuItem {
   final IconData icon;
@@ -21,8 +23,9 @@ class MenuController extends GetxController {
   final List<MenuItem> menuItems = [
     // MenuItem(Icons.home, MainRouting.HOME_ROUTE, 'Inicio'),
     MenuItem(Icons.account_circle, MainRouting.PROFILE_ROUTE, 'Mi Perfil'),
-    MenuItem(Icons.food_bank, MainRouting.CONSUME_ROUTE, 'MiS Consumos'),
-    MenuItem(Icons.account_circle, MainRouting.UBICATIONS_ROUTE, 'Ubicaciones'),
+    MenuItem(Icons.food_bank, RewardsRouting.CONSUME_ROUTE, 'MiS Consumos'),
+    MenuItem(Icons.account_circle, UbicationsRouting.UBICATIONS_ROUTE,
+        'Ubicaciones'),
   ];
   final zoomDrawerController = ZoomDrawerController();
 

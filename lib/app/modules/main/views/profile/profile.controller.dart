@@ -10,6 +10,7 @@ import '../../../../components/map_ubication/map_ubication.dart';
 import '../../../auth/auth.module.dart';
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
+import '../../../rewards/rewards.module.dart';
 import '../../entities/coupon.type.dart';
 import '../../entities/reviews.type.dart';
 import '../../main.module.dart';
@@ -59,7 +60,7 @@ class ProfileController extends GetxController {
 
   toDetail(Coupon item) {
     selectedCoupon$.value = item;
-    Get.toNamed(MainRouting.COUPON_DETAIL_ROUTE, arguments: [item]);
+    Get.toNamed(RewardsRouting.COUPON_DETAIL_ROUTE, arguments: [item]);
   }
 
   shareData(Coupon item) async {

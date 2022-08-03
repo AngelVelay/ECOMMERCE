@@ -11,4 +11,6 @@ class Enviroments {
   static const String GOOGLE_CLIENT_ID =
       '331450712808-eoc5at0mnsru2g9qh4vt7rj6v504nq2a.apps.googleusercontent.com';
   // static const String AUTH_API_URL = 'http://localhost:5272/api/';
+  static const String GOOGLE_API_KEY =
+      'AIzaSyCBbuPdGKaDkeqydTLz2gl4jghb8LLYYFQ';
 }
