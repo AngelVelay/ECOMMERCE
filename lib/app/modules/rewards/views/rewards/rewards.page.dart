@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
-import 'package:jexpoints/app/modules/rewards/views/tab-rewards/tab-rewards.controller.dart';
-
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../home/views/tab-home/components/user-number-card.dart';
+import 'rewards.controller.dart';
 
 class RewardsPage extends GetView<RewardsController> {
   const RewardsPage({Key? key}) : super(key: key);
