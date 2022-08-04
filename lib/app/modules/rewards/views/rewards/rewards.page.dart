@@ -46,34 +46,37 @@ class RewardsPage extends GetView<RewardsController> {
     return Container(
       color: const Color(0XFF222222),
       child: Column(children: [
-        Stack(children: [
-          const Padding(
+        const Padding(
             padding: EdgeInsets.all(10.0),
-            child: CircularProgressBar(
-              sizeProgressBar: 55.0,
-              AvatarSize: 50,
-              percent: 8,
-            ),
-          ),
-          Positioned(
-              top: 80,
-              left: 90,
-              child: CircleIconButton(
-                iconData: Icons.edit,
-                onPressed: () => controller.toUserDetails(),
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-              ))
-        ]),
+            child: CircleAvatar(
+              radius: 40, // Image radius
+              backgroundImage:
+                  AssetImage('assets/images/female-07.jpg'), // Image URL
+            )),
+        // Stack(children: [
+        //   const Padding(
+        //     padding: EdgeInsets.all(10.0),
+        //     child: CircularProgressBar(
+        //       sizeProgressBar: 55.0,
+        //       AvatarSize: 50,
+        //       percent: 8,
+        //     ),
+        //   ),
+        //   Positioned(
+        //       top: 80,
+        //       left: 90,
+        //       child: CircleIconButton(
+        //         iconData: Icons.edit,
+        //         onPressed: () => controller.toUserDetails(),
+        //         backgroundColor: Colors.black,
+        //         foregroundColor: Colors.white,
+        //       ))
+        // ]),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(controller.user$.value.name,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white)),
+            _name(),
             const SizedBox(height: 10),
             _pointsIndicator(),
             const SizedBox(height: 15),
@@ -86,61 +89,96 @@ class RewardsPage extends GetView<RewardsController> {
     );
   }
 
+  Widget _name() {
+    return Text(controller.user$.value.name,
+        style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            letterSpacing: 1.5,
+            color: Colors.white));
+  }
+
   Widget _pointsIndicator() {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
-            width: 180,
-            height: 40,
-            color: const Color(0xFF43578d),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const FadeInImage(
-                    placeholder: AssetImage('assets/images/estrella.png'),
-                    image: AssetImage('assets/images/estrella.png')),
-                const SizedBox(width: 10),
-                Text('${controller.user$.value.membership?.points} pts',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.white)),
-                Text(
-                    '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
-                    style: const TextStyle(fontSize: 13, color: Colors.white))
-              ],
-            ),
-          ),
-        ));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(
+          width: 10,
+          height: 10,
+          child: FadeInImage(
+              placeholder: AssetImage('assets/images/shine.png'),
+              image: AssetImage('assets/images/shine.png')),
+        ),
+        const SizedBox(width: 10),
+        Text('${controller.user$.value.membership?.points} pts',
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: Colors.white)),
+        // Text(
+        //     '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
+        //     style: const TextStyle(fontSize: 13, color: Colors.white)
+        // )
+      ],
+    );
+    // return Padding(
+    //     padding: const EdgeInsets.symmetric(horizontal: 20),
+    //     child: ClipRRect(
+    //       borderRadius: BorderRadius.circular(20),
+    //       child: Container(
+    //         width: 180,
+    //         height: 40,
+    //         color: const Color(0xFF43578d),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.start,
+    //           children: [
+    //             const FadeInImage(
+    //                 placeholder: AssetImage('assets/images/estrella.png'),
+    //                 image: AssetImage('assets/images/estrella.png')),
+    //             const SizedBox(width: 10),
+    //             Text('${controller.user$.value.membership?.points} pts',
+    //                 style: const TextStyle(
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: 15,
+    //                     color: Colors.white)),
+    //             Text(
+    //                 '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
+    //                 style: const TextStyle(fontSize: 13, color: Colors.white))
+    //           ],
+    //         ),
+    //       ),
+    //     ));
   }
 
   Widget _levelIndicator() {
-    return LinearPercentIndicator(
-      width: 250,
-      animation: true,
-      lineHeight: 25,
-      animationDuration: 2000,
-      percent: 0.8,
-      center: const Text("Nivel Oro",
-          style: TextStyle(
-              fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
-      barRadius: const Radius.circular(16),
-      progressColor: const Color(0xFFc59400),
-      trailing: Column(
-        children: const [
-          Text(
-            '43 pts',
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          ),
-          Text(
-            'Platino',
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          )
-        ],
-      ),
-    );
+    return Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        child: LinearPercentIndicator(
+          width: 280,
+          animation: true,
+          lineHeight: 20,
+          animationDuration: 2000,
+          percent: 0.8,
+          // center: const Text("Nivel Oro",
+          //     style: TextStyle(
+          //         fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
+          barRadius: const Radius.circular(15),
+          progressColor: Colors.grey[600],
+          // trailing: Column(
+          //   children: const [
+          //     Text(
+          //       '43 pts',
+          //       style: TextStyle(fontSize: 10, color: Colors.white),
+          //     ),
+          //     Text(
+          //       'Platino',
+          //       style: TextStyle(fontSize: 10, color: Colors.white),
+          //     )
+          //   ],
+          // ),
+        ).paddingSymmetric(vertical: 1, horizontal: 0));
   }
 
   Widget _menu(BuildContext context) {
