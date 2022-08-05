@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +6,7 @@ import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.d
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../../components/circular-progress-bar/circular-progress-bar.dart';
 import '../../../home/views/tab-home/components/user-number-card.dart';
+import '../../rewards.module.dart';
 import 'rewards.controller.dart';
 
 class RewardsPage extends GetView<RewardsController> {
@@ -30,12 +32,15 @@ class RewardsPage extends GetView<RewardsController> {
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         children: [
+          const SizedBox(height: 30),
           Obx(() {
             return _header();
           }),
           const SizedBox(height: 20),
           const userCardNumber(),
           const SizedBox(height: 20),
+          _coupons(),
+          const SizedBox(height: 40),
           _menu(context)
         ],
       ),
@@ -49,7 +54,7 @@ class RewardsPage extends GetView<RewardsController> {
         const Padding(
             padding: EdgeInsets.all(10.0),
             child: CircleAvatar(
-              radius: 40, // Image radius
+              radius: 33, // Image radius
               backgroundImage:
                   AssetImage('assets/images/female-07.jpg'), // Image URL
             )),
@@ -92,10 +97,10 @@ class RewardsPage extends GetView<RewardsController> {
   Widget _name() {
     return Text(controller.user$.value.name,
         style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            letterSpacing: 1.5,
-            color: Colors.white));
+            fontSize: 20,
+            letterSpacing: 0,
+            color: Colors.white,
+            fontFamily: 'Montserrat-Bold'));
   }
 
   Widget _pointsIndicator() {
@@ -109,12 +114,9 @@ class RewardsPage extends GetView<RewardsController> {
               placeholder: AssetImage('assets/images/shine.png'),
               image: AssetImage('assets/images/shine.png')),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 5),
         Text('${controller.user$.value.membership?.points} pts',
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Colors.white)),
+            style: const TextStyle(fontSize: 10, color: Colors.white)),
         // Text(
         //     '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
         //     style: const TextStyle(fontSize: 13, color: Colors.white)
@@ -151,46 +153,84 @@ class RewardsPage extends GetView<RewardsController> {
   }
 
   Widget _levelIndicator() {
-    return Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: LinearPercentIndicator(
-          width: 280,
-          animation: true,
-          lineHeight: 20,
-          animationDuration: 2000,
-          percent: 0.8,
-          // center: const Text("Nivel Oro",
-          //     style: TextStyle(
-          //         fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
-          barRadius: const Radius.circular(15),
-          progressColor: Colors.grey[600],
-          // trailing: Column(
-          //   children: const [
-          //     Text(
-          //       '43 pts',
-          //       style: TextStyle(fontSize: 10, color: Colors.white),
-          //     ),
-          //     Text(
-          //       'Platino',
-          //       style: TextStyle(fontSize: 10, color: Colors.white),
-          //     )
-          //   ],
-          // ),
-        ).paddingSymmetric(vertical: 1, horizontal: 0));
+    return
+        // Container(
+        //     decoration: const BoxDecoration(
+        //         color: Colors.white,
+        //         borderRadius: BorderRadius.all(Radius.circular(15))),
+        // child:
+        LinearPercentIndicator(
+      width: 250,
+      animation: true,
+      lineHeight: 16,
+      animationDuration: 2000,
+      percent: 0.4,
+      // center: const Text("Nivel Oro",
+      //     style: TextStyle(
+      //         fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
+      barRadius: const Radius.circular(15),
+      progressColor: Colors.grey[600],
+      // fillColor: Colors.white,
+      // backgroundColor: Color(0XFF222222),
+      // trailing: Column(
+      //   children: const [
+      //     Text(
+      //       '43 pts',
+      //       style: TextStyle(fontSize: 10, color: Colors.white),
+      //     ),
+      //     Text(
+      //       'Platino',
+      //       style: TextStyle(fontSize: 10, color: Colors.white),
+      //     )
+      //   ],
+      // ),
+    ).paddingSymmetric(vertical: 1, horizontal: 0);
+  }
+
+  Widget _coupons() {
+    return SizedBox(
+      width: 140,
+      child: DottedBorder(
+        color: Colors.white,
+        strokeWidth: 0.5,
+        dashPattern: const [4, 3],
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+        radius: const Radius.circular(50),
+        borderType: BorderType.RRect,
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          GestureDetector(
+              onTap: () {
+                Get.toNamed(RewardsRouting.COUPONS_ROUTE);
+              },
+              child: const Text('Mis Cupones',
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white,
+                      fontFamily: 'NewYork'))),
+          // const Spacer(),
+          // GestureDetector(
+          //     onTap: () {
+          //       controller.toCoupons();
+          //     },
+          //     child: const Text(
+          //       'Ver más',
+          //       style: TextStyle(color: Colors.white, fontSize: 9),
+          //     ))
+        ]),
+      ),
+    );
   }
 
   Widget _menu(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 70),
         child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: controller.menuItems.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 10.0,
+              mainAxisSpacing: 30.0,
               crossAxisSpacing: 10.0,
               childAspectRatio: 1.7,
             ),
@@ -203,7 +243,7 @@ class RewardsPage extends GetView<RewardsController> {
         onTap: () => controller.toRoute(menuItem.route),
         child: Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 235, 235, 235),
+              // color: const Color.fromARGB(255, 235, 235, 235),
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
@@ -213,106 +253,18 @@ class RewardsPage extends GetView<RewardsController> {
                   const Spacer(),
                   Icon(
                     menuItem.icon,
-                    size: 28,
+                    size: 18,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 15),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
                       menuItem.label,
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(
+                          fontSize: 8, color: Colors.white, letterSpacing: 1.0),
                     )
                   ]),
                   const Spacer(),
                 ])));
   }
-
-  // Widget _reviewList(BuildContext context) {
-  //   return Obx(() {
-  //     return SingleChildScrollView(
-  //         child: ListView.builder(
-  //             // separatorBuilder: (context, index) => const Divider(thickness: 2),
-  //             physics: const NeverScrollableScrollPhysics(),
-  //             shrinkWrap: true,
-  //             scrollDirection: Axis.vertical,
-  //             itemCount: controller.reviews$.length,
-  //             itemBuilder: (context, index) {
-  //               return _reviewListItem(context, controller.reviews$[index]);
-  //             }));
-  //   });
-  // }
-
-  // Widget _reviewListItem(BuildContext context, Review item) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(20),
-  //     child: DottedBorder(
-  //         color: Colors.white,
-  //         strokeWidth: 1,
-  //         dashPattern: const [15, 10],
-  //         radius: const Radius.circular(10),
-  //         borderType: BorderType.RRect,
-  //         child: Padding(
-  //             padding: const EdgeInsets.all(15),
-  //             child: Column(children: [
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 children: [
-  //                   Row(
-  //                     children: [
-  //                       Text(
-  //                         item.name,
-  //                         overflow: TextOverflow.ellipsis,
-  //                         style: const TextStyle(
-  //                             color: Colors.white, fontSize: 20),
-  //                       ),
-  //                     ],
-  //                   )
-  //                 ],
-  //               ),
-  //               const SizedBox(
-  //                 height: 20,
-  //               ),
-  //               Row(children: [
-  //                 ClipRRect(
-  //                     borderRadius: BorderRadius.circular(5),
-  //                     child: Image(
-  //                       image: NetworkImage(item.productURL),
-  //                       width: 100,
-  //                       height: 100,
-  //                     )),
-  //                 const SizedBox(
-  //                   width: 15,
-  //                 ),
-  //                 Flexible(
-  //                     child: Text(
-  //                   '"${item.comment}"',
-  //                   style: const TextStyle(
-  //                       color: Colors.white70, fontStyle: FontStyle.italic),
-  //                   maxLines: 6,
-  //                   overflow: TextOverflow.ellipsis,
-  //                 ))
-  //               ]),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   RatingBar.builder(
-  //                     initialRating: item.rating,
-  //                     minRating: 1,
-  //                     direction: Axis.horizontal,
-  //                     allowHalfRating: true,
-  //                     itemCount: 5,
-  //                     itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-  //                     itemBuilder: (context, _) => const Icon(
-  //                       Icons.star,
-  //                       color: Colors.amber,
-  //                     ),
-  //                     onRatingUpdate: (rating) {
-  //                       print(rating);
-  //                     },
-  //                   )
-  //                 ],
-  //               )
-  //             ]))),
-  //   );
-  // }
-
 }

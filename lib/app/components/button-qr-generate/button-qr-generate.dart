@@ -22,13 +22,13 @@ class ButtonQRScanner extends StatelessWidget {
     return Column(children: [
       Container(
         color: Colors.white,
+        width: width,
+        height: height,
         child: IconButton(
-          icon: Image.network(
-            'https://cdn-icons-png.flaticon.com/512/747/747470.png',
-            width: width,
-            height: height,
+          padding: const EdgeInsets.all(5),
+          icon: Image.asset(
+            "assets/cards/qr.png",
           ),
-          iconSize: 20,
           onPressed: () {
             showCupertinoModalPopup(
                 context: context,

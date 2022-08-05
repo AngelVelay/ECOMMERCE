@@ -24,17 +24,12 @@ class RewardsController extends GetxController {
 
   var user$ = User.fromVoid().obs;
   List<Menu> menuItems = [
-    Menu(Icons.shopping_basket, RewardsRouting.CONSUME_ROUTE, 'Mis Compras'),
-    Menu(Icons.card_giftcard, RewardsRouting.COUPONS_ROUTE, 'Cupones'),
-    // Menu(Icons.comment, MainRouting.COUPONS_ROUTE, 'Reseñas'),
-    Menu(Icons.card_membership, CartRouting.PAYMENT_METHODS_ROUTE,
-        'Formas Pago'),
+    Menu(Icons.shopping_basket, RewardsRouting.CONSUME_ROUTE, 'Compras'),
+    Menu(Icons.card_membership, CartRouting.PAYMENT_METHODS_ROUTE, 'Pagos'),
     Menu(Icons.home, HomeRouting.ADDRESS_ROUTE, 'Domicilios'),
-    Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
-    Menu(Icons.article_outlined, RewardsRouting.TERMS_ROUTE, 'Terms y Cond.'),
-
-    Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Mis Datos'),
-    Menu(Icons.fact_check_outlined, MainRouting.BILLING_ROUTE, 'Facturación'),
+    Menu(Icons.person_outline, AuthRouting.USER_DETAILS_ROUTE, 'Datos'),
+    Menu(Icons.article_outlined, RewardsRouting.TERMS_ROUTE, 'Legales'),
+    Menu(Icons.fact_check_outlined, MainRouting.BILLING_ROUTE, 'Facturas'),
   ];
 
   RewardsController(this._repo);

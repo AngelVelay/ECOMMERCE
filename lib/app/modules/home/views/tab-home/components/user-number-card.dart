@@ -10,7 +10,7 @@ class userCardNumber extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width - 20,
+      width: 330,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -32,7 +32,7 @@ Widget _buildCreditCard(BuildContext context,
     required String cardHolder,
     required String cardExpiration}) {
   return Container(
-      height: 230,
+      height: 210,
       child: Stack(fit: StackFit.expand, children: [
         // Card(
         //   color: Colors.transparent,
@@ -53,23 +53,23 @@ Widget _buildCreditCard(BuildContext context,
         Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.asset(
-            'assets/background_cards/silver.jpg',
+            'assets/background_cards/silver.png',
             fit: BoxFit.cover,
           ),
           margin: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(.3),
-                blurRadius: 3, // soften the shadow
-                spreadRadius: 1.0, //extend the shadow
-                offset: const Offset(
-                  5.0, // Move to right  horizontally
-                  5.0, // Move to bottom Vertically
-                ),
-              )
-            ],
+            borderRadius: BorderRadius.circular(13),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(.3),
+            //     blurRadius: 3, // soften the shadow
+            //     spreadRadius: 1.0, //extend the shadow
+            //     offset: const Offset(
+            //       5.0, // Move to right  horizontally
+            //       5.0, // Move to bottom Vertically
+            //     ),
+            //   )
+            // ],
           ),
         ),
 
@@ -78,7 +78,7 @@ Widget _buildCreditCard(BuildContext context,
           child: Center(
             child: Container(
               height: 200,
-              padding: const EdgeInsets.only(top: 22, left: 22.0, right: 22.0),
+              padding: const EdgeInsets.only(top: 33, left: 22.0, right: 22.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -90,16 +90,16 @@ Widget _buildCreditCard(BuildContext context,
                       const Text('Número',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: 8,
                               fontStyle: FontStyle.italic)),
                       const SizedBox(height: 3),
                       Text(
                         cardNumber,
                         style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 17,
-                            fontFamily: 'Montserrat-Medium',
-                            letterSpacing: 1.8),
+                            fontSize: 15,
+                            fontFamily: 'Montserrat-Bold',
+                            letterSpacing: 1.6),
                       ),
                     ],
                   ),
@@ -129,14 +129,15 @@ Widget _buildCreditCard(BuildContext context,
 Widget _buildLogosBlock() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Image.asset(
         "assets/cards/card_title_platino.png",
-        width: 270,
+        height: 23,
       ),
       const Text(
         'Programa de Recompensas',
-        style: TextStyle(color: Colors.white, fontSize: 10),
+        style: TextStyle(color: Colors.white, fontSize: 8),
       )
     ],
   );
@@ -150,23 +151,29 @@ Column _buildDetailsBlock({required String label, required String value}) {
       Text(
         label,
         style: const TextStyle(
-            color: Colors.white, fontSize: 10, fontStyle: FontStyle.italic),
+            color: Colors.white, fontSize: 8, fontStyle: FontStyle.italic),
       ),
       const SizedBox(height: 3),
       Text(
         value,
         style: const TextStyle(
-            color: Colors.white, fontSize: 15, fontFamily: 'Montserrat-Bold'),
+            color: Colors.white,
+            fontSize: 12,
+            fontFamily: 'Montserrat-Medium',
+            letterSpacing: 0),
       )
     ],
   );
 }
 
 Widget _qrCode(BuildContext context) {
-  return const ButtonQRScanner(
-    height: 40,
-    width: 40,
-    title: '',
-    color: Colors.white,
-  );
+  return Column(children: [
+    SizedBox(height: 5),
+    ButtonQRScanner(
+      height: 40,
+      width: 40,
+      title: '',
+      color: Colors.white,
+    )
+  ]);
 }
