@@ -230,9 +230,9 @@ class RewardsPage extends GetView<RewardsController> {
             itemCount: controller.menuItems.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 30.0,
+              mainAxisSpacing: 25.0,
               crossAxisSpacing: 10.0,
-              childAspectRatio: 1.7,
+              childAspectRatio: 1.6,
             ),
             itemBuilder: (context, index) =>
                 _menuItem(context, controller.menuItems[index])));
