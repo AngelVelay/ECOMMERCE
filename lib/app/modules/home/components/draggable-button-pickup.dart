@@ -2,18 +2,19 @@ import 'package:badges/badges.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/form-controls/custom-rounded-button-alt.widget.dart';
-import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
+import '../../../components/form-controls/custom-rounded-button-alt.widget.dart';
 import 'tracking-delivery.dart';
+import 'tracking-pickup-qr.dart';
 
-class DraggableButton extends StatelessWidget {
-  const DraggableButton();
+class DraggableButtonPickup extends StatelessWidget {
+  const DraggableButtonPickup({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: DraggableFab(
+        child: Container(
+            child: DraggableFab(
       child: Badge(
           showBadge: true,
           badgeContent: const Text(
@@ -24,6 +25,8 @@ class DraggableButton extends StatelessWidget {
             backgroundColor: Colors.blue,
             onPressed: () {
               showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Color(0XFF2222222),
                 context: context,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
@@ -32,22 +35,24 @@ class DraggableButton extends StatelessWidget {
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 builder: (context) => Container(
-                  height: MediaQuery.of(context).copyWith().size.height * 0.35,
+                  height: MediaQuery.of(context).copyWith().size.height * 0.85,
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(10.0),
+                      Padding(
+                        padding: EdgeInsets.all(20.0),
                         child: Text(
-                          'Sigue tu pedido',
+                          'Mostrar en Sucursal',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ),
-                      Container(
-                        height: 100,
-                        child: TrackingDelivery(),
+                      SizedBox(
+                        height: 500,
+                        child: TrackingPickup(),
                       ),
-                      _buttonDetail()
+                      _buttonDetail(),
                     ],
                   ),
                 ),
@@ -55,17 +60,17 @@ class DraggableButton extends StatelessWidget {
             },
             child: const FadeInImage(
               fit: BoxFit.cover,
-              placeholder: AssetImage('assets/images/delivery.png'),
-              image: AssetImage('assets/images/delivery.png'),
+              placeholder: AssetImage('assets/images/delivery-man.png'),
+              image: AssetImage('assets/images/delivery-man.png'),
             ),
           )),
-    ));
+    )));
   }
 }
 
 Widget _buttonDetail() {
   return Padding(
-    padding: const EdgeInsets.all(20.0),
+    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
     child: Container(
       width: double.infinity,
       child: CustomRoundedButtonAlt(

@@ -160,6 +160,10 @@ class HomeController extends GetxController {
     Get.toNamed(CartRouting.ADD_CREDIT_CARD_ROUTE);
   }
 
+  toSuggestions() {
+    Get.toNamed(CartRouting.SUGGESTIONS);
+  }
+
   toCoupons() {
     Get.toNamed(RewardsRouting.COUPONS_ROUTE);
   }

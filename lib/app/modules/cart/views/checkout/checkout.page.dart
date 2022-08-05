@@ -309,6 +309,7 @@ class CheckOutPage extends GetView<CheckOutController> {
                   builder: (context) => _gifConfirm(),
                 ),
               );
+              // controller.showButtonOnHome();
             },
             // child: ElevatedButton.icon(
             //   style: ButtonStyle(

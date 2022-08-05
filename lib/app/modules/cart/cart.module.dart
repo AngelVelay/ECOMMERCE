@@ -22,6 +22,8 @@ import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fa
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 
 import '../main/services/address/address.fake.service.dart';
+import 'views/suggestions/suggestions.controller.dart';
+import 'views/suggestions/suggestions.page.dart';
 
 class CartRouting {
   static const ADD_CREDIT_CARD_ROUTE = '/add-credit-card';
@@ -31,6 +33,7 @@ class CartRouting {
   static const PICKUP_ROUTE = '/pickup';
   static const PAY_ROUTE = '/pay';
   static const PAYMENT_METHODS_ROUTE = '/payment-methods';
+  static const SUGGESTIONS = '/suggestions';
 
   static final IAuthService authService = AuthFakeService();
 
@@ -61,6 +64,10 @@ class CartRouting {
       binding: PickUpBinding(),
     ),
     GetPage(name: PAY_ROUTE, page: () => PayPage(), binding: PayBinding()),
+    GetPage(
+        name: SUGGESTIONS,
+        page: () => const SuggestionsPage(),
+        binding: SuggestionsBinding()),
   ];
 }
 
@@ -123,5 +130,12 @@ class PayBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
+  }
+}
+
+class SuggestionsBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<SuggestionsController>(() => SuggestionsController());
   }
 }

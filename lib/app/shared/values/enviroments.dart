@@ -6,6 +6,7 @@ class Enviroments {
   static const String AUTH_API_URL = 'http://dev.jexbit.mx/JexcoreService/api/';
   static const String FILES_URL =
       'http://201.151.139.54/FileManagerDoctos/jexbit/';
+
   // static const String SHA1_GOOGLE =
   //     ' F9:3A:D8:20:BC:77:CA:31:CB:46:E4:5D:33:92:F4:95:DB:D6:88:6B';
   static const String GOOGLE_CLIENT_ID =

@@ -142,7 +142,8 @@ class HomeShoppingCart extends GetView<HomeController> {
 
   Widget _button() {
     return controller.cartProducts$.isNotEmpty
-        ? SizedBox(
+        ? Container(
+            width: double.infinity,
             child: CustomRoundedButton(
                 text: 'Pagar', onPressed: () => controller.toAddCreditCard()),
           )

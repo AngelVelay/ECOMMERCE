@@ -2,10 +2,12 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:string_to_hex/string_to_hex.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
+import '../../cart.module.dart';
 import 'addCreditCard.controller.dart';
 
 class addCreditCard extends GetView<PayController> {
@@ -203,7 +205,7 @@ Column _anotherPayWay() {
                   primary: Colors.white,
                 ),
                 onPressed: () {},
-                child: FadeInImage(
+                child: const FadeInImage(
                   image: NetworkImage(
                       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png'),
                   placeholder: NetworkImage(
@@ -219,7 +221,7 @@ Column _anotherPayWay() {
                   primary: Colors.white,
                 ),
                 onPressed: () {},
-                child: FadeInImage(
+                child: const FadeInImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
                       'https://s3.cointelegraph.com/storage/uploads/view/3278bdc14c74dd4e85732b776d0e5b1d.png'),
@@ -233,6 +235,7 @@ Column _anotherPayWay() {
 }
 
 Widget _buttonConfirm(context) {
+  final controller = Get.find<HomeController>();
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SizedBox(
@@ -241,7 +244,13 @@ Widget _buttonConfirm(context) {
       child: CustomRoundedButton(
         text: 'Confirmar Compra',
         onPressed: () {
-          Get.toNamed('/confirm-compra');
+          Get.toNamed(CartRouting.CHECKOUT_ROUTE, arguments: {
+            'total': controller.total$,
+            'cartProducts': controller.cartProducts$,
+            'selectedAddress': controller.selectedAddress$.value,
+            'defaultCoupon': controller.defaultCoupon$.value,
+            'selectedCreditCard': controller.selectedCreditCard$,
+          });
         },
       ),
       // child: ElevatedButton.icon(

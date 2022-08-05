@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 
+import '../../../cart/components/apply-coupon.page.dart';
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
 import '../../../main/entities/product.type.dart';
@@ -16,20 +17,25 @@ class ShoppingCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color(0xff2222222),
-            title: const Text('Mi carrito').paddingSymmetric(horizontal: 10),
-          ),
-          body: Column(children: [
+        child: Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0xff2222222),
+        title: const Text('Mi carrito').paddingSymmetric(horizontal: 10),
+      ),
+      body: Stack(
+        children: [
+          Column(children: [
             _cartProductList(
               context,
               controller,
             ),
-            _button()
-          ]).paddingSymmetric(horizontal: 20)),
-    );
+            // _button()
+          ]).paddingSymmetric(horizontal: 20),
+          ApplyCoupon()
+        ],
+      ),
+    ));
   }
 
   Widget _cartProductList(BuildContext context, controller) {
@@ -128,10 +134,13 @@ class ShoppingCartPage extends StatelessWidget {
 
   Widget _button() {
     return controller.cartProducts$.isNotEmpty
-        ? CustomRoundedButton(
-                text: '     Pagar     ',
-                onPressed: () => controller.toAddCreditCard())
-            .paddingSymmetric(horizontal: 20)
+        ? Container(
+            width: double.infinity,
+            child: CustomRoundedButton(
+                    text: 'Continuar',
+                    onPressed: () => controller.toSuggestions())
+                .paddingSymmetric(horizontal: 20),
+          )
         // Expanded(
         //     child: Padding(
         //       padding: const EdgeInsets.symmetric(

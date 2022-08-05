@@ -157,16 +157,16 @@ class StorePage extends GetView<StoreController> {
     return Obx(() {
       return GestureDetector(
         onTap: () => {
-          // if (controllerHome.selectedAddress$.value.id != 0)
-          //   {
-          //     SheetUtils.show(context, HomeAddressAdd(controllerHome),
-          //         title: 'Selecciona un domicilio')
-          //   }
-          // else
-          //   {
-          //     SheetUtils.show(context, HomeAddressAdd(controllerHome),
-          //         title: 'Agrega un domicilio')
-          //   }
+          if (controllerHome.selectedAddress$.value.id != 0)
+            {
+              SheetUtils.show(context, HomeAddressAdd(controllerHome),
+                  title: 'Selecciona un domicilio')
+            }
+          else
+            {
+              SheetUtils.show(context, HomeAddressAdd(controllerHome),
+                  title: 'Agrega un domicilio')
+            }
         },
         child: Row(children: [
           // Icon(

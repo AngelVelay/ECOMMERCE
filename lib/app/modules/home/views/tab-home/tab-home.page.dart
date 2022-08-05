@@ -48,9 +48,10 @@ class HomePage extends GetView<HomeController> {
               )
             ],
           ),
+
+          // floatingActionButton: DraggableButtonPickup(),
           floatingActionButton: DraggableButton(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniEndTop),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endTop),
     );
   }
 
