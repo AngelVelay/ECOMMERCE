@@ -93,4 +93,6 @@ class CheckOutController extends GetxController {
       }
     });
   }
+
+  changeMethodDelivery() {}
 }

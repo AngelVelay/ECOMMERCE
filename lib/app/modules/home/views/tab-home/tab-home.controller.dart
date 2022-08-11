@@ -138,7 +138,7 @@ class HomeController extends GetxController {
   }
 
   toProductDetail(Product item) {
-    Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: { "product": item });
+    Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {"product": item});
   }
 
   addressSelect(Address item, BuildContext context) {

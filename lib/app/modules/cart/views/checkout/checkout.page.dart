@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/components/draggable-button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
@@ -99,7 +100,7 @@ class CheckOutPage extends GetView<CheckOutController> {
             ListTile(
               trailing: TextButton(
                 child: const Icon(
-                  Icons.change_circle,
+                  Icons.change_circle_outlined,
                   color: Colors.black,
                   size: 40,
                 ),
@@ -119,8 +120,19 @@ class CheckOutPage extends GetView<CheckOutController> {
               subtitle: Text(
                   '${controller.selectedAddress.street} #${controller.selectedAddress.outsideNumber} CP:${controller.selectedAddress.zipCode} '),
             ),
-            const ListTile(
-              trailing: Icon(Icons.credit_score_sharp),
+            ListTile(
+              trailing: TextButton(
+                  child: const Icon(
+                    Icons.add_card_rounded,
+                    color: Colors.black,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    Get.toNamed('/add-credit-card');
+                  }
+
+                  // controller.adreesTap(context);
+                  ),
               title: Text(
                 'Forma de Pago:',
                 style: TextStyle(color: Colors.black),
@@ -306,7 +318,7 @@ class CheckOutPage extends GetView<CheckOutController> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => _gifConfirm(),
+                  builder: (context) => DraggableButton(),
                 ),
               );
               // controller.showButtonOnHome();

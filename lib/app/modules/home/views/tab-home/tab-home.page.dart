@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/components/draggable-button-pickup.dart';
 import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 
 import '../../../main/views/variable-products/variable-products.page.dart';
@@ -48,9 +49,8 @@ class HomePage extends GetView<HomeController> {
               )
             ],
           ),
-
-          // floatingActionButton: DraggableButtonPickup(),
-          floatingActionButton: DraggableButton(),
+          // floatingActionButton: DraggableButton(),
+          floatingActionButton: DraggableButtonPickup(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop),
     );
   }

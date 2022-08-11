@@ -9,7 +9,6 @@ import '../../../main/main.module.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
 import '../../cart.module.dart';
 import '../add_credit_card/addCreditCard.page.dart';
-import '../payment-methods/payment-methods.controller.dart';
 
 class PayController extends GetxController {
   final ICreditCardService creditCardService;

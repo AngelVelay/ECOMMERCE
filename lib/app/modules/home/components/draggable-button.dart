@@ -21,7 +21,7 @@ class DraggableButton extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           child: FloatingActionButton(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -55,8 +55,8 @@ class DraggableButton extends StatelessWidget {
             },
             child: const FadeInImage(
               fit: BoxFit.cover,
-              placeholder: AssetImage('assets/images/delivery.png'),
-              image: AssetImage('assets/images/delivery.png'),
+              placeholder: AssetImage('assets/images/delivery_m.png'),
+              image: AssetImage('assets/images/delivery_m.png'),
             ),
           )),
     ));

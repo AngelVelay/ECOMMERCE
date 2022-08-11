@@ -122,7 +122,7 @@ Widget _button(controller) {
         child: CustomRoundedButton(
           text: 'Proceder a pagar',
           onPressed: () {
-            controller.toAddCreditCard();
+            controller.toCheckout();
           },
         )),
   );

@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 
+import '../../../cart/cart.module.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
-import '../../cart.module.dart';
 
 class PaymentMethodsController extends GetxController {
   final ICreditCardService _paymentMethodsService;

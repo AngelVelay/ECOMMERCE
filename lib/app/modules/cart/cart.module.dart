@@ -13,8 +13,7 @@ import 'package:jexpoints/app/modules/cart/views/confirm_compra/confirm-compra.c
 import 'package:jexpoints/app/modules/cart/views/confirm_compra/confirm-compra.page.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.page.dart';
-import 'package:jexpoints/app/modules/cart/views/payment-methods/payment-methods.controller.dart';
-import 'package:jexpoints/app/modules/cart/views/payment-methods/payment-methods.page.dart';
+
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.controller.dart';
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.page.dart';
 import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
@@ -46,10 +45,6 @@ class CartRouting {
         name: ADDRESS_DETAIL_ROUTE,
         page: () => const AddressDetailPage(),
         binding: AddressDetailBinding()),
-    GetPage(
-        name: PAYMENT_METHODS_ROUTE,
-        page: () => const PaymentMethodsPage(),
-        binding: PaymentMethodsBinding()),
     GetPage(
         name: CHECKOUT_ROUTE,
         page: () => CheckOutPage(),
@@ -84,14 +79,6 @@ class AddressDetailBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<AddressDetailController>(
         () => AddressDetailController(AddressFakeService()));
-  }
-}
-
-class PaymentMethodsBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<PaymentMethodsController>(
-        () => PaymentMethodsController(CreditCardFakeService()));
   }
 }
 

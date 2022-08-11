@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/form-controls/custom-rounded-button-alt.widget.dart';
-import 'tracking-delivery.dart';
 import 'tracking-pickup-qr.dart';
 
 class DraggableButtonPickup extends StatelessWidget {
@@ -12,9 +11,7 @@ class DraggableButtonPickup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Container(
-            child: DraggableFab(
+    return DraggableFab(
       child: Badge(
           showBadge: true,
           badgeContent: const Text(
@@ -22,11 +19,11 @@ class DraggableButtonPickup extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           child: FloatingActionButton(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
             onPressed: () {
               showModalBottomSheet(
                 isScrollControlled: true,
-                backgroundColor: Color(0XFF2222222),
+                backgroundColor: Color(0xff2222222),
                 context: context,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
@@ -34,11 +31,11 @@ class DraggableButtonPickup extends StatelessWidget {
                   ),
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                builder: (context) => Container(
+                builder: (context) => SizedBox(
                   height: MediaQuery.of(context).copyWith().size.height * 0.85,
                   child: Column(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(20.0),
                         child: Text(
                           'Mostrar en Sucursal',
@@ -48,7 +45,7 @@ class DraggableButtonPickup extends StatelessWidget {
                               color: Colors.white),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 500,
                         child: TrackingPickup(),
                       ),
@@ -59,19 +56,19 @@ class DraggableButtonPickup extends StatelessWidget {
               );
             },
             child: const FadeInImage(
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets/images/delivery-man.png'),
-              image: AssetImage('assets/images/delivery-man.png'),
+              fit: BoxFit.contain,
+              placeholder: AssetImage('assets/images/magdalena.png'),
+              image: AssetImage('assets/images/magdalena.png'),
             ),
           )),
-    )));
+    );
   }
 }
 
 Widget _buttonDetail() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-    child: Container(
+    child: SizedBox(
       width: double.infinity,
       child: CustomRoundedButtonAlt(
         onPressed: () {

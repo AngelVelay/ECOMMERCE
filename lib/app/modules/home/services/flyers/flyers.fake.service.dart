@@ -53,7 +53,12 @@ class FlyersFakeService implements IFlyersService {
   ];
 
   @override
-  Future<List<Flyer>> get() async {
+  Future<List<Flyer>> getAll() async {
     return _flyers;
   }
+
+  // @override
+  // Future<List<Flyer>> getAll() async {
+  //   return _flyers;
+  // }
 }

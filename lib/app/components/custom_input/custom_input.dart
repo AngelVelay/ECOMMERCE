@@ -86,7 +86,8 @@ class CustomInputField extends StatelessWidget {
                 ),
 
           // prefixIcon: Icon( Icons.verified_user_outlined ),
-          suffixIcon: suffixIcon == null ? null : Icon(suffixIcon),
+          suffixIcon:
+              suffixIcon == null ? null : Icon(suffixIcon, color: Colors.white),
           icon: icon == null
               ? null
               : Icon(

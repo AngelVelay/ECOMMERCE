@@ -14,9 +14,6 @@ import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.d
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
 
-import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.controller.dart';
-import 'package:jexpoints/app/modules/main/views/billing/billing_valid/billing.page.dart';
-
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 
 import 'package:jexpoints/app/modules/main/views/points/points.controller.dart';
@@ -34,9 +31,6 @@ import '../rewards/views/rewards/rewards.controller.dart';
 import '../store/views/store/store.controller.dart';
 
 import 'services/products/products.api.service.dart';
-
-import 'views/billing/billing_apply/billing_apply.controller.dart';
-import 'views/billing/billing_apply/billing_apply.dart';
 
 class MainRouting {
   static const MAIN_ROUTE = '/main';
@@ -74,14 +68,14 @@ class MainRouting {
         page: () => ProfilePage(),
         binding: ProfileBinding()),
 
-    GetPage(
-      name: BILLING_ROUTE,
-      page: () => const BillingPage(),
-    ),
-    GetPage(
-      name: BILLING_APPLY_ROUTE,
-      page: () => const BillingApplyPage(),
-    ),
+    // GetPage(
+    //   name: BILLING_ROUTE,
+    //   page: () => const BillingPage(),
+    // ),
+    // GetPage(
+    //   name: BILLING_APPLY_ROUTE,
+    //   page: () => const BillingApplyPage(),
+    // ),
     // GetPage(
     //     name: CONSUME_ROUTE,
     //     page: () => ConsumePage(),
@@ -211,11 +205,11 @@ class MainBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MainController>(() => MainController(), fenix: true);
-    Get.lazyPut<BillingController>(() => BillingController(authService),
-        fenix: true);
-    Get.lazyPut<BillingApplyController>(
-        () => BillingApplyController(BranchFakesService()),
-        fenix: true);
+    // Get.lazyPut<BillingController>(() => BillingController(authService),
+    //     fenix: true);
+    // Get.lazyPut<BillingApplyController>(
+    //     () => BillingApplyController(BranchFakesService()),
+    //     fenix: true);
   }
 }
 
