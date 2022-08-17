@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../main/entities/product.type.dart';
@@ -9,25 +10,27 @@ import 'store-category-products.controller.dart';
 class StoreCategoryProductsPage
     extends GetView<StoreCategoryProductsController> {
   var category = Get.arguments['category'];
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      left: false,
-      right: false,
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text('${controller.category.name}'),
-          ),
-          body: SingleChildScrollView(
-            child: Column(children: <Widget>[
-              const SizedBox(height: 20),
-              _searchInput(context),
-              const SizedBox(height: 20),
-              _productList(context, category),
-            ]),
-          )),
-    );
+        left: false,
+        right: false,
+        child: GetBuilder<StoreCategoryProductsController>(
+          builder: (value) => Scaffold(
+              appBar: AppBar(
+                title: Text(controller.category.name),
+              ),
+              body: SingleChildScrollView(
+                child: Column(children: <Widget>[
+                  const SizedBox(height: 20),
+                  _searchInput(context),
+                  const SizedBox(height: 20),
+                  _productList(context, category),
+                ]),
+              )),
+        ));
   }
 
   Widget _searchInput(BuildContext context) {
@@ -106,7 +109,7 @@ class StoreCategoryProductsPage
                   childAspectRatio: 1,
                 ),
                 itemBuilder: (context, index) =>
-                    _productItem(context, controller.findedProducts$[index]));
+                    _productItem(context, homeController.productList$[index]));
       }),
     );
   }
@@ -149,29 +152,36 @@ class StoreCategoryProductsPage
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline6,
           ),
-          HomeCartControls(item),
+          HomeCartControls(item,
+              key: ValueKey(item.id),
+              altColor: Colors.black,
+              labelColor: Colors.white),
+
           // Row(children: [
-          //   (item.cartValue > 0)
+          //   (item.cartValue! > 0)
           //       ? CircleIconButton(
           //           iconData: Icons.remove,
-          //           onPressed: () => controller.deleteCart(item),
-          //           size: 25,
-          //           foregroundColor: Colors.white,
+          //           onPressed: () => homeController.deleteCart(item),
+          //           size: 15,
+          //           foregroundColor: Colors.black,
           //         )
           //       : Container(),
           //   const Spacer(),
-          //   (item.cartValue > 0)
+          //   (item.cartValue! > 0)
           //       ? Text(
-          //           '${item.cartValue}',
-          //           style: Theme.of(context).textTheme.subtitle1,
+          //           '${item.cartValue.obs}',
+          //           style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize: 15,
+          //           ),
           //         )
           //       : Container(),
           //   const Spacer(),
           //   CircleIconButton(
           //     iconData: Icons.add,
-          //     onPressed: () => controller.addCart(item),
-          //     size: 25,
-          //     foregroundColor: Colors.white,
+          //     onPressed: () => homeController.addCart(item, context),
+          //     size: 15,
+          //     foregroundColor: Colors.black,
           //   ),
           // ])
         ],

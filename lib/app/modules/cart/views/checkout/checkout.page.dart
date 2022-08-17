@@ -2,12 +2,15 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/components/draggable-button.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/components/address-choose.widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
+import '../../../home/views/tab-home/tab-home.controller.dart';
 import '../../../main/views/main/main.page.dart';
 import '../../../rewards/views/consume/components/tracker.dart';
+import '../../components/pickup-delivery.page.dart';
 import 'checkout.controller.dart';
 
 class CheckOutPage extends GetView<CheckOutController> {
@@ -22,60 +25,72 @@ class CheckOutPage extends GetView<CheckOutController> {
       color: const Color(0xff222222),
       child: SafeArea(
         bottom: false,
-        child: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: const Color(0xff2222222),
-                title: const Text('Confirmar pedido'),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: _tabBar(context),
-              )),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xff2222222),
+            title: const Text('Confirmar pedido'),
+          ),
+          body: const Center(
+              child: SingleChildScrollView(child: OnChangeDeliveryType())),
         ),
       ),
     );
   }
 
-  Widget _tabBar(context) {
-    return Column(
+  // Widget _tabBar(context) {
+  //   return Column(
+  //     children: [
+  //       Padding(
+  //         padding: const EdgeInsets.all(20.0),
+  //         child: Container(
+  //           height: 60,
+  //           decoration: BoxDecoration(
+  //               color: Colors.grey[300],
+  //               borderRadius: BorderRadius.circular(25.0)),
+  //           child: TabBar(
+  //             indicator: BoxDecoration(
+  //                 color: const Color(0xff2222222),
+  //                 borderRadius: BorderRadius.circular(25.0)),
+  //             labelColor: Colors.white,
+  //             unselectedLabelColor: Colors.black,
+  //             tabs: const [
+  //               Tab(
+  //                 text: 'Envio a Domicilio',
+  //               ),
+  //               Tab(
+  //                 text: 'Recoger en Sucursal',
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //       Expanded(
+  //           child: TabBarView(
+  //         children: [
+  //           Expanded(
+  //             child: Center(
+  //               child: _expandableList(),
+  //             ),
+  //           ),
+  //           Expanded(child: Center(child: _buttonConfirmTakeAway(context))),
+  //         ],
+  //       ))
+  //     ],
+  //   );
+  // }
+
+  Widget _expandableList() {
+    return const ExpansionTile(
+      title: Text('Tipo de Envio'),
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            height: 60,
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(25.0)),
-            child: TabBar(
-              indicator: BoxDecoration(
-                  color: const Color(0xff2222222),
-                  borderRadius: BorderRadius.circular(25.0)),
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.black,
-              tabs: const [
-                Tab(
-                  text: 'Envio a Domicilio',
-                ),
-                Tab(
-                  text: 'Recoger en Sucursal',
-                ),
-              ],
-            ),
-          ),
+        ListTile(
+          title: Text('Envio a Domicilio'),
+          trailing: Icon(Icons.check),
         ),
-        Expanded(
-            child: TabBarView(
-          children: [
-            Expanded(
-              child: Center(
-                child: _totalBuyDelivery(context),
-              ),
-            ),
-            Expanded(child: Center(child: _buttonConfirmTakeAway(context))),
-          ],
-        ))
+        ListTile(
+          title: Text('Recoger en Sucursal'),
+          trailing: Icon(Icons.check),
+        ),
       ],
     );
   }
@@ -90,13 +105,18 @@ class CheckOutPage extends GetView<CheckOutController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                'Envio a Domicilio',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            // ExpansionTile(
+            //     title: const Text(
+            //       'Recoger en Sucursal cerca de CP:14200',
+            //       style: TextStyle(color: Colors.black),
+            //     ),
+            //     children: [
+            //       Container(
+            //         height: 200,
+            //         width: double.infinity,
+            //         child: PickUpPage(),
+            //       ),
+            //     ]),
             ListTile(
               trailing: TextButton(
                 child: const Icon(
@@ -105,21 +125,22 @@ class CheckOutPage extends GetView<CheckOutController> {
                   size: 40,
                 ),
                 onPressed: () {
-                  showDialog<void>(
-                      context: context,
-                      builder: (_) =>
-                          _alertDialog(context, CheckOutController));
+                  // showDialog<void>(
+                  //     context: context,
+                  //     builder: (_) =>
+                  //         _alertDialog(context, CheckOutController));
 
-                  // controller.adreesTap(context);
+                  // // controller.adreesTap(context);
                 },
               ),
               title: const Text(
-                'Enviar a:',
+                'Enviar a domicilio:',
                 style: TextStyle(color: Colors.black),
               ),
               subtitle: Text(
                   '${controller.selectedAddress.street} #${controller.selectedAddress.outsideNumber} CP:${controller.selectedAddress.zipCode} '),
             ),
+
             ListTile(
               trailing: TextButton(
                   child: const Icon(
@@ -133,7 +154,7 @@ class CheckOutPage extends GetView<CheckOutController> {
 
                   // controller.adreesTap(context);
                   ),
-              title: Text(
+              title: const Text(
                 'Forma de Pago:',
                 style: TextStyle(color: Colors.black),
               ),
@@ -315,13 +336,7 @@ class CheckOutPage extends GetView<CheckOutController> {
           child: CustomRoundedButton(
             text: 'Enviar Pedido',
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DraggableButton(),
-                ),
-              );
-              // controller.showButtonOnHome();
+              Get.offAndToNamed('/main');
             },
             // child: ElevatedButton.icon(
             //   style: ButtonStyle(
@@ -551,32 +566,32 @@ class CheckOutPage extends GetView<CheckOutController> {
   }
 }
 
-Widget _alertDialog(context, controller) {
-  final controller = Get.find<CheckOutController>();
-  return AlertDialog(
-    backgroundColor: Color(0xff222222),
-    title: const Text(
-      'Si cambias de domicilio puede que pierdas productos de tu carrito',
-      style: TextStyle(color: Colors.white),
-    ),
-    content: Text('¿Esta seguro de cambiar de domicilio?',
-        style: TextStyle(color: Colors.white)),
-    actions: <Widget>[
-      TextButton(
-        child: Text('Cancelar', style: TextStyle(color: Colors.red)),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      TextButton(
-        child: Text('Aceptar', style: TextStyle(color: Colors.blue)),
-        onPressed: () {
-          controller.adreesTap(context);
-        },
-      ),
-    ],
-  );
-}
+// Widget _alertDialog(context, controller) {
+//   final controller = Get.find<CheckOutController>();
+//   return AlertDialog(
+//     backgroundColor: Color(0xff222222),
+//     title: const Text(
+//       'Si cambias de domicilio puede que pierdas productos de tu carrito',
+//       style: TextStyle(color: Colors.white),
+//     ),
+//     content: Text('¿Esta seguro de cambiar de domicilio?',
+//         style: TextStyle(color: Colors.white)),
+//     actions: <Widget>[
+//       TextButton(
+//         child: Text('Cancelar', style: TextStyle(color: Colors.red)),
+//         onPressed: () {
+//           Navigator.pop(context);
+//         },
+//       ),
+//       TextButton(
+//         child: Text('Aceptar', style: TextStyle(color: Colors.blue)),
+//         onPressed: () {
+//           controller.adreesTap(context);
+//         },
+//       ),
+//     ],
+//   );
+// }
 
 Widget _gifConfirm() {
   return Center(
@@ -607,4 +622,223 @@ Widget _gifConfirm() {
           nextScreen: MainPage(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: const Color(0xFFffffff)));
+}
+
+class OnChangeDeliveryType extends StatefulWidget {
+  const OnChangeDeliveryType({Key? key}) : super(key: key);
+
+  @override
+  State<OnChangeDeliveryType> createState() => _OnChangeDeliveryTypeState();
+}
+
+class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
+  bool changeDeliveryType = false;
+  bool isExpanded = false;
+  final controller = Get.find<CheckOutController>();
+  final homeController = Get.find<HomeController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ListTile(
+                  title: changeDeliveryType
+                      ? onChangeExpansionTilePickup()
+                      : onChangeExpansionTileDelivery(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: ListTile(
+                    trailing: TextButton(
+                        child: const Icon(
+                          Icons.add_card_rounded,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          Get.toNamed('/add-credit-card');
+                        }
+
+                        // controller.adreesTap(context);
+                        ),
+                    title: const Text(
+                      'Forma de Pago:',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: Text('5625 2356 XXXX'),
+                  ),
+                ),
+                const Divider(thickness: 2),
+                _detailDelivery(),
+                Center(
+                  child: Column(
+                    children: const [
+                      // const Timeline(),
+                      // _buttonConfirmDelivery(context),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        _buttonConfirmDelivery(context)
+      ],
+    );
+  }
+
+  Widget onChangeExpansionTileDelivery() {
+    return ExpansionTile(
+        trailing: TextButton(
+            child: const Icon(
+              Icons.change_circle_outlined,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              setState(() {
+                changeDeliveryType = !changeDeliveryType;
+              });
+            }),
+        title: const Text(
+          'Entregar en Domicilio',
+          style: TextStyle(color: Colors.black),
+        ),
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: HomeAddressSelect(homeController),
+          ),
+        ]);
+  }
+
+  Widget onChangeExpansionTilePickup() {
+    return ExpansionTile(
+        trailing: TextButton(
+            child: const Icon(
+              Icons.change_circle_outlined,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              setState(() {
+                changeDeliveryType = !changeDeliveryType;
+              });
+            }),
+        title: Text(
+          'Recoger en Sucursal cerca de CP:14200',
+          style: TextStyle(color: Colors.black),
+        ),
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: PickUpPage(),
+          ),
+        ]);
+  }
+
+  Widget _detailDelivery() {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text(
+            'Cupon de descuento',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: Colors.black),
+          ),
+          leading: const Icon(
+            Icons.card_giftcard_rounded,
+            color: Colors.black,
+          ),
+          trailing: Text(
+            ' - \$${controller.coupons.amount}',
+            style: const TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+          ),
+        ),
+        const ListTile(
+          title: Text(
+            'Envio',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: Colors.black),
+          ),
+          leading: Icon(
+            Icons.local_shipping,
+            color: Colors.black,
+          ),
+          trailing: Text(
+            '\$ 50.00',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+          ),
+        ),
+        ListTile(
+          title: const Text(
+            'Total',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          trailing: Text(
+            '\$ ${controller.total - controller.coupons.amount}',
+            style: const TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _alertDialog(context, controller) {
+    final controller = Get.find<CheckOutController>();
+    return AlertDialog(
+      backgroundColor: Color(0xff222222),
+      title: const Text(
+        'Deseas cambiar la forma de envio?',
+        style: TextStyle(color: Colors.white),
+      ),
+      content: Text('¿Esta seguro de cambiar a ${changeDeliveryType}?',
+          style: TextStyle(color: Colors.white)),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Cancelar', style: TextStyle(color: Colors.red)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: Text('Aceptar', style: TextStyle(color: Colors.blue)),
+          onPressed: () {
+            setState(() {
+              changeDeliveryType = !changeDeliveryType;
+            });
+            Navigator.pop(context);
+            // controller.adreesTap(context);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buttonConfirmDelivery(context) {
+    return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+            height: 60,
+            width: MediaQuery.of(context).size.width,
+            child: CustomRoundedButton(
+                text: 'Confirmar Compra',
+                onPressed: () {
+                  controller.toPickup();
+                })));
+  }
 }

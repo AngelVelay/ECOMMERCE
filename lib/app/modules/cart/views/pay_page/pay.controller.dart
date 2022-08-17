@@ -5,7 +5,6 @@ import 'dart:math' as math;
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../../main/main.module.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
 import '../../cart.module.dart';
 import '../add_credit_card/addCreditCard.page.dart';
@@ -13,7 +12,7 @@ import '../add_credit_card/addCreditCard.page.dart';
 class PayController extends GetxController {
   final ICreditCardService creditCardService;
 
-  PayController(this.creditCardService);
+  PayController(this.creditCardService, {Key? key});
   late var selectedCreditCard = CreditCard.fromVoid().obs;
 
   late var creditCardList$ = <CreditCard>[].obs;
@@ -59,7 +58,6 @@ class PayController extends GetxController {
 
     cardNumber.addListener(() {
       cardNumber$.value = cardNumber.text;
-      creditCardLogo() => cardNumber.text;
     });
     cardHolder.addListener(() {
       cardHolder$.value = cardHolder.text;
@@ -119,31 +117,31 @@ class PayController extends GetxController {
     });
   }
 
-  creditCardLogo() async {
-    if (cardNumber.text.characters.first == '4') {
-      return Image.asset(
-        'assets/images/visa.png',
-        height: 40,
-        width: 40,
-      );
-    } else if (cardNumber.text.characters.first == '5') {
-      return Image.asset(
-        'assets/images/mastercard.png',
-        height: 40,
-        width: 40,
-      );
-    } else if (cardNumber.text.characters.first == '3') {
-      return Image.asset(
-        'assets/images/amex.png',
-        height: 40,
-        width: 40,
-      );
-    } else {
-      return Image.asset(
-        'assets/images/credit-card.png',
-        height: 40,
-        width: 40,
-      );
-    }
-  }
+  // creditCardLogo() async {
+  //   if (cardNumber.text.characters.first == '4') {
+  //     return Image.asset(
+  //       'assets/images/visa.png',
+  //       height: 40,
+  //       width: 40,
+  //     );
+  //   } else if (cardNumber.text.characters.first == '5') {
+  //     return Image.asset(
+  //       'assets/images/mastercard.png',
+  //       height: 40,
+  //       width: 40,
+  //     );
+  //   } else if (cardNumber.text.characters.first == '3') {
+  //     return Image.asset(
+  //       'assets/images/amex.png',
+  //       height: 40,
+  //       width: 40,
+  //     );
+  //   } else {
+  //     return Image.asset(
+  //       'assets/images/credit-card.png',
+  //       height: 40,
+  //       width: 40,
+  //     );
+  //   }
+  // }
 }

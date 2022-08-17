@@ -1,26 +1,52 @@
-// import 'dart:convert';
+import 'dart:convert';
 
-// import '../../../../core/data/entities/request_method.enum.dart';
-// import '../../../../core/data/services/base-service.service.dart';
-// import '../../../../shared/values/enviroments.dart';
-// import '../../entities/flyer.type.dart';
-// import 'flyers.contract.dart';
+import 'package:jexpoints/app/shared/values/enviroments.dart';
 
-// class FlyersApiService extends BaseService implements IFlyersService {
-//   FlyersApiService() : super(apiMethod: 'Flyers', url: Enviroments.API_URL);
+import '../../../../core/data/entities/request_method.enum.dart';
+import '../../../../core/data/services/base-service.service.dart';
+import '../../entities/flyer.type.dart';
+import 'flyers.contract.dart';
 
-//   @override
-//   Future<List<Flyer>> getAll() async {
-//     var jsonResponse = await provider.request<List<Flyer>>(
-//         RequestMethod.get, 'Banners');
+class FlyersApiService extends BaseService implements IFlyersService {
+  FlyersApiService() : super(apiMethod: 'Flyers', url: Enviroments.API_URL);
 
-//     var result = jsonDecode(jsonResponse)
-//         .cast<Map<String, dynamic>>()
-//         .map<Flyer>((x) => Flyer.fromJson(x))
-//         .toList() as List<Flyer>;
+  @override
+  Future<List<Flyer>> getFlyers() async {
+    var jsonResponse =
+        await provider.request<List<Flyer>>(RequestMethod.get, 'Banners');
 
-  
+    var result = jsonDecode(jsonResponse)
+        .cast<Map<String, dynamic>>()
+        .map<Flyer>((x) => Flyer.fromJson(x))
+        .toList() as List<Flyer>;
 
-//     return result;
-//   }
-// }
+    result.forEach((element) {
+      element.id = 0;
+    });
+
+    return result;
+  }
+
+  @override
+  Future<List<Flyer>> getByCategory(String categoryId) async {
+    var jsonResponse = await provider.request<List<Flyer>>(
+        RequestMethod.get, 'Categories/$categoryId/products');
+
+    var result = jsonDecode(jsonResponse)
+        .cast<Map<String, dynamic>>()
+        .map<Flyer>((x) => Flyer.fromJson(x))
+        .toList() as List<Flyer>;
+
+    result.forEach((element) {
+      element.id = 0;
+    });
+
+    return result;
+  }
+
+  @override
+  Future<List<Flyer>> getAll() {
+    // TODO: implement getAll
+    throw UnimplementedError();
+  }
+}

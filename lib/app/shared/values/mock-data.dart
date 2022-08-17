@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 
+import '../../modules/main/entities/branch.type.dart';
 import '../../modules/main/entities/credit-card.dart';
 import 'dart:math' as math;
 
@@ -155,5 +156,40 @@ class MockData {
         orderStatusName: 'En Camino',
         deliveryType: DeliveryType.retiroEnTienda,
         deliveryAmount: 10)
+  ];
+
+  static List<Branch> branchList = <Branch>[
+    Branch(
+        id: 1,
+        name: 'Sucursal Colonia del Valle',
+        address: 'Calle Colonia del Valle #123',
+        working_days: 'Lunes a Domingo',
+        working_hours: {
+          'Lunes': '8:00 - 18:00',
+          'Martes': '8:00 - 18:00',
+          'Miercoles': '8:00 - 18:00',
+          'Jueves': '8:00 - 18:00',
+          'Viernes': '8:00 - 18:00',
+          'Sabado': '8:00 - 18:00',
+          'Domingo': '8:00 - 18:00'
+        },
+        phone: '5584693587',
+        active: true),
+    Branch(
+        id: 2,
+        name: 'Sucursal Ignacio Zaragoza',
+        address: 'Calz Ignacio Zaragoza #89',
+        working_days: 'Lunes a Sabado',
+        working_hours: {
+          'Lunes': '8:00 - 18:00',
+          'Martes': '8:00 - 18:00',
+          'Miercoles': '8:00 - 18:00',
+          'Jueves': '8:00 - 18:00',
+          'Viernes': '8:00 - 18:00',
+          'Sabado': '8:00 - 18:00',
+          'Domingo': '8:00 - 18:00'
+        },
+        phone: '5548567289',
+        active: true),
   ];
 }

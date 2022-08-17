@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/components/draggable-button-pickup.dart';
-import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 
 import '../../../main/views/variable-products/variable-products.page.dart';
 import '../../components/draggable-button.dart';
+import '../../entities/flyer.type.dart';
 import 'components/favorite-products.widget.dart';
 import 'components/header.widget.dart';
 import 'components/top-products.widget.dart';

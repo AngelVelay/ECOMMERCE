@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -39,7 +38,7 @@ class MainController extends GetxController {
         icon: Icons.shopping_cart, badgeValue: controllerHome.cartItems$)
   ];
 
-  GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
+  // GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
 
   changeTab(int index) {
     pageIndex$.value = index;

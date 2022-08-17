@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:string_to_hex/string_to_hex.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../cart.module.dart';

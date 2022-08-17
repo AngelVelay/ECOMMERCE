@@ -41,25 +41,6 @@ class HomeCartControls extends GetView<HomeController> {
         iconData: Icons.add,
         onPressed: () {
           controller.addCart(item, context);
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   content: Row(
-          //     children: [
-          //       const Text('Deseas hacer un paquete?'),
-          //       SizedBox(width: 50),
-          //       ElevatedButton(
-          //         child: Text('Si'),
-          //         onPressed: () {
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (context) => VariableProductsPage()));
-          //           // Get.toNamed(,
-          //           //     arguments: {'productsPackList': productsPackList$});
-          //         },
-          //       ),
-          //     ],
-          //   ),
-          // ));
         },
         size: 15,
         foregroundColor: altColor,

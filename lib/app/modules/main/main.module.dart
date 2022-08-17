@@ -5,11 +5,9 @@ import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
-import 'package:jexpoints/app/modules/main/services/branch/branch.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/business-lines/business-lines.api.service.dart';
 import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
-import 'package:jexpoints/app/modules/main/services/flyers/flyers.fake.service.dart';
 
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.fake.service.dart';
@@ -25,6 +23,7 @@ import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart
 
 import '../cart/views/checkout/checkout.controller.dart';
 
+import '../home/services/flyers/flyers.fake.service.dart';
 import '../rewards/views/consume/consume.controller.dart';
 
 import '../rewards/views/rewards/rewards.controller.dart';

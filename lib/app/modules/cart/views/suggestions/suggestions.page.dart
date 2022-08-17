@@ -7,7 +7,7 @@ import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-contro
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/store/views/tab-shopping-cart/tab-shoppin-cart.page.dart';
 
-import '../../../main/entities/flyer.type.dart';
+import '../../../home/entities/flyer.type.dart';
 import '../../../main/entities/product.type.dart';
 import 'interested-products/interested-products.page.dart';
 import 'products-for-you/products-for-you.page.dart';

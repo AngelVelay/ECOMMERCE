@@ -1,6 +1,9 @@
+import 'package:awesome_card/awesome_card.dart';
+import 'package:awesome_card/credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
 import 'package:jexpoints/app/components/custom_input/custom_input.dart';
 
 import 'pay.controller.dart';
@@ -21,6 +24,7 @@ class PayPage extends GetView<PayController> {
             style: Theme.of(context).textTheme.headline3,
           ),
         ),
+        // body: ,
         body: SingleChildScrollView(
           child: Obx((() {
             return Container(
@@ -29,7 +33,8 @@ class PayPage extends GetView<PayController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: 10),
-                  _buildCreditCard(),
+                  _creditCard(context),
+                  // _buildCreditCard(),
                   const SizedBox(
                     height: 20,
                   ),
@@ -41,6 +46,36 @@ class PayPage extends GetView<PayController> {
         ),
       ),
     );
+  }
+
+  Widget _creditCard(context) {
+    return CreditCard(
+        cardNumber: controller.cardNumber$.value,
+        cardExpiry: controller.cardExpiration$.value,
+        cardHolderName: controller.cardHolder$.value,
+        cvv: controller.cardCVV$.value,
+        bankName: controller.cardNumber$.value.contains('4')
+            ? 'VISA'
+            : controller.cardNumber$.value.contains('5')
+                ? 'MASTERCARD'
+                : controller.cardNumber$.value.contains('37')
+                    ? 'AMEX'
+                    : '',
+        cardType: controller.cardNumber$.value.contains('4')
+            ? CardType.visa
+            : controller.cardNumber$.value.contains('5')
+                ? CardType.masterCard
+                : controller.cardNumber$.value.contains('37')
+                    ? CardType.americanExpress
+                    : CardType.other,
+        // Optional if you want to override Card Type
+        showBackSide: controller.cardCVV$.value.isNotEmpty ? true : false,
+        frontBackground: CardBackgrounds.black,
+        backBackground: CardBackgrounds.white,
+        showShadow: true,
+        textExpDate: 'Vencimiento',
+        textName: 'Nombre',
+        textExpiry: 'MM/YY');
   }
 
 // Build the credit card widget
@@ -58,7 +93,6 @@ class PayPage extends GetView<PayController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            _buildLogosBlock(),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
@@ -84,25 +118,6 @@ class PayPage extends GetView<PayController> {
           ],
         ),
       ),
-    );
-  }
-
-// Build the top row containing logos
-  Row _buildLogosBlock() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/contact_less.png",
-          height: 20,
-          width: 18,
-        ),
-        Image.asset(
-          "assets/images/visa.png",
-          height: 50,
-          width: 50,
-        ),
-      ],
     );
   }
 
@@ -208,3 +223,23 @@ class PayPage extends GetView<PayController> {
     );
   }
 }
+
+// class LogoCreditCard extends StatelessWidget {
+//   LogoCreditCard({Key? key}) : super(key: key);
+//   final controller = Get.find<PayController>();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetBuilder<PayController>(
+//         init: controller.creditCardLogo(),
+//         builder: (_) => Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: <Widget>[
+//                   Image.asset(
+//                     "assets/images/contact_less.png",
+//                     height: 20,
+//                     width: 18,
+//                   ),
+//                 ]));
+//   }
+// }

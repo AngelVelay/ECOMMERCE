@@ -57,7 +57,6 @@ class BillingApplyPage extends GetView<BillingApplyController> {
           child: Wrap(
             runSpacing: 20,
             children: <Widget>[
-              _branchSelect(),
               CustomInputField(
                 maxLength: 16,
                 inputFormatter: FilteringTextInputFormatter.allow(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
@@ -27,7 +26,7 @@ class MenuController extends GetxController {
     MenuItem(Icons.account_circle, UbicationsRouting.UBICATIONS_ROUTE,
         'Ubicaciones'),
   ];
-  final zoomDrawerController = ZoomDrawerController();
+  // final zoomDrawerController = ZoomDrawerController();
 
   var user = User.fromVoid().obs;
   @override
@@ -45,8 +44,8 @@ class MenuController extends GetxController {
     Get.toNamed(route);
   }
 
-  void toggleDrawer() {
-    zoomDrawerController.toggle?.call();
-    update();
-  }
+  // void toggleDrawer() {
+  //   zoomDrawerController.toggle?.call();
+  //   update();
+  // }
 }

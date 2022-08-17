@@ -36,7 +36,7 @@ class Branch {
         isBySystem: json["isBySystem"],
         id: json["id"],
         company: json["company"],
-        description:json["description"],
+        description: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,6 +48,6 @@ class Branch {
         "isBySystem": isBySystem,
         "id": id,
         "company": company,
-        "description":description
+        "description": description
       };
 }

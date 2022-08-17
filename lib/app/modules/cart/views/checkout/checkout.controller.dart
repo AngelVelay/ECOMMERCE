@@ -3,15 +3,12 @@ import 'package:get/get.dart';
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-import 'package:jexpoints/app/modules/home/components/draggable-button.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
 
-import '../../../../core/utils/sheet.utils.dart';
 import '../../../home/views/tab-home/components/address-choose.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
 import '../../../main/entities/credit-card.dart';
-import '../../../main/main.module.dart';
 import '../../../main/services/address/address.contract.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
 import '../../cart.module.dart';

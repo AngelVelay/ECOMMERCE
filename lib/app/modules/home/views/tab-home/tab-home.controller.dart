@@ -1,35 +1,25 @@
 // ignore_for_file: iterable_contains_unrelated_type
 
 import 'package:flutter/material.dart'
-    show
-        BuildContext,
-        ElevatedButton,
-        FocusScope,
-        MaterialPageRoute,
-        Navigator,
-        Row,
-        ScaffoldMessenger,
-        SnackBar,
-        Text,
-        TextEditingController;
+    show BuildContext, FocusScope, Navigator, TextEditingController;
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
+import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home-search/tab-home-search.page.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:jexpoints/app/modules/main/entities/flyer.type.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/main/services/coupons/coupons.contract.dart';
-import 'package:jexpoints/app/modules/main/services/flyers/flyers.contract.dart';
 
 import '../../../cart/cart.module.dart';
 import '../../../main/entities/coupon.type.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
 import '../../../main/services/products/products.contract.dart';
 import '../../../rewards/rewards.module.dart';
+import '../../entities/flyer.type.dart';
 import '../../home.module.dart';
 
 class HomeController extends GetxController {
@@ -79,7 +69,7 @@ class HomeController extends GetxController {
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();
-    flyerList$.value = await flyersService.get();
+    flyerList$.value = await flyersService.getFlyers();
     coupons$.value = await couponsService.get();
     if (coupons$.isNotEmpty) {
       defaultCoupon$.value = coupons$.first;
@@ -102,7 +92,7 @@ class HomeController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
-    _updateCartItems();
+    updateCartItems();
   }
 
   deleteCart(Product item) {
@@ -115,10 +105,10 @@ class HomeController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
-    _updateCartItems();
+    updateCartItems();
   }
 
-  _updateCartItems() {
+  updateCartItems() {
     cartItems$.value =
         cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();
