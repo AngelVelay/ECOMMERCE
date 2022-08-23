@@ -56,7 +56,7 @@ class ShoppingCartPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 1.5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.remove_shopping_cart_outlined,
                   color: Colors.grey,
@@ -82,7 +82,7 @@ class ShoppingCartPage extends StatelessWidget {
               height: 60,
               width: 60,
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(0),
                   child: FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),

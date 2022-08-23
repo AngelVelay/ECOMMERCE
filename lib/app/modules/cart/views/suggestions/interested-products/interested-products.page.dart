@@ -75,7 +75,7 @@ class InterestedProducts extends GetView<HomeController> {
           GestureDetector(
             onTap: () => controller.toProductDetail(item),
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(0),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(

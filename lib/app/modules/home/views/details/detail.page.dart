@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
+import '../tab-home/tab-home.controller.dart';
 import 'components/addCartController.dart';
 import 'components/reviews.dart';
 import 'detail.controller.dart';
 
 class DetailPage extends GetView<DetailController> {
+  final homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class DetailPage extends GetView<DetailController> {
           const SizedBox(height: 20),
           _center(context, controller),
           const SizedBox(height: 20),
-          _bottomButton(controller.itemDetail)
+          _bottomButton(context, controller.itemDetail),
         ]));
   }
 
@@ -45,7 +47,7 @@ class DetailPage extends GetView<DetailController> {
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ',
               style: TextStyle(fontSize: 16, color: Colors.white)),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text('\$ ${controller.itemDetail.price} MXN',
@@ -57,8 +59,12 @@ class DetailPage extends GetView<DetailController> {
     );
   }
 
-  static Widget _bottomButton(Product item) {
-    return addCartControls(item);
+  Widget _bottomButton(constext, Product item) {
+    return AddCartControls(
+      item,
+      altColor: Colors.black,
+      labelColor: Colors.white,
+    );
 
     // return Container(
     //   margin: const EdgeInsets.symmetric(horizontal: 10),

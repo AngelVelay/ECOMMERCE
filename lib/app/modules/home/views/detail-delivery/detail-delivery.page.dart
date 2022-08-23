@@ -184,7 +184,7 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, '/delivery-progress');
         },
-        child: Text(
+        child: const Text(
           'Iniciar Entrega',
           style: TextStyle(color: Colors.white),
         ),

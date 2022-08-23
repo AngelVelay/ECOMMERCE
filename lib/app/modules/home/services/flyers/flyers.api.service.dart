@@ -30,7 +30,7 @@ class FlyersApiService extends BaseService implements IFlyersService {
   @override
   Future<List<Flyer>> getByCategory(String categoryId) async {
     var jsonResponse = await provider.request<List<Flyer>>(
-        RequestMethod.get, 'Categories/$categoryId/products');
+        RequestMethod.get, 'Categories/$categoryId/banners');
 
     var result = jsonDecode(jsonResponse)
         .cast<Map<String, dynamic>>()

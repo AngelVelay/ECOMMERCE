@@ -5,6 +5,7 @@ import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.da
 
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../main/entities/product.type.dart';
+import '../../components/store-cart-controlls.widget.dart';
 import 'store-category-products.controller.dart';
 
 class StoreCategoryProductsPage
@@ -124,7 +125,7 @@ class StoreCategoryProductsPage
           GestureDetector(
             onTap: () => controller.toProductDetail(item),
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(0),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(
@@ -152,7 +153,7 @@ class StoreCategoryProductsPage
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline6,
           ),
-          HomeCartControls(item,
+          StoreCartControls(item,
               key: ValueKey(item.id),
               altColor: Colors.black,
               labelColor: Colors.white),

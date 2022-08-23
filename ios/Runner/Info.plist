@@ -84,5 +84,9 @@
 	<string>...</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>...</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permitir usar tu localización para obtener tu dirección de pedido</string>
+	<key>io.flutter.embedded_views_preview</key><true/> 
 </dict>
 </plist>

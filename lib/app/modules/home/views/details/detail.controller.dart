@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
 import '../../../main/entities/reviews.type.dart';
 import '../../../main/services/products/products.contract.dart';
 import '../../../main/services/reviews/reviews.contract.dart';
+import 'detail.page.dart';
 
 class DetailController extends GetxController {
   final IReviewsService _reviewsService;
@@ -14,12 +15,13 @@ class DetailController extends GetxController {
   DetailController(this._reviewsService, this.productsService);
 
   var reviews$ = <Review>[].obs;
-  late var productList$ = <Product>[].obs;
-  late var cartProducts$ = <Product>[].obs;
+  late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
-  late var findedProducts$ = <Product>[].obs;
+  late var cartProducts$ = <Product>[].obs;
+  late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
+
   late Product itemDetail;
 
   @override
@@ -27,6 +29,7 @@ class DetailController extends GetxController {
     super.onInit();
 
     itemDetail = Get.arguments['product'];
+
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     var reviews = await _reviewsService.get();
@@ -36,14 +39,20 @@ class DetailController extends GetxController {
 
   addCart(Product item, context) {
     item.cartValue = item.cartValue! + 1;
-    cartProducts$.add(itemDetail);
-
+    if (!cartProducts$.any((element) => element.id == item.id)) {
+      cartProducts$.add(item);
+    }
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => DetailPage()),
+      (Route<dynamic> route) => false,
+    );
     cartProducts$.refresh();
     productList$.refresh();
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
-    _updateCartItems();
+    updateCartItems();
   }
 
   deleteCart(Product item) {
@@ -56,10 +65,10 @@ class DetailController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
-    _updateCartItems();
+    updateCartItems();
   }
 
-  _updateCartItems() {
+  updateCartItems() {
     cartItems$.value =
         cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();

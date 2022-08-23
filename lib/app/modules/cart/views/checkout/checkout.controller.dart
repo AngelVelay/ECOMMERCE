@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../home/views/tab-home/components/address-choose.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
@@ -19,6 +20,7 @@ class CheckOutController extends GetxController {
   CheckOutController(this.addressService, this.creditCardService);
 
   late var selectedCreditCard$ = <CreditCard>[].obs;
+  late var selectedDeliveryType$ = [].obs;
 
   final String data =
       "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
@@ -68,8 +70,10 @@ class CheckOutController extends GetxController {
     );
   }
 
-  toPickup() {
-    Get.toNamed(CartRouting.PICKUP_ROUTE);
+  toPickup() async {
+    // Get.toNamed(CartRouting.PICKUP_ROUTE);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('stringValue', "abc");
   }
 
   randomNumber() {

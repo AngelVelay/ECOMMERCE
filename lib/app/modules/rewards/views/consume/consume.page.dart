@@ -51,7 +51,7 @@ class ConsumePage extends GetView<ConsumeController> {
           backgroundImage:
               AssetImage('assets/images/female-07.jpg'), // Image URL
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,10 +151,14 @@ class ConsumePage extends GetView<ConsumeController> {
           ),
           Column(
             children: [
-              Text(
-                item.name,
-                overflow: TextOverflow.visible,
-                style: TextStyle(fontSize: 10, color: Colors.white),
+              SizedBox(
+                width: 120,
+                child: Text(
+                  item.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(fontSize: 10, color: Colors.white),
+                ),
               ),
               Text(
                 item.orderStatusName,

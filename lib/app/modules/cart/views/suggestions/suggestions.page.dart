@@ -101,7 +101,7 @@ Widget _flyerItem(Flyer item) {
           width: 600,
           height: 600,
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(0),
               child: GestureDetector(
                 onTap: () {},
                 child: FadeInImage(

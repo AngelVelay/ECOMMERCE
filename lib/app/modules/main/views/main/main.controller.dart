@@ -27,13 +27,13 @@ class MainController extends GetxController {
   var pageIndex$ = 0.obs;
 
   late List<TabItem> navigationItems = [
-    TabItem(const HomePage(), 'Inicio', icon: Icons.home),
+    TabItem(HomePage(), 'Inicio', assetPath: 'assets/icons_tab_bar/home.png'),
     TabItem(const StorePage(), 'Tienda',
-        assetPath: 'assets/icons_tab_bar/heart.png', icon: Icons.store),
+        assetPath: 'assets/icons_tab_bar/heart.png'),
     TabItem(const RewardsPage(), 'Rewards',
-        assetPath: 'assets/icons_tab_bar/star.png', icon: Icons.star),
+        assetPath: 'assets/icons_tab_bar/star.png'),
     TabItem(const UbicationsPage(), 'Sucursales',
-        assetPath: 'assets/icons_tab_bar/marker.png', icon: Icons.location_on),
+        assetPath: 'assets/icons_tab_bar/marker.png'),
     TabItem(ShoppingCartPage(), 'Carrito',
         icon: Icons.shopping_cart, badgeValue: controllerHome.cartItems$)
   ];

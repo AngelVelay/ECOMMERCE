@@ -29,7 +29,7 @@ class StorePage extends GetView<StoreController> {
   }
 
   Widget _header(context) {
-    return controller.businessLines$.length == 0
+    return controller.businessLines$.isEmpty
         ? Container()
         : Column(
             children: [
@@ -50,12 +50,12 @@ class StorePage extends GetView<StoreController> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        height: 30,
+        height: 40,
         decoration: BoxDecoration(
-            color: Colors.grey[300], borderRadius: BorderRadius.circular(25.0)),
+            color: Colors.grey[300], borderRadius: BorderRadius.circular(20.0)),
         child: TabBar(
             indicator: BoxDecoration(
-                color: Colors.black, borderRadius: BorderRadius.circular(25.0)),
+                color: Colors.black, borderRadius: BorderRadius.circular(20.0)),
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
             tabs: controller.businessLines$.map<Widget>((BusinessLine x) {
@@ -81,40 +81,43 @@ class StorePage extends GetView<StoreController> {
   }
 
   Widget _grid(BuildContext context, List<Category> categories) {
-    return Column(children: [
-      SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-            dragStartBehavior: DragStartBehavior.start,
-            scrollDirection: Axis.vertical,
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: categories.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 30.0,
-                      crossAxisSpacing: 30.0,
-                      childAspectRatio: 1,
-                    ),
-                    itemBuilder: (context, index) =>
-                        _gridItem(context, categories[index])))),
-      ),
-      // TextButton(
-      //     onPressed: () {
-      //       Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //               builder: (context) => VariableProductsPage()));
-      //     },
-      //     child: Text(
-      //       'Paquetes',
-      //       style: TextStyle(color: Colors.white),
-      //     ))
-    ]);
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+              dragStartBehavior: DragStartBehavior.start,
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: categories.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 30.0,
+                        crossAxisSpacing: 30.0,
+                        childAspectRatio: 1,
+                      ),
+                      itemBuilder: (context, index) =>
+                          _gridItem(context, categories[index])))),
+        ),
+        // TextButton(
+        //     onPressed: () {
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //               builder: (context) => VariableProductsPage()));
+        //     },
+        //     child: Text(
+        //       'Paquetes',
+        //       style: TextStyle(color: Colors.white),
+        //     ))
+      ]),
+    );
   }
 
   Widget _gridItem(BuildContext context, Category category) {
@@ -128,15 +131,17 @@ class StorePage extends GetView<StoreController> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(0),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FadeInImage(
+              borderRadius: BorderRadius.circular(0),
+              child: const FadeInImage(
                 fit: BoxFit.fill,
-                placeholder: const NetworkImage(
+                placeholder: NetworkImage(
                     'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                image: NetworkImage(category.imageLink!),
+                // image: NetworkImage(category.imageLink!),
+                image: NetworkImage(
+                    'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/ecommercedivinochocolate-0734522316946891.jpg'),
               ),
             ),
           )),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
-import '../detail.controller.dart';
-
-class addCartControls extends GetView<DetailController> {
+// ignore: camel_case_types
+class AddCartControls extends GetView<HomeController> {
   final Product item;
   final Color labelColor;
   final Color altColor;
 
-  const addCartControls(
+  const AddCartControls(
     this.item, {
     Key? key,
     this.labelColor = Colors.white,
