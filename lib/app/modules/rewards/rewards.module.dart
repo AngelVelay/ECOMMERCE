@@ -2,9 +2,11 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/services/branch/branch.fake.service.dart';
+import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.api.service.dart';
+import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.fake.service.dart';
 
-import 'package:jexpoints/app/modules/main/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.controller.dart';
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.dart';
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_valid/billing.controller.dart';
@@ -22,6 +24,7 @@ import 'package:jexpoints/app/modules/rewards/views/payment-methods/payment-meth
 import 'package:jexpoints/app/modules/rewards/views/terms/terms.page.dart';
 
 import '../cart/services/creditCard/creditContract.fake.service.dart';
+import '../main/services/address/address.fake.service.dart';
 import '../main/services/shopping/shopping.fake.service.dart';
 
 class RewardsRouting {
@@ -70,11 +73,16 @@ class RewardsRouting {
 class ConsumeBinding implements Bindings {
   var authService = AuthFakeService();
   var shoppingService = ShoppingFakeService();
+  var paymentMethodsService = CreditCardFakeService();
+  var addressService = AddressFakeService();
   @override
   void dependencies() {
     Get.lazyPut<ConsumeController>(() => ConsumeController(shoppingService));
     Get.lazyPut<OrderDetailController>(
         () => OrderDetailController(shoppingService));
+    Get.lazyPut<PaymentMethodsController>(
+        () => PaymentMethodsController(paymentMethodsService));
+    Get.lazyPut<AddressController>(() => AddressController(addressService));
   }
 }
 
@@ -82,7 +90,7 @@ class CouponsBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CouponsController>(
-        () => CouponsController(CouponsFakeService()));
+        () => CouponsController(CouponsApiService()));
   }
 }
 

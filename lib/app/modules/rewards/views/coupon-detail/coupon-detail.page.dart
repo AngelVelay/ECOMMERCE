@@ -35,7 +35,7 @@ class CouponDetailPage extends GetView<CouponDetailController> {
       width: double.infinity,
       height: 300,
       child: Image(
-        image: NetworkImage(controller.coupon$.value.url),
+        image: NetworkImage(controller.coupon$.value.fileManagerThumbnail!),
       ),
     );
   }

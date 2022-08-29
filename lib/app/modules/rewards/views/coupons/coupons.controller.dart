@@ -2,29 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:jexpoints/app/modules/main/entities/coupon.type.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
-import 'package:jexpoints/app/modules/main/services/coupons/coupons.contract.dart';
+import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.contract.dart';
+
 import 'package:share_plus/share_plus.dart';
 
+import '../../entities/coupon.type.dart';
 import '../../rewards.module.dart';
 
 class CouponsController extends GetxController {
   final ICouponsService _couponsService;
 
-  var coupons$ = <Coupon>[].obs;
+  var coupons$ = <dynamic>[].obs;
   var selectedCoupon$ = Coupon.fromVoid().obs;
+  // var couponsImages$ = <dynamic>[].obs;
 
   CouponsController(this._couponsService);
 
   @override
   void onInit() async {
-    var coupons = await _couponsService.get();
-    var formatter = DateFormat('dd/MM/yyyy');
-    for (var e in coupons) {
-      e.formattedValidTo = formatter.format(e.validTo);
-    }
-    coupons$.value = coupons;
+    var coupons = await _couponsService.getImages();
+    var coupons1 = await _couponsService.getAll();
+    var image = await _couponsService.getFileId();
+    // var imagetoShow = await _couponsService.getImages();
+    // couponsImages$.value = imagetoShow;
+
+    // var formatter = DateFormat('dd/MM/yyyy');
+    // for (var e in coupons) {
+    //   e.formattedValidTo = formatter.format(e.validTo);
+    // }
+
+    coupons$.value = coupons1;
     super.onInit();
   }
 
@@ -33,16 +40,16 @@ class CouponsController extends GetxController {
     Get.toNamed(RewardsRouting.COUPON_DETAIL_ROUTE, arguments: [item]);
   }
 
-  shareData(Coupon item) async {
-    await Share.share(
-      item.url,
-      subject: '''Codigo: ${item.url}\n'''
-          '''Titulo: ${item.title}\n''',
-    );
-  }
+  // shareData(Coupon item) async {
+  //   await Share.share(
+  //     item.fileManagerThumbnail.,
+  //     subject: '''Codigo: ${item.url}\n'''
+  //         '''Titulo: ${item.title}\n''',
+  //   );
+  // }
 
   copyCoupon(Coupon item) {
-    Clipboard.setData(ClipboardData(text: item.code));
+    Clipboard.setData(ClipboardData(text: item.code.toString()));
 
     Get.snackbar(
       'Copiado',

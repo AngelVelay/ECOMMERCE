@@ -1,9 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/main/entities/coupon.type.dart';
+import 'package:jexpoints/app/modules/rewards/entities/coupon.type.dart';
 
-import '../../../../components/map_ubication/map_ubication.dart';
 import 'coupons.controller.dart';
 
 class CouponsPage extends GetView<CouponsController> {
@@ -71,7 +70,7 @@ class CouponsPage extends GetView<CouponsController> {
                         controller.copyCoupon(item);
                       },
                       label: Text(
-                        item.code,
+                        item.code.toString(),
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -87,7 +86,7 @@ class CouponsPage extends GetView<CouponsController> {
                   ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image(
-                        image: NetworkImage(item.url),
+                        image: NetworkImage(item.description),
                         width: 100,
                         height: 100,
                       )),
@@ -111,7 +110,7 @@ class CouponsPage extends GetView<CouponsController> {
                         style: TextStyle(color: Colors.white70, fontSize: 12),
                       ),
                       Text(
-                        item.formattedValidTo!,
+                        item.beginDate!,
                         style: const TextStyle(color: Colors.white),
                       )
                     ]),

@@ -101,7 +101,7 @@ class PaymentMethodsPage extends GetView<PaymentMethodsController> {
   Widget _title() {
     return Column(
       children: const [
-        Icon(Icons.house, color: Colors.white, size: 15),
+        Icon(Icons.credit_card, color: Colors.white, size: 20),
         SizedBox(height: 10),
         Text('Metodos de Pago',
             style: TextStyle(

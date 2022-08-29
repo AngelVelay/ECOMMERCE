@@ -99,7 +99,7 @@ class AddressPage extends GetView<AddressController> {
   Widget _title() {
     return Column(
       children: const [
-        Icon(Icons.house, color: Colors.white, size: 15),
+        Icon(Icons.house, color: Colors.white, size: 20),
         SizedBox(height: 10),
         Text('Domicilios',
             style: TextStyle(

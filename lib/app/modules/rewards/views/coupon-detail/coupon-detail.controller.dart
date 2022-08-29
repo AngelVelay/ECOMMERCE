@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 import 'package:jexpoints/app/modules/main/entities/coupon.type.dart';
+import 'package:jexpoints/app/modules/rewards/entities/coupon.type.dart';
 
 class CouponDetailController extends GetxController {
   var coupon$ = Coupon.fromVoid().obs;

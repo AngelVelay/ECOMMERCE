@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/home/components/draggable-button-pickup.dart';
-
-import '../../../main/views/variable-products/variable-products.page.dart';
-import '../../components/draggable-button.dart';
-import '../../entities/flyer.type.dart';
-import 'components/favorite-products.widget.dart';
-import 'components/header.widget.dart';
-import 'components/top-products.widget.dart';
-import 'tab-home.controller.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/components/favorite-products.widget.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/components/header.widget.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
+import 'package:jexpoints/app/modules/main/views/variable-products/variable-products.page.dart';
+
+import '../../entities/banners.type.dart';
+import 'components/top-products.widget.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -37,7 +35,7 @@ class HomePage extends GetView<HomeController> {
                   _welcomeGreeting(),
                   _coupons(),
                   const SizedBox(height: 20),
-                  _flyerList(),
+                  //_flyerList(),
                   const HomeTopProducts(),
                   const SizedBox(height: 20),
                   const HomeFavoriteProducts(),
@@ -112,49 +110,50 @@ class HomePage extends GetView<HomeController> {
     });
   }
 
-  Widget _flyerList() {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        Obx(() {
-          return CarouselSlider.builder(
-            itemCount: controller.flyerList$.length,
-            itemBuilder: (context, index, realIndex) {
-              return controller.flyerList$.isNotEmpty
-                  ? _flyerItem(controller.flyerList$[index])
-                  : Container();
-            },
-            options: CarouselOptions(
-              height: 150,
-              autoPlay: true,
-              scrollDirection: Axis.horizontal,
-            ),
-          );
-        })
-      ],
-    );
-  }
+  // Widget _flyerList() {
+  //   return ListView(
+  //     shrinkWrap: true,
+  //     physics: const NeverScrollableScrollPhysics(),
+  //     children: [
+  //       Obx(() {
+  //         return CarouselSlider.builder(
+  //           itemCount: controller.flyerList$.length,
+  //           itemBuilder: (context, index, realIndex) {
+  //             return controller.flyerList$.isNotEmpty
+  //                 ? _flyerItem(controller.flyerList$[index] )
+  //                 : Container();
+  //           },
+  //           options: CarouselOptions(
+  //             height: 150,
+  //             autoPlay: true,
+  //             scrollDirection: Axis.horizontal,
+  //           ),
+  //         );
+  //       })
+  //     ],
+  //   );
+  // }
 
-  Widget _flyerItem(Flyer item) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        child: SizedBox(
-            width: 600,
-            height: 600,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: GestureDetector(
-                  onTap: () => controller.toFlyer(item),
-                  child: FadeInImage(
-                    width: 600,
-                    fit: BoxFit.fill,
-                    placeholder: const NetworkImage(
-                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: AssetImage(item.url),
-                  ),
-                ))));
-  }
+  // Widget _flyerItem(item) {
+  //   return Container(
+  //       margin: const EdgeInsets.symmetric(horizontal: 5),
+  //       child: SizedBox(
+  //           width: 600,
+  //           height: 600,
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(5),
+  //             child: GestureDetector(
+  //               // onTap: () => controller.toFlyer(item),
+  //               onTap: () {},
+  //               child: FadeInImage(
+  //                   width: 600,
+  //                   fit: BoxFit.fill,
+  //                   placeholder: const NetworkImage(
+  //                       'https://acegif.com/wp-content/uploads/loading-11.gif'),
+  //                   image: NetworkImage(item)),
+  //             ),
+  //           )));
+  // }
 
   _makePackage(product, BuildContext context) async {
     product.contains('Coca-Cola') && product.contains('Pollo Rostizado')

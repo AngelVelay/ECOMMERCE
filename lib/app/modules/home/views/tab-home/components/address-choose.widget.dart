@@ -36,7 +36,7 @@ class HomeAddressSelect extends GetView<HomeController> {
         groupValue: controller.selectedAddress$.value,
         onChanged: (value) {
           controller.addressSelect(value as Address, context);
-          Navigator.of(context, rootNavigator: true).pop();
+          // Navigator.of(context, rootNavigator: true).pop();
         },
       ),
       const SizedBox(width: 10),

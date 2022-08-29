@@ -7,17 +7,26 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 
+import '../../../main/entities/address.type.dart';
+
 class AddAdressController extends GetxController {
   CameraPosition initialPosition =
       const CameraPosition(target: LatLng(19.4279804, -99.1610907), zoom: 14);
 
   LatLng? addressLatLng;
+  // late var addressList$ = <Address>[].obs;
+  // late var selectedAddress$ = Address.fromVoid().obs;
+
   var addressName = ''.obs;
 
   Completer<GoogleMapController> mapController = Completer();
   Position? position;
 
-  ClientAddressMapController() {
+  void onInit() async {
+    super.onInit();
+  }
+
+  AddAdressController() {
     checkGPS(); // VERIFICAR SI EL GPS ESTA ACTIVO
   }
 
@@ -40,15 +49,42 @@ class AddAdressController extends GetxController {
     }
   }
 
+  // void selectRefPoint(BuildContext context) {
+  //   if (addressLatLng != null) {
+  //     Map<String, dynamic> data = {
+  //       'address': addressName.value,
+  //       'lat': addressLatLng!.latitude,
+  //       'lng': addressLatLng!.longitude,
+  //     };
+
+  //     _addressService.save(data s);
+
+  //     // Navigator.pop(context, data);
+  //     // Navigator.pushNamed(context, '/confirm-compra');
+  //   }
+  // }
+
   void selectRefPoint(BuildContext context) {
     if (addressLatLng != null) {
-      Map<String, dynamic> data = {
-        'address': addressName.value,
-        'lat': addressLatLng!.latitude,
-        'lng': addressLatLng!.longitude,
-      };
+      Address data = Address(
+          id: 2,
+          alias: 'Oficina',
+          zipCode: '14200',
+          street: addressName.value,
+          outsideNumber: '589',
+          isDefault: false,
+          contactName: 'Maria Antonieta',
+          contactPhone: '5548567289',
+          country: 'México',
+          insideNumber: '2',
+          state: 'CDMX',
+          suburb: 'San Juan',
+          town: 'Tlahuac');
+
+      // _addressService.save(data);
+
       // Navigator.pop(context, data);
-      Navigator.pushNamed(context, '/confirm-compra');
+      // Navigator.pushNamed(context, '/confirm-compra');
     }
   }
 
@@ -108,8 +144,12 @@ class AddAdressController extends GetxController {
   }
 
   void onMapCreate(GoogleMapController controller) {
-    controller.setMapStyle(
-        '[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]');
-    mapController.complete(controller);
+    try {
+      controller.setMapStyle(
+          '[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]');
+      mapController.complete(controller);
+    } catch (e) {
+      print('Error: ${e}');
+    }
   }
 }

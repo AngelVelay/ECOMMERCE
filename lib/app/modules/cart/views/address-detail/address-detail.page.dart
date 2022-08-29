@@ -19,7 +19,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(controller.address$.value.id == 0
-              ? 'Agregar método de pago'
+              ? 'Agregar Direccion'
               : controller.address$.value.alias),
         ),
         body: _body(context),

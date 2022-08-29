@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
+import '../../services/address/address.contract.dart';
 import 'map-add-adress.controller.dart';
 
 class AddAdressPage extends StatelessWidget {

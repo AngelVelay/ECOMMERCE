@@ -49,7 +49,7 @@ class SuggestionsPage extends GetView<HomeController> {
         body: Column(
           children: [
             SizedBox(height: 20),
-            Expanded(child: _flyerList(controller)),
+            // Expanded(child: _flyerList(controller)),
             Expanded(
               flex: 2,
               child: SingleChildScrollView(
@@ -70,49 +70,49 @@ class SuggestionsPage extends GetView<HomeController> {
   }
 }
 
-Widget _flyerList(controller) {
-  return ListView(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    children: [
-      Obx(() {
-        return CarouselSlider.builder(
-          itemCount: controller.flyerList$.length,
-          itemBuilder: (context, index, realIndex) {
-            return controller.flyerList$.isNotEmpty
-                ? _flyerItem(controller.flyerList$[index])
-                : Container();
-          },
-          options: CarouselOptions(
-            height: 150,
-            autoPlay: true,
-            scrollDirection: Axis.horizontal,
-          ),
-        );
-      })
-    ],
-  );
-}
+// Widget _flyerList(controller) {
+//   return ListView(
+//     shrinkWrap: true,
+//     physics: const NeverScrollableScrollPhysics(),
+//     children: [
+//       Obx(() {
+//         return CarouselSlider.builder(
+//           itemCount: controller.flyerList$.length,
+//           itemBuilder: (context, index, realIndex) {
+//             return controller.flyerList$.isNotEmpty
+//                 ? _flyerItem(controller.flyerList$[index])
+//                 : Container();
+//           },
+//           options: CarouselOptions(
+//             height: 150,
+//             autoPlay: true,
+//             scrollDirection: Axis.horizontal,
+//           ),
+//         );
+//       })
+//     ],
+//   );
+// }
 
-Widget _flyerItem(Flyer item) {
-  return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      child: SizedBox(
-          width: 600,
-          height: 600,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(0),
-              child: GestureDetector(
-                onTap: () {},
-                child: FadeInImage(
-                  width: 600,
-                  fit: BoxFit.fill,
-                  placeholder: const NetworkImage(
-                      'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                  image: AssetImage(item.url),
-                ),
-              ))));
-}
+// Widget _flyerItem(Flyer item) {
+//   return Container(
+//       margin: const EdgeInsets.symmetric(horizontal: 5),
+//       child: SizedBox(
+//           width: 600,
+//           height: 600,
+//           child: ClipRRect(
+//               borderRadius: BorderRadius.circular(0),
+//               child: GestureDetector(
+//                 onTap: () {},
+//                 child: FadeInImage(
+//                   width: 600,
+//                   fit: BoxFit.fill,
+//                   placeholder: const NetworkImage(
+//                       'https://acegif.com/wp-content/uploads/loading-11.gif'),
+//                   image: AssetImage(item.url),
+//                 ),
+//               ))));
+// }
 
 Widget _button(controller) {
   return Padding(
