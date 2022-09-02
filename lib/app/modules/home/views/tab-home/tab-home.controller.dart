@@ -71,6 +71,7 @@ class HomeController extends GetxController {
     // productsPackList$.value = await productsService.addVariableProducts(
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
+    flyerList$.value = await flyersService.getBanners();
 
     // flyerList$.value = await flyersService.getFlyers();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));

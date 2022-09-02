@@ -35,7 +35,7 @@ class HomePage extends GetView<HomeController> {
                   _welcomeGreeting(),
                   _coupons(),
                   const SizedBox(height: 20),
-                  //_flyerList(),
+                  _flyerList(),
                   const HomeTopProducts(),
                   const SizedBox(height: 20),
                   const HomeFavoriteProducts(),
@@ -110,50 +110,51 @@ class HomePage extends GetView<HomeController> {
     });
   }
 
-  // Widget _flyerList() {
-  //   return ListView(
-  //     shrinkWrap: true,
-  //     physics: const NeverScrollableScrollPhysics(),
-  //     children: [
-  //       Obx(() {
-  //         return CarouselSlider.builder(
-  //           itemCount: controller.flyerList$.length,
-  //           itemBuilder: (context, index, realIndex) {
-  //             return controller.flyerList$.isNotEmpty
-  //                 ? _flyerItem(controller.flyerList$[index] )
-  //                 : Container();
-  //           },
-  //           options: CarouselOptions(
-  //             height: 150,
-  //             autoPlay: true,
-  //             scrollDirection: Axis.horizontal,
-  //           ),
-  //         );
-  //       })
-  //     ],
-  //   );
-  // }
+  Widget _flyerList() {
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        Obx(() {
+          return CarouselSlider.builder(
+            itemCount: controller.flyerList$.length,
+            itemBuilder: (context, index, realIndex) {
+              return controller.flyerList$.isNotEmpty
+                  ? _flyerItem(controller.flyerList$[index])
+                  : Container();
+            },
+            options: CarouselOptions(
+              height: 150,
+              autoPlay: true,
+              scrollDirection: Axis.horizontal,
+            ),
+          );
+        })
+      ],
+    );
+  }
 
-  // Widget _flyerItem(item) {
-  //   return Container(
-  //       margin: const EdgeInsets.symmetric(horizontal: 5),
-  //       child: SizedBox(
-  //           width: 600,
-  //           height: 600,
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(5),
-  //             child: GestureDetector(
-  //               // onTap: () => controller.toFlyer(item),
-  //               onTap: () {},
-  //               child: FadeInImage(
-  //                   width: 600,
-  //                   fit: BoxFit.fill,
-  //                   placeholder: const NetworkImage(
-  //                       'https://acegif.com/wp-content/uploads/loading-11.gif'),
-  //                   image: NetworkImage(item)),
-  //             ),
-  //           )));
-  // }
+  Widget _flyerItem(item) {
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        child: SizedBox(
+            width: 600,
+            height: 600,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: GestureDetector(
+                // onTap: () => controller.toFlyer(item),
+                onTap: () {},
+                child: FadeInImage(
+                    width: 600,
+                    fit: BoxFit.fill,
+                    placeholder: const NetworkImage(
+                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
+                    image: NetworkImage(item['fileLink'] ??
+                        'https://w7.pngwing.com/pngs/819/548/png-transparent-photo-image-landscape-icon-images-thumbnail.png')),
+              ),
+            )));
+  }
 
   _makePackage(product, BuildContext context) async {
     product.contains('Coca-Cola') && product.contains('Pollo Rostizado')

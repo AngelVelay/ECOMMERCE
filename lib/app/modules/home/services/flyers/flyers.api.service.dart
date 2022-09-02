@@ -57,32 +57,10 @@ class FlyersApiService extends BaseService implements IFlyersService {
           element;
 
       var responseBanner = await http.get(Uri.parse(jsonResponse));
+      Map<String, dynamic> responseBannerJson = jsonDecode(responseBanner.body);
 
-      responseImage.add(responseBanner);
+      responseImage.add(responseBannerJson);
     });
     return responseImage;
   }
-
-  // @override
-  // Future<List<Banner>> getByCategory(String categoryId) async {
-  //   var jsonResponse = await provider.request<List<Banner>>(
-  //       RequestMethod.get, 'Categories/$categoryId/banners');
-
-  //   var result = jsonDecode(jsonResponse)
-  //       .cast<Map<String, dynamic>>()
-  //       .map<Banner>((x) => Banner.fromJson(x))
-  //       .toList() as List<Banner>;
-
-  //   result.forEach((element) {
-  //     element.id = 0;
-  //   });
-
-  //   return result;
-  // }
-
-  // @override
-  // Future<List<Flyer>> getAll() {
-  //   // TODO: implement getAll
-  //   throw UnimplementedError();
-  // }
 }
