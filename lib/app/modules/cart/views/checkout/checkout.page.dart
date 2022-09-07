@@ -261,6 +261,8 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   }
 
   Widget _buttonConfirmDelivery(context) {
+    final controller = Get.find<CheckOutController>();
+
     return Padding(
         padding: const EdgeInsets.all(20.0),
         child: SizedBox(
@@ -269,7 +271,11 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
             child: CustomRoundedButton(
                 text: 'Confirmar Compra',
                 onPressed: () {
-                  controller.toPickup();
+                  !changeDeliveryType
+                      ? controller.changeMetodPickup()
+                      : controller.changeMethodDelivery();
+
+                  // controller.toPickup();
                 })));
   }
 }

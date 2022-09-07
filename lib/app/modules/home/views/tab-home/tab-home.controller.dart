@@ -50,6 +50,7 @@ class HomeController extends GetxController {
   late var coupons$ = <Coupon>[].obs;
   late var defaultCoupon$ = Coupon.fromVoid().obs;
   late var pointsLevel$ = <PointLevel>[].obs;
+  var showDeliveryType$ = false.obs;
 
   final isLoading$ = false.obs;
 

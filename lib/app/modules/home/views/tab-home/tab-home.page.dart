@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/components/draggable-button-pickup.dart';
+import 'package:jexpoints/app/modules/home/components/draggable-button.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/favorite-products.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/header.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -48,7 +50,9 @@ class HomePage extends GetView<HomeController> {
               })))
             ],
           ),
-          // floatingActionButton: DraggableButton(),
+          floatingActionButton: controller.showDeliveryType$.isFalse
+              ? const DraggableButton()
+              : const DraggableButtonPickup(),
           // floatingActionButton: DraggableButtonPickup(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop),
     );

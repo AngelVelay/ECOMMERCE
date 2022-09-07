@@ -4,6 +4,8 @@ import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
+import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -95,5 +97,17 @@ class CheckOutController extends GetxController {
     });
   }
 
-  changeMethodDelivery() {}
+  changeMethodDelivery() {
+    final controller = Get.find<HomeController>();
+    controller.showDeliveryType$.value = true;
+
+    Get.toNamed(MainRouting.MAIN_ROUTE);
+  }
+
+  changeMetodPickup() {
+    final controller = Get.find<HomeController>();
+    controller.showDeliveryType$.value = false;
+
+    Get.toNamed(MainRouting.MAIN_ROUTE);
+  }
 }
