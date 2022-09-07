@@ -115,8 +115,21 @@ class RewardsPage extends GetView<RewardsController> {
               image: AssetImage('assets/images/shine.png')),
         ),
         const SizedBox(width: 5),
-        Text('${controller.user$.value.membership?.points} pts',
-            style: const TextStyle(fontSize: 10, color: Colors.white)),
+        controller.pointsLevel$.isNotEmpty
+            ? Text('${controller.pointsLevel$.first.initialPoints} pts',
+                style: const TextStyle(
+                    fontSize: 10,
+                    letterSpacing: 0,
+                    color: Colors.white,
+                    fontFamily: 'Montserrat-Bold'))
+            : Text('0 pts',
+                style: const TextStyle(
+                    fontSize: 10,
+                    letterSpacing: 0,
+                    color: Colors.white,
+                    fontFamily: 'Montserrat-Bold')),
+        // Text('${controller.user$.value.membership?.points} pts',
+        //     style: const TextStyle(fontSize: 10, color: Colors.white)),
         // Text(
         //     '  (${NumberFormat.currency(locale: "en_US", symbol: '\$ ').format(controller.user$.value.membership?.pointsValue)})',
         //     style: const TextStyle(fontSize: 13, color: Colors.white)
@@ -163,8 +176,11 @@ class RewardsPage extends GetView<RewardsController> {
       width: 250,
       animation: true,
       lineHeight: 16,
-      animationDuration: 2000,
-      percent: 0.4,
+      animationDuration: 1500,
+      percent: controller.pointsLevel$.isNotEmpty
+          ? controller.pointsLevel$.first.discountPercentage!.toDouble() / 100
+          : 0,
+
       // center: const Text("Nivel Oro",
       //     style: TextStyle(
       //         fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),

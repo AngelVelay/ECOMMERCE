@@ -12,6 +12,8 @@ import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
+import 'package:jexpoints/app/modules/rewards/entities/point-level.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.contract.dart';
 
 import '../../../cart/cart.module.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
@@ -19,8 +21,7 @@ import '../../../main/services/products/products.contract.dart';
 import '../../../rewards/entities/coupon.type.dart';
 import '../../../rewards/rewards.module.dart';
 import '../../../rewards/services/coupons/coupons.contract.dart';
-import '../../entities/banners.type.dart';
-import '../../entities/flyer.type.dart';
+
 import '../../home.module.dart';
 
 class HomeController extends GetxController {
@@ -30,6 +31,7 @@ class HomeController extends GetxController {
   final IAddressService addressService;
   final ICouponsService couponsService;
   final ICreditCardService creditCardService;
+  final IPointLevelService pointLevelService;
 
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <dynamic>[].obs;
@@ -47,12 +49,22 @@ class HomeController extends GetxController {
   late var selectedAddress$ = Address.fromVoid().obs;
   late var coupons$ = <Coupon>[].obs;
   late var defaultCoupon$ = Coupon.fromVoid().obs;
+  late var pointsLevel$ = <PointLevel>[].obs;
+
+  final isLoading$ = false.obs;
+
   late double total$ = 0.0;
   late double subtotal$ = 0.0;
   var category = "";
 
-  HomeController(this.productsService, this.authService, this.flyersService,
-      this.addressService, this.couponsService, this.creditCardService);
+  HomeController(
+      this.productsService,
+      this.authService,
+      this.flyersService,
+      this.addressService,
+      this.couponsService,
+      this.creditCardService,
+      this.pointLevelService);
 
   @override
   void onInit() async {
@@ -61,6 +73,7 @@ class HomeController extends GetxController {
     if (currentUser != null) {
       user$.value = currentUser;
     }
+
     total$ = 0.0;
     subtotal$ = 0.0;
     var banners = await flyersService.getAll();
@@ -72,6 +85,7 @@ class HomeController extends GetxController {
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
     flyerList$.value = await flyersService.getBanners();
+    pointsLevel$.value = await pointLevelService.getPoints();
 
     // flyerList$.value = await flyersService.getFlyers();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));

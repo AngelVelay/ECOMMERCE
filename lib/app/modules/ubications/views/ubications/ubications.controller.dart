@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:jexpoints/app/modules/ubications/entities/branches-tags.type.dart';
+import 'package:jexpoints/app/modules/ubications/services/branches-tags/branches-tags.contract.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications/utills/map_style.dart';
 
 import 'utills/map_utils.dart';
@@ -13,6 +15,8 @@ import 'utills/map_utils.dart';
 // import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 
 class UbicationsController extends GetxController {
+  final IBranchTagsService branchService;
+
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   var ubications = [];
@@ -21,6 +25,9 @@ class UbicationsController extends GetxController {
   String imgurl = "";
   int contador = 0;
   var isLoading = false.obs;
+  late var branchesTags$ = <BranchesTags>[].obs;
+
+  UbicationsController(this.branchService);
 
   @override
   void onInit() {
@@ -28,6 +35,7 @@ class UbicationsController extends GetxController {
     fetchPost();
     final CustomInfoWindowController _customInfoWindowController =
         CustomInfoWindowController();
+    branchesTags$.value = branchService.getTags() as List<BranchesTags>;
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {

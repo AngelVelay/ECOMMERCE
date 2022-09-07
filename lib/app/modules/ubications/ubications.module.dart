@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/ubications/services/branches-tags/branches-tags.api.service.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications-list/ubicationsList.controller.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications-list/ubicationsList.page.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications/ubications.controller.dart';
@@ -28,9 +29,12 @@ class UbicationsListBinding implements Bindings {
 }
 
 class UbicationsBinding implements Bindings {
+  var branchesTagsService = BranchesTagsService();
+
   @override
   void dependencies() {
-    Get.lazyPut<UbicationsController>(() => UbicationsController(),
+    Get.lazyPut<UbicationsController>(
+        () => UbicationsController(branchesTagsService),
         fenix: true);
   }
 }

@@ -7,7 +7,6 @@ import 'package:jexpoints/app/modules/home/views/tab-home/components/header.widg
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/views/variable-products/variable-products.page.dart';
 
-import '../../entities/banners.type.dart';
 import 'components/top-products.widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -30,21 +29,23 @@ class HomePage extends GetView<HomeController> {
                   expandedHeight: 150,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Column(children: [
-                  _welcomeGreeting(),
-                  _coupons(),
-                  const SizedBox(height: 20),
-                  _flyerList(),
-                  const HomeTopProducts(),
-                  const SizedBox(height: 20),
-                  const HomeFavoriteProducts(),
-                  const SizedBox(height: 20),
-                  _socials()
-                  // const RositceriaProducts(),
-                  // const SizedBox(height: 70),
-                ]),
-              )
+              SliverToBoxAdapter(child: Obx((() {
+                return controller.isLoading$.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : Column(children: [
+                        _welcomeGreeting(),
+                        _coupons(),
+                        const SizedBox(height: 20),
+                        _flyerList(),
+                        const HomeTopProducts(),
+                        const SizedBox(height: 20),
+                        const HomeFavoriteProducts(),
+                        const SizedBox(height: 20),
+                        _socials()
+                        // const RositceriaProducts(),
+                        // const SizedBox(height: 70),
+                      ]);
+              })))
             ],
           ),
           // floatingActionButton: DraggableButton(),

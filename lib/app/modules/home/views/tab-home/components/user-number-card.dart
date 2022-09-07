@@ -14,11 +14,13 @@ class userCardNumber extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildCreditCard(context,
-              color: Color(0xFF000000),
-              cardExpiration: '12/22',
-              cardHolder: 'Angel Velay',
-              cardNumber: '5689 7854 4578 1234'),
+          controller.isLoading$.value
+              ? const CircularProgressIndicator()
+              : _buildCreditCard(context, controller,
+                  color: Color(0xFF000000),
+                  cardExpiration: '12/22',
+                  cardHolder: 'Angel Velay',
+                  cardNumber: '5689 7854 4578 1234'),
         ],
       ),
     );
@@ -26,7 +28,7 @@ class userCardNumber extends GetView<HomeController> {
 }
 
 // Build the credit card widget
-Widget _buildCreditCard(BuildContext context,
+Widget _buildCreditCard(BuildContext context, HomeController item,
     {required Color color,
     required String cardNumber,
     required String cardHolder,
@@ -34,45 +36,35 @@ Widget _buildCreditCard(BuildContext context,
   return Container(
       height: 210,
       child: Stack(fit: StackFit.expand, children: [
-        // Card(
-        //   color: Colors.transparent,
-        //   semanticContainer: true,
-        //   clipBehavior: Clip.antiAliasWithSaveLayer,
-        //   child: Image.asset(
-        //     'assets/background_cards/silver.jpg',
-        //     fit: BoxFit.fill,
-        //   ),
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(20.0),
-        //   ),
-        //   elevation: 10,
-        //   shadowColor: Colors.black87,
-
-        //   margin: const EdgeInsets.all(20),
-        // ),
         Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Image.asset(
-            'assets/background_cards/silver.png',
-            fit: BoxFit.cover,
-          ),
+          child: item.pointsLevel$.isNotEmpty
+              ? item.pointsLevel$.first.initialPoints! >= 100
+                  ? FadeInImage(
+                      placeholder: const AssetImage(
+                          'assets/cards/card_background_platino.png'),
+                      image: NetworkImage(
+                          '${item.pointsLevel$.last.cardBackgroundFile}'),
+                      fit: BoxFit.cover,
+                    )
+                  : FadeInImage(
+                      placeholder: const AssetImage(
+                          'assets/cards/card_background_platino.png'),
+                      image: NetworkImage(
+                          '${item.pointsLevel$.first.cardBackgroundFile}'),
+                      fit: BoxFit.cover,
+                    )
+              : const SizedBox(),
+          // child: Image.network(
+          //   // ignore: unnecessary_string_interpolations
+          //   '${item.pointsLevel$.first.cardBackgroundFile ?? ''}',
+          //   fit: BoxFit.cover,
+          // ),
           margin: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.black.withOpacity(.3),
-            //     blurRadius: 3, // soften the shadow
-            //     spreadRadius: 1.0, //extend the shadow
-            //     offset: const Offset(
-            //       5.0, // Move to right  horizontally
-            //       5.0, // Move to bottom Vertically
-            //     ),
-            //   )
-            // ],
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Center(
@@ -82,7 +74,7 @@ Widget _buildCreditCard(BuildContext context,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildLogosBlock(),
+                  _buildLogosBlock(item),
                   const SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,15 +118,51 @@ Widget _buildCreditCard(BuildContext context,
 }
 
 // Build the top row containing logos
-Widget _buildLogosBlock() {
+Widget _buildLogosBlock(controller) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-      Image.asset(
-        "assets/cards/card_title_platino.png",
-        height: 23,
-      ),
+    children: [
+      controller.pointsLevel$.isNotEmpty
+          ? controller.pointsLevel$.first.initialPoints! >= 100
+              ? Image.network(
+                  // ignore: unnecessary_string_interpolations
+                  '${controller.pointsLevel$.last.cardHeaderFile}',
+                  height: 23,
+                )
+              : Image.network(
+                  // ignore: unnecessary_string_interpolations
+                  '${controller.pointsLevel$.first.cardHeaderFile}',
+                  height: 23,
+                )
+          : const SizedBox(),
+
+      // controller.pointsLevel$.first.initialPoints! >= 100
+      //     ? FadeInImage(
+      //         placeholder: AssetImage('assets/cards/card_title_platino.png'),
+      //         image: NetworkImage(
+      //             '${controller.pointsLevel$.last.cardHeaderFile}'),
+      //         fit: BoxFit.cover,
+      //         height: 23,
+      //       )
+      //     : FadeInImage(
+      //         placeholder:
+      //             const AssetImage('assets/cards/card_background_platino.png'),
+      //         image: NetworkImage(
+      //             '${controller.pointsLevel$.first.cardHeaderFile}'),
+      //         fit: BoxFit.cover,
+      //         height: 23,
+
+      // FadeInImage(
+      //   placeholder: AssetImage('assets/cards/card_title_platino.png'),
+      //   image: NetworkImage('${controller.pointsLevel$.first.cardHeaderFile}'),
+      //   fit: BoxFit.cover,
+      //   height: 23,
+      // ),
+      // Image.network(
+      //   '${controller.pointsLevel$.first.cardHeaderFile}',
+      //   height: 23,
+      // ),
       const Text(
         'Programa de Recompensas',
         style: TextStyle(color: Colors.white, fontSize: 8),
@@ -167,7 +195,7 @@ Column _buildDetailsBlock({required String label, required String value}) {
 }
 
 Widget _qrCode(BuildContext context) {
-  return Column(children: [
+  return Column(children: const [
     SizedBox(height: 5),
     ButtonQRScanner(
       height: 40,

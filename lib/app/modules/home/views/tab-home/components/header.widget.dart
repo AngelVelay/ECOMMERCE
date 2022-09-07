@@ -60,10 +60,31 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           backgroundColor: const Color(0xFF222222),
           title: Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: Image.asset(
-                'assets/cards/card_title_platino.png',
-                width: 200,
-              )),
+              child: controller.pointsLevel$.isNotEmpty
+                  ? Expanded(
+                      child: controller.pointsLevel$.first.initialPoints! >= 100
+                          ? FadeInImage(
+                              placeholder: const AssetImage(
+                                  'assets/cards/card_background_platino.png'),
+                              image: NetworkImage(
+                                  '${controller.pointsLevel$.last.cardHeaderFile}'),
+                              height: 100,
+                            )
+                          : FadeInImage(
+                              placeholder: const AssetImage(
+                                  'assets/cards/card_background_platino.png'),
+                              image: NetworkImage(
+                                  '${controller.pointsLevel$.first.cardHeaderFile}'),
+                              height: 100,
+                            ))
+                  : const SizedBox()),
+          //   child: FadeInImage(
+          // placeholder:
+          //     const AssetImage('assets/cards/card_background_platino.png'),
+          // image:
+          //     NetworkImage('${controller.pointsLevel$.first.cardHeaderFile}'),
+          //     height: 200,)),
+
           // leading: Padding(
           //   padding: const EdgeInsets.only(left: 15.0),
           //   child: Opacity(

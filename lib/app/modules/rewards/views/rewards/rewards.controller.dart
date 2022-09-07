@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
+import 'package:jexpoints/app/modules/rewards/entities/point-level.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.contract.dart';
 import 'package:jexpoints/app/shared/values/globals.dart';
 
 import '../../../auth/auth.module.dart';
@@ -20,6 +22,10 @@ class Menu {
 }
 
 class RewardsController extends GetxController {
+  final IPointLevelService pointLevelService;
+
+  late var pointsLevel$ = <PointLevel>[].obs;
+
   final IAuthService _repo;
 
   var user$ = User.fromVoid().obs;
@@ -32,12 +38,14 @@ class RewardsController extends GetxController {
     Menu(Icons.fact_check_outlined, MainRouting.BILLING_ROUTE, 'Facturas'),
   ];
 
-  RewardsController(this._repo);
+  RewardsController(this._repo, this.pointLevelService);
 
   @override
   void onInit() async {
-    _curretUser();
     super.onInit();
+
+    _curretUser();
+    pointsLevel$.value = await pointLevelService.getPoints();
   }
 
   singInOut() {

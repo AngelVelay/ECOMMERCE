@@ -20,11 +20,11 @@ import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
 
 import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
+import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.api.service.dart';
 
 import '../cart/views/checkout/checkout.controller.dart';
 
 import '../home/services/flyers/flyers.api.service.dart';
-import '../home/services/flyers/flyers.fake.service.dart';
 import '../rewards/services/coupons/coupons.api.service.dart';
 import '../rewards/views/consume/consume.controller.dart';
 
@@ -157,6 +157,7 @@ class MainRouting {
 
 class MainBinding implements Bindings {
   var authService = AuthFakeService();
+  var pointLevelService = PointLevelService();
   MainBinding() {
     Get.lazyPut<HomeController>(
         () => HomeController(
@@ -165,7 +166,8 @@ class MainBinding implements Bindings {
             FlyersApiService(),
             AddressFakeService(),
             CouponsApiService(),
-            CreditCardFakeService()),
+            CreditCardFakeService(),
+            pointLevelService),
         fenix: true);
     // Get.lazyPut<ProfileController>(
     //     () => ProfileController(
@@ -199,7 +201,8 @@ class MainBinding implements Bindings {
     Get.lazyPut<PointsController>(() => PointsController());
     Get.lazyPut<CheckOutController>(() =>
         CheckOutController(AddressFakeService(), CreditCardFakeService()));
-    Get.lazyPut<RewardsController>(() => RewardsController(authService),
+    Get.lazyPut<RewardsController>(
+        () => RewardsController(authService, pointLevelService),
         fenix: true);
   }
 
