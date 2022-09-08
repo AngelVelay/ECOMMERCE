@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'dart:math';
 
 import 'package:intl/intl.dart';
+import 'package:jexpoints/app/modules/cart/views/confirm-splash/delivery-confirm-splash.page.dart';
+import 'package:jexpoints/app/modules/cart/views/confirm-splash/pickUp-confirm-spalsh.page.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
+import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,15 +102,32 @@ class CheckOutController extends GetxController {
 
   changeMethodDelivery() {
     final controller = Get.find<HomeController>();
-    controller.showDeliveryType$.value = true;
+    controller.showDeliveryButton$.value = true;
+    controller.showPickUpButton$.value = false;
+    // controller.showDeliveryType$.value = true;
+    controller.showDeliveryisVisible$.value = true;
 
-    Get.toNamed(MainRouting.MAIN_ROUTE);
+    // Get.toNamed(MainRouting.MAIN_ROUTE);
+    Navigator.push(
+      Get.context!,
+      MaterialPageRoute(
+        builder: (context) => PickUpConfirmPage(),
+      ),
+    );
   }
 
   changeMetodPickup() {
     final controller = Get.find<HomeController>();
-    controller.showDeliveryType$.value = false;
+    controller.showDeliveryButton$.value = false;
+    controller.showPickUpButton$.value = true;
+    // controller.showDeliveryType$.value = false;
+    controller.showDeliveryisVisible$.value = true;
 
-    Get.toNamed(MainRouting.MAIN_ROUTE);
+    Navigator.push(
+      Get.context!,
+      MaterialPageRoute(builder: (context) => DeliveryConfirmPage()),
+    );
+
+    // Get.toNamed(MainRouting.MAIN_ROUTE);
   }
 }

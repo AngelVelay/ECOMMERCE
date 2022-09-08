@@ -50,9 +50,15 @@ class HomePage extends GetView<HomeController> {
               })))
             ],
           ),
-          floatingActionButton: controller.showDeliveryType$.isFalse
-              ? const DraggableButton()
-              : const DraggableButtonPickup(),
+          floatingActionButton: controller.showDeliveryisVisible$.value == true
+              ? controller.showDeliveryButton$.isFalse
+                  ? const DraggableButton()
+                  : const DraggableButtonPickup()
+              : const SizedBox(),
+          // floatingActionButton: controller.showDeliveryType$.isFalse
+          //     ? const DraggableButton()
+          //     : const DraggableButtonPickup(),
+
           // floatingActionButton: DraggableButtonPickup(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop),
     );

@@ -2,10 +2,11 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
-import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/services/branch/branch.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.api.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.fake.service.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
+import 'package:jexpoints/app/modules/rewards/views/address/address.controller.dart';
 
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.controller.dart';
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.dart';
@@ -75,13 +76,14 @@ class ConsumeBinding implements Bindings {
   var shoppingService = ShoppingFakeService();
   var paymentMethodsService = CreditCardFakeService();
   var addressService = AddressFakeService();
+  var paymentService = PaymentMethodsService();
   @override
   void dependencies() {
     Get.lazyPut<ConsumeController>(() => ConsumeController(shoppingService));
     Get.lazyPut<OrderDetailController>(
         () => OrderDetailController(shoppingService));
     Get.lazyPut<PaymentMethodsController>(
-        () => PaymentMethodsController(paymentMethodsService));
+        () => PaymentMethodsController(paymentMethodsService, paymentService));
     Get.lazyPut<AddressController>(() => AddressController(addressService));
   }
 }
@@ -102,10 +104,12 @@ class CouponDetailBinding implements Bindings {
 }
 
 class PaymentMethodsBinding implements Bindings {
+  var paymentService = PaymentMethodsService();
+
   @override
   void dependencies() {
-    Get.lazyPut<PaymentMethodsController>(
-        () => PaymentMethodsController(CreditCardFakeService()));
+    Get.lazyPut<PaymentMethodsController>(() =>
+        PaymentMethodsController(CreditCardFakeService(), paymentService));
   }
 }
 

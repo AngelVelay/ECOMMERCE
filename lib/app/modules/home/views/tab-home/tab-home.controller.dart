@@ -50,7 +50,10 @@ class HomeController extends GetxController {
   late var coupons$ = <Coupon>[].obs;
   late var defaultCoupon$ = Coupon.fromVoid().obs;
   late var pointsLevel$ = <PointLevel>[].obs;
+  late var showPickUpButton$ = false.obs;
+  late var showDeliveryButton$ = false.obs;
   var showDeliveryType$ = false.obs;
+  var showDeliveryisVisible$ = false.obs;
 
   final isLoading$ = false.obs;
 
@@ -74,6 +77,7 @@ class HomeController extends GetxController {
     if (currentUser != null) {
       user$.value = currentUser;
     }
+    final showDeliveryType = showDeliveryisVisible$.value;
 
     total$ = 0.0;
     subtotal$ = 0.0;

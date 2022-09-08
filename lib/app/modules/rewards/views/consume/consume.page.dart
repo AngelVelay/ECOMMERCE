@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/views/address/address.controller.dart';
 
 import '../../../../shared/values/globals.dart';
-import '../../../home/views/address/address.controller.dart';
 import '../../../main/entities/address.type.dart';
 import '../../../main/entities/credit-card.dart';
 import '../../../main/entities/order.type.dart';
@@ -264,7 +265,7 @@ Widget _listPayment(BuildContext context) {
   }));
 }
 
-Widget _listPaymentItem(BuildContext context, CreditCard item, controller) {
+Widget _listPaymentItem(BuildContext context, PaymentMethods item, controller) {
   return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
       child: ListTile(
@@ -279,7 +280,7 @@ Widget _listPaymentItem(BuildContext context, CreditCard item, controller) {
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 Text(
-                  item.cardHolder.toUpperCase(),
+                  item.fullName.toUpperCase(),
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),

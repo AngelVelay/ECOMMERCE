@@ -1,11 +1,10 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/home.module.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
-
-import '../../home.module.dart';
 
 class AddressController extends GetxController {
   final IAddressService _addressService;

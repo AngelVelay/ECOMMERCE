@@ -16,7 +16,6 @@ import 'package:jexpoints/app/modules/cart/views/pay_page/pay.page.dart';
 
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.controller.dart';
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.page.dart';
-import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 
@@ -66,13 +65,13 @@ class CartRouting {
   ];
 }
 
-class AddressBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<AddressController>(
-        () => AddressController(AddressFakeService()));
-  }
-}
+// class AddressBinding implements Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut<AddressController>(
+//         () => AddressController(AddressFakeService()));
+//   }
+// }
 
 class AddressDetailBinding implements Bindings {
   @override
