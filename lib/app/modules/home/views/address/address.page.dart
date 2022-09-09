@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 
 import '../../../main/entities/address.type.dart';
 import 'address.controller.dart';
@@ -125,7 +126,7 @@ class AddressPage extends GetView<AddressController> {
     }));
   }
 
-  Widget _listItem(BuildContext context, Address item) {
+  Widget _listItem(BuildContext context, UserAddress item) {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
         child: ListTile(
@@ -145,7 +146,7 @@ class AddressPage extends GetView<AddressController> {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
-                      ', Int. ${item.insideNumber}',
+                      ', Int. ${item.insidelNumber}',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ]),
@@ -165,7 +166,7 @@ class AddressPage extends GetView<AddressController> {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
-                      ', C.P. ${item.zipCode}',
+                      ', C.P. ${item.zipcode}',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ]),

@@ -107,7 +107,7 @@ class FileManger {
   String? title;
   DateTime? beginDate;
   DateTime? endDate;
-  String fileManagerId;
+  String? fileManagerId;
   String? name;
   bool? isActive;
   bool? isBySystem;

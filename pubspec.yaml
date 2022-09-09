@@ -53,6 +53,7 @@ dependencies:
   flutter_svg: ^1.1.1+1
   draggable_fab: ^0.1.4
   awesome_card: ^1.1.7
+  flutter_widget_from_html_core: ^0.8.5+3
 
 
   marquee: ^2.2.3

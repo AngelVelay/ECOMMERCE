@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/cart/views/address-detail/address-detail.controller.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
+import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
+import 'package:jexpoints/app/modules/home/views/address/address.page.dart';
 
 import 'package:jexpoints/app/modules/home/views/detail-delivery/detail-delivery.controller.dart';
 import 'package:jexpoints/app/modules/home/views/details/detail.controller.dart';
@@ -24,12 +28,13 @@ class HomeRouting {
   static const DELIVERY_DETAIL = '/delivery-detail';
 
   static final IAuthService authService = AuthFakeService();
+  static final IAddressService addressService = AddressService();
 
   static final routes = [
-    // GetPage(
-    //     name: ADDRESS_ROUTE,
-    //     page: () => AddressPage(),
-    //     binding: AddressBinding()),
+    GetPage(
+        name: ADDRESS_ROUTE,
+        page: () => AddressPage(),
+        binding: AddressBinding()),
     GetPage(
       name: DETAIL_ROUTE,
       page: () => DetailPage(),
@@ -50,13 +55,12 @@ class HomeRouting {
   ];
 }
 
-// class AddressBinding implements Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<AddressController>(
-//         () => AddressController(AddressFakeService()));
-//   }
-// }
+class AddressBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AddressController>(() => AddressController(AddressService()));
+  }
+}
 
 class DetailBinding implements Bindings {
   @override

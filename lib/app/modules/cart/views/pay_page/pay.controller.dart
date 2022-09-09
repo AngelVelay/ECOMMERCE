@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math' as math;
 
-import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../main/services/creditCard/creditCard.contract.dart';
@@ -10,18 +11,19 @@ import '../../cart.module.dart';
 import '../add_credit_card/addCreditCard.page.dart';
 
 class PayController extends GetxController {
-  final ICreditCardService creditCardService;
+  // final ICreditCardService creditCardService;
+  final IPaymentMethodsService paymentMethodsService;
 
-  PayController(this.creditCardService, {Key? key});
-  late var selectedCreditCard = CreditCard.fromVoid().obs;
+  PayController(this.paymentMethodsService, {Key? key});
+  late var selectedCreditCard = PaymentMethods.fromVoid().obs;
 
-  late var creditCardList$ = <CreditCard>[].obs;
-  late var newCreditCard = <CreditCard>[].obs;
+  late var creditCardList$ = <PaymentMethods>[].obs;
+  late var newCreditCard = <PaymentMethods>[].obs;
   late var cardNumber = TextEditingController();
   late var cardHolder = TextEditingController();
   late var cardExpiration = TextEditingController();
   late var cardCVV = TextEditingController();
-  late var card$ = CreditCard.fromVoid().obs;
+  late var card$ = PaymentMethods.fromVoid().obs;
 
   RxString cardCVV$ = ''.obs;
   RxString cardNumber$ = ''.obs;
@@ -43,17 +45,17 @@ class PayController extends GetxController {
     super.onInit();
     var args = Get.arguments;
     if (args != null) {
-      card$.value = args[0] as CreditCard;
+      card$.value = args[0] as PaymentMethods;
       cardNumber.text = card$.value.cardNumber;
       cardNumber$.value = card$.value.cardNumber;
-      cardHolder.text = card$.value.cardHolder;
-      cardHolder$.value = card$.value.cardHolder;
+      cardHolder.text = card$.value.fullName;
+      cardHolder$.value = card$.value.fullName;
       cardCVV.text = card$.value.cvv;
       cardCVV$.value = card$.value.cvv;
-      cardExpiration.text = card$.value.cardExpiration;
-      cardExpiration$.value = card$.value.cardExpiration;
+      cardExpiration.text = card$.value.expirationDate;
+      cardExpiration$.value = card$.value.expirationDate;
     } else {
-      card$.value = CreditCard.fromVoid();
+      card$.value = PaymentMethods.fromVoid();
     }
 
     cardNumber.addListener(() {
@@ -71,7 +73,7 @@ class PayController extends GetxController {
       cardCVV$.value = cardCVV.text;
     });
 
-    creditCardList$.value = await creditCardService.get();
+    creditCardList$.value = await paymentMethodsService.getPayment();
     if (creditCardList$.isNotEmpty) {
       selectedCreditCard.value = creditCardList$
               .where((element) => element.isDefault)
@@ -95,10 +97,10 @@ class PayController extends GetxController {
   void save(BuildContext context) async {
     var cardToAdd = card$.value;
     cardToAdd.cardNumber = cardNumber$.value;
-    cardToAdd.cardHolder = cardHolder$.value;
-    cardToAdd.cardExpiration = cardExpiration$.value;
+    cardToAdd.fullName = cardHolder$.value;
+    cardToAdd.expirationDate = cardExpiration$.value;
     cardToAdd.cvv = cardCVV$.value;
-    await creditCardService.save(cardToAdd);
+    await paymentMethodsService.save(cardToAdd);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -107,11 +109,11 @@ class PayController extends GetxController {
     );
   }
 
-  creditCardSelect(CreditCard item, BuildContext context) {
+  creditCardSelect(PaymentMethods item, BuildContext context) {
     selectedCreditCard.value = item;
   }
 
-  toProductDetail(CreditCard item) {
+  toProductDetail(PaymentMethods item) {
     Get.toNamed(CartRouting.CONFIRM_COMPRA_ROUTE, arguments: {
       'selectedCreditCard': selectedCreditCard.value,
     });

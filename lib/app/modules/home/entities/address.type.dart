@@ -1,73 +1,117 @@
-class Address {
-  Address({
-    required this.id,
+// To parse this JSON data, do
+//
+//     final userAddress = userAddressFromJson(jsonString);
+
+import 'dart:convert';
+
+class UserAddress {
+  UserAddress({
+    this.userId,
+    this.user,
     required this.alias,
     required this.street,
     required this.outsideNumber,
-    required this.insideNumber,
+    required this.insidelNumber,
     required this.suburb,
     required this.town,
     required this.state,
     required this.country,
-    required this.zipCode,
-    required this.isDefault,
+    required this.zipcode,
     required this.contactName,
     required this.contactPhone,
-    this.streetNotes,
-    this.notes,
+    required this.streetNotes,
+    required this.betweenStreets,
+    required this.additionalInformation,
+    this.isDefault,
+    required this.id,
+    required this.isNew,
   });
 
-  int id;
+  dynamic userId;
+  dynamic user;
   String alias;
   String street;
   String outsideNumber;
-  String insideNumber;
+  String insidelNumber;
   String suburb;
   String town;
   String state;
   String country;
-  String zipCode;
-  bool isDefault;
+  int zipcode;
   String contactName;
-  String contactPhone;
-  String? streetNotes;
-  String? notes;
+  int contactPhone;
+  String streetNotes;
+  String? betweenStreets;
+  String? additionalInformation;
+  dynamic isDefault;
+  int id;
+  bool isNew;
 
-  factory Address.fromVoid() => Address(
+  factory UserAddress.fromVoid() => UserAddress(
       id: 0,
       alias: '',
       street: '',
       outsideNumber: '',
-      insideNumber: '',
+      insidelNumber: '',
       suburb: '',
       town: '',
       state: '',
       country: '',
-      zipCode: '',
+      zipcode: 0,
       isDefault: false,
       contactName: '',
-      contactPhone: '');
+      contactPhone: 0,
+      additionalInformation: '',
+      betweenStreets: '',
+      isNew: false,
+      streetNotes: '');
 
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        id: json["id"],
+  factory UserAddress.fromRawJson(String str) =>
+      UserAddress.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory UserAddress.fromJson(Map<String, dynamic> json) => UserAddress(
+        userId: json["userId"],
+        user: json["user"],
         alias: json["alias"],
         street: json["street"],
         outsideNumber: json["outsideNumber"],
-        insideNumber: json["insideNumber"],
+        insidelNumber: json["insidelNumber"],
         suburb: json["suburb"],
         town: json["town"],
         state: json["state"],
         country: json["country"],
-        zipCode: json["zipCode"],
-        isDefault: json["isDefault"],
+        zipcode: json["zipcode"],
         contactName: json["contactName"],
         contactPhone: json["contactPhone"],
         streetNotes: json["streetNotes"],
-        notes: json["notes"],
+        betweenStreets: json["betweenStreets"],
+        additionalInformation: json["additionalInformation"],
+        isDefault: json["isDefault"],
+        id: json["id"],
+        isNew: json["isNew"],
       );
 
   Map<String, dynamic> toJson() => {
-        // "id": id,
-        // TODO
+        "userId": userId,
+        "user": user,
+        "alias": alias,
+        "street": street,
+        "outsideNumber": outsideNumber,
+        "insidelNumber": insidelNumber,
+        "suburb": suburb,
+        "town": town,
+        "state": state,
+        "country": country,
+        "zipcode": zipcode,
+        "contactName": contactName,
+        "contactPhone": contactPhone,
+        "streetNotes": streetNotes,
+        "betweenStreets": betweenStreets,
+        "additionalInformation": additionalInformation,
+        "isDefault": isDefault,
+        "id": id,
+        "isNew": isNew,
       };
 }

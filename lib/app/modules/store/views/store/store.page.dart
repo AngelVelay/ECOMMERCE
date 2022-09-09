@@ -18,7 +18,9 @@ class StorePage extends GetView<StoreController> {
         bottom: false,
         child: Obx(() {
           return DefaultTabController(
-            length: controller.businessLines$.length,
+            length: controller.businessLines$
+                .where((p0) => p0.isActive == true)
+                .length,
             child: Scaffold(
                 body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -50,7 +52,7 @@ class StorePage extends GetView<StoreController> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        height: 40,
+        height: 45,
         decoration: BoxDecoration(
             color: Colors.grey[300], borderRadius: BorderRadius.circular(20.0)),
         child: TabBar(
@@ -58,11 +60,19 @@ class StorePage extends GetView<StoreController> {
                 color: Colors.black, borderRadius: BorderRadius.circular(20.0)),
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
-            tabs: controller.businessLines$.map<Widget>((BusinessLine x) {
+            tabs: controller.businessLines$
+                .where((p0) => p0.isActive == true)
+                .map((BusinessLine x) {
               return Tab(
                 text: x.name,
               );
             }).toList()),
+        //   return x.isActive == true
+        //       ? Tab(
+        //           child: Text(x.name),
+        //         )
+        //       : const SizedBox();
+        // }).toList()),
       ),
     );
   }
@@ -70,7 +80,9 @@ class StorePage extends GetView<StoreController> {
   Widget _tabViews(BuildContext context) {
     return Expanded(
         child: TabBarView(
-            children: controller.businessLines$.map<Widget>((BusinessLine bl) {
+            children: controller.businessLines$
+                .where((p0) => p0.isActive == true)
+                .map<Widget>((BusinessLine bl) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -122,7 +134,9 @@ class StorePage extends GetView<StoreController> {
 
   Widget _gridItem(BuildContext context, Category category) {
     return GestureDetector(
-      onTap: () => controller.toCategoryProducts(category),
+      // onTap: () => controller.toCategoryProducts(category),
+      onTap: () {},
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[

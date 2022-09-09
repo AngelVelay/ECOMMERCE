@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 import '../../cart.module.dart';
@@ -74,14 +75,14 @@ class addCreditCard extends GetView<PayController> {
             }))));
   }
 
-  Widget _creditCard(CreditCard item, BuildContext context) {
+  Widget _creditCard(PaymentMethods item, BuildContext context) {
     return Row(
       children: [
-        Radio<CreditCard>(
+        Radio<PaymentMethods>(
           value: item,
           groupValue: controller.selectedCreditCard.value,
           onChanged: (value) {
-            controller.creditCardSelect(value as CreditCard, context);
+            controller.creditCardSelect(value as PaymentMethods, context);
           },
         ),
         SizedBox(
@@ -90,8 +91,8 @@ class addCreditCard extends GetView<PayController> {
         _buildCreditCard(
           // color: Color(StringToHex.toColor('${item.color}')),
           color: Color(0xFF43578d),
-          cardExpiration: item.cardExpiration,
-          cardHolder: item.cardHolder,
+          cardExpiration: item.expirationDate,
+          cardHolder: item.fullName,
           cardNumber: item.cardNumber,
         ),
       ],

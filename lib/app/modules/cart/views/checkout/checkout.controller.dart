@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
-
 import 'package:intl/intl.dart';
 import 'package:jexpoints/app/modules/cart/views/confirm-splash/delivery-confirm-splash.page.dart';
 import 'package:jexpoints/app/modules/cart/views/confirm-splash/pickUp-confirm-spalsh.page.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
-import 'package:jexpoints/app/modules/main/main.module.dart';
-import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
-import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
 import 'package:jexpoints/app/shared/values/mock-data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../home/views/tab-home/components/address-choose.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
-import '../../../main/entities/credit-card.dart';
 import '../../../main/services/address/address.contract.dart';
-import '../../../main/services/creditCard/creditCard.contract.dart';
-import '../../cart.module.dart';
 
 class CheckOutController extends GetxController {
   final IAddressService addressService;
-  final ICreditCardService creditCardService;
-  CheckOutController(this.addressService, this.creditCardService);
+  // final ICreditCardService creditCardService;
+  final IPaymentMethodsService paymentMethodsService;
 
-  late var selectedCreditCard$ = <CreditCard>[].obs;
+  CheckOutController(this.addressService, this.paymentMethodsService);
+
+  late var selectedCreditCard$ = <PaymentMethods>[].obs;
   late var selectedDeliveryType$ = [].obs;
 
   final String data =
@@ -42,7 +38,7 @@ class CheckOutController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    selectedCreditCard$.value = await creditCardService.get();
+    selectedCreditCard$.value = await paymentMethodsService.getPayment();
     selectedCreditCard$.value = selectedCreditCard;
   }
 

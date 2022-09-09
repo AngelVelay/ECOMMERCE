@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/rewards/entities/coupon.type.dart';
 
@@ -86,7 +87,8 @@ class CouponsPage extends GetView<CouponsController> {
                   ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image(
-                        image: NetworkImage(item.description),
+                        image:
+                            NetworkImage(item.fileManagerThumbnail.toString()),
                         width: 100,
                         height: 100,
                       )),
@@ -94,12 +96,17 @@ class CouponsPage extends GetView<CouponsController> {
                     width: 15,
                   ),
                   Flexible(
-                      child: Text(
-                    item.description,
-                    style: const TextStyle(color: Colors.white70),
-                    maxLines: 6,
-                    overflow: TextOverflow.ellipsis,
-                  ))
+                    child: HtmlWidget(
+                      item.description.toString(),
+                      textStyle: const TextStyle(color: Colors.white),
+                    ),
+                    //     child: Text(
+                    //   item.description,
+                    //   style: const TextStyle(color: Colors.white70),
+                    //   maxLines: 6,
+                    //   overflow: TextOverflow.ellipsis,
+                    // ))
+                  )
                 ]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
+import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.contract.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home-search/tab-home-search.page.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
@@ -30,14 +31,15 @@ class HomeController extends GetxController {
   final IAuthService authService;
   final IAddressService addressService;
   final ICouponsService couponsService;
-  final ICreditCardService creditCardService;
   final IPointLevelService pointLevelService;
+  final IProductsImpulseService productsImpulseService;
 
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <dynamic>[].obs;
   late var productList$ = <Product>[].obs;
   late var productsPackList$ = <Product>[].obs;
   late var variableProductsList$ = <Product>[].obs;
+  late var productsImpulseList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
@@ -67,8 +69,8 @@ class HomeController extends GetxController {
       this.flyersService,
       this.addressService,
       this.couponsService,
-      this.creditCardService,
-      this.pointLevelService);
+      this.pointLevelService,
+      this.productsImpulseService);
 
   @override
   void onInit() async {
@@ -86,6 +88,8 @@ class HomeController extends GetxController {
     var imagesBanner = flyersService.getBanners();
 
     variableProductsList$.value = await productsService.getProductsVariable();
+    productsImpulseList$.value =
+        (await productsImpulseService.getProductsImpulse()).cast<Product>();
     // productsPackList$.value = await productsService.addVariableProducts(
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
@@ -155,9 +159,9 @@ class HomeController extends GetxController {
     FocusScope.of(context).unfocus();
   }
 
-  // toFlyer(Flyer item) {
-  //   Get.toNamed(HomeRouting.PUBLICIDAD_ROUTE, arguments: item.url);
-  // }
+  toFlyer(item) {
+    Get.toNamed(HomeRouting.PUBLICIDAD_ROUTE, arguments: item);
+  }
 
   toProductDetail(Product item) {
     Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {"product": item});

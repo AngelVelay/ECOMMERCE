@@ -32,6 +32,18 @@ class PaymentMethods {
       PaymentMethods.fromJson(json.decode(str));
   String toRawJson() => json.encode(toJson());
 
+  factory PaymentMethods.fromVoid() => PaymentMethods(
+        userId: 0,
+        user: null,
+        fullName: '',
+        cardNumber: '',
+        expirationDate: '',
+        isDefault: false,
+        cvv: '',
+        id: 0,
+        isNew: false,
+      );
+
   factory PaymentMethods.fromJson(Map<String, dynamic> json) => PaymentMethods(
         userId: json["userId"],
         user: json["user"],

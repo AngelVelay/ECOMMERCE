@@ -122,8 +122,8 @@ class RewardsPage extends GetView<RewardsController> {
                     letterSpacing: 0,
                     color: Colors.white,
                     fontFamily: 'Montserrat-Bold'))
-            : Text('0 pts',
-                style: const TextStyle(
+            : const Text('0 pts',
+                style: TextStyle(
                     fontSize: 10,
                     letterSpacing: 0,
                     color: Colors.white,

@@ -8,14 +8,13 @@ import '../../../cart/cart.module.dart';
 import '../../../main/services/creditCard/creditCard.contract.dart';
 
 class PaymentMethodsController extends GetxController {
-  final ICreditCardService _paymentMethodsService;
+  // final ICreditCardService _paymentMethodsService;
   final IPaymentMethodsService paymentMethodsService;
 
   // late var paymentMethods$ = <CreditCard>[].obs;
   late var paymentMethods$ = <PaymentMethods>[].obs;
 
-  PaymentMethodsController(
-      this._paymentMethodsService, this.paymentMethodsService);
+  PaymentMethodsController(this.paymentMethodsService);
 
   @override
   void onInit() async {

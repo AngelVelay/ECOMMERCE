@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
 
 import '../../../main/entities/credit-card.dart';
 import '../../../main/main.module.dart';
@@ -9,10 +11,11 @@ import '../../../main/services/products/products.contract.dart';
 import '../../cart.module.dart';
 
 class ConfirmPagoController extends GetxController {
-  final ICreditCardService creditCardService;
+  // final ICreditCardService creditCardService;
   final IProductsService productsService;
+  final IPaymentMethodsService paymentMethodsService;
 
-  late var creditCardList$ = <CreditCard>[].obs;
+  late var creditCardList$ = <PaymentMethods>[].obs;
   late var cartProducts$ = <Product>[].obs;
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
@@ -23,12 +26,12 @@ class ConfirmPagoController extends GetxController {
 
   final selectedCreditCard = Get.arguments['selectedCreditCard'];
 
-  ConfirmPagoController(this.creditCardService, this.productsService);
+  ConfirmPagoController(this.productsService, this.paymentMethodsService);
 
   @override
   void onInit() async {
     super.onInit();
-    creditCardList$.value = await creditCardService.get();
+    creditCardList$.value = await paymentMethodsService.getPayment();
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();

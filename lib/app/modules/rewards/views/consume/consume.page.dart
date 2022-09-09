@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
-import 'package:jexpoints/app/modules/rewards/views/address/address.controller.dart';
 
 import '../../../../shared/values/globals.dart';
 import '../../../main/entities/address.type.dart';
-import '../../../main/entities/credit-card.dart';
 import '../../../main/entities/order.type.dart';
 import '../payment-methods/payment-methods.controller.dart';
 import 'components/consume-search.page.dart';
@@ -318,7 +318,7 @@ Widget _listAddress(BuildContext context) {
   }));
 }
 
-Widget _listAddressItem(BuildContext context, Address item, controller) {
+Widget _listAddressItem(BuildContext context, UserAddress item, controller) {
   return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
       child: ListTile(
@@ -338,7 +338,7 @@ Widget _listAddressItem(BuildContext context, Address item, controller) {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Text(
-                    ', Int. ${item.insideNumber}',
+                    ', Int. ${item.insidelNumber}',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ]),
@@ -358,7 +358,7 @@ Widget _listAddressItem(BuildContext context, Address item, controller) {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Text(
-                    ', C.P. ${item.zipCode}',
+                    ', C.P. ${item.zipcode}',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ]),

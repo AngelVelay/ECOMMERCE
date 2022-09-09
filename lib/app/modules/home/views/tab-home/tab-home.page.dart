@@ -154,8 +154,7 @@ class HomePage extends GetView<HomeController> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: GestureDetector(
-                // onTap: () => controller.toFlyer(item),
-                onTap: () {},
+                onTap: () => controller.toFlyer(item['fileLink']),
                 child: FadeInImage(
                     width: 600,
                     fit: BoxFit.fill,

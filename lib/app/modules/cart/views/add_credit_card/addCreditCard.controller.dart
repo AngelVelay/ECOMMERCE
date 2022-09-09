@@ -3,20 +3,22 @@ import 'package:get/get.dart';
 import 'dart:math' as math;
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:jexpoints/app/modules/main/services/creditCard/creditCard.contract.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
 
 class AddCardController extends GetxController {
-  final ICreditCardService creditCardService;
+  // final ICreditCardService creditCardService;
+  final IPaymentMethodsService paymentMethodsService;
 
-  late var creditCardList$ = <CreditCard>[].obs;
-  late var selectedCreditCard = CreditCard.fromVoid().obs;
+  late var creditCardList$ = <PaymentMethods>[].obs;
+  late var selectedCreditCard = PaymentMethods.fromVoid().obs;
 
-  AddCardController(this.creditCardService);
+  AddCardController(this.paymentMethodsService);
 
   @override
   void onInit() async {
     super.onInit();
-    creditCardList$.value = await creditCardService.get();
+    creditCardList$.value = await paymentMethodsService.getPayment();
     if (creditCardList$.isNotEmpty) {
       selectedCreditCard.value = creditCardList$
               .where((element) => element.isDefault)
@@ -40,7 +42,7 @@ class AddCardController extends GetxController {
   //   ));
   // }
 
-  creditCardSelect(CreditCard item, BuildContext context) {
+  creditCardSelect(PaymentMethods item, BuildContext context) {
     selectedCreditCard.value = item;
   }
 }

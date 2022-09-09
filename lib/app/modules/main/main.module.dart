@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
+import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.api.service.dart';
 
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/services/address/address.fake.service.dart';
@@ -20,6 +21,7 @@ import 'package:jexpoints/app/modules/main/views/profile/profile.page.dart';
 
 import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.api.service.dart';
 
 import '../cart/views/checkout/checkout.controller.dart';
@@ -166,8 +168,8 @@ class MainBinding implements Bindings {
             FlyersApiService(),
             AddressFakeService(),
             CouponsApiService(),
-            CreditCardFakeService(),
-            pointLevelService),
+            pointLevelService,
+            ProductsImpulseApiService()),
         fenix: true);
     // Get.lazyPut<ProfileController>(
     //     () => ProfileController(
@@ -176,7 +178,7 @@ class MainBinding implements Bindings {
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()),
         fenix: true);
-    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()),
+    Get.lazyPut<PayController>(() => PayController(PaymentMethodsService()),
         fenix: true);
     Get.lazyPut<PointsController>(() => PointsController(), fenix: true);
     Get.lazyPut<StoreController>(
@@ -191,16 +193,16 @@ class MainBinding implements Bindings {
     // Get.lazyPut<CatalogosListController>(() =>
     //     CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
     Get.lazyPut<CheckOutController>(
-        () => CheckOutController(AddressFakeService(), CreditCardFakeService()),
+        () => CheckOutController(AddressFakeService(), PaymentMethodsService()),
         fenix: true);
     // Get.lazyPut<ProfileController>(() => ProfileController(
     //     AuthFakeService(), CouponsFakeService(), ReviewsFakeService()));
     Get.lazyPut<ConsumeController>(
         () => ConsumeController(ShoppingFakeService()));
-    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
+    Get.lazyPut<PayController>(() => PayController(PaymentMethodsService()));
     Get.lazyPut<PointsController>(() => PointsController());
     Get.lazyPut<CheckOutController>(() =>
-        CheckOutController(AddressFakeService(), CreditCardFakeService()));
+        CheckOutController(AddressFakeService(), PaymentMethodsService()));
     Get.lazyPut<RewardsController>(
         () => RewardsController(authService, pointLevelService),
         fenix: true);

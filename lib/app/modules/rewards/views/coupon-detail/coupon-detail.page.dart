@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
 import 'coupon-detail.controller.dart';
@@ -52,8 +53,8 @@ class CouponDetailPage extends GetView<CouponDetailController> {
             style: const TextStyle(fontSize: 14, color: Colors.white70)),
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(controller.coupon$.value.description,
-              style: const TextStyle(fontSize: 16, color: Colors.white)),
+          child: HtmlWidget(controller.coupon$.value.description,
+              textStyle: const TextStyle(fontSize: 16, color: Colors.white)),
         ),
       ],
     );

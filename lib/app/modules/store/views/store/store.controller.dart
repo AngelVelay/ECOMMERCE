@@ -15,11 +15,17 @@ class StoreController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    businessLines$.value = await businessLinesService.get();
-  }
+    // businessLines$.value = await businessLinesService.get();
+    // businessLines$.where((element) => element.isActive == true);
 
-  toCategoryProducts(Category category) {
-    Get.toNamed(StoreRouting.STORE_CATEGORY_PRODUCTS_ROUTE,
-        arguments: {"category": category});
+    businessLines$.value = await businessLinesService.get();
+    businessLines$.where((element) {
+      return element.isActive == true;
+    }).toList();
   }
+}
+
+toCategoryProducts(Category category) {
+  Get.toNamed(StoreRouting.STORE_CATEGORY_PRODUCTS_ROUTE,
+      arguments: {"category": category});
 }

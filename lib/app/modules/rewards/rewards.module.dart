@@ -2,11 +2,11 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/main/services/branch/branch.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.api.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
-import 'package:jexpoints/app/modules/rewards/views/address/address.controller.dart';
 
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.controller.dart';
 import 'package:jexpoints/app/modules/rewards/views/billing/billing_apply/billing_apply.dart';
@@ -25,6 +25,7 @@ import 'package:jexpoints/app/modules/rewards/views/payment-methods/payment-meth
 import 'package:jexpoints/app/modules/rewards/views/terms/terms.page.dart';
 
 import '../cart/services/creditCard/creditContract.fake.service.dart';
+import '../home/services/address/address.api.service.dart';
 import '../main/services/address/address.fake.service.dart';
 import '../main/services/shopping/shopping.fake.service.dart';
 
@@ -74,8 +75,8 @@ class RewardsRouting {
 class ConsumeBinding implements Bindings {
   var authService = AuthFakeService();
   var shoppingService = ShoppingFakeService();
-  var paymentMethodsService = CreditCardFakeService();
-  var addressService = AddressFakeService();
+  // var paymentMethodsService = CreditCardFakeService();
+  var addressService = AddressService();
   var paymentService = PaymentMethodsService();
   @override
   void dependencies() {
@@ -83,7 +84,7 @@ class ConsumeBinding implements Bindings {
     Get.lazyPut<OrderDetailController>(
         () => OrderDetailController(shoppingService));
     Get.lazyPut<PaymentMethodsController>(
-        () => PaymentMethodsController(paymentMethodsService, paymentService));
+        () => PaymentMethodsController(paymentService));
     Get.lazyPut<AddressController>(() => AddressController(addressService));
   }
 }
@@ -108,8 +109,8 @@ class PaymentMethodsBinding implements Bindings {
 
   @override
   void dependencies() {
-    Get.lazyPut<PaymentMethodsController>(() =>
-        PaymentMethodsController(CreditCardFakeService(), paymentService));
+    Get.lazyPut<PaymentMethodsController>(
+        () => PaymentMethodsController(paymentService));
   }
 }
 

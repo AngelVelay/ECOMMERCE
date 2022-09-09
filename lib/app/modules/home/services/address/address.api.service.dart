@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:jexpoints/app/core/data/entities/request_method.enum.dart';
 import 'package:jexpoints/app/core/data/services/base-service.service.dart';
-import 'package:jexpoints/app/modules/rewards/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
-import 'package:jexpoints/app/modules/rewards/entities/point-level.type.dart';
-import 'package:jexpoints/app/modules/rewards/services/address/address.contract.dart';
-import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
+
 import 'package:jexpoints/app/shared/values/enviroments.dart';
 
 class AddressService extends BaseService implements IAddressService {

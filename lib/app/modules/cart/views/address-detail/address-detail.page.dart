@@ -64,8 +64,9 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                               'contactPhone',
                               'Número de contacto',
                               validator: FormBuilderValidators.required(),
-                              initialValue:
-                                  controller.address$.value.contactPhone,
+                              initialValue: controller
+                                  .address$.value.contactPhone
+                                  .toString(),
                             ),
                           )
                         ],
@@ -91,7 +92,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                         Expanded(
                           child: CustomInputText('insideNumber', 'Numero Int',
                               initialValue:
-                                  controller.address$.value.insideNumber),
+                                  controller.address$.value.insidelNumber),
                         ),
                         const SizedBox(
                           width: 10,
@@ -100,7 +101,8 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                           child: CustomInputText(
                             'zipCode',
                             'Código Postal',
-                            initialValue: controller.address$.value.zipCode,
+                            initialValue:
+                                controller.address$.value.zipcode.toString(),
                             validator: FormBuilderValidators.required(),
                           ),
                         )
@@ -142,7 +144,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                           initialValue: controller.address$.value.streetNotes),
                       const SizedBox(height: 15),
                       CustomInputText('notes', 'notas adicionales',
-                          initialValue: controller.address$.value.notes),
+                          initialValue: controller.address$.value.streetNotes),
                       CustomInputCheck('isDefault', 'Domicilio Predeterminado',
                           initialValue: controller.address$.value.isDefault),
                     ],

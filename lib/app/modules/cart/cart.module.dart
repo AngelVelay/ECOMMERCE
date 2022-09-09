@@ -16,8 +16,8 @@ import 'package:jexpoints/app/modules/cart/views/pay_page/pay.page.dart';
 
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.controller.dart';
 import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.page.dart';
-import 'package:jexpoints/app/modules/main/services/creditCard/creditContract.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
+import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
 
 import '../main/services/address/address.fake.service.dart';
 import 'views/suggestions/suggestions.controller.dart';
@@ -92,7 +92,7 @@ class CheckOutBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CheckOutController>(() =>
-        CheckOutController(AddressFakeService(), CreditCardFakeService()));
+        CheckOutController(AddressFakeService(), PaymentMethodsService()));
   }
 }
 
@@ -100,7 +100,7 @@ class ConfirmPagodBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ConfirmPagoController>(() =>
-        ConfirmPagoController(CreditCardFakeService(), ProductsFakeService()));
+        ConfirmPagoController(ProductsFakeService(), PaymentMethodsService()));
   }
 }
 
@@ -108,14 +108,14 @@ class AddCardBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AddCardController>(
-        () => AddCardController(CreditCardFakeService()));
+        () => AddCardController(PaymentMethodsService()));
   }
 }
 
 class PayBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PayController>(() => PayController(CreditCardFakeService()));
+    Get.lazyPut<PayController>(() => PayController(PaymentMethodsService()));
   }
 }
 
