@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
+import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
-import 'package:jexpoints/app/modules/main/entities/product.type.dart';
+import '../../../../main/entities/product.type.dart';
 import '../tab-home.controller.dart';
 
 class HomeTopProducts extends GetView<HomeController> {
@@ -67,15 +67,16 @@ class HomeTopProducts extends GetView<HomeController> {
       return Expanded(
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: controller.productList$.length,
+            itemCount: controller.productsImpulseList$.length,
             itemBuilder: (_, int index) {
-              return _itemWidget(context, controller.productList$[index]);
+              return _itemWidget(
+                  context, controller.productsImpulseList$[index]);
             }),
       );
     });
   }
 
-  Widget _itemWidget(BuildContext context, Product item) {
+  Widget _itemWidget(BuildContext context, ImpulseProducts item) {
     double itemSize = 130;
     return Container(
       width: itemSize,
@@ -84,14 +85,14 @@ class HomeTopProducts extends GetView<HomeController> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => controller.toProductDetail(item),
+            // onTap: () => controller.toProductDetail(item.product),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.imageLink),
+                    image: NetworkImage(item.product.imageLink),
                     width: double.infinity,
                     height: itemSize,
                     fit: BoxFit.cover,
@@ -101,7 +102,7 @@ class HomeTopProducts extends GetView<HomeController> {
           const SizedBox(
             height: 5,
           ),
-          Text(item.name,
+          Text(item.product.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               softWrap: false,
@@ -111,7 +112,7 @@ class HomeTopProducts extends GetView<HomeController> {
                   fontSize: 13,
                   fontFamily: 'Montserrat-Regular')),
           Text(
-            '\$ ${item.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
+            '\$ ${item.product.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -120,7 +121,7 @@ class HomeTopProducts extends GetView<HomeController> {
                 fontFamily: 'Montserrat-Bold',
                 color: Colors.white),
           ),
-          HomeCartControls(item)
+          // HomeCartControls(item.product),
         ],
       ),
     );

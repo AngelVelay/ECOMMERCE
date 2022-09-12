@@ -14,6 +14,8 @@ class CouponsController extends GetxController {
 
   var coupons$ = <dynamic>[].obs;
   var selectedCoupon$ = Coupon.fromVoid().obs;
+  final couponsList$ = <dynamic>[].obs;
+
   // var couponsImages$ = <dynamic>[].obs;
 
   CouponsController(this._couponsService);
@@ -23,6 +25,9 @@ class CouponsController extends GetxController {
     var coupons = await _couponsService.getImages();
     var coupons1 = await _couponsService.getAll();
     var image = await _couponsService.getFileId();
+
+    // couponsList$.value = await _couponsService.getImages() as List<dynamic>;
+
     // var imagetoShow = await _couponsService.getImages();
     // couponsImages$.value = imagetoShow;
 

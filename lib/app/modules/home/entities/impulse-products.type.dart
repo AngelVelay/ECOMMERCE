@@ -14,7 +14,7 @@ class ImpulseProducts {
   });
 
   String productId;
-  Product product;
+  Products product;
   int order;
   int id;
   bool isNew;
@@ -29,7 +29,7 @@ class ImpulseProducts {
   factory ImpulseProducts.fromJson(Map<String, dynamic> json) =>
       ImpulseProducts(
         productId: json["productId"],
-        product: Product.fromJson(json["product"]),
+        product: Products.fromJson(json["product"]),
         order: json["order"],
         id: json["id"],
         isNew: json["isNew"],
@@ -44,8 +44,8 @@ class ImpulseProducts {
       };
 }
 
-class Product {
-  Product({
+class Products {
+  Products({
     required this.categoryId,
     this.category,
     required this.externalId,
@@ -99,11 +99,12 @@ class Product {
   bool? isFavorite;
   dynamic quantity;
 
-  factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
+  factory Products.fromRawJson(String str) =>
+      Products.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory Products.fromJson(Map<String, dynamic> json) => Products(
         categoryId: json["categoryId"],
         category: json["category"],
         externalId: json["externalId"],

@@ -12,7 +12,7 @@ class CouponsApiService extends BaseService implements ICouponsService {
   List<Coupon> resultCoupons1 = [];
   List<dynamic> imageById = [];
   List<dynamic> imagetoShowList = [];
-  List<dynamic> responseImage = [];
+  List<Coupon> responseImage = [];
 
   CouponsApiService()
       : super(apiMethod: 'Coupons', url: Enviroments.FILE_MANAGER_URL);
@@ -42,18 +42,20 @@ class CouponsApiService extends BaseService implements ICouponsService {
   }
 
   @override
-  Future getImages() async {
+  Future<List<Coupon>> getImages() async {
     imageById.forEach((element) async {
       var jsonResponse = Enviroments.FILE_MANAGER_URL +
-          "files/" +
+          "Files/" +
           Enviroments.FILE_MANAGER_KEY +
           "/" +
           element;
 
       var response = await http.get(Uri.parse(jsonResponse));
+      Map<String, dynamic> responseJson = await jsonDecode(response.body);
 
-      responseImage.add(response);
+      responseImage.add(responseJson as Coupon);
     });
+    return responseImage;
   }
 }
 // String url = Enviroments.FILE_MANAGER_URL +

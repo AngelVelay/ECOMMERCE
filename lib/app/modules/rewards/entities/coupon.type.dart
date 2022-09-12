@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Coupon {
 //   Coupon({
 //     // required this.id,
@@ -61,6 +63,9 @@ class Coupon {
   int? couponTypeId;
   double amount;
   String? formattedValidTo;
+
+  factory Coupon.fromRawJson(String str) => Coupon.fromJson(json.decode(str));
+  String toRawJson() => json.encode(toJson());
 
   factory Coupon.fromJson(Map<String, dynamic> json) => Coupon(
         id: json["id"],

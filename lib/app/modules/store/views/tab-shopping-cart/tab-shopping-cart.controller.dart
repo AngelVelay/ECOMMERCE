@@ -13,6 +13,7 @@ class ShoppingCartController extends GetxController {
   late var favoriteProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
   late var cartValue$ = 0.obs;
+  late var toogleDelete$ = false.obs;
 
   @override
   void onInit() async {

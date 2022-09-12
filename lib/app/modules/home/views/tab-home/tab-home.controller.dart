@@ -5,6 +5,7 @@ import 'package:flutter/material.dart'
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
+import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
 import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.contract.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home-search/tab-home-search.page.dart';
@@ -39,7 +40,7 @@ class HomeController extends GetxController {
   late var productList$ = <Product>[].obs;
   late var productsPackList$ = <Product>[].obs;
   late var variableProductsList$ = <Product>[].obs;
-  late var productsImpulseList$ = <Product>[].obs;
+  late var productsImpulseList$ = <ImpulseProducts>[].obs;
   late var cartItems$ = 0.obs;
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
@@ -54,6 +55,9 @@ class HomeController extends GetxController {
   late var pointsLevel$ = <PointLevel>[].obs;
   late var showPickUpButton$ = false.obs;
   late var showDeliveryButton$ = false.obs;
+  late var toogleDelete$ = false.obs;
+  late var toogleTotal$ = false.obs;
+
   var showDeliveryType$ = false.obs;
   var showDeliveryisVisible$ = false.obs;
 
@@ -89,7 +93,7 @@ class HomeController extends GetxController {
 
     variableProductsList$.value = await productsService.getProductsVariable();
     productsImpulseList$.value =
-        (await productsImpulseService.getProductsImpulse()).cast<Product>();
+        await productsImpulseService.getProductsImpulse();
     // productsPackList$.value = await productsService.addVariableProducts(
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
@@ -148,6 +152,17 @@ class HomeController extends GetxController {
     cartItems$.value =
         cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
     cartItems$.refresh();
+  }
+
+  deleteCartItems(Product item) {
+    cartProducts$.remove(item);
+    cartItems$.refresh();
+    cartProducts$.refresh();
+    productList$.refresh();
+    findedProducts$.refresh();
+    catalogsList$.refresh();
+    favoriteProducts$.refresh();
+    updateCartItems();
   }
 
   toSearch(HomeController controller) {

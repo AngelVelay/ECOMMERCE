@@ -149,13 +149,13 @@ class StorePage extends GetView<StoreController> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
-              child: const FadeInImage(
+              child: FadeInImage(
                 fit: BoxFit.fill,
                 placeholder: NetworkImage(
                     'https://acegif.com/wp-content/uploads/loading-11.gif'),
                 // image: NetworkImage(category.imageLink!),
-                image: NetworkImage(
-                    'https://file.adomicil.io/esperanza.tr3sco.net/_files/images/product/ecommercedivinochocolate-0734522316946891.jpg'),
+                image: NetworkImage(category.imageLink ??
+                    'https://acegif.com/wp-content/uploads/loading-11.gif'),
               ),
             ),
           )),

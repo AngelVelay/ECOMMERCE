@@ -3,9 +3,15 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
 import 'package:jexpoints/app/modules/main/entities/coupon.type.dart';
 import 'package:jexpoints/app/modules/rewards/entities/coupon.type.dart';
+import 'package:jexpoints/app/modules/rewards/services/coupons/coupons.contract.dart';
 
 class CouponDetailController extends GetxController {
+  final ICouponsService _couponsService;
+
+  CouponDetailController(this._couponsService);
+
   var coupon$ = Coupon.fromVoid().obs;
+  final couponsList$ = <dynamic>[].obs;
 
   @override
   void onInit() async {
@@ -15,6 +21,7 @@ class CouponDetailController extends GetxController {
     } else {
       Get.back();
     }
+    couponsList$.value = await _couponsService.getImages();
     super.onInit();
   }
 
