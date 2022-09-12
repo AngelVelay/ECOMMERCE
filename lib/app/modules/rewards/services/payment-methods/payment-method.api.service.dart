@@ -23,9 +23,6 @@ class PaymentMethodsService extends BaseService
         .cast<Map<String, dynamic>>()
         .map<PaymentMethods>((x) => PaymentMethods.fromJson(x))
         .toList() as List<PaymentMethods>;
-
-    // result = resultPayment;
-
     return result;
   }
 
