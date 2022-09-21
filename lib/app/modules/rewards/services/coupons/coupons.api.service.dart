@@ -28,7 +28,7 @@ class CouponsApiService extends BaseService implements ICouponsService {
         .toList() as List<Coupon>;
 
     resultCoupons1 = resultCoupons;
-
+    print(resultCoupons);
     return resultCoupons;
   }
 
