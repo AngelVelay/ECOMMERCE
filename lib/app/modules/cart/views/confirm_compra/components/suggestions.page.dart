@@ -5,6 +5,7 @@ import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
 import '../../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../../home/views/tab-home/tab-home.controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SuggestionsProducts extends GetView<HomeController> {
   const SuggestionsProducts({Key? key}) : super(key: key);
@@ -17,11 +18,11 @@ class SuggestionsProducts extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text('Sugerencias',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 13.sw,
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
           ),

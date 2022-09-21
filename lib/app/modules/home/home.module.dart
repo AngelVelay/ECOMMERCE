@@ -9,6 +9,7 @@ import 'package:jexpoints/app/modules/home/views/address/address.controller.dart
 import 'package:jexpoints/app/modules/home/views/address/address.page.dart';
 
 import 'package:jexpoints/app/modules/home/views/detail-delivery/detail-delivery.controller.dart';
+import 'package:jexpoints/app/modules/home/views/details/components/detailTopProducts.dart';
 import 'package:jexpoints/app/modules/home/views/details/detail.controller.dart';
 import 'package:jexpoints/app/modules/home/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/home/views/publicidad_detail/publicidad.controller.dart';
@@ -26,6 +27,7 @@ class HomeRouting {
   static const PUBLICIDAD_ROUTE = '/publicidad';
   static const ADDRESS_DETAIL_ROUTE = '/address-detail';
   static const DELIVERY_DETAIL = '/delivery-detail';
+  static const TOP_PRODUCTS_DETAIL_ROUTE = '/top-products';
 
   static final IAuthService authService = AuthFakeService();
   static final IAddressService addressService = AddressService();
@@ -52,6 +54,10 @@ class HomeRouting {
         name: DELIVERY_DETAIL,
         page: () => const DeliveryDetailPage(),
         binding: DeliveryDetailBinding()),
+    GetPage(
+        name: TOP_PRODUCTS_DETAIL_ROUTE,
+        page: () => DetailTopProductsPage(),
+        binding: DetailBinding())
   ];
 }
 

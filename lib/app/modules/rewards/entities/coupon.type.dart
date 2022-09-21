@@ -50,9 +50,9 @@ class Coupon {
   String? beginDate;
   String? endDate;
   String? faq;
-  int? code;
+  String code;
   String? fileManagerId;
-  String? fileManagerThumbnail;
+  String fileManagerThumbnail;
   bool? isActive;
   bool? isBySystem;
   bool? isNew;
@@ -100,7 +100,7 @@ class Coupon {
         terms: '',
         couponTypeId: 1,
         amount: 0,
-        code: 0,
+        code: '',
         beginDate: '',
         endDate: '',
         faq: '',

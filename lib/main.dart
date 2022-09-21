@@ -42,6 +42,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/auth/views/splash/splash-screen.dart';
@@ -60,23 +61,31 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: appTheme,
-      debugShowCheckedModeBanner: false,
-      initialRoute: AuthRouting.SPLASH_ROUTE,
-      defaultTransition: Transition.cupertino,
-      initialBinding: AuthBinding(),
-      getPages: AppPages.routes,
-      home: const SplashPage(),
-      supportedLocales: const [
-        Locale('es'),
-      ],
-      localizationsDelegates: const [
-        ...GlobalMaterialLocalizations.delegates,
-        GlobalWidgetsLocalizations.delegate,
-        FormBuilderLocalizations.delegate,
-      ],
-    );
+  Widget build(
+    BuildContext context,
+  ) {
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return GetMaterialApp(
+            theme: appTheme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: AuthRouting.SPLASH_ROUTE,
+            defaultTransition: Transition.cupertino,
+            initialBinding: AuthBinding(),
+            getPages: AppPages.routes,
+            home: const SplashPage(),
+            supportedLocales: const [
+              Locale('es'),
+            ],
+            localizationsDelegates: const [
+              ...GlobalMaterialLocalizations.delegates,
+              GlobalWidgetsLocalizations.delegate,
+              FormBuilderLocalizations.delegate,
+            ],
+          );
+        });
   }
 }

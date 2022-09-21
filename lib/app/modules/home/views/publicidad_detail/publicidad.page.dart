@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'publicidad.controller.dart';
@@ -14,7 +15,7 @@ class PublicidadPage extends GetView<PublicidadController> {
       body: Column(
         children: [
           _header(controller),
-          _center(),
+          _center(controller),
           _bottomButton(context, controller)
         ],
       ),
@@ -28,21 +29,20 @@ class PublicidadPage extends GetView<PublicidadController> {
           child: FadeInImage(
             fit: BoxFit.contain,
             placeholder: const AssetImage('assets/images/loading.gif'),
-            image: NetworkImage(controller.image.toString()),
+            image: NetworkImage(controller.item[0]),
           )),
     );
   }
 
-  static Widget _center() {
+  Widget _center(PublicidadController controller) {
     return Column(
-      children: const [
-        Text('Lorem Ipsum',
-            style: TextStyle(fontSize: 25, color: Colors.white)),
+      children: [
+        Text('${controller.item[1]}',
+            style: const TextStyle(fontSize: 25, color: Colors.white)),
         Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ',
-              style: TextStyle(fontSize: 16, color: Colors.white)),
+          padding: const EdgeInsets.all(10.0),
+          child: HtmlWidget('${controller.item[2]}',
+              textStyle: const TextStyle(fontSize: 16, color: Colors.white)),
         ),
       ],
     );
@@ -59,7 +59,7 @@ class PublicidadPage extends GetView<PublicidadController> {
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                    color: const Color(0xFF43578d),
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(20)),
                 child: GestureDetector(
                   onTap: () {

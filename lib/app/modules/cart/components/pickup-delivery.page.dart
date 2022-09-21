@@ -49,13 +49,13 @@ class PickUpPage extends GetView<CheckOutController> {
   Widget ExpansionTilehoUR(Branch item, BuildContext context) {
     return ExpansionTile(
       title: Text(item.name,
-          style: const TextStyle(fontSize: 12, color: Colors.black)),
+          style: const TextStyle(fontSize: 12, color: Colors.white)),
       children: [
         DropdownButtonFormField<String>(
           hint: Padding(
             padding: const EdgeInsets.only(left: 80.0),
             child: const Text('Recolección',
-                style: TextStyle(color: Colors.black)),
+                style: TextStyle(color: Colors.white)),
           ),
           focusColor: Colors.white,
           isExpanded: true,
@@ -110,7 +110,7 @@ class PickUpPage extends GetView<CheckOutController> {
             value: '${value.id}',
             child: Text(
               value.working_hours.entries.first.value.toString().toUpperCase(),
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.white),
             ),
           );
         }).toList(),

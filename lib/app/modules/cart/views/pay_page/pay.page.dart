@@ -69,7 +69,8 @@ class PayPage extends GetView<PayController> {
                     ? CardType.americanExpress
                     : CardType.other,
         // Optional if you want to override Card Type
-        showBackSide: controller.cardCVV$.value.isNotEmpty ? true : false,
+        // showBackSide: controller.cardCVV$.value.isNotEmpty ? true : false,
+        showBackSide: false,
         frontBackground: CardBackgrounds.black,
         backBackground: CardBackgrounds.white,
         showShadow: true,

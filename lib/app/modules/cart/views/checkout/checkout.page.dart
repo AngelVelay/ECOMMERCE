@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/components/draggable-button.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/address-choose.widget.dart';
@@ -12,6 +13,7 @@ import '../../../main/views/main/main.page.dart';
 import '../../../rewards/views/consume/components/tracker.dart';
 import '../../components/pickup-delivery.page.dart';
 import 'checkout.controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckOutPage extends GetView<CheckOutController> {
   const CheckOutPage({Key? key}) : super(key: key);
@@ -26,13 +28,21 @@ class CheckOutPage extends GetView<CheckOutController> {
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xff2222222),
-            title: const Text('Confirmar pedido'),
-          ),
-          body: const Center(
-              child: SingleChildScrollView(child: OnChangeDeliveryType())),
-        ),
+            appBar: AppBar(
+              backgroundColor: const Color(0xff2222222),
+              title: Text('Confirmar pedido',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold)),
+            ),
+            body: SingleChildScrollView(
+                child: Column(
+              children: const [
+                OnChangeDeliveryType(),
+              ],
+            ))),
       ),
     );
   }
@@ -56,68 +66,75 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ListTile(
-                  title: changeDeliveryType
-                      ? onChangeExpansionTilePickup()
-                      : onChangeExpansionTileDelivery(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: ListTile(
-                    trailing: TextButton(
-                        child: const Icon(
-                          Icons.add_card_rounded,
-                          size: 40,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          Get.toNamed('/add-credit-card');
-                        }
-
-                        // controller.adreesTap(context);
-                        ),
-                    title: const Text(
-                      'Forma de Pago:',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    subtitle: Text('5468 5684 5865 XXXX'),
-                  ),
-                ),
-                const Divider(thickness: 2),
-                _detailDelivery(),
-                Center(
-                  child: Column(
-                    children: const [
-                      // const Timeline(),
-                      // _buttonConfirmDelivery(context),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        _buttonConfirmDelivery(context)
+        _addressWidget(),
+        _changeDeliveryandMethodPay(),
+        _buttonConfirm(context),
+        _terms()
+        // _buttonConfirmDelivery(context)
       ],
     );
   }
 
+  Widget _addressWidget() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 50.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.location_on, color: Colors.white, size: 30),
+          const SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Av. Vicente Suárez #114. Col. Condesa...',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.sp,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w600)),
+              Text('Cerca de',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12.sp,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400)),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _changeDeliveryandMethodPay() {
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(children: [
+          changeDeliveryType
+              ? onChangeExpansionTilePickup()
+              : onChangeExpansionTileDelivery(),
+          _paymentMethod(),
+          SizedBox(height: 20.h),
+          const Divider(
+            color: Color(0xff2d2d2d2d2),
+            thickness: 1,
+          ),
+        ]),
+      ),
+      _detailDelivery()
+    ]);
+  }
+
   Widget onChangeExpansionTileDelivery() {
     return ExpansionTile(
+        title: const Text(
+          'Entrega a Domicilio',
+          style: TextStyle(color: Colors.white),
+        ),
         trailing: TextButton(
             child: const Icon(
-              Icons.change_circle_outlined,
-              size: 40,
-              color: Colors.black,
+              Icons.more_vert_rounded,
+              color: Colors.white,
             ),
             onPressed: () {
               showDialog(
@@ -130,10 +147,6 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
               //   changeDeliveryType = !changeDeliveryType;
               // });
             }),
-        title: const Text(
-          'Entregar en Domicilio',
-          style: TextStyle(color: Colors.black),
-        ),
         children: [
           SizedBox(
             width: double.infinity,
@@ -144,11 +157,10 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
 
   Widget onChangeExpansionTilePickup() {
     return ExpansionTile(
-        trailing: TextButton(
-            child: const Icon(
-              Icons.change_circle_outlined,
-              size: 40,
-              color: Colors.black,
+        trailing: IconButton(
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
             ),
             onPressed: () {
               showDialog(
@@ -163,7 +175,7 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
             }),
         title: const Text(
           'Recoger en Sucursal cerca de CP:14200',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         children: const [
           SizedBox(
@@ -173,58 +185,107 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
         ]);
   }
 
+  Widget _paymentMethod() {
+    return Column(children: [
+      ListTile(
+          title: Text('Forma de Pago', style: TextStyle(color: Colors.white)),
+          subtitle: Row(
+            children: [
+              const Text('XXXX - XXXX - XXXX - 1234',
+                  style: TextStyle(color: Colors.white)),
+              const SizedBox(width: 20),
+              Image.asset('assets/images/mastercard.png', height: 35)
+            ],
+          ),
+          trailing: IconButton(
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.toNamed('/add-credit-card');
+            },
+          )),
+    ]);
+  }
+
   Widget _detailDelivery() {
-    return Column(
-      children: [
-        ListTile(
-          title: const Text(
-            'Cupon de descuento',
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.black),
-          ),
-          leading: const Icon(
-            Icons.card_giftcard_rounded,
-            color: Colors.black,
-          ),
-          trailing: Text(
-            ' - \$${controller.coupons.amount}',
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+      child: Card(
+        color: const Color(0xff222222),
+        child: Column(
+          children: [
+            ListTile(
+              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              title: Text(
+                'SUBTOTAL',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white),
+              ),
+              trailing: Text(
+                ' - \$${controller.coupons.amount}',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            ListTile(
+              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              title: Text(
+                'DESCUENTO',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white),
+              ),
+              trailing: Text(
+                ' - \$${controller.coupons.amount}',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              ),
+            ),
+            ListTile(
+              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              title: Text(
+                'ENVIO',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white),
+              ),
+              trailing: Text(
+                '\$ 50.00',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'TOTAL',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              trailing: Text(
+                '\$ ${controller.total - controller.coupons.amount}',
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          ],
         ),
-        const ListTile(
-          title: Text(
-            'Envio',
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.black),
-          ),
-          leading: Icon(
-            Icons.local_shipping,
-            color: Colors.black,
-          ),
-          trailing: Text(
-            '\$ 50.00',
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-          ),
-        ),
-        ListTile(
-          title: const Text(
-            'Total',
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          trailing: Text(
-            '\$ ${controller.total - controller.coupons.amount}',
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -278,4 +339,105 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
                   // controller.toPickup();
                 })));
   }
+
+  Widget _buttonConfirm(context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.white,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(30))),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: TextButton(
+                  onPressed: () {
+                    !changeDeliveryType
+                        ? controller.changeMetodPickup()
+                        : controller.changeMethodDelivery();
+                  },
+                  child: Text(
+                    'Confirmar Compra',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                        fontFamily: 'Montserrat',
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
+Widget _terms() {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Card(
+      color: Color(0xff222222),
+      child: Text(
+          'Al confirmar la compra acepta nuestros términos y condiciones dentro de la app ESPERANZA. Para soluciones y y/ocnsultas favor de comunicarse a contacto2@esperanza.mx',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10.sp,
+          ),
+          textAlign: TextAlign.center),
+    ),
+  );
+}
+// Padding(
+//   padding: const EdgeInsets.all(10.0),
+//   child: Card(
+//     shape: RoundedRectangleBorder(
+//       borderRadius: BorderRadius.circular(15.0),
+//     ),
+//     child: Column(
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       children: [
+//         ListTile(
+//           title: changeDeliveryType
+//               ? onChangeExpansionTilePickup()
+//               : onChangeExpansionTileDelivery(),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 15.0),
+//           child: ListTile(
+//             trailing: TextButton(
+//                 child: const Icon(
+//                   Icons.add_card_rounded,
+//                   size: 40,
+//                   color: Colors.black,
+//                 ),
+//                 onPressed: () {
+//                   Get.toNamed('/add-credit-card');
+//                 }
+
+//                 // controller.adreesTap(context);
+//                 ),
+//             title: const Text(
+//               'Forma de Pago:',
+//               style: TextStyle(color: Colors.black),
+//             ),
+//             subtitle: Text('5468 5684 5865 XXXX'),
+//           ),
+//         ),
+//         const Divider(thickness: 2),
+//         _detailDelivery(),
+//         Center(
+//           child: Column(
+//             children: const [
+//               // const Timeline(),
+//               // _buttonConfirmDelivery(context),
+//             ],
+//           ),
+//         )
+//       ],
+//     ),
+//   ),
+// ),

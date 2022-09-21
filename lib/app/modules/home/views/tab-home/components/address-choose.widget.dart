@@ -41,7 +41,7 @@ class HomeAddressSelect extends GetView<HomeController> {
       ),
       const SizedBox(width: 10),
       Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipCode}',
-          style: const TextStyle(fontSize: 12, color: Colors.black)),
+          style: const TextStyle(fontSize: 12, color: Colors.white)),
     ]);
   }
 

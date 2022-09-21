@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jexpoints/app/modules/cart/cart.module.dart';
@@ -14,17 +15,6 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
     return GetBuilder<DetailDeliveryController>(
         builder: (value) => SafeArea(
               child: Scaffold(
-                appBar: AppBar(
-                  title: Text('Detalle de entrega'),
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.shopping_cart_sharp),
-                      onPressed: () {
-                        Get.toNamed(CartRouting.CONFIRM_COMPRA_ROUTE);
-                      },
-                    ),
-                  ],
-                ),
                 backgroundColor: Colors.white,
                 body: Stack(
                   children: [
@@ -49,24 +39,18 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: Offset(0, 3))
-          ]),
+      decoration: BoxDecoration(color: Colors.grey[900], boxShadow: [
+        BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 4,
+            blurRadius: 6,
+            offset: Offset(0, 3))
+      ]),
       child: Column(
         children: [
           _listTileAddress(
-              'Calle HardCodeada #123', 'Total: \$ 239', Icons.map),
-          const Divider(color: Colors.grey, endIndent: 30, indent: 30),
+              'Av. Vicente Suárez # 114', 'Total: \$ 239', ' 30 min'),
+          const Divider(color: Colors.white, endIndent: 30, indent: 30),
           _clientInfo(),
           // _buttonAccept(context)
         ],
@@ -77,35 +61,69 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
   Widget _clientInfo() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          const Text(
-            'Contacta a tu repartidor',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          const SizedBox(height: 20),
+          _imageClient(),
+          const SizedBox(width: 10),
           Row(
             children: [
-              _imageClient(),
-              const SizedBox(width: 15),
-              const Text(
-                'Juan Perez',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
-                maxLines: 1,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'CONTACTA A TU REPARTIDOR',
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Juan Luis Guerra Orendain',
+                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                      ),
+                      Text(
+                        '+52 5689457812',
+                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.white,
+                            size: 20.sp,
+                          ),
+                          Text(
+                            '4.5',
+                            style:
+                                TextStyle(fontSize: 12.sp, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              Spacer(),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: Colors.grey[200]),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.phone, color: Colors.black),
-                ),
+              Row(
+                children: const [
+                  Icon(
+                    Icons.message,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ],
               )
             ],
           ),
@@ -116,11 +134,11 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
 
   Widget _imageClient() {
     return Container(
-      height: 50,
-      width: 50,
+      height: 80,
+      width: 80,
       // padding: EdgeInsets.all(2),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(10),
         child: const FadeInImage(
           image: NetworkImage(
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPlFxRo99ZEh-jQFexnZizgCtNJVC-8MYf_DUtnPziUMxQOxOSIDqhRwe8fJMN3sUisz0&usqp=CAU'),
@@ -133,7 +151,7 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
     );
   }
 
-  Widget _listTileAddress(String title, String subtitle, IconData iconData) {
+  Widget _listTileAddress(String title, String subtitle, String trailing) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: ListTile(
@@ -145,9 +163,9 @@ class DeliveryDetailPage extends GetView<DetailDeliveryController> {
           subtitle,
           style: TextStyle(color: Colors.white),
         ),
-        trailing: Icon(
-          iconData,
-          color: Colors.white,
+        trailing: Text(
+          trailing,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -1,13 +1,13 @@
-// ignore_for_file: iterable_contains_unrelated_type
-
 import 'package:flutter/material.dart'
     show BuildContext, FocusScope, Navigator, TextEditingController;
 import 'package:get/get.dart';
+import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
 import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.contract.dart';
+import 'package:jexpoints/app/modules/home/views/details/components/detailTopProducts.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home-search/tab-home-search.page.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
@@ -24,6 +24,7 @@ import '../../../rewards/entities/coupon.type.dart';
 import '../../../rewards/rewards.module.dart';
 import '../../../rewards/services/coupons/coupons.contract.dart';
 
+import '../../entities/posters.type.dart';
 import '../../home.module.dart';
 
 class HomeController extends GetxController {
@@ -37,6 +38,9 @@ class HomeController extends GetxController {
 
   final keywordCtrl = TextEditingController();
   late var flyerList$ = <dynamic>[].obs;
+  late var posterList$ = <dynamic>[].obs;
+  final couponImage$ = <dynamic>[].obs;
+
   late var productList$ = <Product>[].obs;
   late var productsPackList$ = <Product>[].obs;
   late var variableProductsList$ = <Product>[].obs;
@@ -98,6 +102,8 @@ class HomeController extends GetxController {
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
     flyerList$.value = await flyersService.getBanners();
+    posterList$.value = await flyersService.getAll();
+
     pointsLevel$.value = await pointLevelService.getPoints();
 
     // flyerList$.value = await flyersService.getFlyers();
@@ -114,6 +120,9 @@ class HomeController extends GetxController {
     if (coupons$.isNotEmpty) {
       defaultCoupon$.value = coupons$.first;
     }
+
+    couponImage$.value = await couponsService.getImages();
+
     addressList$.value = await addressService.getFromCurrent();
     if (addressList$.isNotEmpty) {
       selectedAddress$.value =
@@ -122,7 +131,7 @@ class HomeController extends GetxController {
   }
 
   addCart(Product item, context) {
-    item.cartValue = item.cartValue! + 1;
+    item.cartValue = item.cartValue + 1;
     if (!cartProducts$.any((element) => element.id == item.id)) {
       cartProducts$.add(item);
     }
@@ -136,7 +145,7 @@ class HomeController extends GetxController {
   }
 
   deleteCart(Product item) {
-    item.cartValue = item.cartValue! - 1;
+    item.cartValue = item.cartValue - 1;
     if (item.cartValue == 0) {
       cartProducts$.remove(item);
     }
@@ -150,7 +159,7 @@ class HomeController extends GetxController {
 
   updateCartItems() {
     cartItems$.value =
-        cartProducts$.map((e) => e.cartValue!).reduce((a, b) => a + b);
+        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
     cartItems$.refresh();
   }
 
@@ -174,13 +183,28 @@ class HomeController extends GetxController {
     FocusScope.of(context).unfocus();
   }
 
-  toFlyer(item) {
-    Get.toNamed(HomeRouting.PUBLICIDAD_ROUTE, arguments: item);
+  toFlyer(Posters item) {
+    Get.toNamed(HomeRouting.PUBLICIDAD_ROUTE, arguments: [
+      item.appFileManagerThumbnail,
+      item.name,
+      item.description,
+      item.appFileManagerId
+    ]);
   }
 
   toProductDetail(Product item) {
     Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {"product": item});
   }
+
+  // toProductDetailTopProducts(ImpulseProducts item) {
+  //   Get.toNamed(HomeRouting.TOP_PRODUCTS_DETAIL_ROUTE, arguments: [
+  //     item.product.imageLink,
+  //     item.product.name,
+  //     item.product.description,
+  //     item.product.imageFileId,
+  //     item.product.topRate,
+  //   ]);
+  // }
 
   addressSelect(Address item, BuildContext context) {
     selectedAddress$.value = item;
@@ -219,7 +243,7 @@ class HomeController extends GetxController {
 
   subtotalBuy() {
     return subtotal$ = double.parse(cartProducts$
-        .map((e) => e.price * e.cartValue!)
+        .map((e) => e.price * e.cartValue)
         .reduce((a, b) => a + b)
         .toString());
   }

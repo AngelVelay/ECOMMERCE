@@ -15,6 +15,7 @@ class CouponsController extends GetxController {
   var coupons$ = <dynamic>[].obs;
   var selectedCoupon$ = Coupon.fromVoid().obs;
   final couponsList$ = <dynamic>[].obs;
+  final couponImage$ = <dynamic>[].obs;
 
   // var couponsImages$ = <dynamic>[].obs;
 
@@ -22,8 +23,8 @@ class CouponsController extends GetxController {
 
   @override
   void onInit() async {
-    var coupons = await _couponsService.getImages();
-    var coupons1 = await _couponsService.getAll();
+    // var coupons = await _couponsService.getImages();
+    // var coupons1 = await _couponsService.getAll();
     var image = await _couponsService.getFileId();
 
     // couponsList$.value = await _couponsService.getImages() as List<dynamic>;
@@ -36,7 +37,9 @@ class CouponsController extends GetxController {
     //   e.formattedValidTo = formatter.format(e.validTo);
     // }
 
-    coupons$.value = coupons1;
+    coupons$.value = await _couponsService.getAll();
+    couponImage$.value = await _couponsService.getImages();
+
     super.onInit();
   }
 

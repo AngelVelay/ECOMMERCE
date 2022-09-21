@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button-alt.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -32,15 +33,19 @@ class DraggableButton extends StatelessWidget {
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 builder: (context) => Container(
+                  color: Colors.black,
                   height: MediaQuery.of(context).copyWith().size.height * 0.35,
                   child: Column(
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          'Sigue tu pedido',
+                          'SIGUE TU PEDIDO',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat',
+                              color: Colors.white),
                         ),
                       ),
                       Container(
@@ -65,14 +70,35 @@ class DraggableButton extends StatelessWidget {
 
 Widget _buttonDetail() {
   return Padding(
-    padding: const EdgeInsets.all(20.0),
+    padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 30),
     child: Container(
-      width: double.infinity,
-      child: CustomRoundedButtonAlt(
-        onPressed: () {
-          Get.toNamed('/delivery-detail');
-        },
-        text: 'Ver detalle',
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(30))),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: TextButton(
+                  onPressed: () {
+                    Get.toNamed('/delivery-detail');
+                  },
+                  child: Text(
+                    'Ver detalle',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                        fontFamily: 'Montserrat',
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
+          ),
+        ],
       ),
     ),
   );

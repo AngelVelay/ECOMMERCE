@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -25,32 +26,35 @@ class InterestedProducts extends GetView<HomeController> {
 
   Widget _header() {
     return SizedBox(
-      width: double.infinity,
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/top_semanal.png',
-                height: 35,
-                fit: BoxFit.cover,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-                Text('Te   ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30, color: Colors.white)),
-                Text('pueden interesar',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: 'NewYork',
-                        fontSize: 30,
-                        color: Colors.white)),
-              ]),
-              const SizedBox(height: 10),
-            ],
-          )),
-    );
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Image.asset(
+            //   'assets/images/top_semanal.png',
+            //   height: 35,
+            //   fit: BoxFit.cover,
+            // ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text('TE PUEDEN  ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'Montserrat')),
+              Text('INTERESAR',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 12.sp,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white)),
+            ]),
+            const SizedBox(height: 10),
+          ],
+        ));
   }
 
   Widget _list(BuildContext context) {
@@ -69,13 +73,13 @@ class InterestedProducts extends GetView<HomeController> {
     return Container(
       width: 130,
       height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: [
           GestureDetector(
             onTap: () => controller.toProductDetail(item),
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(10),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(

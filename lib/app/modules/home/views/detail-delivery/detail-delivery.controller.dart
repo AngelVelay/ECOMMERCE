@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,7 +11,7 @@ import 'package:location/location.dart' as location;
 
 class DetailDeliveryController extends GetxController {
   CameraPosition initialPosition =
-      const CameraPosition(target: LatLng(19.4279804, -99.1610907), zoom: 10);
+      const CameraPosition(target: LatLng(19.4279804, -99.1610907), zoom: 16);
 
   LatLng? addressLatLng;
   var addressName = ''.obs;
@@ -94,9 +93,8 @@ class DetailDeliveryController extends GetxController {
   }
 
   void checkGPS() async {
-    deliveryIcon =
-        await createMarkerFromAsset('assets/markers_maps/repartidor.png');
-    homeIcon = await createMarkerFromAsset('assets/markers_maps/hogar.png');
+    deliveryIcon = await createMarkerFromAsset('assets/images/moto1.png');
+    homeIcon = await createMarkerFromAsset('assets/images/home.png');
 
     bool isLocationEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -150,7 +148,7 @@ class DetailDeliveryController extends GetxController {
     Polyline polyline = Polyline(
       polylineId: PolylineId('poly'),
       points: points,
-      color: Colors.red,
+      color: Colors.black,
       width: 3,
     );
 
@@ -161,7 +159,7 @@ class DetailDeliveryController extends GetxController {
   Future animateCameraPosition(double lat, double lng) async {
     GoogleMapController controller = await mapController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 13, bearing: 0)));
+        CameraPosition(target: LatLng(lat, lng), zoom: 16, bearing: 0)));
   }
 
   Future<Position> _determinePosition() async {
@@ -191,8 +189,68 @@ class DetailDeliveryController extends GetxController {
 
   void onMapCreate(GoogleMapController controller) {
     try {
-      controller.setMapStyle(
-          '[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]');
+      controller.setMapStyle('''[
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+]''');
       mapController.complete(controller);
     } catch (e) {
       print('Error: ${e}');

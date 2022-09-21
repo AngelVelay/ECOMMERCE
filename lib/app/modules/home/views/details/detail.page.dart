@@ -17,7 +17,7 @@ class DetailPage extends GetView<DetailController> {
           backgroundColor: const Color(0xFF222222),
         ),
         body: Column(children: [
-          _image(controller),
+          Expanded(child: _image(controller)),
           const SizedBox(height: 20),
           _center(context, controller),
           const SizedBox(height: 20),
@@ -40,11 +40,10 @@ class DetailPage extends GetView<DetailController> {
       children: [
         Text(controller.itemDetail.name.toString(),
             style: const TextStyle(fontSize: 25, color: Colors.white)),
-        _rateProducts(controller.itemDetail),
-        const Padding(
+        // _rateProducts(controller.itemDetail),
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ',
+          child: Text(controller.itemDetail.description.toString(),
               style: TextStyle(fontSize: 16, color: Colors.white)),
         ),
         const SizedBox(

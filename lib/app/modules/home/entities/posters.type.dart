@@ -27,7 +27,7 @@ class Posters {
   String title;
   String description;
   String appFileManagerId;
-  String? appFileManagerThumbnail;
+  String appFileManagerThumbnail;
   String? webAppFileManagerId;
   String? webAppFileManagerThumbnail;
   DateTime beginDate;

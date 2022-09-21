@@ -139,9 +139,8 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
             opacity: percent,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(children: [userCardNumber()])
                 ],

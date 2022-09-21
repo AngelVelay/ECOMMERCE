@@ -9,6 +9,7 @@ import 'package:jexpoints/app/modules/home/views/tab-home/components/header.widg
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/views/variable-products/variable-products.page.dart';
 
+import '../../entities/posters.type.dart';
 import 'components/top-products.widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -128,10 +129,12 @@ class HomePage extends GetView<HomeController> {
       children: [
         Obx(() {
           return CarouselSlider.builder(
-            itemCount: controller.flyerList$.length,
+            itemCount: controller.posterList$
+                .where((p0) => p0.isActive == true)
+                .length,
             itemBuilder: (context, index, realIndex) {
-              return controller.flyerList$.isNotEmpty
-                  ? _flyerItem(controller.flyerList$[index])
+              return controller.posterList$.isNotEmpty
+                  ? _flyerItem(controller.posterList$[index])
                   : Container();
             },
             options: CarouselOptions(
@@ -145,27 +148,35 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  Widget _flyerItem(item) {
+  Widget _flyerItem(Posters item) {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         child: SizedBox(
             width: 600,
             height: 600,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: GestureDetector(
-                onTap: () => controller.toFlyer(item['fileLink']),
-                child: FadeInImage(
-                    width: 600,
-                    fit: BoxFit.fill,
-                    placeholder: const NetworkImage(
-                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item['fileLink'] ??
-                        'https://w7.pngwing.com/pngs/819/548/png-transparent-photo-image-landscape-icon-images-thumbnail.png')),
-              ),
-            )));
+                borderRadius: BorderRadius.circular(5),
+                child: GestureDetector(
+                  onTap: () => controller.toFlyer(item),
+                  child: item.isActive == true
+                      ? Image.network(
+                          item.appFileManagerThumbnail,
+                          fit: BoxFit.cover,
+                          width: 600,
+                        )
+                      : Container(),
+                ))));
   }
 
+// FadeInImage(
+//                     width: 600,
+//                     fit: BoxFit.fill,
+//                     placeholder: const NetworkImage(
+//                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
+//                     image: item.isActive == true
+//                         ? NetworkImage(item.appFileManagerThumbnail)
+//                         : Container(),
+//               ),
   _makePackage(product, BuildContext context) async {
     product.contains('Coca-Cola') && product.contains('Pollo Rostizado')
         ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(

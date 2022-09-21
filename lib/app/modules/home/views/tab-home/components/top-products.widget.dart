@@ -70,13 +70,13 @@ class HomeTopProducts extends GetView<HomeController> {
             itemCount: controller.productsImpulseList$.length,
             itemBuilder: (_, int index) {
               return _itemWidget(
-                  context, controller.productsImpulseList$[index]);
+                  context, controller.productsImpulseList$[index].product);
             }),
       );
     });
   }
 
-  Widget _itemWidget(BuildContext context, ImpulseProducts item) {
+  Widget _itemWidget(BuildContext context, Product item) {
     double itemSize = 130;
     return Container(
       width: itemSize,
@@ -85,14 +85,14 @@ class HomeTopProducts extends GetView<HomeController> {
       child: Column(
         children: [
           GestureDetector(
-            // onTap: () => controller.toProductDetail(item.product),
+            onTap: () => controller.toProductDetail(item),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.product.imageLink),
+                    image: NetworkImage(item.imageLink),
                     width: double.infinity,
                     height: itemSize,
                     fit: BoxFit.cover,
@@ -102,7 +102,7 @@ class HomeTopProducts extends GetView<HomeController> {
           const SizedBox(
             height: 5,
           ),
-          Text(item.product.name,
+          Text(item.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               softWrap: false,
@@ -112,7 +112,7 @@ class HomeTopProducts extends GetView<HomeController> {
                   fontSize: 13,
                   fontFamily: 'Montserrat-Regular')),
           Text(
-            '\$ ${item.product.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
+            '\$ ${item.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -121,7 +121,7 @@ class HomeTopProducts extends GetView<HomeController> {
                 fontFamily: 'Montserrat-Bold',
                 color: Colors.white),
           ),
-          // HomeCartControls(item.product),
+          HomeCartControls(item),
         ],
       ),
     );

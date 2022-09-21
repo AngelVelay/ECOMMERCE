@@ -32,11 +32,11 @@ class Product {
       required this.price,
       required this.points,
       required this.topRate,
-      this.description,
+      required this.description,
       this.category,
       this.externalId,
       this.externalCode,
-      this.cartValue,
+      required this.cartValue,
       this.isFavorite,
       this.quantity});
 
@@ -49,12 +49,12 @@ class Product {
   double price;
   int points;
   int topRate;
-  String? description;
+  String description;
   Category? category;
   String? externalId;
   String? externalCode;
 
-  int? cartValue;
+  int cartValue;
   bool? isFavorite;
   dynamic quantity;
 
@@ -76,6 +76,7 @@ class Product {
         points: json["points"],
         description: json["description"],
         topRate: json["topRate"],
+        cartValue: 0,
       );
 
   Map<String, dynamic> toJson() => {

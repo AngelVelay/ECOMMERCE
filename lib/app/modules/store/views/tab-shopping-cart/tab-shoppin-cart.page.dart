@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:jexpoints/app/modules/cart/views/checkout/checkout.controller.dart';
 
 import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 
-import '../../../cart/components/apply-coupon.page.dart';
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
 import '../../../main/entities/product.type.dart';
-import 'tab-shopping-cart.controller.dart';
 
 class ShoppingCartPage extends StatelessWidget {
   ShoppingCartPage({Key? key}) : super(key: key);
@@ -22,11 +21,11 @@ class ShoppingCartPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xff2222222),
-        title: const Text(
+        title: Text(
           'Mi carrito',
           style: TextStyle(
               color: Colors.white,
-              fontSize: 13,
+              fontSize: 13.sp,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.bold),
         ).paddingSymmetric(horizontal: 10),
@@ -57,25 +56,47 @@ class ShoppingCartPage extends StatelessWidget {
           })).paddingSymmetric(horizontal: 10),
         ],
       ),
-      body: Column(children: [
-        Expanded(
-            flex: 2,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _addressWidget(),
-                  _cartProductList(
-                    context,
-                    controller,
-                  ),
-                ],
+      body: controller.cartProducts$.isNotEmpty
+          ? Column(children: [
+              Expanded(
+                  flex: 2,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _addressWidget(),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: _cartProductList(
+                            context,
+                            controller,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  child: Column(
+                children: [applyCouponButton(), buttonTotalToogle(context)],
+              )) // _button()
+            ])
+          : SizedBox(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.remove_shopping_cart_outlined,
+                      color: Colors.grey,
+                      size: 100,
+                    ),
+                    Text(
+                      "No hay productos en el carrito",
+                      style: TextStyle(fontSize: 20, color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
-            )),
-        Expanded(
-            child: Column(
-          children: [applyCouponButton(), buttonTotalToogle()],
-        )) // _button()
-      ]),
+            ),
       // ApplyCoupon()
     ));
   }
@@ -86,18 +107,18 @@ class ShoppingCartPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.location_on, color: Colors.white),
+          const Icon(Icons.location_on, color: Colors.white, size: 30),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text('Av. Vicente Suárez #114. Col. Condesa...',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12,
+                      fontSize: 15.sp,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold)),
-              Text('Calle 1 # 2 - 3',
+              const Text('Cerca de',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,
@@ -153,6 +174,7 @@ class ShoppingCartPage extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: FadeInImage(
+                    fit: BoxFit.cover,
                     placeholder: const NetworkImage(
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.imageLink),
@@ -215,7 +237,7 @@ class ShoppingCartPage extends StatelessWidget {
 
   Widget applyCouponButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      padding: const EdgeInsets.only(right: 20.0, left: 20, top: 30),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(
@@ -227,15 +249,14 @@ class ShoppingCartPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextButton(
-                  onPressed: () {
-                    controller.toSuggestions();
-                  },
-                  child: const Text(
+                  onPressed: () {},
+                  child: Text(
                     'Codigo de Descuento',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 13,
+                        fontSize: 10.sp,
                         fontFamily: 'Montserrat',
+                        fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold),
                   )),
             ),
@@ -245,7 +266,7 @@ class ShoppingCartPage extends StatelessWidget {
     );
   }
 
-  Widget buttonTotalToogle() {
+  Widget buttonTotalToogle(context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -262,13 +283,36 @@ class ShoppingCartPage extends StatelessWidget {
               ),
             ),
             TextButton(
-                onPressed: () {},
-                child: const ListTile(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    builder: (context) => Container(
+                      color: Color(0xff222222),
+                      height:
+                          MediaQuery.of(context).copyWith().size.height * 0.37,
+                      child: Column(
+                        children: [
+                          Container(
+                            child: _detailTotal(controller),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                   title: Text(
-                    'Subtotal',
+                    'SUBTOTAL',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold),
                   ),
@@ -276,7 +320,7 @@ class ShoppingCartPage extends StatelessWidget {
                     '\$ 1,000.00',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold),
                   ),
@@ -286,60 +330,121 @@ class ShoppingCartPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _button() {
-    return controller.cartProducts$.isNotEmpty
-        ? SizedBox(
-            width: double.infinity,
-            child: CustomRoundedButton(
-                    text: 'Continuar',
-                    onPressed: () => controller.toSuggestions())
-                .paddingSymmetric(horizontal: 20),
-          )
-        // Expanded(
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(
-        //         horizontal: 20.0,
-        //       ),
-        //       child: SizedBox(
-        //         width: double.infinity,
-        //         height: 60,
-        //         child: CustomRoundedButton(
-        //             text: 'Pagar',
-        //             onPressed: () => controller.toAddCreditCard()),
-        //       ),
-        //     ),
-        //   )
-        : Container();
-    // ? Padding(
-    //     padding: const EdgeInsets.only(
-    //         top: 20.0, left: 20, right: 20, bottom: 20),
-    //     child: SizedBox(
-    //       height: 60,
-    //       width: double.infinity,
-    //       child: ElevatedButton.icon(
-    //         style: ButtonStyle(
-    //             backgroundColor: MaterialStateProperty.all<Color>(
-    //               const Color(0xFF43578d),
-    //             ),
-    //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-    //                 RoundedRectangleBorder(
-    //                     borderRadius: BorderRadius.circular(18.0),
-    //                     side: const BorderSide(color: Colors.black)))),
-    //         icon: const Icon(
-    //           Icons.monetization_on,
-    //           size: 20,
-    //         ),
-    //         onPressed: controller.cartProducts$.length > 0
-    //             ? () => controller.toAddCreditCard()
-    //             : null,
-    //         label: const Text('Pagar',
-    //             style: TextStyle(
-    //                 fontWeight: FontWeight.bold,
-    //                 fontSize: 20,
-    //                 color: Colors.white)),
-    //       ),
-    //     ),
-    //   )
-  }
+Widget _detailTotal(HomeController controller) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+    child: Card(
+      color: const Color(0xff222222),
+      child: Column(
+        children: [
+          ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+            title: Text(
+              'SUBTOTAL',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white),
+            ),
+            trailing: Text(
+              ' - \$${controller.subtotal$}',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+          ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+            title: Text(
+              'DESCUENTO',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white),
+            ),
+            trailing: Text(
+              ' - \$${controller.total$ - controller.subtotal$}',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red),
+            ),
+          ),
+          ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+            title: Text(
+              'ENVIO',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white),
+            ),
+            trailing: Text(
+              '\$ 50.00',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'TOTAL',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            trailing: Text(
+              '\$ ${controller.total$ - controller.subtotal$ + 50}',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+          continueButton(controller)
+        ],
+      ),
+    ),
+  );
+}
+
+Widget continueButton(controller) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 20.0, left: 20),
+    child: Container(
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(30))),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: TextButton(
+                onPressed: () {
+                  controller.toSuggestions();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'Continuar',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10.sp,
+                        fontFamily: 'Montserrat',
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+          ),
+        ],
+      ),
+    ),
+  );
 }

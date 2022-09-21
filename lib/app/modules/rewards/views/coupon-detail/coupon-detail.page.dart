@@ -33,12 +33,11 @@ class CouponDetailPage extends GetView<CouponDetailController> {
 
   Widget _header() {
     return SizedBox(
-      width: double.infinity,
-      height: 300,
-      child: Image(
-        image: NetworkImage(controller.coupon$.value.fileManagerThumbnail!),
-      ),
-    );
+        width: double.infinity,
+        height: 300,
+        child: Obx(() => controller.couponImage$.value != ''
+            ? Image.network(controller.couponImage$.value)
+            : const Center(child: CircularProgressIndicator())));
   }
 
   Widget _title() {
@@ -49,7 +48,7 @@ class CouponDetailPage extends GetView<CouponDetailController> {
   Widget _center() {
     return Column(
       children: [
-        Text('Valido Hasta ${controller.coupon$.value.formattedValidTo}',
+        Text('Valido Hasta ${controller.coupon$.value.endDate}',
             style: const TextStyle(fontSize: 14, color: Colors.white70)),
         Padding(
           padding: const EdgeInsets.all(10),
