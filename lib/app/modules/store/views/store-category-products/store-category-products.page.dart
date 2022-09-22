@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -21,7 +22,14 @@ class StoreCategoryProductsPage
         child: GetBuilder<StoreCategoryProductsController>(
           builder: (value) => Scaffold(
               appBar: AppBar(
-                title: Text(controller.category.name),
+                title: Text(
+                  controller.category.name,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold),
+                ),
               ),
               body: SingleChildScrollView(
                 child: Column(children: <Widget>[
