@@ -17,61 +17,70 @@ class ConsumePage extends GetView<ConsumeController> {
     return SafeArea(
         top: false,
         child: Scaffold(
-            appBar: AppBar(
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () =>
-                      showSearch(context: context, delegate: ConsumeSerarch()),
-                )
-              ],
-            ),
-            body: PageView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _header(),
-                    _title('Compras', Icons.shopping_basket_sharp),
-                    _consumeList(context),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _header(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _title('Metodos de Pago', Icons.credit_card),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _listPayment(context),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _header(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _title('Direcciónes', Icons.house),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: _listAddress(context),
-                    ),
-                  ],
-                ),
-              ],
-            )));
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () =>
+                    showSearch(context: context, delegate: ConsumeSerarch()),
+              )
+            ],
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _header(),
+              _title('Compras', Icons.shopping_basket_sharp),
+              _consumeList(context),
+            ],
+          ),
+          // body: PageView(
+          //   scrollDirection: Axis.horizontal,
+          //   physics: const BouncingScrollPhysics(),
+          //   children: [
+          //     Column(
+          //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //       children: [
+          //         _header(),
+          //         _title('Compras', Icons.shopping_basket_sharp),
+          //         _consumeList(context),
+          //       ],
+          //     ),
+          //     Column(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _header(),
+          //         ),
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _title('Metodos de Pago', Icons.credit_card),
+          //         ),
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _listPayment(context),
+          //         ),
+          //       ],
+          //     ),
+          //     Column(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _header(),
+          //         ),
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _title('Direcciónes', Icons.house),
+          //         ),
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //           child: _listAddress(context),
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ),
+        ));
   }
 
   // Widget _pageBody(context) {

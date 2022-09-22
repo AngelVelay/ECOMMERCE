@@ -27,16 +27,17 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     final proportion = 2 - (expandedHeight / appBarSize);
     final percent = proportion < 0 || proportion > 1 ? 0.0 : proportion;
     return SizedBox(
-      height: expandedHeight + expandedHeight / 2,
-      child: Stack(children: [
-        //_userCardNumber(percent, appBarSize),
-        _minimizedHeader(context, percent, appBarSize),
-        _header(context, percent),
-        // _qrCode(context, percent),
-        // // _searchInput(context, percent),
-        // _zipCodeLabelWrapper(context, percent)
-      ]),
-    );
+        height: expandedHeight + expandedHeight / 2,
+        child: Obx((() {
+          return Stack(children: [
+            //_userCardNumber(percent, appBarSize),
+            _minimizedHeader(context, percent, appBarSize),
+            _header(context, percent),
+            // _qrCode(context, percent),
+            // // _searchInput(context, percent),
+            // _zipCodeLabelWrapper(context, percent)
+          ]);
+        })));
   }
 
   @override
@@ -60,59 +61,33 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           backgroundColor: const Color(0xFF222222),
           title: Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: controller.pointsLevel$.isNotEmpty
-                  ? Expanded(
-                      child: controller.pointsLevel$.first.initialPoints! >= 100
+              child: controller.pointsLevel$.isEmpty
+                  ? const CircularProgressIndicator(
+                      color: Colors.transparent,
+                    )
+                  : controller.pointsLevel$.first.initialPoints! <= 100
+                      ? FadeInImage(
+                          placeholder: const AssetImage(
+                              'assets/cards/card_title_platino.png'),
+                          image: NetworkImage(
+                              '${controller.pointsLevel$[0].cardHeaderFile}'),
+                          fit: BoxFit.cover,
+                        )
+                      : controller.pointsLevel$[1].initialPoints! <= 500
                           ? FadeInImage(
                               placeholder: const AssetImage(
-                                  'assets/cards/card_background_platino.png'),
+                                  'assets/cards/card_title_gold.png'),
                               image: NetworkImage(
-                                  '${controller.pointsLevel$.last.cardHeaderFile}'),
-                              height: 100,
+                                  '${controller.pointsLevel$[1].cardHeaderFile}'),
+                              fit: BoxFit.cover,
                             )
                           : FadeInImage(
                               placeholder: const AssetImage(
-                                  'assets/cards/card_background_platino.png'),
+                                  'assets/cards/card_title_black.png'),
                               image: NetworkImage(
-                                  '${controller.pointsLevel$.first.cardHeaderFile}'),
-                              height: 100,
-                            ))
-                  : const SizedBox()),
-          //   child: FadeInImage(
-          // placeholder:
-          //     const AssetImage('assets/cards/card_background_platino.png'),
-          // image:
-          //     NetworkImage('${controller.pointsLevel$.first.cardHeaderFile}'),
-          //     height: 200,)),
-
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 15.0),
-          //   child: Opacity(
-          //     opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-          //     child: CircularProgressBar(
-          //       AvatarSize: 20,
-          //       percent: 0.8,
-          //       sizeProgressBar: 25,
-          //     ),
-          //   ),
-          // ),
-          // title: Opacity(
-          //   opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-          //   child: Obx(() {
-          //     return Container(
-          //       alignment: Alignment.centerLeft,
-          //       child: Text(
-          //           controller.user$.value.employee != null
-          //               ? controller.user$.value.employee!.name
-          //               : '',
-          //           style: const TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: 20,
-          //               color: Colors.white,
-          //               fontFamily: 'Montserrat-Bold')),
-          //     );
-          //   }),
-          // ),
+                                  '${controller.pointsLevel$[2].cardHeaderFile}'),
+                              fit: BoxFit.cover,
+                            )),
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,

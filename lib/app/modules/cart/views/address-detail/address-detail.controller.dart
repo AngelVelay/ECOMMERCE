@@ -5,11 +5,14 @@ import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class AddressDetailController extends GetxController {
   final AddressService _addressService;
   late var address$ = UserAddress.fromVoid().obs;
   final formKey = GlobalKey<FormBuilderState>();
+  late var zipCode =
+      MaskTextInputFormatter(mask: '#####', filter: {"#": RegExp(r'[0-9]')});
 
   var tst = "";
 

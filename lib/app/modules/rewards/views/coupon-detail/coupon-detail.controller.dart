@@ -57,6 +57,6 @@ class CouponDetailController extends GetxController {
   showTerms(BuildContext context, Widget content) {
     SheetUtils.show(context, content,
         title: 'Terminos y condiciones',
-        height: MediaQuery.of(context).size.height - 50);
+        height: MediaQuery.of(context).size.height - 200);
   }
 }

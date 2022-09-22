@@ -34,7 +34,7 @@ class HomeCartControls extends GetView<HomeController> {
               '${item.cartValue}',
               style: TextStyle(color: labelColor, fontSize: 13),
             )
-          : Container(),
+          : Text('0', style: TextStyle(color: labelColor, fontSize: 13)),
       const Spacer(),
       CircleIconButton(
         backgroundColor: labelColor,

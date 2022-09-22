@@ -166,13 +166,7 @@ class RewardsPage extends GetView<RewardsController> {
   }
 
   Widget _levelIndicator() {
-    return
-        // Container(
-        //     decoration: const BoxDecoration(
-        //         color: Colors.white,
-        //         borderRadius: BorderRadius.all(Radius.circular(15))),
-        // child:
-        LinearPercentIndicator(
+    return LinearPercentIndicator(
       width: 250,
       animation: true,
       lineHeight: 16,
@@ -180,26 +174,12 @@ class RewardsPage extends GetView<RewardsController> {
       percent: controller.pointsLevel$.isNotEmpty
           ? controller.pointsLevel$.first.discountPercentage!.toDouble() / 100
           : 0,
-
-      // center: const Text("Nivel Oro",
-      //     style: TextStyle(
-      //         fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
       barRadius: const Radius.circular(15),
-      progressColor: Colors.grey[600],
-      // fillColor: Colors.white,
-      // backgroundColor: Color(0XFF222222),
-      // trailing: Column(
-      //   children: const [
-      //     Text(
-      //       '43 pts',
-      //       style: TextStyle(fontSize: 10, color: Colors.white),
-      //     ),
-      //     Text(
-      //       'Platino',
-      //       style: TextStyle(fontSize: 10, color: Colors.white),
-      //     )
-      //   ],
-      // ),
+      progressColor: controller.pointsLevel$.first.initialPoints! <= 100
+          ? const Color(0xFF43578d)
+          : controller.pointsLevel$[1].initialPoints! <= 500
+              ? Color(0xffffc600)
+              : Color.fromARGB(255, 0, 1, 4),
     ).paddingSymmetric(vertical: 1, horizontal: 0);
   }
 

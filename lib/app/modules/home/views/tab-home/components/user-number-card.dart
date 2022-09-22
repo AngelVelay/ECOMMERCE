@@ -38,28 +38,33 @@ Widget _buildCreditCard(BuildContext context, HomeController item,
       child: Stack(fit: StackFit.expand, children: [
         Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: item.pointsLevel$.isNotEmpty
-              ? item.pointsLevel$.first.initialPoints! >= 100
+          child: item.pointsLevel$.isEmpty
+              ? const CircularProgressIndicator(
+                  color: Colors.transparent,
+                )
+              : item.pointsLevel$.first.initialPoints! <= 100
                   ? FadeInImage(
                       placeholder: const AssetImage(
-                          'assets/cards/card_background_platino.png'),
+                          'assets/background_cards/silver.png'),
                       image: NetworkImage(
-                          '${item.pointsLevel$.last.cardBackgroundFile}'),
+                          '${item.pointsLevel$[0].cardBackgroundFile}'),
                       fit: BoxFit.cover,
                     )
-                  : FadeInImage(
-                      placeholder: const AssetImage(
-                          'assets/cards/card_background_platino.png'),
-                      image: NetworkImage(
-                          '${item.pointsLevel$.first.cardBackgroundFile}'),
-                      fit: BoxFit.cover,
-                    )
-              : const SizedBox(),
-          // child: Image.network(
-          //   // ignore: unnecessary_string_interpolations
-          //   '${item.pointsLevel$.first.cardBackgroundFile ?? ''}',
-          //   fit: BoxFit.cover,
-          // ),
+                  : item.pointsLevel$[1].initialPoints! <= 500
+                      ? FadeInImage(
+                          placeholder: const AssetImage(
+                              'assets/background_cards/gold.jpg'),
+                          image: NetworkImage(
+                              '${item.pointsLevel$[1].cardBackgroundFile}'),
+                          fit: BoxFit.cover,
+                        )
+                      : FadeInImage(
+                          placeholder: const AssetImage(
+                              'assets/background_cards/black.jpg'),
+                          image: NetworkImage(
+                              '${item.pointsLevel$[2].cardBackgroundFile}'),
+                          fit: BoxFit.cover,
+                        ),
           margin: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
@@ -119,55 +124,48 @@ Widget _buildCreditCard(BuildContext context, HomeController item,
 
 // Build the top row containing logos
 Widget _buildLogosBlock(controller) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      controller.pointsLevel$.isNotEmpty
-          ? controller.pointsLevel$.first.initialPoints! >= 100
-              ? Image.network(
-                  // ignore: unnecessary_string_interpolations
-                  '${controller.pointsLevel$.last.cardHeaderFile}',
-                  height: 23,
+  return Expanded(
+    child: Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          controller.pointsLevel$.isEmpty
+              ? const CircularProgressIndicator(
+                  color: Colors.transparent,
                 )
-              : Image.network(
-                  // ignore: unnecessary_string_interpolations
-                  '${controller.pointsLevel$.first.cardHeaderFile}',
-                  height: 23,
-                )
-          : const SizedBox(),
-
-      // controller.pointsLevel$.first.initialPoints! >= 100
-      //     ? FadeInImage(
-      //         placeholder: AssetImage('assets/cards/card_title_platino.png'),
-      //         image: NetworkImage(
-      //             '${controller.pointsLevel$.last.cardHeaderFile}'),
-      //         fit: BoxFit.cover,
-      //         height: 23,
-      //       )
-      //     : FadeInImage(
-      //         placeholder:
-      //             const AssetImage('assets/cards/card_background_platino.png'),
-      //         image: NetworkImage(
-      //             '${controller.pointsLevel$.first.cardHeaderFile}'),
-      //         fit: BoxFit.cover,
-      //         height: 23,
-
-      // FadeInImage(
-      //   placeholder: AssetImage('assets/cards/card_title_platino.png'),
-      //   image: NetworkImage('${controller.pointsLevel$.first.cardHeaderFile}'),
-      //   fit: BoxFit.cover,
-      //   height: 23,
-      // ),
-      // Image.network(
-      //   '${controller.pointsLevel$.first.cardHeaderFile}',
-      //   height: 23,
-      // ),
-      const Text(
-        'Programa de Recompensas',
-        style: TextStyle(color: Colors.white, fontSize: 8),
-      )
-    ],
+              : controller.pointsLevel$.first.initialPoints! <= 100
+                  ? FadeInImage(
+                      height: 40,
+                      placeholder: const AssetImage(
+                          'assets/cards/card_title_platino.png'),
+                      image: NetworkImage(
+                          '${controller.pointsLevel$[0].cardHeaderFile}'),
+                      fit: BoxFit.cover,
+                    )
+                  : controller.pointsLevel$[1].initialPoints! <= 500
+                      ? FadeInImage(
+                          height: 40,
+                          placeholder: const AssetImage(
+                              'assets/cards/card_title_gold.png'),
+                          image: NetworkImage(
+                              '${controller.pointsLevel$[1].cardHeaderFile}'),
+                          fit: BoxFit.cover,
+                        )
+                      : FadeInImage(
+                          placeholder: const AssetImage(
+                              'assets/cards/card_title_black.png'),
+                          image: NetworkImage(
+                              '${controller.pointsLevel$[2].cardHeaderFile}'),
+                          fit: BoxFit.cover,
+                        ),
+          const Text(
+            'Programa de Recompensas',
+            style: TextStyle(color: Colors.white, fontSize: 8),
+          )
+        ],
+      ),
+    ),
   );
 }
 
@@ -205,3 +203,29 @@ Widget _qrCode(BuildContext context) {
     )
   ]);
 }
+
+
+//  item.pointsLevel$.forEach((element) {
+              
+//               if (element.initialPoints! <= 100) {
+//                 FadeInImage(
+//                       placeholder: const AssetImage(
+//                           'assets/cards/card_background_platino.png'),
+//                       image: NetworkImage(
+//                           '${item.pointsLevel$.last.cardBackgroundFile}'),
+//                       fit: BoxFit.cover);
+//               }else if (element.initialPoints! <= 200) {
+//                 FadeInImage(
+//                       placeholder: const AssetImage(
+//                           'assets/cards/card_background_platino.png'),
+//                       image: NetworkImage(
+//                           '${item.pointsLevel$.last.cardBackgroundFile}'),
+//                       fit: BoxFit.cover);
+//             }else if (element.initialPoints! <= 300) {
+//                 FadeInImage(
+//                       placeholder: const AssetImage(
+//                           'assets/cards/card_background_platino.png'),
+//                       image: NetworkImage(
+//                           '${item.pointsLevel$.last.cardBackgroundFile}'),
+//                       fit: BoxFit.cover);
+//          }})

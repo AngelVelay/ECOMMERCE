@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
@@ -37,15 +38,15 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                 height: 35,
                 fit: BoxFit.cover,
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text('Mis  ',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30, color: Colors.white)),
+                    style: TextStyle(fontSize: 15.sp, color: Colors.white)),
                 Text('Favoritos',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'NewYork',
-                        fontSize: 30,
+                        fontSize: 15.sp,
                         color: Colors.white)),
               ]),
               const SizedBox(height: 10),
@@ -67,52 +68,54 @@ class HomeFavoriteProducts extends GetView<HomeController> {
   }
 
   Widget _item(BuildContext context, Product item) {
-    return Container(
-      width: 130,
-      height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => controller.toProductDetail(item),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.imageLink),
-                    width: double.infinity,
-                    height: 130,
-                    fit: BoxFit.cover,
-                  ),
-                  // const Align(
-                  //     alignment: Alignment.bottomRight,
-                  //     child: Icon(Icons.add_circle_rounded,
-                  //         color: Colors.white, size: 50)),
-                ])),
-          ),
-          Text(item.name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontFamily: 'Montserrat-Bold')),
-          Text(
-            '\$ ${item.price}',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 15,
-                fontFamily: 'Montserrat-Bold',
-                color: Colors.white),
-          ),
-          HomeCartControls(item)
-        ],
-      ),
-    );
+    return item.isActive == true
+        ? Container(
+            width: 130,
+            height: 190,
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => controller.toProductDetail(item),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(children: [
+                        FadeInImage(
+                          placeholder: const NetworkImage(
+                              'https://acegif.com/wp-content/uploads/loading-11.gif'),
+                          image: NetworkImage(item.imageLink),
+                          width: double.infinity,
+                          height: 130,
+                          fit: BoxFit.cover,
+                        ),
+                        // const Align(
+                        //     alignment: Alignment.bottomRight,
+                        //     child: Icon(Icons.add_circle_rounded,
+                        //         color: Colors.white, size: 50)),
+                      ])),
+                ),
+                Text(item.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'Montserrat-Bold')),
+                Text(
+                  '\$ ${item.price}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Montserrat-Bold',
+                      color: Colors.white),
+                ),
+                HomeCartControls(item)
+              ],
+            ),
+          )
+        : Container();
   }
 }

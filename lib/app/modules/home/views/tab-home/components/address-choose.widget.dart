@@ -18,7 +18,7 @@ class HomeAddressSelect extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: Colors.black,
+        color: Color(0xff2222222),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -62,19 +62,25 @@ class HomeAddressSelect extends GetView<HomeController> {
   }
 
   Widget _listItem(UserAddress item, BuildContext context) {
-    return Row(children: [
-      Radio<UserAddress>(
-        value: item,
-        groupValue: controller.selectedAddress$.value,
-        onChanged: (value) {
-          controller.addressSelect(value as UserAddress, context);
-          // Navigator.of(context, rootNavigator: true).pop();
-        },
-      ),
-      const SizedBox(width: 10),
-      Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipcode}',
-          style: const TextStyle(fontSize: 12, color: Colors.white)),
-    ]);
+    return Obx((() {
+      return Row(children: [
+        Radio<UserAddress>(
+          value: item,
+          groupValue: controller.selectedAddress$.value,
+          onChanged: (value) {
+            controller.addressSelect(value as UserAddress, context);
+            // Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
+        const SizedBox(width: 10),
+        Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipcode}',
+            style: const TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold)),
+      ]);
+    }));
   }
 
   Widget _button(BuildContext context) {

@@ -126,12 +126,12 @@ class HomeController extends GetxController {
     couponImage$.value = await couponsService.getImages();
 
     addressList$.value = await addressService.getFromCurrent();
-    if (addressList$.isNotEmpty) {
-      selectedAddress$.value =
-          addressList$.where((element) => element.isDefault).toList().first;
-    } else {
-      selectedAddress$.value = UserAddress.fromVoid();
-    }
+    // if (addressList$.isNotEmpty) {
+    //   selectedAddress$.value =
+    //       addressList$.where((element) => element.isDefault).toList().first;
+    // } else {
+    //   selectedAddress$.value.zipcode = 000000;
+    // }
   }
 
   addCart(Product item, context) {
@@ -139,7 +139,7 @@ class HomeController extends GetxController {
     if (!cartProducts$.any((element) => element.id == item.id)) {
       cartProducts$.add(item);
     }
-
+    cartItems$.refresh();
     cartProducts$.refresh();
     productList$.refresh();
     findedProducts$.refresh();
@@ -162,8 +162,9 @@ class HomeController extends GetxController {
   }
 
   updateCartItems() {
-    cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+    // cartItems$.value =
+    //     cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b) ;
+    cartItems$.value = cartProducts$.length;
     cartItems$.refresh();
   }
 

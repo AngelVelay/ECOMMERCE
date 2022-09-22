@@ -78,35 +78,37 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   Widget _addressWidget() {
     final HomeController controller = Get.find();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.location_on, color: Colors.white, size: 30),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                  '${controller.selectedAddress$.value.street} ${controller.selectedAddress$.value.outsideNumber} ${controller.selectedAddress$.value.town} ${controller.selectedAddress$.value.zipcode}  ',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.sp,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold)),
-              Text(
-                  'Cerca de ${controller.selectedAddress$.value.streetNotes} ${controller.selectedAddress$.value.suburb}',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold)),
-            ],
-          )
-        ],
-      ),
-    );
+    return Obx((() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.location_on, color: Colors.white, size: 30),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    '${controller.selectedAddress$.value.street} ${controller.selectedAddress$.value.outsideNumber} ${controller.selectedAddress$.value.town} ${controller.selectedAddress$.value.zipcode}  ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold)),
+                Text(
+                    'Cerca de ${controller.selectedAddress$.value.streetNotes} ${controller.selectedAddress$.value.suburb}',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold)),
+              ],
+            )
+          ],
+        ),
+      );
+    }));
   }
 
   Widget _changeDeliveryandMethodPay() {
@@ -190,31 +192,33 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   }
 
   Widget _paymentMethod() {
-    return Column(children: [
-      ListTile(
-          title: const Text('Forma de Pago',
-              style: TextStyle(color: Colors.white)),
-          subtitle: Row(
-            children: [
-              Text(
-                  controller.selectedCreditCard$.isEmpty
-                      ? 'Elige un metodo de pago'
-                      : controller.selectedCreditCard$.value.first.cardNumber,
-                  style: const TextStyle(color: Colors.white)),
-              const SizedBox(width: 10),
-              Image.asset('assets/images/mastercard.png', height: 30)
-            ],
-          ),
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              color: Colors.white,
+    return Obx((() {
+      return Column(children: [
+        ListTile(
+            title: const Text('Forma de Pago',
+                style: TextStyle(color: Colors.white)),
+            subtitle: Row(
+              children: [
+                Text(
+                    controller.selectedCreditCard$.isEmpty
+                        ? 'Elige un metodo de pago'
+                        : controller.selectedCreditCard$.value.first.cardNumber,
+                    style: const TextStyle(color: Colors.white)),
+                const SizedBox(width: 10),
+                Image.asset('assets/images/mastercard.png', height: 30)
+              ],
             ),
-            onPressed: () {
-              Get.toNamed('/add-credit-card');
-            },
-          )),
-    ]);
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.more_vert_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.toNamed('/add-credit-card');
+              },
+            )),
+      ]);
+    }));
   }
 
   Widget _detailDelivery() {

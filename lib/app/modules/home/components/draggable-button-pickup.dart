@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 
 import '../../../components/form-controls/custom-rounded-button-alt.widget.dart';
 import 'tracking-pickup-qr.dart';
@@ -70,12 +71,20 @@ Widget _buttonDetail() {
     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
     child: SizedBox(
       width: double.infinity,
-      child: CustomRoundedButtonAlt(
+      child: ButtonTransparent(
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        text: 'Ver detalle',
         onPressed: () {
           Get.toNamed('/delivery-detail');
         },
-        text: 'Ver detalle',
       ),
+      // child: CustomRoundedButtonAlt(
+      //   onPressed: () {
+      //     Get.toNamed('/delivery-detail');
+      //   },
+      //   text: 'Ver detalle',
+      // ),
     ),
   );
 }

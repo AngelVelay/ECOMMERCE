@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 import 'package:jexpoints/app/components/form-controls/custom-input-check.widget.dart';
 import 'package:jexpoints/app/components/form-controls/custom-input-hidden.widget.dart';
 import 'package:jexpoints/app/components/form-controls/custom-input-text.widget.dart';
@@ -44,7 +45,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                       CustomInputHidden('id',
                           initialValue: controller.address$.value.id),
                       CustomInputText('alias', 'Alias',
-                          validator: FormBuilderValidators.required(),
+                          // validator: FormBuilderValidators.required(),
                           initialValue: controller.address$.value.alias),
                       const SizedBox(height: 15),
                       Row(
@@ -53,7 +54,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                             child: CustomInputText(
                               'contactName',
                               'Contacto',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue:
                                   controller.address$.value.contactName,
                             ),
@@ -63,7 +64,8 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                             child: CustomInputText(
                               'contactPhone',
                               'Número de contacto',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
+                              keyboardType: TextInputType.phone,
                               initialValue: controller
                                   .address$.value.contactPhone
                                   .toString(),
@@ -75,14 +77,14 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                         height: 10,
                       ),
                       CustomInputText('street', 'Calle',
-                          validator: FormBuilderValidators.required(),
+                          // validator: FormBuilderValidators.required(),
                           initialValue: controller.address$.value.street),
                       const SizedBox(height: 15),
                       Row(children: [
                         Expanded(
                           child: CustomInputText(
                               'outsideNumber', 'Numero Exterior',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue:
                                   controller.address$.value.outsideNumber),
                         ),
@@ -103,7 +105,8 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                             'Código Postal',
                             initialValue:
                                 controller.address$.value.zipcode.toString(),
-                            validator: FormBuilderValidators.required(),
+                            // validator: FormBuilderValidators.required(),
+                            keyboardType: TextInputType.number,
                           ),
                         )
                       ]),
@@ -111,7 +114,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                       Row(children: [
                         Expanded(
                           child: CustomInputText('suburb', 'Colonia',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue: controller.address$.value.suburb),
                         ),
                         const SizedBox(
@@ -119,7 +122,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                         ),
                         Expanded(
                           child: CustomInputText('town', 'Municipio',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue: controller.address$.value.town),
                         ),
                       ]),
@@ -127,7 +130,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                       Row(children: [
                         Expanded(
                           child: CustomInputText('state', 'Estado',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue: controller.address$.value.state),
                         ),
                         const SizedBox(
@@ -135,7 +138,7 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                         ),
                         Expanded(
                           child: CustomInputText('country', 'Pais',
-                              validator: FormBuilderValidators.required(),
+                              // validator: FormBuilderValidators.required(),
                               initialValue: controller.address$.value.country),
                         ),
                       ]),
@@ -151,9 +154,14 @@ class AddressDetailPage extends GetView<AddressDetailController> {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: CustomRoundedButton(
-                        text: 'Guardar Dirección',
-                        onPressed: () => controller.save()),
+                    child: ButtonTransparent(
+                      paddingHorizontal: 20.0,
+                      paddingVertical: 0,
+                      text: 'Guardar',
+                      onPressed: () {
+                        controller.save();
+                      },
+                    ),
                   ),
                 ],
               )),

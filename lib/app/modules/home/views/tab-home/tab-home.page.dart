@@ -135,7 +135,12 @@ class HomePage extends GetView<HomeController> {
             itemBuilder: (context, index, realIndex) {
               return controller.posterList$.isNotEmpty
                   ? _flyerItem(controller.posterList$[index])
-                  : Container();
+                  : Container(
+                      color: Colors.grey,
+                      child: const Center(
+                        child: Text('No disponible'),
+                      ),
+                    );
             },
             options: CarouselOptions(
               height: 150,
@@ -164,7 +169,12 @@ class HomePage extends GetView<HomeController> {
                           fit: BoxFit.cover,
                           width: 600,
                         )
-                      : Container(),
+                      : Container(
+                          color: Colors.grey,
+                          child: const Center(
+                            child: Text('No disponible'),
+                          ),
+                        ),
                 ))));
   }
 

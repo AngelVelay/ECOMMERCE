@@ -68,11 +68,11 @@ class CouponDetailPage extends GetView<CouponDetailController> {
   Widget _terms(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height - 135,
+        height: MediaQuery.of(context).size.height - 300,
         child: Expanded(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Text(
+            child: HtmlWidget(
               controller.coupon$.value.terms,
             ),
           ),

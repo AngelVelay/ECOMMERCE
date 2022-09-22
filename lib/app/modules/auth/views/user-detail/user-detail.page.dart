@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
 import 'package:jexpoints/app/components/circular-progress-bar/circular-progress-bar.dart';
 import 'package:jexpoints/app/components/form-controls/custom-input-hidden.widget.dart';
@@ -77,8 +78,12 @@ class UserDetailPage extends GetView<UserDetailController> {
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
-                  child: CustomRoundedButton(
-                      text: 'Guardar', onPressed: () => controller.save()),
+                  child: ButtonTransparent(
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                    text: 'Guardar',
+                    onPressed: () => controller.save(),
+                  ),
                 )
               ],
             ),

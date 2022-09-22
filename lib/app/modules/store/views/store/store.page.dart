@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/address-add.widget.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/components/address-choose.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
 import '../../../../core/utils/sheet.utils.dart';
@@ -147,10 +148,10 @@ class StorePage extends GetView<StoreController> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(0),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(0),
+              borderRadius: BorderRadius.circular(10),
               child: FadeInImage(
                 fit: BoxFit.fill,
                 placeholder: const NetworkImage(
@@ -178,16 +179,30 @@ class StorePage extends GetView<StoreController> {
     return Obx(() {
       return GestureDetector(
         onTap: () => {
-          if (controllerHome.selectedAddress$.value.id != 0)
-            {
-              SheetUtils.show(context, HomeAddressAdd(controllerHome),
-                  title: 'Selecciona un domicilio')
-            }
-          else
-            {
-              SheetUtils.show(context, HomeAddressAdd(controllerHome),
-                  title: 'Agrega un domicilio')
-            }
+          showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            builder: (context) => Container(
+              color: Color(0xff222222),
+              height: MediaQuery.of(context).copyWith().size.height * 0.60,
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: HomeAddressSelect(controllerHome),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         },
         child: Row(children: [
           // Icon(

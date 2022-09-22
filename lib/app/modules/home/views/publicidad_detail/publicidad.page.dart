@@ -39,15 +39,12 @@ class PublicidadPage extends GetView<PublicidadController> {
 
   static Widget _header(PublicidadController controller) {
     return Expanded(
-      flex: 1,
-      child: SizedBox(
-          width: double.infinity,
-          child: FadeInImage(
-            fit: BoxFit.contain,
-            placeholder: const AssetImage('assets/images/loading.gif'),
-            image: NetworkImage(controller.item[0]),
-          )),
-    );
+        flex: 1,
+        child: SizedBox(
+            width: double.infinity,
+            child: Obx(() => controller.postersImage$.value != ''
+                ? Image.network(controller.postersImage$.value)
+                : const Center(child: CircularProgressIndicator()))));
   }
 
   Widget _center(PublicidadController controller) {

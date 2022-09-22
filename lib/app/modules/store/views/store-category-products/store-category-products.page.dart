@@ -125,7 +125,7 @@ class StoreCategoryProductsPage
           GestureDetector(
             onTap: () => controller.toProductDetail(item),
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(10),
                 child: Stack(children: [
                   FadeInImage(
                     placeholder: const NetworkImage(

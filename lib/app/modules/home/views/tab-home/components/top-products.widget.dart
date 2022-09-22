@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../../main/entities/product.type.dart';
 import '../tab-home.controller.dart';
@@ -12,7 +12,7 @@ class HomeTopProducts extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 305,
+      height: 290,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -41,18 +41,18 @@ class HomeTopProducts extends GetView<HomeController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Text('Top ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Montserrat-Regular',
-                          fontSize: 30,
+                          fontSize: 15.sp,
                           color: Colors.white)),
                   Text('Semanal',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'NewYork',
-                          fontSize: 30,
+                          fontSize: 15.sp,
                           color: Colors.white)),
                 ],
               ),
@@ -78,52 +78,54 @@ class HomeTopProducts extends GetView<HomeController> {
 
   Widget _itemWidget(BuildContext context, Product item) {
     double itemSize = 130;
-    return Container(
-      width: itemSize,
-      height: itemSize,
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => controller.toProductDetail(item),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(3),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.imageLink),
-                    width: double.infinity,
-                    height: itemSize,
-                    fit: BoxFit.cover,
-                  ),
-                ])),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(item.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: false,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontFamily: 'Montserrat-Regular')),
-          Text(
-            '\$ ${item.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 13,
-                fontFamily: 'Montserrat-Bold',
-                color: Colors.white),
-          ),
-          HomeCartControls(item),
-        ],
-      ),
-    );
+    return item.isActive == true
+        ? Container(
+            width: itemSize,
+            height: itemSize,
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => controller.toProductDetail(item),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(children: [
+                        FadeInImage(
+                          placeholder: const NetworkImage(
+                              'https://acegif.com/wp-content/uploads/loading-11.gif'),
+                          image: NetworkImage(item.imageLink),
+                          width: double.infinity,
+                          height: itemSize,
+                          fit: BoxFit.cover,
+                        ),
+                      ])),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(item.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontFamily: 'Montserrat-Regular')),
+                Text(
+                  '\$ ${item.price}0' /*TODO: FORMAT EN HARDCODE: CAMBIAR*/,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Montserrat-Bold',
+                      color: Colors.white),
+                ),
+                HomeCartControls(item),
+              ],
+            ),
+          )
+        : Container();
   }
 }

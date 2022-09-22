@@ -54,7 +54,7 @@ class Product {
   String? externalId;
   String? externalCode;
 
-  int cartValue;
+  int cartValue = 0;
   bool? isFavorite;
   dynamic quantity;
 
@@ -93,5 +93,6 @@ class Product {
         "points": points,
         "description": description,
         "topRate": topRate,
+        'cartValue': cartValue,
       };
 }
