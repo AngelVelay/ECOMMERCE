@@ -19,6 +19,7 @@ import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.page.da
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
 
+import '../home/services/address/address.api.service.dart';
 import '../main/services/address/address.fake.service.dart';
 import 'views/suggestions/suggestions.controller.dart';
 import 'views/suggestions/suggestions.page.dart';
@@ -77,7 +78,7 @@ class AddressDetailBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AddressDetailController>(
-        () => AddressDetailController(AddressFakeService()));
+        () => AddressDetailController(AddressService()));
   }
 }
 
@@ -91,8 +92,8 @@ class PickUpBinding implements Bindings {
 class CheckOutBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CheckOutController>(() =>
-        CheckOutController(AddressFakeService(), PaymentMethodsService()));
+    Get.lazyPut<CheckOutController>(
+        () => CheckOutController(AddressService(), PaymentMethodsService()));
   }
 }
 

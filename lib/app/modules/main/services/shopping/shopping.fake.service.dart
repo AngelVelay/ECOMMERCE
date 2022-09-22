@@ -58,7 +58,7 @@ class ShoppingFakeService implements IShoppingService {
   @override
   Future<Order> getById(int id) async {
     var finded = MockData.ordersList.firstWhere((element) => element.id == id);
-    finded.deliveredAddress = MockData.addressList.first;
+    // finded.deliveredAddress = MockData.addressList.first;
     finded.pickupBranch = Branch(
         externalCode: "201",
         externalId: 201,

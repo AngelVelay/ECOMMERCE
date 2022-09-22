@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/store/views/tab-shopping-cart/tab-shoppin-cart.page.dart';
 
@@ -128,7 +129,7 @@ Widget _deliveryAddress(HomeController controller) {
                             ))
                         .toList(),
                     onChanged: (value) {
-                      controller.selectedAddress$.value = value as Address;
+                      controller.selectedAddress$.value = value as UserAddress;
                     },
                   ),
                 ),
@@ -171,7 +172,7 @@ Widget _deliveryTime(HomeController controller) {
                         ))
                     .toList(),
                 onChanged: (value) {
-                  controller.selectedAddress$.value = value as Address;
+                  controller.selectedAddress$.value = value as UserAddress;
                 },
               ),
             ),

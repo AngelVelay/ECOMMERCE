@@ -172,17 +172,30 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
     return Obx(() {
       return GestureDetector(
         onTap: () => {
-          if (controller.selectedAddress$.value.id != 0)
-            {
-              SheetUtils.show(context, HomeAddressSelect(controller),
-                  title: 'Selecciona un domicilio')
-            }
-          else
-            {
-              SheetUtils.show(context, HomeAddressSelect(controller),
-                  // SheetUtils.show(context, HomeAddressAdd(controller),
-                  title: 'Agrega un domicilio')
-            }
+          showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            builder: (context) => Container(
+              color: Color(0xff222222),
+              height: MediaQuery.of(context).copyWith().size.height * 0.60,
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: HomeAddressSelect(controller),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         },
         child: Row(children: [
           // Icon(
@@ -192,7 +205,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           const SizedBox(width: 10),
           Text(
             controller.selectedAddress$.value.id != 0
-                ? 'CP. ${controller.selectedAddress$.value.zipCode}'
+                ? 'CP. ${controller.selectedAddress$.value.zipcode}'
                 : 'Agregar domicilio',
             style: const TextStyle(
                 fontSize: 13,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 
 import 'publicidad.controller.dart';
 
@@ -15,8 +16,22 @@ class PublicidadPage extends GetView<PublicidadController> {
       body: Column(
         children: [
           _header(controller),
-          _center(controller),
-          _bottomButton(context, controller)
+          Expanded(
+            child: Column(
+              children: [
+                _center(controller),
+                ButtonTransparent(
+                  text: 'Compartir Publicidad',
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  onPressed: () {
+                    controller.shareData();
+                  },
+                ),
+              ],
+            ),
+          )
+          // _bottomButton(context, controller)
         ],
       ),
     );
@@ -24,6 +39,7 @@ class PublicidadPage extends GetView<PublicidadController> {
 
   static Widget _header(PublicidadController controller) {
     return Expanded(
+      flex: 1,
       child: SizedBox(
           width: double.infinity,
           child: FadeInImage(
@@ -48,40 +64,40 @@ class PublicidadPage extends GetView<PublicidadController> {
     );
   }
 
-  static Widget _bottomButton(BuildContext context, controller) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        height: 205,
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(20)),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.shareData();
-                  },
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.share_sharp,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Compartir Publicidad',
-                          style: TextStyle(color: Colors.white, fontSize: 24),
-                        )
-                      ]),
-                ),
-              ),
-            )
-          ],
-        ));
-  }
+  // static Widget _bottomButton(BuildContext context, controller) {
+  //   return Container(
+  //       margin: const EdgeInsets.symmetric(horizontal: 10),
+  //       padding: const EdgeInsets.symmetric(horizontal: 15),
+  //       height: 205,
+  //       child: Row(
+  //         children: [
+  //           Expanded(
+  //             child: Container(
+  //               height: 60,
+  //               decoration: BoxDecoration(
+  //                   color: Colors.black,
+  //                   borderRadius: BorderRadius.circular(20)),
+  //               child: GestureDetector(
+  //                 onTap: () {
+  //                   controller.shareData();
+  //                 },
+  //                 child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: const [
+  //                       Icon(
+  //                         Icons.share_sharp,
+  //                         color: Colors.white,
+  //                       ),
+  //                       SizedBox(width: 10),
+  //                       Text(
+  //                         'Compartir Publicidad',
+  //                         style: TextStyle(color: Colors.white, fontSize: 24),
+  //                       )
+  //                     ]),
+  //               ),
+  //             ),
+  //           )
+  //         ],
+  //       ));
+  // }
 }

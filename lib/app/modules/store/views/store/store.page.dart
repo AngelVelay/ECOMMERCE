@@ -7,6 +7,7 @@ import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.da
 import '../../../../core/utils/sheet.utils.dart';
 import '../../../main/entities/business-line.type.dart';
 import '../../../main/entities/category.type.dart';
+import '../../store.module.dart';
 import 'store.controller.dart';
 
 class StorePage extends GetView<StoreController> {
@@ -134,9 +135,10 @@ class StorePage extends GetView<StoreController> {
 
   Widget _gridItem(BuildContext context, Category category) {
     return GestureDetector(
-      // onTap: () => controller.toCategoryProducts(category),
-      onTap: () {},
-
+      onTap: () {
+        Get.toNamed(StoreRouting.STORE_CATEGORY_PRODUCTS_ROUTE,
+            arguments: {"category": category});
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -151,7 +153,7 @@ class StorePage extends GetView<StoreController> {
               borderRadius: BorderRadius.circular(0),
               child: FadeInImage(
                 fit: BoxFit.fill,
-                placeholder: NetworkImage(
+                placeholder: const NetworkImage(
                     'https://acegif.com/wp-content/uploads/loading-11.gif'),
                 // image: NetworkImage(category.imageLink!),
                 image: NetworkImage(category.imageLink ??
@@ -195,7 +197,7 @@ class StorePage extends GetView<StoreController> {
           const SizedBox(width: 10),
           Text(
             controllerHome.selectedAddress$.value.id != 0
-                ? 'CP. ${controllerHome.selectedAddress$.value.zipCode}'
+                ? 'CP. ${controllerHome.selectedAddress$.value.zipcode}'
                 : 'Agregar domicilio',
             style: const TextStyle(fontSize: 15, color: Colors.white),
           ),

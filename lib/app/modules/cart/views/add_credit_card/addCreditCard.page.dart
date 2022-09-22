@@ -1,15 +1,11 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
-import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
 
-import '../../../../components/form-controls/custom-rounded-button.widget.dart';
-import '../../cart.module.dart';
-import 'addCreditCard.controller.dart';
+import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
+import 'package:jexpoints/app/modules/rewards/views/coupons/coupons.controller.dart';
 
 class addCreditCard extends GetView<PayController> {
   // @override
@@ -68,7 +64,7 @@ class addCreditCard extends GetView<PayController> {
         SizedBox(
           height: 30.h,
         ),
-        _choosePromo()
+        // _choosePromo()
       ],
     );
   }
@@ -82,7 +78,7 @@ class addCreditCard extends GetView<PayController> {
                 color: Colors.white,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold)),
-        Divider(
+        const Divider(
           color: Color(0xf2d2d2d2),
           thickness: 1,
         ),
@@ -112,7 +108,7 @@ class addCreditCard extends GetView<PayController> {
       return Container(
         width: double.infinity,
         child: Column(
-          children: controller.creditCardList$.getRange(0, 4).map((item) {
+          children: controller.creditCardList$.take(4).map((item) {
             return _creditCard(item, context);
           }).toList(),
         ),
@@ -162,6 +158,20 @@ class addCreditCard extends GetView<PayController> {
   }
 }
 
+Widget couponsCount() {
+  final controller = Get.find<HomeController>();
+  return ListTile(
+    leading: const Icon(Icons.local_activity_outlined,
+        color: Colors.white, size: 30),
+    title: Text('Cupones',
+        style: TextStyle(
+            color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
+    trailing: Text(controller.coupons$.length.toString(),
+        style: TextStyle(
+            color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
+  );
+}
+
 Widget _chooseCoupon() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +181,7 @@ Widget _chooseCoupon() {
               color: Colors.white,
               fontSize: 13.sp,
               fontWeight: FontWeight.bold)),
-      Divider(
+      const Divider(
         color: Color(0xf2d2d2d2),
         thickness: 1,
       ),
@@ -181,40 +191,47 @@ Widget _chooseCoupon() {
 }
 
 Widget _addCoupon() {
-  return ListTile(
-    leading: Icon(Icons.add, color: Colors.white, size: 30),
-    title: Text('Agregar codigo del cupon',
-        style: TextStyle(
-            color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
-  );
-}
-
-Widget _choosePromo() {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('Promociones',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.bold)),
-      Divider(
-        color: Color(0xf2d2d2d2),
-        thickness: 1,
+      couponsCount(),
+      ListTile(
+        leading: Icon(Icons.add, color: Colors.white, size: 30),
+        title: Text('Agregar codigo del cupon',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.bold)),
       ),
-      _addPromo()
     ],
   );
 }
 
-Widget _addPromo() {
-  return ListTile(
-    leading: Icon(Icons.add, color: Colors.white, size: 30),
-    title: Text('Agregar codigo de la promocion',
-        style: TextStyle(
-            color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
-  );
-}
+// Widget _choosePromo() {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Text('Promociones',
+//           style: TextStyle(
+//               color: Colors.white,
+//               fontSize: 13.sp,
+//               fontWeight: FontWeight.bold)),
+//       Divider(
+//         color: Color(0xf2d2d2d2),
+//         thickness: 1,
+//       ),
+//       _addPromo()
+//     ],
+//   );
+// }
+
+// Widget _addPromo() {
+//   return ListTile(
+//     leading: Icon(Icons.add, color: Colors.white, size: 30),
+//     title: Text('Agregar codigo de la promocion',
+//         style: TextStyle(
+//             color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
+//   );
+// }
 
 
 //   Widget _creditCard(PaymentMethods item, BuildContext context) {

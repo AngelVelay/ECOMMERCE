@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/cart/views/pay_page/pay.controller.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.api.service.dart';
 
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -166,7 +167,7 @@ class MainBinding implements Bindings {
             ProductsApiService(),
             authService,
             FlyersApiService(),
-            AddressFakeService(),
+            AddressService(),
             CouponsApiService(),
             pointLevelService,
             ProductsImpulseApiService()),
@@ -193,7 +194,7 @@ class MainBinding implements Bindings {
     // Get.lazyPut<CatalogosListController>(() =>
     //     CatalogosListController(CatalogueFakeService(), ProductsFakeService()));
     Get.lazyPut<CheckOutController>(
-        () => CheckOutController(AddressFakeService(), PaymentMethodsService()),
+        () => CheckOutController(AddressService(), PaymentMethodsService()),
         fenix: true);
     // Get.lazyPut<ProfileController>(() => ProfileController(
     //     AuthFakeService(), CouponsFakeService(), ReviewsFakeService()));
@@ -201,8 +202,8 @@ class MainBinding implements Bindings {
         () => ConsumeController(ShoppingFakeService()));
     Get.lazyPut<PayController>(() => PayController(PaymentMethodsService()));
     Get.lazyPut<PointsController>(() => PointsController());
-    Get.lazyPut<CheckOutController>(() =>
-        CheckOutController(AddressFakeService(), PaymentMethodsService()));
+    Get.lazyPut<CheckOutController>(
+        () => CheckOutController(AddressService(), PaymentMethodsService()));
     Get.lazyPut<RewardsController>(
         () => RewardsController(authService, pointLevelService),
         fenix: true);

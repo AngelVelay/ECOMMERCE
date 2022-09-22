@@ -3,11 +3,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/home/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/main/entities/address.type.dart';
-import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
 
 class AddressDetailController extends GetxController {
-  final IAddressService _addressService;
+  final AddressService _addressService;
   late var address$ = UserAddress.fromVoid().obs;
   final formKey = GlobalKey<FormBuilderState>();
 
@@ -30,7 +30,8 @@ class AddressDetailController extends GetxController {
     formKey.currentState?.save();
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       var tst = formKey.currentState;
-      await _addressService.save(Address.fromJson(formKey.currentState!.value));
+      await _addressService
+          .save(UserAddress.fromJson(formKey.currentState!.value));
       Get.back();
       MsgUtils.success('Domicilio actualizado correctamente');
     }

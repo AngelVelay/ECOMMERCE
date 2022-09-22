@@ -2,8 +2,10 @@ import 'package:awesome_card/awesome_card.dart';
 import 'package:awesome_card/credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 import 'package:jexpoints/app/components/custom_input/custom_input.dart';
 
 import 'pay.controller.dart';
@@ -18,10 +20,9 @@ class PayPage extends GetView<PayController> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            controller.card$.value.id == 0
-                ? 'Agregar metodo de pago'
-                : 'Datos de tarjeta',
-            style: Theme.of(context).textTheme.headline3,
+            controller.card$.value.id == 0 ? 'Agregar ' : 'Datos de tarjeta',
+            style: TextStyle(
+                color: Colors.white, fontSize: 13.sp, fontFamily: 'Montserrat'),
           ),
         ),
         // body: ,
@@ -32,9 +33,10 @@ class PayPage extends GetView<PayController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  _title('METODO DE PAGO', Icons.credit_card),
                   const SizedBox(height: 10),
-                  _creditCard(context),
-                  // _buildCreditCard(),
+                  // _creditCard(context),
+                  _buildCreditCard(),
                   const SizedBox(
                     height: 20,
                   ),
@@ -43,6 +45,27 @@ class PayPage extends GetView<PayController> {
               ),
             );
           })),
+        ),
+      ),
+    );
+  }
+
+  Widget _title(title, icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+      child: Center(
+        child: Column(
+          children: [
+            Text(title,
+                style: TextStyle(
+                  fontSize: 17.sp,
+                  fontFamily: 'Montserrat',
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(height: 20),
+            Icon(icon, color: Colors.white, size: 20),
+          ],
         ),
       ),
     );
@@ -94,6 +117,7 @@ class PayPage extends GetView<PayController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            _buildLogosBlock(),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
@@ -122,6 +146,30 @@ class PayPage extends GetView<PayController> {
     );
   }
 
+  Row _buildLogosBlock() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Image.asset(
+          "assets/images/contact_less.png",
+          height: 20,
+          width: 18,
+        ),
+        Image.asset(
+          controller.cardNumber$.value.startsWith('4')
+              ? 'assets/images/visa.png'
+              : controller.cardNumber$.value.startsWith('5')
+                  ? 'assets/images/mastercard.png'
+                  : controller.cardNumber$.value.startsWith('37')
+                      ? 'assets/images/amex.png'
+                      : 'assets/images/credit-card.png',
+          height: 50,
+          width: 50,
+        ),
+      ],
+    );
+  }
+
 // Build Column containing the cardholder and expiration information
   Column _buildDetailsBlock({required String label, required String value}) {
     return Column(
@@ -143,87 +191,87 @@ class PayPage extends GetView<PayController> {
 
   Widget _formCreditCard(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            CustomInputField(
-              maxLength: 16,
-              inputFormatter:
-                  FilteringTextInputFormatter.allow(RegExp(r'[A-Z,a-z," "]')),
-              controller: controller.cardHolder,
-              keyboardType: TextInputType.text,
-              labelText: 'Nombre del titular',
-              prefixIcon: Icons.person_outline_outlined,
-            ),
-            SizedBox(height: 10),
-            CustomInputField(
-              inputFormatter: controller.cardNUmberFormatter,
-              controller: controller.cardNumber,
-              keyboardType: TextInputType.number,
-              labelText: 'Numero de tarjeta',
-              prefixIcon: Icons.credit_card,
-            ),
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomInputField(
-                    inputFormatter: controller.cardExpirationFormatter,
-                    controller: controller.cardExpiration,
-                    keyboardType: TextInputType.datetime,
-                    labelText: 'Vencimiento',
-                    prefixIcon: Icons.date_range,
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: CustomInputField(
-                    inputFormatter: controller.cardCVVFormatter,
-                    controller: controller.cardCVV,
-                    keyboardType: TextInputType.number,
-                    labelText: 'CVV',
-                    prefixIcon: Icons.credit_score_rounded,
-                  ),
-                )
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50.0),
-              child: SizedBox(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFF43578d),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.black)))),
-                  icon: const Icon(
-                    Icons.monetization_on,
-                    size: 20,
-                  ),
-                  onPressed: () => controller.save(context),
-                  label: Text(
-                      controller.card$.value.id == 0
-                          ? 'Agregar Tarjeta'
-                          : 'Guardar datos',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white)),
-                ),
+        child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(children: [
+              CustomInputField(
+                inputFormatter:
+                    FilteringTextInputFormatter.allow(RegExp(r'[A-Z,a-z," "]')),
+                controller: controller.cardHolder,
+                keyboardType: TextInputType.text,
+                labelText: 'Titular',
+                prefixIcon: Icons.person_outline_outlined,
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+              CustomInputField(
+                inputFormatter: controller.cardNUmberFormatter,
+                controller: controller.cardNumber,
+                keyboardType: TextInputType.number,
+                labelText: 'Numero de tarjeta',
+                prefixIcon: Icons.credit_card,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomInputField(
+                      inputFormatter: controller.cardExpirationFormatter,
+                      controller: controller.cardExpiration,
+                      keyboardType: TextInputType.datetime,
+                      labelText: 'Vencimiento',
+                      prefixIcon: Icons.date_range,
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomInputField(
+                      inputFormatter: controller.cardCVVFormatter,
+                      controller: controller.cardCVV,
+                      keyboardType: TextInputType.number,
+                      labelText: 'CVV',
+                      prefixIcon: Icons.credit_score_rounded,
+                    ),
+                  )
+                ],
+              ),
+              ButtonTransparent(
+                text: 'Agregar Tarjeta',
+                paddingHorizontal: 20,
+                paddingVertical: 30,
+                onPressed: () {},
+              )
+            ])));
+
+    //       Padding(
+    //         padding: const EdgeInsets.symmetric(vertical: 50.0),
+    //         child: SizedBox(
+    //           height: 50,
+    //           width: MediaQuery.of(context).size.width,
+    //           child: ElevatedButton.icon(
+    //             style: ButtonStyle(
+    //                 backgroundColor: MaterialStateProperty.all<Color>(
+    //                   Color(0xFF43578d),
+    //                 ),
+    //                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    //                     RoundedRectangleBorder(
+    //                         borderRadius: BorderRadius.circular(18.0),
+    //                         side: BorderSide(color: Colors.black)))),
+    //             icon: const Icon(
+    //               Icons.monetization_on,
+    //               size: 20,
+    //             ),
+    //             onPressed: () => controller.save(context),
+    //             label: Text(
+    //                 controller.card$.value.id == 0
+    //                     ? 'Agregar Tarjeta'
+    //                     : 'Guardar datos',
+    //                 style: const TextStyle(
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: 20,
+    //                     color: Colors.white)),
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // ),
 
 // class LogoCreditCard extends StatelessWidget {
 //   LogoCreditCard({Key? key}) : super(key: key);
@@ -244,3 +292,5 @@ class PayPage extends GetView<PayController> {
 //                 ]));
 //   }
 // }
+  }
+}

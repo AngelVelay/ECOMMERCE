@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
 import '../../../cart/cart.module.dart';
 import '../../../main/entities/product.type.dart';
 import '../../../main/services/products/products.contract.dart';
 
 class ShoppingCartController extends GetxController {
   late final IProductsService productsService;
+  late final IAddressService _addressService;
 
   late var productList$ = <Product>[].obs;
   late var cartProducts$ = <Product>[].obs;
@@ -12,6 +15,8 @@ class ShoppingCartController extends GetxController {
   late var findedProducts$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
+  late var addressList$ = <UserAddress>[].obs;
+
   late var cartValue$ = 0.obs;
   late var toogleDelete$ = false.obs;
 
@@ -20,6 +25,7 @@ class ShoppingCartController extends GetxController {
     super.onInit();
 
     favoriteProducts$.value = await productsService.getFavorites();
+    addressList$.value = await _addressService.getFromCurrent();
 
     productList$.value = await productsService.getTop();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));

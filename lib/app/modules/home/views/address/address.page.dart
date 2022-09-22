@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 
-import '../../../main/entities/address.type.dart';
 import 'address.controller.dart';
 
 class AddressPage extends GetView<AddressController> {

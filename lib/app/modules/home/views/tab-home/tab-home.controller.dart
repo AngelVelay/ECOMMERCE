@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.contract.dart';
 import 'package:jexpoints/app/modules/home/views/details/components/detailTopProducts.dart';
@@ -31,7 +33,7 @@ class HomeController extends GetxController {
   final IProductsService productsService;
   final IFlyersService flyersService;
   final IAuthService authService;
-  final IAddressService addressService;
+  final AddressService addressService;
   final ICouponsService couponsService;
   final IPointLevelService pointLevelService;
   final IProductsImpulseService productsImpulseService;
@@ -51,9 +53,9 @@ class HomeController extends GetxController {
   late var favoriteProducts$ = <Product>[].obs;
   late var cartProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
-  late var addressList$ = <Address>[].obs;
+  late var addressList$ = <UserAddress>[].obs;
   late var selectedCreditCard$ = <CreditCard>[].obs;
-  late var selectedAddress$ = Address.fromVoid().obs;
+  late var selectedAddress$ = UserAddress.fromVoid().obs;
   late var coupons$ = <Coupon>[].obs;
   late var defaultCoupon$ = Coupon.fromVoid().obs;
   late var pointsLevel$ = <PointLevel>[].obs;
@@ -127,6 +129,8 @@ class HomeController extends GetxController {
     if (addressList$.isNotEmpty) {
       selectedAddress$.value =
           addressList$.where((element) => element.isDefault).toList().first;
+    } else {
+      selectedAddress$.value = UserAddress.fromVoid();
     }
   }
 
@@ -206,7 +210,7 @@ class HomeController extends GetxController {
   //   ]);
   // }
 
-  addressSelect(Address item, BuildContext context) {
+  addressSelect(UserAddress item, BuildContext context) {
     selectedAddress$.value = item;
     // Navigator.pop(context);
     // Get.toNamed('/confirm-compra');

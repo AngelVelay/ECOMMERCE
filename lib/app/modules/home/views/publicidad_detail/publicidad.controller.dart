@@ -6,7 +6,7 @@ import 'package:share_plus/share_plus.dart';
 class PublicidadController extends GetxController {
   final item = Get.arguments;
 
-  // shareData() async {
-  //   await Share.share(item, subject: 'Share');
-  // }
+  shareData() async {
+    await Share.share(item, subject: 'Share');
+  }
 }

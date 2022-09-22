@@ -88,7 +88,7 @@ class AddressDetailBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AddressDetailController>(
-        () => AddressDetailController(AddressFakeService()));
+        () => AddressDetailController(AddressService()));
   }
 }
 

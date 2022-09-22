@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:jexpoints/app/modules/cart/views/confirm-splash/delivery-confirm-splash.page.dart';
 import 'package:jexpoints/app/modules/cart/views/confirm-splash/pickUp-confirm-spalsh.page.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/rewards/entities/payment-methods.type.dart';
 import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-methods.contract.dart';
@@ -14,8 +15,7 @@ import '../../../home/views/tab-home/tab-home.controller.dart';
 import '../../../main/services/address/address.contract.dart';
 
 class CheckOutController extends GetxController {
-  final IAddressService addressService;
-  // final ICreditCardService creditCardService;
+  final AddressService addressService;
   final IPaymentMethodsService paymentMethodsService;
 
   CheckOutController(this.addressService, this.paymentMethodsService);
@@ -39,7 +39,7 @@ class CheckOutController extends GetxController {
   void onInit() async {
     super.onInit();
     selectedCreditCard$.value = await paymentMethodsService.getPayment();
-    selectedCreditCard$.value = selectedCreditCard;
+    // selectedCreditCard$.value = selectedCreditCard;
   }
 
   adreesTap(BuildContext context) {

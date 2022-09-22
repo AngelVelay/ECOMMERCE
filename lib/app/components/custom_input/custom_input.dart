@@ -57,24 +57,26 @@ class CustomInputField extends StatelessWidget {
         // },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-              width: 2.0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-              width: 2.0,
-            ),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-          ),
+          // enabledBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Colors.white,
+          //     width: 2.0,
+          //   ),
+          // ),
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Colors.white,
+          //     width: 2.0,
+          //   ),
+          // ),
+          border: InputBorder.none,
+
+          // border: OutlineInputBorder(
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(10),
+          //     bottomLeft: Radius.circular(10),
+          //   ),
+          // ),
           hintText: hintText, hintStyle: TextStyle(color: Colors.white),
           labelText: labelText, labelStyle: TextStyle(color: Colors.white),
           helperText: helperText, helperStyle: TextStyle(color: Colors.white),

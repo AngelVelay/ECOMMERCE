@@ -76,8 +76,10 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   }
 
   Widget _addressWidget() {
+    final HomeController controller = Get.find();
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 50.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -86,18 +88,20 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Av. Vicente Suárez #114. Col. Condesa...',
+              Text(
+                  '${controller.selectedAddress$.value.street} ${controller.selectedAddress$.value.outsideNumber} ${controller.selectedAddress$.value.town} ${controller.selectedAddress$.value.zipcode}  ',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.sp,
                       fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600)),
-              Text('Cerca de',
-                  style: TextStyle(
+                      fontWeight: FontWeight.bold)),
+              Text(
+                  'Cerca de ${controller.selectedAddress$.value.streetNotes} ${controller.selectedAddress$.value.suburb}',
+                  style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 12.sp,
+                      fontSize: 13,
                       fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w400)),
+                      fontWeight: FontWeight.bold)),
             ],
           )
         ],
@@ -188,13 +192,17 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
   Widget _paymentMethod() {
     return Column(children: [
       ListTile(
-          title: Text('Forma de Pago', style: TextStyle(color: Colors.white)),
+          title: const Text('Forma de Pago',
+              style: TextStyle(color: Colors.white)),
           subtitle: Row(
             children: [
-              const Text('XXXX - XXXX - XXXX - 1234',
-                  style: TextStyle(color: Colors.white)),
-              const SizedBox(width: 20),
-              Image.asset('assets/images/mastercard.png', height: 35)
+              Text(
+                  controller.selectedCreditCard$.isEmpty
+                      ? 'Elige un metodo de pago'
+                      : controller.selectedCreditCard$.value.first.cardNumber,
+                  style: const TextStyle(color: Colors.white)),
+              const SizedBox(width: 10),
+              Image.asset('assets/images/mastercard.png', height: 30)
             ],
           ),
           trailing: IconButton(

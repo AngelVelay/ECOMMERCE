@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/cart/views/checkout/checkout.controller.dart';
-
-import '../../../../components/form-controls/custom-rounded-button.widget.dart';
 
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
@@ -112,14 +108,16 @@ class ShoppingCartPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Av. Vicente Suárez #114. Col. Condesa...',
+              Text(
+                  '${controller.selectedAddress$.value.street} ${controller.selectedAddress$.value.outsideNumber} ${controller.selectedAddress$.value.town} ${controller.selectedAddress$.value.zipcode}  ',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.sp,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold)),
-              const Text('Cerca de',
-                  style: TextStyle(
+              Text(
+                  'Cerca de ${controller.selectedAddress$.value.streetNotes} ${controller.selectedAddress$.value.suburb}',
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 13,
                       fontFamily: 'Montserrat',
