@@ -14,6 +14,8 @@ import 'package:jexpoints/app/modules/home/views/details/detail.controller.dart'
 import 'package:jexpoints/app/modules/home/views/details/detail.page.dart';
 import 'package:jexpoints/app/modules/home/views/publicidad_detail/publicidad.controller.dart';
 import 'package:jexpoints/app/modules/home/views/publicidad_detail/publicidad.page.dart';
+import 'package:jexpoints/app/modules/home/views/qr-generate/generate.qr.controller.dart';
+import 'package:jexpoints/app/modules/home/views/qr-generate/generate.qr.page.dart';
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 
@@ -28,6 +30,7 @@ class HomeRouting {
   static const ADDRESS_DETAIL_ROUTE = '/address-detail';
   static const DELIVERY_DETAIL = '/delivery-detail';
   static const TOP_PRODUCTS_DETAIL_ROUTE = '/top-products';
+  static const GENERATE_QR_ROUTE = '/generate-qr';
 
   static final IAuthService authService = AuthFakeService();
   static final IAddressService addressService = AddressService();
@@ -57,7 +60,11 @@ class HomeRouting {
     GetPage(
         name: TOP_PRODUCTS_DETAIL_ROUTE,
         page: () => DetailTopProductsPage(),
-        binding: DetailBinding())
+        binding: DetailBinding()),
+    GetPage(
+        name: GENERATE_QR_ROUTE,
+        page: () => QrGeneratePage(),
+        binding: QrGenerateBinding()),
   ];
 }
 
@@ -96,5 +103,12 @@ class DeliveryDetailBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DetailDeliveryController>(() => DetailDeliveryController());
+  }
+}
+
+class QrGenerateBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<QrGenerateController>(() => QrGenerateController());
   }
 }

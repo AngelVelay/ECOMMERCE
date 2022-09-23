@@ -39,9 +39,12 @@ class PaymentMethodsPage extends GetView<PaymentMethodsController> {
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: _title(),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: _list(context),
+      Expanded(
+        child: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: _list(context)),
+        ),
       ),
     ]);
   }
@@ -115,7 +118,7 @@ class PaymentMethodsPage extends GetView<PaymentMethodsController> {
   }
 
   Widget _list(BuildContext context) {
-    return SingleChildScrollView(child: Obx(() {
+    return Obx(() {
       return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -125,7 +128,7 @@ class PaymentMethodsPage extends GetView<PaymentMethodsController> {
           return _listItem(context, controller.paymentMethods$[index]);
         },
       );
-    }));
+    });
   }
 
   Widget _listItem(BuildContext context, PaymentMethods item) {
@@ -165,77 +168,3 @@ class PaymentMethodsPage extends GetView<PaymentMethodsController> {
                 ])));
   }
 }
-
-
-  // Widget _listItem(BuildContext context, Address item) {
-  //   return ListTile(
-  //       title: Row(
-  //         children: [
-  //           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-  //             Text(
-  //               item.alias.toUpperCase(),
-  //               overflow: TextOverflow.ellipsis,
-  //               style: Theme.of(context).textTheme.headline4,
-  //             ),
-  //             Row(children: [
-  //               Text(
-  //                 item.contactName,
-  //                 overflow: TextOverflow.ellipsis,
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //               Text(
-  //                 ' - ${item.contactPhone}',
-  //                 overflow: TextOverflow.ellipsis,
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //             ]),
-  //             Row(children: [
-  //               Text(
-  //                 item.street,
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //               Text(
-  //                 'No. ${item.outsideNumber}',
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //               Text(
-  //                 ', Int. ${item.insideNumber}',
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //             ]),
-  //             Row(children: [
-  //               Text(
-  //                 item.suburb,
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //               Text(
-  //                 ', ${item.town}',
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //             ]),
-  //             Row(children: [
-  //               Text(
-  //                 item.state,
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //               Text(
-  //                 ', C.P. ${item.zipCode}',
-  //                 style: Theme.of(context).textTheme.bodyText1,
-  //               ),
-  //             ]),
-  //           ]),
-  //         ],
-  //       ),
-  //       trailing:
-  //           Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-  //         const Spacer(),
-  //         const SizedBox(
-  //           height: 10,
-  //         ),
-  //         GestureDetector(
-  //           onTap: () => controller.toAddessDetail(item),
-  //           child: const Icon(Icons.edit, color: Colors.grey),
-  //         ),
-  //         const Spacer(),
-  //       ]));
-  // }

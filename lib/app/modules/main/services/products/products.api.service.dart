@@ -57,7 +57,16 @@ class ProductsApiService extends BaseService implements IProductsService {
 
   @override
   Future<List<Product>> search(String keyword) {
-    // TODO: implement search
-    throw UnimplementedError();
+    keyword = keyword.toLowerCase();
+    var result = getProductsVariable().then((value) {
+      return value
+          .where((element) => element.name.toLowerCase().contains(keyword))
+          .toList();
+    });
+
+    // var result =
+    //     _products.where((e) => e.name.toLowerCase().contains(keyword)).toList();
+    // print(result);
+    return result;
   }
 }

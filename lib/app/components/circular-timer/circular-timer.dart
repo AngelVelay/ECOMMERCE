@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class TimerQr extends StatelessWidget {
   late double height;
-  
+
   TimerQr({Key? key, required this.height}) : super(key: key);
 
   @override
@@ -17,16 +17,14 @@ class TimerQr extends StatelessWidget {
         height: height,
         ringColor: Colors.grey[300]!,
         ringGradient: null,
-        fillColor: const Color(0xFF171d35),
+        fillColor: const Color.fromARGB(255, 77, 80, 94),
         fillGradient: null,
-        backgroundColor: const Color(0xFF146b87),
+        backgroundColor: const Color(0xFF222222),
         backgroundGradient: null,
-        strokeWidth: 18.0,
-        strokeCap: StrokeCap.round,
+        strokeWidth: 10.0,
+        strokeCap: StrokeCap.square,
         textStyle: const TextStyle(
-            fontSize: 33.0,
-            color: Colors.white,
-            fontWeight: FontWeight.bold),
+            fontSize: 25.0, color: Colors.white, fontWeight: FontWeight.bold),
         textFormat: CountdownTextFormat.S,
         isReverse: true,
         isReverseAnimation: true,

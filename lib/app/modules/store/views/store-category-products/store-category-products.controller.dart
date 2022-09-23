@@ -83,13 +83,14 @@ class StoreCategoryProductsController extends GetxController {
   //   // Get.to(() => CatalogSearchPage(controller));
   // }
 
-  // search(BuildContext context) async {
-  //   // productList$.value = await productsService.search(keywordCtrl.text);
-  //   findedProducts$.value = productList$
-  //       .where((e) => e.category.toString().contains(category.toLowerCase()))
-  //       .toList();
-  //   FocusScope.of(context).unfocus();
-  // }
+  search(BuildContext context) async {
+    productList$.value = await _productsService.search(keywordCtrl.text);
+    findedProducts$.value = productList$
+        .where((e) =>
+            e.category.toString().contains(category.toString().toLowerCase()))
+        .toList();
+    FocusScope.of(context).unfocus();
+  }
 
   toProductDetail(Product item) {
     Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {'product': item});

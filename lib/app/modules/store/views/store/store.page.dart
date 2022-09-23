@@ -168,7 +168,7 @@ class StorePage extends GetView<StoreController> {
               maxLines: 1,
               softWrap: false,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.white, fontSize: 12)),
         ],
       ),
     );

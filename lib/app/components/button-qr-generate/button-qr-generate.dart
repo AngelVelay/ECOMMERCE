@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 
 class ButtonQRScanner extends StatelessWidget {
   final String title;
@@ -36,35 +34,6 @@ class ButtonQRScanner extends StatelessWidget {
           },
         ),
       )
-      // child: ElevatedButton(
-      //     style: ButtonStyle(
-      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      //           const RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.zero,
-      //               side: BorderSide(color: Colors.white))),
-      //       backgroundColor:
-      //           MaterialStateProperty.all<Color>(const Color(0XFFFFFFFF)),
-      //     ),
-      //     onPressed: () {
-      //       showCupertinoModalPopup(
-      //           context: context,
-      //           builder: (BuildContext context) => _actionSheet(context));
-      //     },
-      //     child: FadeInImage(
-      //         fit: BoxFit.cover,
-      //         height: height,
-      //         width: width,
-      //         placeholder: const NetworkImage(
-      //             'https://tenor.com/view/loading-gif-9212724.gif'),
-      //         image: const NetworkImage(
-      //           'https://cdn-icons-png.flaticon.com/512/888/888154.png',
-      //         ))),
-
-      // Text(
-      //   title,
-      //   style:
-      //       TextStyle(fontSize: 20, color: color, fontWeight: FontWeight.bold),
-      // )
     ]);
   }
 

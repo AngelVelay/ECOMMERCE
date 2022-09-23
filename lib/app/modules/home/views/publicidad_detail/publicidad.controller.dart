@@ -38,6 +38,8 @@ class PublicidadController extends GetxController {
   }
 
   shareData() async {
-    await Share.share(item, subject: 'Share');
+    var item = Get.arguments;
+
+    await Share.share(item.toString(), subject: 'Compartir Publicidad');
   }
 }

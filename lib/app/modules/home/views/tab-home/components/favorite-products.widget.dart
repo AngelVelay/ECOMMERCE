@@ -88,10 +88,15 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                           height: 130,
                           fit: BoxFit.cover,
                         ),
-                        // const Align(
-                        //     alignment: Alignment.bottomRight,
-                        //     child: Icon(Icons.add_circle_rounded,
-                        //         color: Colors.white, size: 50)),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                                onTap: () {},
+                                child: const Icon(
+                                  Icons.favorite,
+                                  size: 20,
+                                  color: Colors.pinkAccent,
+                                ))).paddingAll(5)
                       ])),
                 ),
                 Text(item.name,

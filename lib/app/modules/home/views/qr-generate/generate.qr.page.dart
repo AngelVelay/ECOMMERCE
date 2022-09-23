@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:jexpoints/app/modules/main/views/qr-generate/generate.qr.controller.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../components/circular-timer/circular-timer.dart';
+import 'generate.qr.controller.dart';
 
 class QrGeneratePage extends GetView<QrGenerateController> {
   const QrGeneratePage({Key? key}) : super(key: key);
@@ -14,8 +15,12 @@ class QrGeneratePage extends GetView<QrGenerateController> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Escanea tu codigo',
-              style: TextStyle(color: Colors.white)),
+          title: Text('Escanea tu codigo',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat')),
           backgroundColor: const Color(0xFF222222),
         ),
         body: SingleChildScrollView(

@@ -27,8 +27,20 @@ class PaymentMethodsService extends BaseService
   }
 
   @override
-  Future<PaymentMethods> save(PaymentMethods creditCard) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<PaymentMethods> save(PaymentMethods creditCard) async {
+    var jsonResponse = await provider.request<List<PaymentMethods>>(
+        RequestMethod.post, 'UserPaymentMethods',
+        body: json.encode(creditCard));
+
+    var result = jsonDecode(jsonResponse);
+    return PaymentMethods.fromJson(result);
   }
 }
+
+  // @override
+  // Future<String> post(Object item,
+  //     {String urlComplement = '', bool useCustomUrl = false}) {
+  //   return provider.request(
+  //       RequestMethod.post, _solveUrl(urlComplement, useCustomUrl),
+  //       useDefaultUrl: !(_url != null && _url != ''), body: json.encode(item));
+  // }

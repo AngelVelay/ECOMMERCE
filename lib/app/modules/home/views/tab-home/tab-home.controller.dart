@@ -63,6 +63,7 @@ class HomeController extends GetxController {
   late var showDeliveryButton$ = false.obs;
   late var toogleDelete$ = false.obs;
   late var toogleTotal$ = false.obs;
+  late var isFavorite$ = false.obs;
 
   var showDeliveryType$ = false.obs;
   var showDeliveryisVisible$ = false.obs;

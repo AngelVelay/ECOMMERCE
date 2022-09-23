@@ -3,6 +3,7 @@ import 'package:awesome_card/credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
@@ -235,7 +236,17 @@ class PayPage extends GetView<PayController> {
                 text: 'Agregar Tarjeta',
                 paddingHorizontal: 20,
                 paddingVertical: 30,
-                onPressed: () {},
+                onPressed: () {
+                  controller.save(context);
+                  Get.snackbar(
+                    'Tarjeta Agregada',
+                    'Nuevo metodo de pago agregado',
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.black.withOpacity(0.5),
+                    duration: Duration(seconds: 2),
+                  );
+                },
               )
             ])));
 

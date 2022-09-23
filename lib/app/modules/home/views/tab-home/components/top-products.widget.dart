@@ -98,6 +98,13 @@ class HomeTopProducts extends GetView<HomeController> {
                           height: itemSize,
                           fit: BoxFit.cover,
                         ),
+                        Align(
+                                alignment: Alignment.topRight,
+                                child: GestureDetector(
+                                    onTap: () {},
+                                    child:
+                                        Icon(Icons.favorite_border, size: 20)))
+                            .paddingAll(5),
                       ])),
                 ),
                 const SizedBox(

@@ -63,23 +63,39 @@ class HomeAddressSelect extends GetView<HomeController> {
 
   Widget _listItem(UserAddress item, BuildContext context) {
     return Obx((() {
-      return Row(children: [
-        Radio<UserAddress>(
-          value: item,
-          groupValue: controller.selectedAddress$.value,
-          onChanged: (value) {
-            controller.addressSelect(value as UserAddress, context);
-            // Navigator.of(context, rootNavigator: true).pop();
-          },
-        ),
-        const SizedBox(width: 10),
-        Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipcode}',
-            style: const TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold)),
-      ]);
+      return RadioListTile(
+        contentPadding: EdgeInsets.zero,
+        visualDensity: VisualDensity.compact,
+
+        value: item,
+        groupValue: controller.selectedAddress$.value,
+        title: Text(
+            '${item.street} No.${item.outsideNumber}, CP. ${item.zipcode}'),
+        onChanged: (value) {
+          controller.addressSelect(value as UserAddress, context);
+        },
+        activeColor: Colors.white,
+        selected: true,
+
+        // child: Row(children: [
+        //   Radio<UserAddress>(
+        //     value: item,
+        //     groupValue: controller.selectedAddress$.value,
+        //     fillColor: MaterialStateColor.resolveWith((states) => Colors.white),
+        //     onChanged: (value) {
+        //       controller.addressSelect(value as UserAddress, context);
+        //       // Navigator.of(context, rootNavigator: true).pop();
+        //     },
+        //   ),
+        //   const SizedBox(width: 10),
+        //   Text('${item.street} No.${item.outsideNumber}, CP. ${item.zipcode}',
+        //       style: const TextStyle(
+        //           fontSize: 12,
+        //           color: Colors.white,
+        //           fontFamily: 'Montserrat',
+        //           fontWeight: FontWeight.bold)),
+        // ]),
+      );
     }));
   }
 

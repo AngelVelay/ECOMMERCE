@@ -42,7 +42,7 @@ class MainRouting {
   // static const HOME_ROUTE = '/home';
   static const PROFILE_ROUTE = '/profile';
   // static const CONSUME_ROUTE = '/consume';
-  // static const GENERATE_QR_ROUTE = '/generate-qr';
+  static const GENERATE_QR_ROUTE = '/generate-qr';
   // static const UBICATIONS_ROUTE = '/ubications';
   // static const UBICATIONS_LIST_ROUTE = '/ubications-list';
   // static const DETAIL_ROUTE = '/detail';

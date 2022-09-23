@@ -110,6 +110,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
   Widget _header(BuildContext context, double percent) {
     return Positioned(
         top: 10,
+        left: MediaQuery.of(context).size.width * 0.040,
         child: Opacity(
             opacity: percent,
             child: Container(
@@ -128,19 +129,21 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
         top: 100,
         child: Opacity(
             opacity: percent,
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.only(left: 20),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      ButtonQRScanner(
-                        height: 50,
-                        width: 50,
-                        title: '',
-                        color: Colors.white,
-                      )
-                    ]))));
+            child: GestureDetector(
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        ButtonQRScanner(
+                          height: 50,
+                          width: 50,
+                          title: '',
+                          color: Colors.white,
+                        )
+                      ])),
+            )));
   }
 
   Widget _zipCodeLabel(BuildContext context) {

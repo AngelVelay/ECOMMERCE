@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
 
@@ -9,6 +10,7 @@ class HomeSearchPage extends GetView<HomeController> {
   @override
   final HomeController controller;
 
+  // ignore: use_key_in_widget_constructors
   const HomeSearchPage(this.controller);
 
   @override
@@ -44,44 +46,47 @@ class HomeSearchPage extends GetView<HomeController> {
 
   // List
   Widget _productList(BuildContext context, HomeController controller) {
-    return SingleChildScrollView(
-      child: Obx(() {
-        return controller.findedProducts$.isEmpty
-            ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.search_off_sharp,
-                      size: 100,
-                      color: Colors.white,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "No se encontaron resultados de búsqueda",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                  ],
-                ),
-              )
-            : GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: controller.findedProducts$.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12.0,
-                  crossAxisSpacing: 10.0,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) =>
-                    _productItem(context, controller.findedProducts$[index]));
-      }),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SingleChildScrollView(
+        child: Obx(() {
+          return controller.findedProducts$.isEmpty
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.search_off_sharp,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "No se encontaron resultados de búsqueda",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ],
+                  ),
+                )
+              : GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.findedProducts$.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 0.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) =>
+                      _productItem(context, controller.findedProducts$[index]));
+        }),
+      ),
     );
   }
 
@@ -102,7 +107,7 @@ class HomeSearchPage extends GetView<HomeController> {
                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
                     image: NetworkImage(item.imageLink),
                     width: double.infinity,
-                    height: 115,
+                    height: 100,
                     fit: BoxFit.cover,
                   ),
                 ])),
@@ -161,7 +166,14 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             child: AppBar(
                 backgroundColor: Color(0xFF222222),
                 elevation: 0.0,
-                title: const Text('Buscar Producto')),
+                title: Text(
+                  'Buscar Producto',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                )),
           ),
           _searchInput(context, percent)
         ],
@@ -183,7 +195,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   Widget _searchInput(BuildContext context, double percent) {
     return Positioned(
       right: 20,
-      top: 50,
+      top: 60,
       child: Opacity(
         opacity: percent,
         child: Container(
