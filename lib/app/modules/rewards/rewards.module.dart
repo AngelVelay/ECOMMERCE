@@ -82,7 +82,7 @@ class ConsumeBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<ConsumeController>(() => ConsumeController(shoppingService));
     Get.lazyPut<OrderDetailController>(
-        () => OrderDetailController(shoppingService));
+        () => OrderDetailController(shoppingService, addressService));
     Get.lazyPut<PaymentMethodsController>(
         () => PaymentMethodsController(paymentService));
     Get.lazyPut<AddressController>(() => AddressController(addressService));

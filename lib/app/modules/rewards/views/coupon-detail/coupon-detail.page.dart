@@ -11,7 +11,11 @@ class CouponDetailPage extends GetView<CouponDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(controller.coupon$.value.shortDescription),
+          title: Text(
+            controller.coupon$.value.shortDescription,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
           backgroundColor: const Color(0xFF222222),
         ),
         body: SingleChildScrollView(
@@ -42,7 +46,10 @@ class CouponDetailPage extends GetView<CouponDetailController> {
 
   Widget _title() {
     return Text(controller.coupon$.value.title,
-        style: const TextStyle(fontSize: 25, color: Colors.white));
+        style: const TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+            overflow: TextOverflow.ellipsis));
   }
 
   Widget _center() {

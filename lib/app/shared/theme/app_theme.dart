@@ -7,6 +7,7 @@ final ThemeData appTheme = ThemeData(
   indicatorColor: Color(0XFF222222),
   appBarTheme: const AppBarTheme(backgroundColor: Color(0XFF222222)),
   scaffoldBackgroundColor: const Color(0xff2222222),
+  unselectedWidgetColor: Colors.white,
 
   // Define the default font family.
   fontFamily: 'Montserrat-Regular',

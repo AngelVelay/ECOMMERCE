@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.page.dart';
+import 'package:jexpoints/app/modules/ubications/views/ubications/ubications-branches/ubications-branches.page.dart';
 import '../../../rewards/views/rewards/rewards.page.dart';
 import '../../../store/views/store/store.page.dart';
 import '../../../store/views/tab-shopping-cart/tab-shoppin-cart.page.dart';
@@ -35,7 +36,8 @@ class MainController extends GetxController {
     TabItem(const UbicationsPage(), 'Sucursales',
         assetPath: 'assets/icons_tab_bar/marker.png'),
     TabItem(ShoppingCartPage(), 'Carrito',
-        icon: Icons.shopping_cart, badgeValue: controllerHome.cartItems$)
+        icon: Icons.shopping_cart_rounded,
+        badgeValue: controllerHome.cartItems$)
   ];
 
   // GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();

@@ -59,35 +59,19 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF222222),
-          title: Opacity(
-              opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: controller.pointsLevel$.isEmpty
-                  ? const CircularProgressIndicator(
-                      color: Colors.transparent,
-                    )
-                  : controller.pointsLevel$.first.initialPoints! <= 100
-                      ? FadeInImage(
-                          placeholder: const AssetImage(
-                              'assets/cards/card_title_platino.png'),
-                          image: NetworkImage(
-                              '${controller.pointsLevel$[0].cardHeaderFile}'),
-                          fit: BoxFit.cover,
-                        )
-                      : controller.pointsLevel$[1].initialPoints! <= 500
-                          ? FadeInImage(
-                              placeholder: const AssetImage(
-                                  'assets/cards/card_title_gold.png'),
-                              image: NetworkImage(
-                                  '${controller.pointsLevel$[1].cardHeaderFile}'),
-                              fit: BoxFit.cover,
-                            )
-                          : FadeInImage(
-                              placeholder: const AssetImage(
-                                  'assets/cards/card_title_black.png'),
-                              image: NetworkImage(
-                                  '${controller.pointsLevel$[2].cardHeaderFile}'),
-                              fit: BoxFit.cover,
-                            )),
+          title: Expanded(
+              child: Opacity(
+            opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
+            child: controller.pointsLevel$.isEmpty
+                ? const CircularProgressIndicator(
+                    color: Colors.transparent,
+                  )
+                : controller.pointsLevel$.first.initialPoints! <= 100
+                    ? Image.asset('assets/cards/card_title_platino.png')
+                    : controller.pointsLevel$[1].initialPoints! <= 500
+                        ? Image.asset('assets/cards/card_title_gold.png')
+                        : Image.asset('assets/cards/card_title_black.png'),
+          )),
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,

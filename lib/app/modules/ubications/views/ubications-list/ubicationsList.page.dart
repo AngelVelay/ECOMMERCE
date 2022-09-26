@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:jexpoints/app/modules/main/entities/ubications.type.dart';
+import 'package:get/get.dart';
 
+import 'package:jexpoints/app/modules/ubications/views/ubications/ubications-branches/ubications-branches.controller.dart';
+
+import '../../entities/sucursal-type.dart';
 import 'ubicationsList.controller.dart';
 
 class UbicationsListPage extends GetView<UbicationsListController> {
-  const UbicationsListPage({Key? key}) : super(key: key);
+  final controllerUbi = Get.find<UbicationsBranchesController>();
+  UbicationsListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class UbicationsListPage extends GetView<UbicationsListController> {
       ),
       body: Column(children: [
         Expanded(child: Obx(() {
-          if (controller.isLoading.value) {
+          if (controllerUbi.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
           } else {
             return _branchesListWidget(context);
@@ -31,16 +33,16 @@ class UbicationsListPage extends GetView<UbicationsListController> {
     return Obx(() {
       return SingleChildScrollView(
           child: Column(children: <Widget>[
-        controller.reports$.isNotEmpty
+        controllerUbi.branchesToShow.isNotEmpty
             ? Column(children: [
                 ListView.builder(
                     scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: controller.reports$.length,
+                    itemCount: controllerUbi.branchesToShow.length,
                     itemBuilder: (context, i) {
                       return _branchesItemWidget(
-                          context, controller.reports$[i]);
+                          context, controllerUbi.branchesToShow[i]);
                     })
               ])
             : Container(
@@ -53,13 +55,13 @@ class UbicationsListPage extends GetView<UbicationsListController> {
     });
   }
 
-  _branchesItemWidget(BuildContext context, UbicationsObject item) {
+  _branchesItemWidget(BuildContext context, SucursalType item) {
     return ListTile(
-      title: Text(item.name),
-      subtitle:
-          Text(item.description, style: const TextStyle(color: Colors.grey)),
+      title: Text(item.name.toString()),
+      subtitle: Text(item.description.toString(),
+          style: const TextStyle(color: Colors.grey)),
       onTap: () {
-        controller.consumeTap(context, item);
+        controllerUbi.consumeTap(context, item);
       },
       trailing: const Icon(Icons.chevron_right),
     );

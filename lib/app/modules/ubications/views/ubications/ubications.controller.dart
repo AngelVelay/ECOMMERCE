@@ -10,11 +10,14 @@ import 'package:jexpoints/app/modules/ubications/entities/branches-tags.type.dar
 import 'package:jexpoints/app/modules/ubications/services/branches-tags/branches-tags.contract.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications/utills/map_style.dart';
 
+import '../../entities/sucursal-type.dart';
+import 'ubications-branches/ubications-branches.controller.dart';
 import 'utills/map_utils.dart';
 
 // import 'package:jexpoints/app/modules/main/views/ubications/utills/map_utils.dart';
 
 class UbicationsController extends GetxController {
+  final controller = Get.find<UbicationsBranchesController>();
   final IBranchTagsService branchService;
 
   final CustomInfoWindowController _customInfoWindowController =
@@ -25,21 +28,31 @@ class UbicationsController extends GetxController {
   String imgurl = "";
   int contador = 0;
   var isLoading = false.obs;
-  late var branchesTags$ = <BranchesTags>[].obs;
+  var branchesTags$ = <BranchesTags>[].obs;
+  var branches$ = <dynamic>[].obs;
+  var settings$ = [].obs;
+  var selectedBranch = 0.obs;
+  var selectedTag = 0.obs;
+  var selectedBranchName = "".obs;
+  var selectedTagName = "".obs;
 
   UbicationsController(this.branchService);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fetchPost();
+    // fetchPost();
     final CustomInfoWindowController _customInfoWindowController =
         CustomInfoWindowController();
-    branchesTags$.value = branchService.getTags() as List<BranchesTags>;
+    branchesTags$.value = await branchService.getBranchesTags();
+    branches$.value = await branchService.getBranches();
+    settings$.value =
+        await branchService.getSettings('26a9a4a8-7ad5-4466-88b2-587b5c6fedba');
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
-    controller.setMapStyle(styleMap);
+    // controller.setMapStyle(styleMap);
+    await controller.setMapStyle("[]");
   }
 
   final initialCameraPosition = const CameraPosition(
@@ -55,9 +68,9 @@ class UbicationsController extends GetxController {
 
     ubications = json.decode(response.body);
 
-    ubications.forEach((element) async {
+    controller.branchesToShow.forEach((element) async {
       imgurl = "http://201.151.139.54/FileManagerDoctos/jexbit/" +
-          element['geoIcon'];
+          element.geoIcon.toString();
 
       Uint8List bytes =
           (await NetworkAssetBundle(Uri.parse(imgurl)).load(imgurl))
@@ -65,9 +78,9 @@ class UbicationsController extends GetxController {
               .asUint8List();
 
       allMarkers.add(Marker(
-          markerId: MarkerId(element['id']),
-          position: LatLng(double.parse(element['latitude']),
-              double.parse(element['longitude'])),
+          markerId: MarkerId(element.id.toString()),
+          position: LatLng(
+              double.parse(element.latitude), double.parse(element.longitude)),
           icon: BitmapDescriptor.fromBytes(bytes),
           // infoWindow: InfoWindow(
           //   title: element['name'],
@@ -96,7 +109,7 @@ class UbicationsController extends GetxController {
                               scale: .2,
                               image: NetworkImage(
                                   "http://201.151.139.54/FileManagerDoctos/jexbit/" +
-                                      element['geoIcon']),
+                                      element.geoIcon.toString()),
                               fit: BoxFit.fitWidth,
                               filterQuality: FilterQuality.high),
                           borderRadius: const BorderRadius.all(
@@ -113,7 +126,7 @@ class UbicationsController extends GetxController {
                             SizedBox(
                               width: 100,
                               child: Text(
-                                element['name'],
+                                element.name.toString(),
                                 maxLines: 1,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
@@ -130,7 +143,7 @@ class UbicationsController extends GetxController {
                         padding:
                             const EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: Text(
-                          element['description'],
+                          element.description.toString(),
                           maxLines: 2,
                         ),
                       ),
@@ -138,12 +151,12 @@ class UbicationsController extends GetxController {
                   ),
                 ),
                 onTap: () async {
-                  MapUtils.openMap(double.parse(element['latitude']),
-                      double.parse(element['longitude']));
+                  MapUtils.openMap(double.parse(element.latitude),
+                      double.parse(element.longitude));
                 },
               ),
-              LatLng(double.parse(element['latitude']),
-                  double.parse(element['longitude'])),
+              LatLng(double.parse(element.latitude),
+                  double.parse(element.longitude)),
             );
           }));
       contador++;

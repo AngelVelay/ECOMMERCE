@@ -5,9 +5,13 @@ import 'package:jexpoints/app/modules/ubications/views/ubications-list/ubication
 import 'package:jexpoints/app/modules/ubications/views/ubications/ubications.controller.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications/ubications.page.dart';
 
+import 'views/ubications/ubications-branches/ubications-branches.controller.dart';
+import 'views/ubications/ubications-branches/ubications-branches.page.dart';
+
 class UbicationsRouting {
   static const UBICATIONS_ROUTE = '/ubications';
   static const UBICATIONS_LIST_ROUTE = '/ubications-list';
+  static const NEW_UBICATIONS_ROUTE = '/new-ubications';
 
   static final routes = [
     GetPage(
@@ -18,6 +22,10 @@ class UbicationsRouting {
         name: UBICATIONS_ROUTE,
         page: () => UbicationsPage(),
         binding: UbicationsBinding()),
+    GetPage(
+        name: NEW_UBICATIONS_ROUTE,
+        page: () => BranchesUbicationsPage(),
+        binding: UbicationBranchesBinding())
   ];
 }
 
@@ -36,5 +44,15 @@ class UbicationsBinding implements Bindings {
     Get.lazyPut<UbicationsController>(
         () => UbicationsController(branchesTagsService),
         fenix: true);
+  }
+}
+
+class UbicationBranchesBinding implements Bindings {
+  var branchesTagsService = BranchesTagsService();
+
+  @override
+  void dependencies() {
+    Get.lazyPut<UbicationsBranchesController>(
+        () => UbicationsBranchesController(branchesTagsService));
   }
 }

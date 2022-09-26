@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -43,28 +45,13 @@ Widget _buildCreditCard(BuildContext context, HomeController item,
                   color: Colors.transparent,
                 )
               : item.pointsLevel$.first.initialPoints! <= 100
-                  ? FadeInImage(
-                      placeholder: const AssetImage(
-                          'assets/background_cards/silver.png'),
-                      image: NetworkImage(
-                          '${item.pointsLevel$[0].cardBackgroundFile}'),
-                      fit: BoxFit.cover,
-                    )
+                  ? Image.asset('assets/cards/card_title_platino.png',
+                      fit: BoxFit.fill)
                   : item.pointsLevel$[1].initialPoints! <= 500
-                      ? FadeInImage(
-                          placeholder: const AssetImage(
-                              'assets/background_cards/gold.jpg'),
-                          image: NetworkImage(
-                              '${item.pointsLevel$[1].cardBackgroundFile}'),
-                          fit: BoxFit.cover,
-                        )
-                      : FadeInImage(
-                          placeholder: const AssetImage(
-                              'assets/background_cards/black.jpg'),
-                          image: NetworkImage(
-                              '${item.pointsLevel$[2].cardBackgroundFile}'),
-                          fit: BoxFit.cover,
-                        ),
+                      ? Image.asset('assets/background_cards/gold.jpg',
+                          fit: BoxFit.fill)
+                      : Image.asset('assets/background_cards/black.jpg',
+                          fit: BoxFit.fill),
           margin: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
@@ -135,30 +122,10 @@ Widget _buildLogosBlock(controller) {
                   color: Colors.transparent,
                 )
               : controller.pointsLevel$.first.initialPoints! <= 100
-                  ? FadeInImage(
-                      height: 40,
-                      placeholder: const AssetImage(
-                          'assets/cards/card_title_platino.png'),
-                      image: NetworkImage(
-                          '${controller.pointsLevel$[0].cardHeaderFile}'),
-                      fit: BoxFit.cover,
-                    )
+                  ? Image.asset('assets/cards/card_title_platino.png')
                   : controller.pointsLevel$[1].initialPoints! <= 500
-                      ? FadeInImage(
-                          height: 40,
-                          placeholder: const AssetImage(
-                              'assets/cards/card_title_gold.png'),
-                          image: NetworkImage(
-                              '${controller.pointsLevel$[1].cardHeaderFile}'),
-                          fit: BoxFit.cover,
-                        )
-                      : FadeInImage(
-                          placeholder: const AssetImage(
-                              'assets/cards/card_title_black.png'),
-                          image: NetworkImage(
-                              '${controller.pointsLevel$[2].cardHeaderFile}'),
-                          fit: BoxFit.cover,
-                        ),
+                      ? Image.asset('assets/cards/card_title_gold.png')
+                      : Image.asset('assets/cards/card_title_black.png'),
           const Text(
             'Programa de Recompensas',
             style: TextStyle(color: Colors.white, fontSize: 8),

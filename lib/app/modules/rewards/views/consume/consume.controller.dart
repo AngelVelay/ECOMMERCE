@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:jexpoints/app/core/utils/sheet.utils.dart';
+import 'package:jexpoints/app/modules/home/components/tracking-pickup-qr.dart';
+import 'package:jexpoints/app/modules/home/entities/address.type.dart';
+import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/main/entities/order.type.dart';
 import 'package:jexpoints/app/modules/main/services/shopping/shopping.contract.dart';
 import 'components/order-detail-delivery.dart';
@@ -37,7 +40,8 @@ class ConsumeController extends GetxController {
 
   showDetailPickup(BuildContext context, Order order) {
     showModalBottomSheet(
-      backgroundColor: const Color(0XFF22222222),
+      isScrollControlled: true,
+      backgroundColor: Color(0xff2222222),
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -45,11 +49,25 @@ class ConsumeController extends GetxController {
         ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.7,
-          child: const OrderDetailPickup(),
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).copyWith().size.height * 0.75,
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Mostrar en Sucursal',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 500,
+              child: TrackingPickup(),
+            ),
+          ],
         ),
       ),
     );
@@ -57,7 +75,7 @@ class ConsumeController extends GetxController {
 
   showDetailDelivery(BuildContext context, Order order) {
     SheetUtils.show(context, const OrderDetailDelivery(),
-        title: 'Pedido #${order.id}');
+        height: 500, title: 'Pedido #${order.id}');
   }
 
   void showDetail(Order item, BuildContext context) {

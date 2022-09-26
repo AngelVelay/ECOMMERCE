@@ -24,6 +24,8 @@ class AddAdressController extends GetxController {
 
   void onInit() async {
     super.onInit();
+    CameraPosition initialPosition =
+        const CameraPosition(target: LatLng(19.4279804, -99.1610907), zoom: 14);
   }
 
   AddAdressController() {

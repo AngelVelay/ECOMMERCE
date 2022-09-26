@@ -54,11 +54,14 @@ class CouponsPage extends GetView<CouponsController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            item.title,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 20),
+                          Expanded(
+                            child: Text(
+                              item.title,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
                           ),
                           TextButton.icon(
                             style: ButtonStyle(

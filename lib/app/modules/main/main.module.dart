@@ -24,6 +24,7 @@ import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 import 'package:jexpoints/app/modules/main/views/profile/profile.controller.dart';
 import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.api.service.dart';
+import 'package:jexpoints/app/modules/ubications/views/ubications/ubications-branches/ubications-branches.controller.dart';
 
 import '../cart/views/checkout/checkout.controller.dart';
 
@@ -34,6 +35,7 @@ import '../rewards/views/consume/consume.controller.dart';
 import '../rewards/views/rewards/rewards.controller.dart';
 import '../store/views/store/store.controller.dart';
 
+import '../ubications/services/branches-tags/branches-tags.api.service.dart';
 import 'services/products/products.api.service.dart';
 
 class MainRouting {
@@ -185,6 +187,9 @@ class MainBinding implements Bindings {
     Get.lazyPut<StoreController>(
         () => StoreController(BusinessLinesApiService()),
         fenix: true);
+    Get.lazyPut<UbicationsBranchesController>(
+      () => UbicationsBranchesController(BranchesTagsService()),
+    );
     // Get.lazyPut<CatalogosController>(
     //     () =>
     //         CatalogosController(CatalogueFakeService(), ProductsFakeService()),

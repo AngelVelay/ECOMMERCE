@@ -28,6 +28,8 @@ class DetailDeliveryController extends GetxController {
 
   DetailDeliveryController() {
     checkGPS();
+    CameraPosition initialPosition =
+        const CameraPosition(target: LatLng(19.4279804, -99.1610907), zoom: 16);
   }
 
   // ClientAddressMapController() {

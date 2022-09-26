@@ -84,7 +84,7 @@ class OrderDetailDelivery extends GetView<OrderDetailController> {
             style: TextStyle(fontSize: 10, color: Colors.grey),
           ),
           Text(
-            '${controller.order$.value.deliveredAddress!.street} ${controller.order$.value.deliveredAddress!.outsideNumber}',
+            '${controller.selectedAddress$.value.street} ${controller.selectedAddress$.value.outsideNumber} ${controller.selectedAddress$.value.town} ${controller.selectedAddress$.value.zipcode}  ',
             style: const TextStyle(fontWeight: FontWeight.w300),
           )
         ]),

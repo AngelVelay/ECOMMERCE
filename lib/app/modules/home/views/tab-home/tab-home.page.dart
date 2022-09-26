@@ -103,19 +103,9 @@ class HomePage extends GetView<HomeController> {
                 GestureDetector(
                     // onTap: () => controller.toCouponDetail(),
                     onTap: () => controller.toCoupons(),
-                    child: Text(
-                        controller.defaultCoupon$.value.shortDescription,
+                    child: Text(controller.defaultCoupon$.value.title,
                         style: const TextStyle(
                             fontSize: 13, color: Colors.white))),
-                // const Spacer(),
-                // GestureDetector(
-                //     onTap: () {
-                //       controller.toCoupons();
-                //     },
-                //     child: const Text(
-                //       'Ver más',
-                //       style: TextStyle(color: Colors.white, fontSize: 9),
-                //     ))
               ]),
             ).paddingOnly(left: 35, right: 35, bottom: 10)
           : Container();
