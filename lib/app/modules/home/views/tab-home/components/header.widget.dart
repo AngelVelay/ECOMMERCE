@@ -59,8 +59,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF222222),
-          title: Expanded(
-              child: Opacity(
+          title: Opacity(
             opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
             child: controller.pointsLevel$.isEmpty
                 ? const CircularProgressIndicator(
@@ -71,7 +70,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                     : controller.pointsLevel$[1].initialPoints! <= 500
                         ? Image.asset('assets/cards/card_title_gold.png')
                         : Image.asset('assets/cards/card_title_black.png'),
-          )),
+          ),
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
