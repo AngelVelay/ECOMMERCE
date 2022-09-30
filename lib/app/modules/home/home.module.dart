@@ -21,10 +21,10 @@ import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service
 
 import '../cart/views/address-detail/address-detail.page.dart';
 import '../main/services/address/address.fake.service.dart';
+import 'views/commercial-detail/commercial.page.dart';
 import 'views/detail-delivery/detail-delivery.page.dart';
 import 'views/details_screen/item_details_screen.dart';
 import 'views/details_screen/widgets/header.dart';
-import 'views/product-detail/product-detail.page.dart';
 
 class HomeRouting {
   static const ADDRESS_ROUTE = '/address';
@@ -50,7 +50,7 @@ class HomeRouting {
     ),
     GetPage(
         name: PUBLICIDAD_ROUTE,
-        page: () => PublicidadPage(),
+        page: () => ProductPage(),
         binding: PublicidadBinding()),
     GetPage(
         name: ADDRESS_DETAIL_ROUTE,

@@ -200,7 +200,9 @@ class HomeController extends GetxController {
       item.appFileManagerThumbnail,
       item.name,
       item.description,
-      item.appFileManagerId
+      item.appFileManagerId,
+      item.terms,
+      item.title
     ]);
   }
 
