@@ -1,19 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
-// enum Categories {
-//   rosticeria,
-//   pasteleria,
-//   panderia,
-//   refrescos,
-//   papas,
-//   antojoExtra,
-//   comida,
-//   bebida,
-//   complemento,
-//   otro
-// }
+import '../../home/entities/category.type.dart';
 
 enum Quantity {
   chica,
@@ -32,11 +19,11 @@ class Product {
       required this.price,
       required this.points,
       required this.topRate,
-      this.description,
+      required this.description,
       this.category,
       this.externalId,
       this.externalCode,
-      this.cartValue,
+      required this.cartValue,
       this.isFavorite,
       this.quantity});
 
@@ -49,12 +36,12 @@ class Product {
   double price;
   int points;
   int topRate;
-  String? description;
+  String description;
   Category? category;
   String? externalId;
   String? externalCode;
 
-  int? cartValue;
+  int cartValue;
   bool? isFavorite;
   dynamic quantity;
 
@@ -76,6 +63,7 @@ class Product {
         points: json["points"],
         description: json["description"],
         topRate: json["topRate"],
+        cartValue: 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,5 +80,6 @@ class Product {
         "points": points,
         "description": description,
         "topRate": topRate,
+        'cartValue': cartValue,
       };
 }

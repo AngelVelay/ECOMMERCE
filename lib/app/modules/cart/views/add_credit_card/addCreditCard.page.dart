@@ -166,7 +166,8 @@ Widget couponsCount() {
     title: Text('Cupones',
         style: TextStyle(
             color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
-    trailing: Text(controller.coupons$.length.toString(),
+    trailing: Text(
+        '${controller.coupons$.where((p0) => p0.isActive == true).length}',
         style: TextStyle(
             color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
   );

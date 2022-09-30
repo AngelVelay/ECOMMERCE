@@ -2,19 +2,6 @@ import 'dart:convert';
 
 import 'category.type.dart';
 
-// enum Categories {
-//   rosticeria,
-//   pasteleria,
-//   panderia,
-//   refrescos,
-//   papas,
-//   antojoExtra,
-//   comida,
-//   bebida,
-//   complemento,
-//   otro
-// }
-
 enum Quantity {
   chica,
   media,
@@ -54,7 +41,7 @@ class Product {
   String? externalId;
   String? externalCode;
 
-  int cartValue = 0;
+  int cartValue;
   bool? isFavorite;
   dynamic quantity;
 

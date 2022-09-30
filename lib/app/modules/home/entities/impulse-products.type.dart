@@ -13,6 +13,7 @@ class ImpulseProducts {
     required this.order,
     required this.id,
     required this.isNew,
+    required this.cartValue,
   });
 
   String productId;
@@ -20,11 +21,10 @@ class ImpulseProducts {
   int order;
   int id;
   bool isNew;
+  int cartValue;
 
   factory ImpulseProducts.fromRawJson(String str) =>
       ImpulseProducts.fromJson(json.decode(str));
-
-  get cartValue => null;
 
   String toRawJson() => json.encode(toJson());
 
@@ -35,6 +35,7 @@ class ImpulseProducts {
         order: json["order"],
         id: json["id"],
         isNew: json["isNew"],
+        cartValue: 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +44,6 @@ class ImpulseProducts {
         "order": order,
         "id": id,
         "isNew": isNew,
+        "cartValue": cartValue,
       };
 }

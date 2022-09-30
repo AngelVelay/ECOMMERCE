@@ -15,7 +15,7 @@ class QrGeneratePage extends GetView<QrGenerateController> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Escanea tu codigo',
+          title: Text('Escanea tu código',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 13.sp,
@@ -36,7 +36,7 @@ class QrGeneratePage extends GetView<QrGenerateController> {
             ),
             GestureDetector(
                 onTap: () => {controller.scanOk(context)},
-                child: const Text('Dummy scan'))
+                child: const Text(''))
           ]),
         )));
   }

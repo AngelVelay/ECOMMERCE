@@ -134,6 +134,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
       return GestureDetector(
         onTap: () => {
           showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
@@ -143,10 +144,12 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
             clipBehavior: Clip.antiAliasWithSaveLayer,
             builder: (context) => Container(
               color: Color(0xff222222),
-              height: MediaQuery.of(context).copyWith().size.height * 0.60,
+              height: MediaQuery.of(context).copyWith().size.height * 0.65,
               child: Column(
                 children: [
                   Container(
+                    height:
+                        MediaQuery.of(context).copyWith().size.height * 0.65,
                     color: Colors.black,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),

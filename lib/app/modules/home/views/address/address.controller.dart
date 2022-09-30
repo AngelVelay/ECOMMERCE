@@ -17,7 +17,7 @@ class AddressController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    // addressList$.value = await _addressService.getFromCurrent();
+    addressList$.value = await _addressService.getFromCurrent();
     addressList$.value = await _addressService.getFromCurrent();
   }
 

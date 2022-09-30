@@ -52,8 +52,8 @@ class ConsumeController extends GetxController {
       builder: (context) => SizedBox(
         height: MediaQuery.of(context).copyWith().size.height * 0.75,
         child: Column(
-          children: [
-            const Padding(
+          children: const [
+            Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
                 'Mostrar en Sucursal',
@@ -63,7 +63,7 @@ class ConsumeController extends GetxController {
                     color: Colors.white),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 500,
               child: TrackingPickup(),
             ),

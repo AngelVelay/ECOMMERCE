@@ -64,6 +64,7 @@ class HomeController extends GetxController {
   late var toogleDelete$ = false.obs;
   late var toogleTotal$ = false.obs;
   late var isFavorite$ = false.obs;
+  late var cartValue$ = 0.obs;
 
   var showDeliveryType$ = false.obs;
   var showDeliveryisVisible$ = false.obs;
@@ -127,12 +128,12 @@ class HomeController extends GetxController {
     couponImage$.value = await couponsService.getImages();
 
     addressList$.value = await addressService.getFromCurrent();
-    // if (addressList$.isNotEmpty) {
-    //   selectedAddress$.value =
-    //       addressList$.where((element) => element.isDefault).toList().first;
-    // } else {
-    //   selectedAddress$.value.zipcode = 000000;
-    // }
+    if (addressList$.isNotEmpty) {
+      selectedAddress$.value =
+          addressList$.where((element) => element.isDefault).toList().first;
+    } else {
+      selectedAddress$.value.zipcode = 000000;
+    }
   }
 
   addCart(Product item, context) {
@@ -146,6 +147,8 @@ class HomeController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
+    productsImpulseList$.refresh();
+    cartValue$.refresh();
     updateCartItems();
   }
 
@@ -159,6 +162,7 @@ class HomeController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
+    productsImpulseList$.refresh();
     updateCartItems();
   }
 
@@ -177,6 +181,7 @@ class HomeController extends GetxController {
     findedProducts$.refresh();
     catalogsList$.refresh();
     favoriteProducts$.refresh();
+    productsImpulseList$.refresh();
     updateCartItems();
   }
 
@@ -185,6 +190,7 @@ class HomeController extends GetxController {
   }
 
   search(BuildContext context) async {
+    findedProducts$.where((element) => element.isActive == true).toList();
     findedProducts$.value = await productsService.search(keywordCtrl.text);
     FocusScope.of(context).unfocus();
   }

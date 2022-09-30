@@ -32,12 +32,12 @@ class UserAddress {
   String alias;
   String street;
   String outsideNumber;
-  String insidelNumber;
+  String? insidelNumber;
   String suburb;
   String town;
   String state;
   String country;
-  int zipcode;
+  int? zipcode;
   String contactName;
   int contactPhone;
   String streetNotes;

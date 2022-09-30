@@ -14,7 +14,7 @@ class DetailTopProductsPage extends GetView<DetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Detalles del Producto'),
+          title: const Text('Detalles del Product'),
           backgroundColor: const Color(0xFF222222),
         ),
         body: Column(children: [
@@ -29,6 +29,7 @@ class DetailTopProductsPage extends GetView<DetailController> {
   static Widget _image(DetailController controller) {
     return SizedBox(
         width: double.infinity,
+        height: 300,
         child: FadeInImage(
           fit: BoxFit.contain,
           placeholder: const AssetImage('assets/images/loading.gif'),

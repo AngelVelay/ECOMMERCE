@@ -96,7 +96,7 @@ class LoginPage extends GetView<LoginController> {
           Column(
             children: [
               const Text(
-                'Ingresa tambien con:',
+                'Ingresa también con:',
                 style: TextStyle(color: Colors.white),
               ),
               SizedBox(height: 20),
@@ -174,54 +174,38 @@ class LoginPage extends GetView<LoginController> {
           ),
           const SizedBox(height: 30),
           Center(
-              child: Column(
-                     
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "No tienes cuenta?",
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    primary: Colors.blue,
-                                  ),
-                                  child: const Text(
-                                    "Registrate",
-                                  ),
-                                  onPressed: () => controller.goToSignup(),
-                                ),
-                                
-                              ]
-
-                        ),
-                      Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // Text(
-                                //   "No tienes cuenta?",
-                                //   style: Theme.of(context).textTheme.bodyText1,
-                                // ),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    primary: Colors.blue,
-                                  ),
-                                  child: const Text(
-                                    "Tengo un codigo",
-                                  ),
-                                  onPressed: () => controller.goToSignup(),
-                                ),
-                              ]
-
-                        
-                      )
-                ]
-
-           
-            
-          )),
+              child: Column(children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                "No tienes cuenta?",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: const Text(
+                  "Registrate",
+                ),
+                onPressed: () => controller.goToSignup(),
+              ),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              // Text(
+              //   "No tienes cuenta?",
+              //   style: Theme.of(context).textTheme.bodyText1,
+              // ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: const Text(
+                  "Tengo un código",
+                ),
+                onPressed: () => controller.goToSignup(),
+              ),
+            ])
+          ])),
           const SizedBox(height: 5)
         ]).paddingAll(10));
   }

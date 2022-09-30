@@ -91,23 +91,20 @@ class HomePage extends GetView<HomeController> {
   Widget _coupons() {
     return Obx(() {
       return controller.defaultCoupon$.value.id != 0
-          ? DottedBorder(
-              color: Colors.white,
-              strokeWidth: 1,
-              dashPattern: const [5, 3],
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              radius: const Radius.circular(50),
-              borderType: BorderType.RRect,
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                GestureDetector(
-                    // onTap: () => controller.toCouponDetail(),
-                    onTap: () => controller.toCoupons(),
-                    child: Text(controller.defaultCoupon$.value.title,
-                        style: const TextStyle(
-                            fontSize: 13, color: Colors.white))),
-              ]),
-            ).paddingOnly(left: 35, right: 35, bottom: 10)
+          ? GestureDetector(
+              onTap: () => controller.toCoupons(),
+              child: DottedBorder(
+                  color: Colors.white,
+                  strokeWidth: 1,
+                  dashPattern: const [5, 3],
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                  radius: const Radius.circular(50),
+                  borderType: BorderType.RRect,
+                  child: Text(controller.defaultCoupon$.value.title,
+                      style:
+                          const TextStyle(fontSize: 13, color: Colors.white))),
+            ).paddingSymmetric(horizontal: 35, vertical: 10)
           : Container();
     });
   }
@@ -125,16 +122,16 @@ class HomePage extends GetView<HomeController> {
             itemBuilder: (context, index, realIndex) {
               return controller.posterList$.isNotEmpty
                   ? _flyerItem(controller.posterList$[index])
-                  : Container(
-                      color: Colors.grey,
-                      child: const Center(
-                        child: Text('No disponible'),
-                      ),
-                    );
+                  : Container();
             },
             options: CarouselOptions(
               height: 150,
-              autoPlay: true,
+              autoPlay: controller.posterList$
+                          .where((p0) => p0.isActive == true)
+                          .length <=
+                      1
+                  ? true
+                  : false,
               scrollDirection: Axis.horizontal,
             ),
           );
@@ -159,24 +156,10 @@ class HomePage extends GetView<HomeController> {
                           fit: BoxFit.cover,
                           width: 600,
                         )
-                      : Container(
-                          color: Colors.grey,
-                          child: const Center(
-                            child: Text('No disponible'),
-                          ),
-                        ),
+                      : Container(),
                 ))));
   }
 
-// FadeInImage(
-//                     width: 600,
-//                     fit: BoxFit.fill,
-//                     placeholder: const NetworkImage(
-//                         'https://acegif.com/wp-content/uploads/loading-11.gif'),
-//                     image: item.isActive == true
-//                         ? NetworkImage(item.appFileManagerThumbnail)
-//                         : Container(),
-//               ),
   _makePackage(product, BuildContext context) async {
     product.contains('Coca-Cola') && product.contains('Pollo Rostizado')
         ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(

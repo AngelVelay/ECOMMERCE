@@ -24,7 +24,16 @@ class CouponDetailPage extends GetView<CouponDetailController> {
               const SizedBox(height: 20),
               _title(),
               const SizedBox(height: 10),
-              _header(),
+              controller.couponImage$.value != ''
+                  ? _header()
+                  : Container(
+                      color: Colors.grey,
+                      height: 220,
+                      width: 200,
+                      child: const Center(
+                        child: Text('No hay imagen'),
+                      ),
+                    ),
               const SizedBox(height: 20),
               _center(),
               const SizedBox(height: 5),

@@ -29,8 +29,12 @@ class AddressService extends BaseService implements IAddressService {
   }
 
   @override
-  Future<UserAddress> save(UserAddress item) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<UserAddress> save(UserAddress item) async {
+    var jsonResponse = await provider.request<List<PaymentMethods>>(
+        RequestMethod.post, 'UserAddress',
+        body: json.encode(item));
+
+    var result = jsonDecode(jsonResponse);
+    return UserAddress.fromJson(result);
   }
 }

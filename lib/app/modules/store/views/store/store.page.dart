@@ -88,6 +88,7 @@ class StorePage extends GetView<StoreController> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: _grid(context, bl.categories!),
         ),
       );

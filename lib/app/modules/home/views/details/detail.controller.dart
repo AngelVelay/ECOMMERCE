@@ -11,6 +11,11 @@ import 'detail.page.dart';
 class DetailController extends GetxController {
   final IReviewsService _reviewsService;
   final IProductsService productsService;
+  static late MediaQueryData _mediaQueryData;
+  late double screenWidth;
+  late double screenHeight;
+  static double? defaultSize;
+  static Orientation? orientation;
 
   var topProductItem;
 
@@ -29,6 +34,10 @@ class DetailController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _mediaQueryData = MediaQuery.of(Get.context!);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    orientation = _mediaQueryData.orientation;
 
     itemDetail = Get.arguments['product'];
     topProductItem = Get.arguments;
@@ -75,5 +84,20 @@ class DetailController extends GetxController {
     cartItems$.value =
         cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
     cartItems$.refresh();
+  }
+
+  getProportionateScreenHeight(inputHeight) {
+    screenHeight = _mediaQueryData.size.height;
+
+    // 812 is the layout height that designer use
+    return (inputHeight / 812.0) * screenHeight;
+  }
+
+// Get the proportionate height as per screen size
+  getProportionateScreenWidth(inputWidth) {
+    screenWidth = _mediaQueryData.size.width;
+
+    // 375 is the layout width that designer use
+    return (inputWidth / 375.0) * screenWidth;
   }
 }

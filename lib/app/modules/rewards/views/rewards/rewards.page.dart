@@ -172,7 +172,7 @@ class RewardsPage extends GetView<RewardsController> {
       lineHeight: 16,
       animationDuration: 1500,
       percent: controller.pointsLevel$.isNotEmpty
-          ? controller.pointsLevel$.first.discountPercentage!.toDouble() / 100
+          ? controller.pointsLevel$.first.discountPercentage.toDouble() / 100
           : 0,
       barRadius: const Radius.circular(15),
       progressColor: controller.pointsLevel$.isNotEmpty

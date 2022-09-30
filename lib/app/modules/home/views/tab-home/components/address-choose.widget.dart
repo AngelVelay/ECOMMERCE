@@ -36,7 +36,7 @@ class HomeAddressSelect extends GetView<HomeController> {
               color: Colors.white,
               height: 2,
             ),
-            _list(context),
+            SingleChildScrollView(child: Expanded(child: _list(context))),
             ButtonTransparent(
               text: 'Agregar Dirección',
               paddingHorizontal: 20,
@@ -54,11 +54,22 @@ class HomeAddressSelect extends GetView<HomeController> {
   }
 
   Widget _list(BuildContext context) {
-    return Column(
-      children: controller.addressList$.map((a) {
-        return _listItem(a, context);
-      }).toList(),
+    return Container(
+      height: 300.h,
+      child: ListView.builder(
+        itemCount: controller.addressList$.length,
+        itemBuilder: (context, index) {
+          final UserAddress address = controller.addressList$[index];
+          return _listItem(address, context);
+        },
+      ),
     );
+
+    // return Column(
+    //   children: controller.addressList$.map((a) {
+    //     return _listItem(a, context);
+    //   }).toList(),
+    // );
   }
 
   Widget _listItem(UserAddress item, BuildContext context) {

@@ -63,21 +63,21 @@ class StoreCategoryProductsController extends GetxController {
     cartItems$.refresh();
   }
 
-  // catalogList(BuildContext context) async {
-  //   catalogsList$.value = await productsService.catalogsList();
+  catalogList(BuildContext context) async {
+    catalogsList$.value = await _productsService.getByCategory(category.id);
 
-  //   findedProducts$.value = catalogsList$
-  //       .where((e) => e.category.toString().contains(category.toLowerCase()))
-  //       .toList();
-  //   print(category);
+    findedProducts$.value = catalogsList$
+        .where((e) => e.category.toString().contains(category.name))
+        .toList();
+    print(category);
 
-  //   productList$.value = findedProducts$.value;
+    productList$.value = findedProducts$.value;
 
-  //   findedProducts$.value = productList$
-  //       .where((e) =>
-  //           e.name.toLowerCase().contains(keywordCtrl.text.toLowerCase()))
-  //       .toList();
-  // }
+    findedProducts$.value = productList$
+        .where((e) =>
+            e.name.toLowerCase().contains(keywordCtrl.text.toLowerCase()))
+        .toList();
+  }
 
   // toSearch(CatalogosListController controller) {
   //   // Get.to(() => CatalogSearchPage(controller));

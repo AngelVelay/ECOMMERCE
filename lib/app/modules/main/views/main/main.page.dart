@@ -16,7 +16,7 @@ class MainPage extends GetView<MainController> {
             bottomNavigationBar: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 // backgroundColor: Colors.black,
-                // unselectedItemColor: Colors.white,
+                unselectedItemColor: Colors.black,
                 // selectedItemColor: Colors.white,
                 selectedItemColor: Colors.black,
                 unselectedLabelStyle: const TextStyle(fontSize: 9),

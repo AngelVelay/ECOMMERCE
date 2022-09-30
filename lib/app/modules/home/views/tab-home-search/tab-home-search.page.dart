@@ -76,7 +76,9 @@ class HomeSearchPage extends GetView<HomeController> {
               : GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: controller.findedProducts$.length,
+                  itemCount: controller.findedProducts$
+                      .where((p0) => p0.isActive == true)
+                      .length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10.0,
@@ -91,50 +93,54 @@ class HomeSearchPage extends GetView<HomeController> {
   }
 
   Widget _productItem(BuildContext context, Product item) {
-    return Container(
-      width: 130,
-      height: 200,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => controller.toProductDetail(item),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Stack(children: [
-                  FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://acegif.com/wp-content/uploads/loading-11.gif'),
-                    image: NetworkImage(item.imageLink),
-                    width: double.infinity,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ])),
-          ),
-          const SizedBox(height: 3),
-          Text(item.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: false,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white)),
-          Text(
-            '\$ ${item.price}',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          HomeCartControls(
-            item,
-            labelColor: Colors.white,
-            altColor: Colors.black,
+    return item.isActive
+        ? Container(
+            width: 130,
+            height: 200,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => controller.toProductDetail(item),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(children: [
+                        FadeInImage(
+                          placeholder: const NetworkImage(
+                              'https://acegif.com/wp-content/uploads/loading-11.gif'),
+                          image: NetworkImage(item.imageLink),
+                          width: double.infinity,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ])),
+                ),
+                const SizedBox(height: 3),
+                Text(item.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white)),
+                Text(
+                  '\$ ${item.price}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                HomeCartControls(
+                  item,
+                  labelColor: Colors.white,
+                  altColor: Colors.black,
+                )
+              ],
+            ),
           )
-        ],
-      ),
-    );
+        : const SizedBox();
   }
 }
 
@@ -164,6 +170,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(
             height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
             child: AppBar(
+                leading: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Get.back();
+                      controller.keywordCtrl.clear();
+                    }),
                 backgroundColor: Color(0xFF222222),
                 elevation: 0.0,
                 title: Text(
@@ -194,47 +206,52 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
 
   Widget _searchInput(BuildContext context, double percent) {
     return Positioned(
-      right: 20,
-      top: 60,
-      child: Opacity(
-        opacity: percent,
-        child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFFfffffff),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            width: MediaQuery.of(context).size.width - 50,
-            height: 50,
-            child: TextField(
-              controller: controller.keywordCtrl,
-              onEditingComplete: () => controller.search(context),
-              autofocus: true,
-              cursorColor: Colors.black,
-              style: const TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                  hintText: 'Ingresa una palabra',
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      width: 2,
+        right: 20,
+        top: 60,
+        child: Opacity(
+          opacity: percent,
+          child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFfffffff),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              width: MediaQuery.of(context).size.width - 50,
+              height: 50,
+              child: TextField(
+                controller: controller.keywordCtrl,
+                onEditingComplete: () => controller.search(context),
+                autofocus: true,
+                cursorColor: Colors.black,
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    hintText: 'Ingresa una palabra',
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        color: Colors.black,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        color: Colors.black,
+                      ),
+                    ),
+                    prefixIcon: const Icon(
+                      Icons.search,
                       color: Colors.black,
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      width: 2,
-                      color: Colors.black,
-                    ),
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  suffixIcon: const Icon(Icons.food_bank, color: Colors.black)),
-            )),
-      ),
-    );
+                    suffixIcon: TextButton.icon(
+                        onPressed: () {
+                          controller.keywordCtrl.clear();
+                          controller.search(context);
+                        },
+                        icon: Icon(Icons.cancel),
+                        label: Text(''))),
+              )),
+        ));
   }
 }

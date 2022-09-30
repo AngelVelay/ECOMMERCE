@@ -44,44 +44,49 @@ class StoreCategoryProductsPage
 
   Widget _searchInput(BuildContext context) {
     return Center(
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          width: MediaQuery.of(context).size.width - 50,
-          height: 50,
-          child: TextField(
-            controller: controller.keywordCtrl,
-            onEditingComplete: () => controller.search(context),
-            // onEditingComplete: () {},
-            // autofocus: true,
-            cursorColor: Colors.black,
-            style: const TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-                hintText: "Buscar producto",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    color: Colors.black,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    color: Colors.black,
-                  ),
-                ),
-                prefixIcon: const Icon(
-                  Icons.search,
+        child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      width: MediaQuery.of(context).size.width - 50,
+      height: 50,
+      child: TextField(
+          controller: controller.keywordCtrl,
+          onEditingComplete: () => controller.search(context),
+          // onEditingComplete: () {},
+          // autofocus: true,
+          cursorColor: Colors.black,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+              hintText: "Buscar producto",
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(
+                  width: 2,
                   color: Colors.black,
                 ),
-                suffixIcon: const Icon(Icons.food_bank, color: Colors.black)),
-          )),
-    );
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(
+                  width: 2,
+                  color: Colors.black,
+                ),
+              ),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              suffixIcon: TextButton.icon(
+                  onPressed: () {
+                    controller.keywordCtrl.clear();
+                    controller.search(context);
+                  },
+                  icon: Icon(Icons.cancel),
+                  label: Text('')))),
+    ));
   }
 
   // List

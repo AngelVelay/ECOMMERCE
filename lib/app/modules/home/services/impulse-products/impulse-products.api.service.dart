@@ -22,6 +22,10 @@ class ProductsImpulseApiService extends BaseService
         .map<ImpulseProducts>((x) => ImpulseProducts.fromJson(x))
         .toList() as List<ImpulseProducts>;
 
+    result.forEach((element) {
+      element.cartValue = 0;
+    });
+
     return result;
   }
 }

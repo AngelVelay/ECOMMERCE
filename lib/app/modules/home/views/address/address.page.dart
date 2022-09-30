@@ -36,9 +36,13 @@ class AddressPage extends GetView<AddressController> {
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: _title(),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: _list(context),
+      Expanded(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: _list(context),
+          ),
+        ),
       ),
     ]);
   }

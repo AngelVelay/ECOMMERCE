@@ -30,7 +30,7 @@ class PointLevel {
   String? headerFile;
   String? color;
   int? initialPoints;
-  int? discountPercentage;
+  double discountPercentage;
   String? name;
   bool isActive;
   bool isBySystem;
@@ -51,7 +51,7 @@ class PointLevel {
         headerFile: json["headerFile"],
         color: json["color"],
         initialPoints: json["initialPoints"],
-        discountPercentage: json["discountPercentage"],
+        discountPercentage: json["discountPercentage"].toDouble(),
         name: json["name"],
         isActive: json["isActive"],
         isBySystem: json["isBySystem"],
