@@ -32,17 +32,32 @@ class Details extends GetView<DetailController> {
                   maxLines: 1,
                 ),
               ),
-              controller.itemDetail.isFavorite == true
-                  ? const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 30,
-                    )
-                  : const Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: 30,
-                    ),
+              Obx((() {
+                return Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                        onTap: () {
+                          home.addFavorite(controller.itemDetail);
+                        },
+                        child: home.likedProducts$
+                                .where((element) =>
+                                    element.id == controller.itemDetail.id)
+                                .isNotEmpty
+                            ? GestureDetector(
+                                onTap: (() =>
+                                    home.deleteFavorite(controller.itemDetail)),
+                                child: const Icon(Icons.favorite,
+                                    color: Colors.red),
+                              )
+                            : GestureDetector(
+                                onTap: () =>
+                                    home.addFavorite(controller.itemDetail),
+                                child: const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.white,
+                                ),
+                              )));
+              }))
             ],
           ),
           const SizedBox(height: 10),
@@ -69,11 +84,11 @@ class Details extends GetView<DetailController> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      home.cartProducts$
-                          .where((element) =>
-                              element.id == controller.itemDetail.id)
-                          .length
-                          .toString(),
+                      home.cartValue$.value ==
+                                  controller.itemDetail.cartValue ||
+                              home.cartValue$.value == 0
+                          ? controller.itemDetail.cartValue.toString()
+                          : home.cartValue$.value.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,

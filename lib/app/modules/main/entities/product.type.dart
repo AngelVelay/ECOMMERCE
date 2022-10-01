@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 import 'category.type.dart';
 
 enum Quantity {
@@ -41,8 +43,8 @@ class Product {
   String? externalId;
   String? externalCode;
 
-  int cartValue;
-  bool? isFavorite;
+  RxInt cartValue;
+  RxBool? isFavorite;
   dynamic quantity;
 
   factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
@@ -63,7 +65,8 @@ class Product {
         points: json["points"],
         description: json["description"],
         topRate: json["topRate"],
-        cartValue: 0,
+        cartValue: 0.obs,
+        isFavorite: false.obs,
       );
 
   Map<String, dynamic> toJson() => {
@@ -81,5 +84,6 @@ class Product {
         "description": description,
         "topRate": topRate,
         'cartValue': cartValue,
+        'isFavorite': isFavorite,
       };
 }

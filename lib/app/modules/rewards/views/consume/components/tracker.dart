@@ -13,62 +13,60 @@ class Tracker extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 100,
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TimelineTile(
-              isFirst: true,
-              axis: TimelineAxis.horizontal,
-              alignment: TimelineAlign.center,
-              endChild: Text('Preparando '),
-              indicatorStyle: IndicatorStyle(
-                height: 40,
-                color: Colors.grey,
-                padding: const EdgeInsets.all(8),
-                iconStyle: IconStyle(
-                  color: Colors.white,
-                  iconData: Icons.store_mall_directory_rounded,
-                ),
-              ),
-              beforeLineStyle: const LineStyle(
-                color: Colors.grey,
-                thickness: 6,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TimelineTile(
+            isFirst: true,
+            axis: TimelineAxis.horizontal,
+            alignment: TimelineAlign.center,
+            endChild: Text('Preparando '),
+            indicatorStyle: IndicatorStyle(
+              height: 40,
+              color: Colors.grey,
+              padding: const EdgeInsets.all(8),
+              iconStyle: IconStyle(
+                color: Colors.white,
+                iconData: Icons.store_mall_directory_rounded,
               ),
             ),
-            TimelineTile(
-              axis: TimelineAxis.horizontal,
-              alignment: TimelineAlign.center,
-              endChild: Text('En camino'),
-              indicatorStyle: IndicatorStyle(
-                height: 40,
-                color: Colors.grey,
-                padding: const EdgeInsets.all(8),
-                iconStyle: IconStyle(
-                  color: Colors.white,
-                  iconData: Icons.local_shipping_outlined,
-                ),
-              ),
-              beforeLineStyle: const LineStyle(
-                color: Colors.grey,
-                thickness: 6,
+            beforeLineStyle: const LineStyle(
+              color: Colors.grey,
+              thickness: 6,
+            ),
+          ),
+          TimelineTile(
+            axis: TimelineAxis.horizontal,
+            alignment: TimelineAlign.center,
+            endChild: Text('En camino'),
+            indicatorStyle: IndicatorStyle(
+              height: 40,
+              color: Colors.grey,
+              padding: const EdgeInsets.all(8),
+              iconStyle: IconStyle(
+                color: Colors.white,
+                iconData: Icons.local_shipping_outlined,
               ),
             ),
-            TimelineTile(
-              isLast: true,
-              axis: TimelineAxis.horizontal,
-              alignment: TimelineAlign.center,
-              endChild: Text('Entregado'),
-              indicatorStyle: IndicatorStyle(
-                height: 40,
-                color: Colors.grey,
-                padding: const EdgeInsets.all(8),
-                iconStyle: IconStyle(
-                    color: Colors.white, iconData: Icons.tag_faces_rounded),
-              ),
+            beforeLineStyle: const LineStyle(
+              color: Colors.grey,
+              thickness: 6,
             ),
-          ],
-        ),
+          ),
+          TimelineTile(
+            isLast: true,
+            axis: TimelineAxis.horizontal,
+            alignment: TimelineAlign.center,
+            endChild: Text('Entregado'),
+            indicatorStyle: IndicatorStyle(
+              height: 40,
+              color: Colors.grey,
+              padding: const EdgeInsets.all(8),
+              iconStyle: IconStyle(
+                  color: Colors.white, iconData: Icons.tag_faces_rounded),
+            ),
+          ),
+        ],
       ),
     );
   }

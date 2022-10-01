@@ -16,7 +16,9 @@ import 'checkout.controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckOutPage extends GetView<CheckOutController> {
-  const CheckOutPage({Key? key}) : super(key: key);
+  final HomeController homeController = Get.find();
+
+  CheckOutPage({Key? key}) : super(key: key);
 
   final String data =
       "Pastel de Chocolate comprado en la Esperanza Sucursal Valle";
@@ -238,7 +240,7 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
                     color: Colors.white),
               ),
               trailing: Text(
-                ' - \$${controller.coupons.amount}',
+                ' \$${homeController.subtotalBuy()}',
                 style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
@@ -255,7 +257,7 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
                     color: Colors.white),
               ),
               trailing: Text(
-                ' - \$${controller.coupons.amount}',
+                ' - \$${homeController.couponDiscount()}',
                 style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
@@ -288,7 +290,11 @@ class _OnChangeDeliveryTypeState extends State<OnChangeDeliveryType> {
                     color: Colors.white),
               ),
               trailing: Text(
-                '\$ ${controller.total - controller.coupons.amount}',
+                '\$ ' +
+                    (homeController.subtotalBuy() -
+                            homeController.couponDiscount() +
+                            50)
+                        .toString(),
                 style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold,

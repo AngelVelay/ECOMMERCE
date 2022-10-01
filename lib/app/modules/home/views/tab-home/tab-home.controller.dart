@@ -51,6 +51,7 @@ class HomeController extends GetxController {
   late var findedProducts$ = <Product>[].obs;
   late var catalogsList$ = <Product>[].obs;
   late var favoriteProducts$ = <Product>[].obs;
+  late var likedProducts$ = <Product>[].obs;
   late var cartProducts$ = <Product>[].obs;
   late var user$ = User.fromVoid().obs;
   late var addressList$ = <UserAddress>[].obs;
@@ -148,7 +149,8 @@ class HomeController extends GetxController {
     catalogsList$.refresh();
     favoriteProducts$.refresh();
     productsImpulseList$.refresh();
-    cartValue$.refresh();
+    // cartValue$.value = cartValue$.value + 1;
+    // cartValue$.refresh();
     updateCartItems();
   }
 
@@ -163,6 +165,7 @@ class HomeController extends GetxController {
     catalogsList$.refresh();
     favoriteProducts$.refresh();
     productsImpulseList$.refresh();
+    cartValue$.refresh();
     updateCartItems();
   }
 
@@ -251,13 +254,13 @@ class HomeController extends GetxController {
     return total$ = subtotal$ - defaultCoupon$.value.amount;
   }
 
-  // couponDiscount() {
-  //   total$ = subtotal$ - defaultCoupon$.value.amount;
-  // }
+  couponDiscount() {
+    return defaultCoupon$.value.amount;
+  }
 
   subtotalBuy() {
     return subtotal$ = double.parse(cartProducts$
-        .map((e) => e.price * e.cartValue)
+        .map((e) => e.price * e.cartValue.toInt())
         .reduce((a, b) => a + b)
         .toString());
   }
@@ -281,4 +284,58 @@ class HomeController extends GetxController {
       productsPackList$.add(item);
     }
   }
+
+  addFavorite(Product item) {
+    if (!likedProducts$.any((element) => element.id == item.id)) {
+      likedProducts$.add(item);
+    }
+
+    likedProducts$.refresh();
+  }
+
+  deleteFavorite(Product item) {
+    likedProducts$.remove(item);
+
+    likedProducts$.refresh();
+  }
 }
+
+
+// addCart(Product item, context) {
+//   item.cartValue = item.cartValue + 1;
+//   if (!cartProducts$.any((element) => element.id == item.id)) {
+//     cartProducts$.add(item);
+//   }
+//   cartItems$.refresh();
+//   cartProducts$.refresh();
+//   productList$.refresh();
+//   findedProducts$.refresh();
+//   catalogsList$.refresh();
+//   favoriteProducts$.refresh();
+//   productsImpulseList$.refresh();
+//   // cartValue$.value = cartValue$.value + 1;
+//   // cartValue$.refresh();
+//   updateCartItems();
+// }
+
+// deleteCart(Product item) {
+//   item.cartValue = item.cartValue - 1;
+//   if (item.cartValue == 0) {
+//     cartProducts$.remove(item);
+//   }
+//   cartProducts$.refresh();
+//   productList$.refresh();
+//   findedProducts$.refresh();
+//   catalogsList$.refresh();
+//   favoriteProducts$.refresh();
+//   productsImpulseList$.refresh();
+//   cartValue$.refresh();
+//   updateCartItems();
+// }
+
+// updateCartItems() {
+//   // cartItems$.value =
+//   //     cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b) ;
+//   cartItems$.value = cartProducts$.length;
+//   cartItems$.refresh();
+// }

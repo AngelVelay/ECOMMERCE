@@ -67,7 +67,7 @@ Widget _totalBuy(context, controller) {
               style: Theme.of(context).textTheme.headline4,
             ),
             trailing: Text(
-              '\$ ${controller.subtotalBuy()}',
+              '\$ ${controller.subtotalBuy$.value.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.headline6,
             ),
           ),

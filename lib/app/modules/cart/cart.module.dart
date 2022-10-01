@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
+import 'package:jexpoints/app/modules/cart/services/products/products.api.service.dart';
 
 import 'package:jexpoints/app/modules/cart/views/add_credit_card/addCreditCard.controller.dart';
 import 'package:jexpoints/app/modules/cart/views/add_credit_card/addCreditCard.page.dart';
@@ -101,7 +102,7 @@ class ConfirmPagodBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ConfirmPagoController>(() =>
-        ConfirmPagoController(ProductsFakeService(), PaymentMethodsService()));
+        ConfirmPagoController(ProductsApiService(), PaymentMethodsService()));
   }
 }
 

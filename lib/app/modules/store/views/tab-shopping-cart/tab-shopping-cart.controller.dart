@@ -64,8 +64,10 @@ class ShoppingCartController extends GetxController {
   }
 
   updateCartItems() {
-    cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+    cartItems$.value = cartProducts$
+        .map((e) => e.cartValue)
+        .reduce((a, b) => a + b.toInt())
+        .toInt();
     cartItems$.refresh();
   }
 }

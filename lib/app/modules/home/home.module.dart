@@ -5,6 +5,7 @@ import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart'
 import 'package:jexpoints/app/modules/cart/views/address-detail/address-detail.controller.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
+import 'package:jexpoints/app/modules/home/services/products/products.api.service.dart';
 import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/home/views/address/address.page.dart';
 
@@ -82,7 +83,7 @@ class DetailBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DetailController>(
-      () => DetailController(ReviewsFakeService(), ProductsFakeService()),
+      () => DetailController(ReviewsFakeService(), ProductsApiService()),
     );
   }
 }

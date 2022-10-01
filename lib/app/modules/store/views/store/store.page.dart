@@ -88,7 +88,6 @@ class StorePage extends GetView<StoreController> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
           child: _grid(context, bl.categories!),
         ),
       );
@@ -103,11 +102,9 @@ class StorePage extends GetView<StoreController> {
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
               dragStartBehavior: DragStartBehavior.start,
-              scrollDirection: Axis.vertical,
               child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: categories.length,
                       gridDelegate:

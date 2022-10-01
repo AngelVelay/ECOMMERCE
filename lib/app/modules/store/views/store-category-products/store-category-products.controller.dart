@@ -17,6 +17,7 @@ class StoreCategoryProductsController extends GetxController {
   late var cartProducts$ = <Product>[].obs;
   late var productList$ = <Product>[].obs;
   late var cartItems$ = 0.obs;
+  late var likedProducts$ = <Product>[].obs;
 
   late Category category;
 
@@ -58,8 +59,10 @@ class StoreCategoryProductsController extends GetxController {
   }
 
   updateCartItems() {
-    cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+    cartItems$.value = cartProducts$
+        .map((e) => e.cartValue)
+        .reduce((a, b) => a + b.toInt())
+        .toInt();
     cartItems$.refresh();
   }
 
@@ -94,5 +97,19 @@ class StoreCategoryProductsController extends GetxController {
 
   toProductDetail(Product item) {
     Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {'product': item});
+  }
+
+  addFavorite(Product item) {
+    if (!likedProducts$.any((element) => element.id == item.id)) {
+      likedProducts$.add(item);
+    }
+
+    likedProducts$.refresh();
+  }
+
+  deleteFavorite(Product item) {
+    likedProducts$.remove(item);
+
+    likedProducts$.refresh();
   }
 }

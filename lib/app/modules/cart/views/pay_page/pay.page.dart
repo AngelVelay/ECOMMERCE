@@ -221,6 +221,7 @@ class PayPage extends GetView<PayController> {
                       prefixIcon: Icons.date_range,
                     ),
                   ),
+                  SizedBox(width: 15),
                   Expanded(
                     child: CustomInputField(
                       inputFormatter: controller.cardCVVFormatter,

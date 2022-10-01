@@ -75,7 +75,7 @@ class ConsumeController extends GetxController {
 
   showDetailDelivery(BuildContext context, Order order) {
     SheetUtils.show(context, const OrderDetailDelivery(),
-        height: 500, title: 'Pedido #${order.id}');
+        height: 450, title: 'Pedido #${order.id}');
   }
 
   void showDetail(Order item, BuildContext context) {

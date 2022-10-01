@@ -21,7 +21,7 @@ class ProductsApiService extends BaseService implements IProductsService {
         .toList() as List<Product>;
 
     result.forEach((element) {
-      element.cartValue = 0;
+      element.cartValue;
     });
 
     return result;
@@ -44,7 +44,7 @@ class ProductsApiService extends BaseService implements IProductsService {
         .toList() as List<Product>;
 
     result.forEach((element) {
-      element.cartValue = 0;
+      element.cartValue;
     });
 
     return result;

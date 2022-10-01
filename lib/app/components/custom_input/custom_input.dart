@@ -69,8 +69,22 @@ class CustomInputField extends StatelessWidget {
           //     width: 2.0,
           //   ),
           // ),
-          border: InputBorder.none,
-
+          // // // border: InputBorder.none,
+          // border: UnderlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Colors.white,
+          //     width: 2.0,
+          //   ),
+          // ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
           // border: OutlineInputBorder(
           //   borderRadius: BorderRadius.only(
           //     topLeft: Radius.circular(10),

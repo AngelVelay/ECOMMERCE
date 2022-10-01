@@ -65,14 +65,16 @@ class ConfirmPagoController extends GetxController {
   }
 
   _updateCartItems() {
-    cartItems$.value =
-        cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b);
+    cartItems$.value = cartProducts$
+        .map((e) => e.cartValue)
+        .reduce((a, b) => a + b.toInt())
+        .toInt();
     cartItems$.refresh();
   }
 
   totalBuy() {
     _total$.value = int.parse(cartProducts$
-        .map((e) => e.price * e.cartValue)
+        .map((e) => e.price * e.cartValue.toInt())
         .reduce((a, b) => a + b)
         .toString());
   }

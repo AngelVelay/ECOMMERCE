@@ -20,9 +20,9 @@ class CouponsApiService extends BaseService implements IProductsService {
         .map<Product>((x) => Product.fromJson(x))
         .toList() as List<Product>;
 
-    result.forEach((element) {
-      element.cartValue = 0;
-    });
+    // result.forEach((element) {
+    //   element.cartValue;
+    // });
 
     return result;
   }
@@ -43,9 +43,9 @@ class CouponsApiService extends BaseService implements IProductsService {
         .map<Product>((x) => Product.fromJson(x))
         .toList() as List<Product>;
 
-    result.forEach((element) {
-      element.cartValue = 0;
-    });
+    // result.forEach((element) {
+    //   element.cartValue = 0;
+    // });
 
     return result;
   }

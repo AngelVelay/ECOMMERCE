@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/modules/cart/components/apply-coupon.page.dart';
+import 'package:jexpoints/app/modules/rewards/rewards.module.dart';
+import 'package:jexpoints/app/modules/rewards/views/coupons/coupons.page.dart';
 
 import '../../../home/views/tab-home/components/cart-controls.widget.dart';
 import '../../../home/views/tab-home/tab-home.controller.dart';
@@ -73,6 +76,7 @@ class ShoppingCartPage extends StatelessWidget {
               Expanded(
                   child: Column(
                 children: [applyCouponButton(), buttonTotalToogle(context)],
+                // children: [applyCouponButton(), buttonTotalToogle(context)],
               )) // _button()
             ])
           : SizedBox(
@@ -247,7 +251,9 @@ class ShoppingCartPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(RewardsRouting.COUPONS_ROUTE);
+                  },
                   child: Text(
                     'Codigo de Descuento',
                     style: TextStyle(
@@ -265,68 +271,70 @@ class ShoppingCartPage extends StatelessWidget {
   }
 
   Widget buttonTotalToogle(context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(30))),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100.0),
-              child: Divider(
-                color: Color(0xff2D2D2D),
-                thickness: 3,
+    return Obx((() {
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(30))),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 100.0),
+                child: Divider(
+                  color: Color(0xff2D2D2D),
+                  thickness: 3,
+                ),
               ),
-            ),
-            TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
+              TextButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    builder: (context) => Container(
-                      color: Color(0xff222222),
-                      height:
-                          MediaQuery.of(context).copyWith().size.height * 0.37,
-                      child: Column(
-                        children: [
-                          Container(
-                            child: _detailTotal(controller),
-                          ),
-                        ],
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      builder: (context) => Container(
+                        color: Color(0xff222222),
+                        height: MediaQuery.of(context).copyWith().size.height *
+                            0.37,
+                        child: Column(
+                          children: [
+                            Container(
+                              child: _detailTotal(controller),
+                            ),
+                          ],
+                        ),
                       ),
+                    );
+                  },
+                  child: ListTile(
+                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                    title: Text(
+                      'SUBTOTAL',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13.sp,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold),
                     ),
-                  );
-                },
-                child: ListTile(
-                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                  title: Text(
-                    'SUBTOTAL',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13.sp,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold),
-                  ),
-                  trailing: Text(
-                    '\$ 1,000.00',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13.sp,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold),
-                  ),
-                )),
-          ],
+                    trailing: Text(
+                      '\$ ${controller.subtotalBuy()}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13.sp,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }));
   }
 }
 
@@ -347,7 +355,7 @@ Widget _detailTotal(HomeController controller) {
                   color: Colors.white),
             ),
             trailing: Text(
-              ' - \$${controller.subtotal$}',
+              ' \$${controller.subtotalBuy()}',
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
@@ -364,7 +372,7 @@ Widget _detailTotal(HomeController controller) {
                   color: Colors.white),
             ),
             trailing: Text(
-              ' - \$${controller.total$ - controller.subtotal$}',
+              ' - \$${controller.couponDiscount()}',
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
@@ -397,7 +405,7 @@ Widget _detailTotal(HomeController controller) {
                   color: Colors.white),
             ),
             trailing: Text(
-              '\$ ${controller.total$ - controller.subtotal$ + 50}',
+              '\$ ${controller.subtotalBuy()}',
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,

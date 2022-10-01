@@ -9,7 +9,11 @@ class TrackingPickup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buttonConfirmTakeAway(context);
+    return Scaffold(
+      body: Container(
+        child: Center(child: _buttonConfirmTakeAway(context)),
+      ),
+    );
   }
 
   Widget _buttonConfirmTakeAway(context) {
