@@ -32,20 +32,20 @@ class VerificationController extends GetxController {
     super.onInit();
   }
 
-  validate() async {
-    currentText = textEditingController.text;
-    formKey.currentState!.validate();
-    var validatedUser =
-        await _authService.validateCode(_authService.user!, currentText);
-    if (currentText.length != 5 || validatedUser == null) {
-      errorController!.add(ErrorAnimationType.shake);
-      hasError = true;
-      clear();
-    } else {
-      hasError = false;
-      Get.toNamed(AuthRouting.PASSWORD_ROUTE);
-    }
-  }
+  // validate() async {
+  //   currentText = textEditingController.text;
+  //   formKey.currentState!.validate();
+  //   var validatedUser =
+  //       await _authService.validateCode(_authService.user!, currentText);
+  //   if (currentText.length != 5 || validatedUser == null) {
+  //     errorController!.add(ErrorAnimationType.shake);
+  //     hasError = true;
+  //     clear();
+  //   } else {
+  //     hasError = false;
+  //     Get.toNamed(AuthRouting.PASSWORD_ROUTE);
+  //   }
+  // }
 
   clear() {
     textEditingController.clear();

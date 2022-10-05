@@ -3,7 +3,8 @@
 class Enviroments {
   // static const String API_URL = 'https://localhost:9000/api/';
   static const String API_URL = 'http://dev.jexbit.mx/JexcomService/';
-  static const String AUTH_API_URL = 'http://dev.jexbit.mx/JexcoreService/api/';
+  // static const String AUTH_API_URL = 'http://dev.jexbit.mx/JexcoreService/api/';
+  static const String AUTH_API_URL = 'http://dev.jexbit.mx/JexcomService/';
   static const String FILES_URL =
       'http://201.151.139.54/FileManagerDoctos/jexbit/';
 

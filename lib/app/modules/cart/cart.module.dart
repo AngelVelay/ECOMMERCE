@@ -20,6 +20,7 @@ import 'package:jexpoints/app/modules/cart/views/pickup-cart/pickup-cart.page.da
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-method.api.service.dart';
 
+import '../auth/services/auth/auth.api.service.dart';
 import '../home/services/address/address.api.service.dart';
 import '../main/services/address/address.fake.service.dart';
 import 'views/suggestions/suggestions.controller.dart';
@@ -35,7 +36,7 @@ class CartRouting {
   static const PAYMENT_METHODS_ROUTE = '/payment-methods';
   static const SUGGESTIONS = '/suggestions';
 
-  static final IAuthService authService = AuthFakeService();
+  static final IAuthService authService = AuthApiService();
 
   static final routes = [
     GetPage(

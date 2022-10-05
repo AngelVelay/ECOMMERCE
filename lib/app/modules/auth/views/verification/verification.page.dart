@@ -136,7 +136,7 @@ Widget _codeWidget(BuildContext context, VerificationController controller) {
               blurRadius: 10,
             )
           ],
-          onCompleted: (v) => controller.validate(),
+          onCompleted: (v) {},
           // onTap: () {
           //   print("Pressed");
           // },
@@ -171,10 +171,10 @@ Widget _footerWidget(BuildContext context, VerificationController controller) {
 Widget _verifyButtonWidget(
     BuildContext context, VerificationController controller) {
   return Container(
-    margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-    width: double.infinity,
-    child: CustomRoundedButton(
-        text: 'Verificar'.toUpperCase(),
-        onPressed: () => controller.validate()),
-  );
+      margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+      width: double.infinity,
+      child:
+          CustomRoundedButton(text: 'Verificar'.toUpperCase(), onPressed: () {}
+              // onPressed: () => controller.validate()),
+              ));
 }

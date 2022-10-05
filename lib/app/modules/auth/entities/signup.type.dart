@@ -1,8 +1,6 @@
-// To parse this JSON data, do
-//
-//     final signup = signupFromJson(jsonString);
-
 import 'dart:convert';
+
+import 'user-data.type.dart';
 
 class Signup {
   Signup({
@@ -10,14 +8,18 @@ class Signup {
     required this.email,
     required this.phoneNumber,
     required this.password,
-    required this.confirmPassword,
+    required this.registrationCode,
+    required this.validationCode,
+    required this.userData,
   });
 
-  String name;
-  String email;
-  String phoneNumber;
-  String password;
-  String confirmPassword;
+  String? name;
+  String? email;
+  String? phoneNumber;
+  String? password;
+  String? registrationCode;
+  String? validationCode;
+  UserData userData;
 
   factory Signup.fromRawJson(String str) => Signup.fromJson(json.decode(str));
 
@@ -28,8 +30,11 @@ class Signup {
         email: json["email"],
         phoneNumber: json["phoneNumber"],
         password: json["password"] != null ? json["password"] : '',
-        confirmPassword:
-            json["confirmPassword"] != null ? json["confirmPassword"] : '',
+        registrationCode:
+            json["registrationCode"] != null ? json["registrationCode"] : '',
+        userData: UserData.fromJson(json["userData"]),
+        validationCode:
+            json["validationCode"] != null ? json["validationCode"] : '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +42,8 @@ class Signup {
         "email": email,
         "phoneNumber": phoneNumber,
         "password": password,
-        "confirmPassword": confirmPassword,
+        "registrationCode": registrationCode,
+        "validationCode": validationCode,
+        "userData": userData.toJson(),
       };
 }

@@ -171,17 +171,19 @@ class RewardsPage extends GetView<RewardsController> {
       animation: true,
       lineHeight: 16,
       animationDuration: 1500,
-      percent: controller.pointsLevel$.isNotEmpty
-          ? controller.pointsLevel$.first.discountPercentage.toDouble() / 100
-          : 0,
+      percent: 0.5,
+      // percent: controller.pointsLevel$.isNotEmpty
+      //     ? controller.pointsLevel$.first.discountPercentage.toDouble() / 100
+      //     : 0,
       barRadius: const Radius.circular(15),
-      progressColor: controller.pointsLevel$.isNotEmpty
-          ? controller.pointsLevel$.first.initialPoints! <= 100
-              ? const Color(0xFF43578d)
-              : controller.pointsLevel$[1].initialPoints! <= 500
-                  ? Color(0xffffc600)
-                  : Color.fromARGB(255, 0, 1, 4)
-          : Colors.transparent,
+      progressColor: Color(0xffFFD700),
+      // progressColor: controller.pointsLevel$.isNotEmpty
+      //     ? controller.pointsLevel$.first.initialPoints! <= 100
+      //         ? const Color(0xFF43578d)
+      //         : controller.pointsLevel$[1].initialPoints! <= 500
+      //             ? Color(0xffffc600)
+      //             : Color.fromARGB(255, 0, 1, 4)
+      //     : Colors.transparent,
     ).paddingSymmetric(vertical: 1, horizontal: 0);
   }
 

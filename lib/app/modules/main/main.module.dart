@@ -26,6 +26,7 @@ import 'package:jexpoints/app/modules/rewards/services/payment-methods/payment-m
 import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.api.service.dart';
 import 'package:jexpoints/app/modules/ubications/views/ubications/ubications-branches/ubications-branches.controller.dart';
 
+import '../auth/services/auth/auth.api.service.dart';
 import '../cart/views/checkout/checkout.controller.dart';
 
 import '../home/services/flyers/flyers.api.service.dart';
@@ -161,7 +162,7 @@ class MainRouting {
 }
 
 class MainBinding implements Bindings {
-  var authService = AuthFakeService();
+  var authService = AuthApiService();
   var pointLevelService = PointLevelService();
   MainBinding() {
     Get.lazyPut<HomeController>(

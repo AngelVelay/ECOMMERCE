@@ -154,7 +154,7 @@ Widget _formWidget(BuildContext context, SignupController controller) {
                 width: double.infinity,
                 child: CustomRoundedButton(
                     text: 'Guardar'.toUpperCase(),
-                    onPressed: () => controller.send()))
+                    onPressed: () => controller.signUpStepOne()))
           ],
         ),
       ));

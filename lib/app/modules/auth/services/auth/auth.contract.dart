@@ -8,6 +8,6 @@ abstract class IAuthService {
   Future<User?> singIn(String username, String password);
   Future<User?> checkUser();
   Future<List<Branch>> getDummyList();
-  Future<User?> signUp(Signup registrationUser);
-  Future<User?> validateCode(User registrationUser, String code);
+  Future signUp(Signup registrationUser);
+  Future<Signup?> validateCode(Signup registrationUser, String code);
 }

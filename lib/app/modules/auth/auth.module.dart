@@ -6,6 +6,7 @@ import 'package:jexpoints/app/modules/auth/views/password/password.page.dart';
 import 'package:jexpoints/app/modules/auth/views/singup-success/signup-success.page.dart';
 import 'package:jexpoints/app/modules/auth/views/splash/splash-screen.dart';
 import 'package:jexpoints/app/modules/auth/views/verification/verification.controller.dart';
+import 'services/auth/auth.api.service.dart';
 import 'services/user/user.api.service.dart';
 import 'views/login/login.controller.dart';
 import 'views/login/login.page.dart';
@@ -26,7 +27,7 @@ class AuthRouting {
   static const PASSWORD_ROUTE = '/password';
   static const USER_DETAILS_ROUTE = '/user-details';
 
-  static final IAuthService authService = AuthFakeService();
+  static final IAuthService authService = AuthApiService();
 
   static final routes = [
     GetPage(name: LOGIN_ROUTE, page: () => LoginPage(), binding: AuthBinding()),
@@ -46,7 +47,7 @@ class AuthRouting {
 }
 
 class AuthBinding implements Bindings {
-  final IAuthService authService = AuthFakeService();
+  final IAuthService authService = AuthApiService();
 
   @override
   void dependencies() {
@@ -64,8 +65,7 @@ class AuthBinding implements Bindings {
 class PasswordBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PasswordController>(
-        () => PasswordController(AuthFakeService()));
+    Get.lazyPut<PasswordController>(() => PasswordController(AuthApiService()));
   }
 }
 
@@ -73,6 +73,6 @@ class UserDetailsBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<UserDetailController>(
-        () => UserDetailController(AuthFakeService()));
+        () => UserDetailController(AuthApiService()));
   }
 }

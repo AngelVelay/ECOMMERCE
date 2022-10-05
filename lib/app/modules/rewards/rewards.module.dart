@@ -24,6 +24,7 @@ import 'package:jexpoints/app/modules/rewards/views/payment-methods/payment-meth
 import 'package:jexpoints/app/modules/rewards/views/payment-methods/payment-methods.page.dart';
 import 'package:jexpoints/app/modules/rewards/views/terms/terms.page.dart';
 
+import '../auth/services/auth/auth.api.service.dart';
 import '../cart/services/creditCard/creditContract.fake.service.dart';
 import '../home/services/address/address.api.service.dart';
 import '../main/services/address/address.fake.service.dart';
@@ -39,7 +40,7 @@ class RewardsRouting {
   static const TERMS_ROUTE = '/terms';
   static const PAYMENT_METHODS_ROUTE = '/payment-methods';
 
-  static final IAuthService authService = AuthFakeService();
+  static final IAuthService authService = AuthApiService();
 
   static final routes = [
     GetPage(
@@ -73,7 +74,7 @@ class RewardsRouting {
 }
 
 class ConsumeBinding implements Bindings {
-  var authService = AuthFakeService();
+  var authService = AuthApiService();
   var shoppingService = ShoppingFakeService();
   // var paymentMethodsService = CreditCardFakeService();
   var addressService = AddressService();
@@ -116,7 +117,7 @@ class PaymentMethodsBinding implements Bindings {
 }
 
 class BillingBinding implements Bindings {
-  var authService = AuthFakeService();
+  var authService = AuthApiService();
   @override
   void dependencies() {
     Get.lazyPut<BillingController>(
@@ -125,7 +126,7 @@ class BillingBinding implements Bindings {
 }
 
 class BillingApplyBinding implements Bindings {
-  var authService = AuthFakeService();
+  var authService = AuthApiService();
   @override
   void dependencies() {
     Get.lazyPut<BillingApplyController>(

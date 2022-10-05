@@ -20,6 +20,7 @@ import 'package:jexpoints/app/modules/home/views/qr-generate/generate.qr.page.da
 import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 
+import '../auth/services/auth/auth.api.service.dart';
 import '../cart/views/address-detail/address-detail.page.dart';
 import '../main/services/address/address.fake.service.dart';
 import 'views/commercial-detail/commercial.page.dart';
@@ -36,7 +37,7 @@ class HomeRouting {
   static const TOP_PRODUCTS_DETAIL_ROUTE = '/top-products';
   static const GENERATE_QR_ROUTE = '/generate-qr';
 
-  static final IAuthService authService = AuthFakeService();
+  static final IAuthService authService = AuthApiService();
   static final IAddressService addressService = AddressService();
 
   static final routes = [
