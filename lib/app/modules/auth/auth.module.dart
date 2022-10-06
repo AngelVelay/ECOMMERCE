@@ -35,7 +35,7 @@ class AuthRouting {
     GetPage(name: VERIFICATION_ROUTE, page: () => VerificationPage()),
     GetPage(name: SPLASH_ROUTE, page: () => const SplashPage()),
     GetPage(name: SIGNUP_SUCCESS_ROUTE, page: () => const SignupSuccessPage()),
-    GetPage(name: PASSWORD_ROUTE, page: () => const PasswordPage()),
+    GetPage(name: PASSWORD_ROUTE, page: () => PasswordPage()),
     GetPage(
         name: USER_DETAILS_ROUTE,
         page: () => const UserDetailPage(),

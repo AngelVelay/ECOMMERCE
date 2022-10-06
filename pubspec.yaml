@@ -55,6 +55,7 @@ dependencies:
   awesome_card: ^1.1.7
   flutter_widget_from_html_core: ^0.8.5+3
   flutter_screenutil: ^5.5.4
+  datetime_picker_formfield: ^2.0.0
 
 
   marquee: ^2.2.3

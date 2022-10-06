@@ -22,7 +22,7 @@ class Signup {
   String? registrationCode;
   String? validationCode;
   String? password;
-  DateTime? birthdate;
+  String? birthdate;
   // UserData? userData;
 
   factory Signup.fromRawJson(String str) => Signup.fromJson(json.decode(str));
@@ -37,9 +37,10 @@ class Signup {
         registrationCode: json["registrationCode"],
         validationCode: json["validationCode"],
         password: json["password"],
-        birthdate: json["birthdate"] != null
-            ? DateTime.parse(json["birthdate"])
-            : null,
+        birthdate: json["birthdate"],
+        // birthdate: json["birthdate"] != null
+        //     ? DateTime.parse(json["birthdate"])
+        //     : null,
         // userData: UserData.fromJson(json["userData"]),
       );
 

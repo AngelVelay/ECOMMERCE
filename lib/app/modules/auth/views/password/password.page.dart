@@ -4,10 +4,13 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
 import 'package:jexpoints/app/modules/auth/views/password/password.controller.dart';
-import 'package:jexpoints/app/components/button/custom_button.widget.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class PasswordPage extends GetView<PasswordController> {
-  const PasswordPage({Key? key}) : super(key: key);
+  final format = DateFormat("dd/MM/yyyy");
+
+  PasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +114,36 @@ class PasswordPage extends GetView<PasswordController> {
                 keyboardType: TextInputType.text,
                 obscureText: true,
               ),
+              DateTimeField(
+                format: format,
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2.0,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    )),
+                    labelText: 'Fecha de Nacimiento (Opcional)',
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon:
+                        Icon(Icons.calendar_month, color: Colors.white)),
+                onChanged: (value) => controller.onBirthdateChange(value),
+                onShowPicker: (context, currentValue) {
+                  return showDatePicker(
+                      context: context,
+                      firstDate: DateTime(1900),
+                      initialDate: currentValue ?? DateTime.now(),
+                      lastDate: DateTime(2100),
+                      cancelText: 'Cancelar',
+                      confirmText: 'Aceptar',
+                      helpText: 'Fecha de Nacimiento');
+                },
+              ),
               _button(context)
             ])));
   }
@@ -119,8 +152,13 @@ class PasswordPage extends GetView<PasswordController> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
       width: double.infinity,
-      child: CustomRoundedButton(
-          text: 'ENVIAR', onPressed: () => controller.signUpStepThree()),
+      child: Obx(() {
+        return CustomRoundedButton(
+            text: controller.isLoading.value
+                ? 'REGISTRANDO...'
+                : 'COMPLETAR REGISTRO',
+            onPressed: () => controller.signUpStepThree());
+      }),
     );
   }
 }
