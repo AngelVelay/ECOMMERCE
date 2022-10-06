@@ -18,8 +18,8 @@ import 'package:local_auth_ios/local_auth_ios.dart';
 class LoginController extends GetxController {
   late IAuthService _service;
   var loginText = 'Ingresar'.obs;
-  var username = TextEditingController(text: 'jcarballido@jexbit.mx');
-  var password = TextEditingController(text: 'Abcd1234');
+  var username = TextEditingController(text: 'jcarballido@sethemba.mx');
+  var password = TextEditingController(text: '1234');
   Map<String, dynamic> resultGoogle = {};
   final LocalAuthentication localAuthentication = LocalAuthentication();
   static final _googleSignIn = GoogleSignIn(
@@ -45,12 +45,12 @@ class LoginController extends GetxController {
 
   singIn() async {
     loginText.value = 'Ingresando...';
-    var user = await _service.singIn(username.text, password.text);
+    var errorMessage = await _service.singIn(username.text, password.text);
     loginText.value = 'Ingresar';
-    if (user != null) {
+    if (errorMessage == "") {
       Get.toNamed(MainRouting.MAIN_ROUTE);
     } else {
-      MsgUtils.error('Algo salio mal');
+      MsgUtils.error(errorMessage!);
     }
   }
 

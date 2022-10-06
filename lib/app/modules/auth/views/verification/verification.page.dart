@@ -40,8 +40,8 @@ class VerificationPage extends GetView<VerificationController> {
               const SizedBox(height: 20),
               _footerWidget(context, controller),
               const SizedBox(height: 14),
-              _verifyButtonWidget(context, controller),
-              const SizedBox(height: 16),
+              // _verifyButtonWidget(context, controller),
+              // const SizedBox(height: 16),
             ],
           ),
         ),
@@ -74,7 +74,7 @@ Widget _headerWidget(BuildContext context, VerificationController controller) {
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
       child: RichText(
         text: TextSpan(
-            text: "Ingresa el código enviado al ",
+            text: "Ingresa el código enviado a ",
             children: [
               TextSpan(
                   text: controller.phoneNumber,
@@ -140,7 +140,7 @@ Widget _codeWidget(BuildContext context, VerificationController controller) {
           // onTap: () {
           //   print("Pressed");
           // },
-          onChanged: (value) {},
+          onChanged: (value) => controller.onTextChange(value),
           // beforeTextPaste: (value) => {
           //     print(value);
           // },
@@ -173,8 +173,7 @@ Widget _verifyButtonWidget(
   return Container(
       margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
       width: double.infinity,
-      child:
-          CustomRoundedButton(text: 'Verificar'.toUpperCase(), onPressed: () {}
-              // onPressed: () => controller.validate()),
-              ));
+      child: CustomRoundedButton(
+          text: 'Verificar'.toUpperCase(),
+          onPressed: () => controller.signUpStepTwo()));
 }

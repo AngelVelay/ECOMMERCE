@@ -12,15 +12,17 @@ class PasswordController extends GetxController {
 
   PasswordController(this._authService);
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  signUpStepThree() async {
+    if (confirmValidate() != null) return;
 
-  save() {
-    if (confirmValidate() == null) {
+    _authService.signup!.password = passwordTextCtrl.text;
+    await _authService.signUp().then((value) {
+      // TODO: Add UserData
       Get.toNamed(AuthRouting.SIGNUP_SUCCESS_ROUTE);
-    }
+    }).onError((error, stackTrace) {
+      MsgUtils.error(
+          'Ocurrió un error al enviar tus datos, por favor reintenta');
+    });
   }
 
   String? confirmValidate() {
@@ -30,7 +32,6 @@ class PasswordController extends GetxController {
     if (confirmPasswordTextCtrl.text != passwordTextCtrl.text) {
       return 'Las contraseñas no coinciden!';
     }
-
     return null;
   }
 }

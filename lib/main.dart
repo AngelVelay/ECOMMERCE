@@ -46,6 +46,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/auth/views/splash/splash-screen.dart';
+import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'app/shared/routes/app-pages.dart';
 import 'app/modules/auth/auth.module.dart';
 import 'app/modules/auth/views/login/login.page.dart';

@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:jexpoints/app/core/data/entities/request_method.enum.dart';
+import 'package:jexpoints/app/core/data/providers/api_exceptions.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
+import 'package:jexpoints/app/modules/auth/entities/api-error.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/branch.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/membership.type.dart';
 import 'package:jexpoints/app/modules/auth/entities/security_token.type.dart';
@@ -24,23 +28,34 @@ class AuthApiService extends BaseService implements IAuthService {
   User? user;
 
   @override
-  Future<User?> singIn(String username, String password) async {
+  Future<String?> singIn(String username, String password) async {
+    var result = "";
     try {
       // Get Token
       var tokenString = await post(
           Signin(username: username, password: password),
-          urlComplement: 'signin');
+          urlComplement: 'signin',
+          useCustomUrl: false);
       var token = SecurityToken.fromRawJson(tokenString);
       LocalStorageUtils.setStringKey(Globals.TOKEN_KEY, token.accessToken);
 
       // Get User Data
-      var userJson = await get('Users/current', useCustomUrl: true);
-      LocalStorageUtils.setStringKey(Globals.CURRENT_USER_KEY, userJson);
-      var result = User.fromRawJson(userJson);
-      return result;
-    } catch (ex) {
-      return null;
+      // var userJson = await get('Users/current', useCustomUrl: true);
+      // LocalStorageUtils.setStringKey(Globals.CURRENT_USER_KEY, userJson);
+      // var result = User.fromRawJson(userJson);
+    } on BadRequestException catch (ex) {
+      var apiEx = ApiException.fromRawJson(
+          ex.toString().replaceAll("Invalid Request: ", ""));
+      if (apiEx.exceptionType == "AppValidationException") {
+        result = apiEx.message;
+      } else {
+        result = "Algo salió mal, comunicate con el administrador";
+      }
+    } on Error catch (ex) {
+      result = "Algo salió mal, comunicate con el administrador";
     }
+
+    return result;
   }
 
   @override
@@ -74,12 +89,20 @@ class AuthApiService extends BaseService implements IAuthService {
   }
 
   @override
-  Future<dynamic> signUp(Signup registrationUser) async {
+  Future<Signup?> signUp() async {
+    if (signup == null) {
+      MsgUtils.error(
+          "Error al obtener datos de registro, verifique con el administrador");
+      return null;
+    }
+
     try {
-      var json = await post(registrationUser, urlComplement: 'auth/signup');
-      return jsonDecode(json);
-    } catch (ex) {
-      return ex;
+      var jsonResult = await post(signup!, urlComplement: 'signup');
+      return Signup.fromRawJson(jsonResult);
+    } on BadRequestException catch (ex) {
+      return null;
+    } on Error catch (ex) {
+      return null;
     }
     // return provider.request<Signup>(
     //   RequestMethod.post,
@@ -96,83 +119,81 @@ class AuthApiService extends BaseService implements IAuthService {
     }
     return registrationUser as Future<Signup?>;
   }
+
+  @override
+  Signup? signup;
 }
 
-  // var jsonResponse = await provider.request<List<PaymentMethods>>(
-  //       RequestMethod.post, 'UserPaymentMethods',
-  //       body: json.encode(creditCard));
+// var jsonResponse = await provider.request<List<PaymentMethods>>(
+//       RequestMethod.post, 'UserPaymentMethods',
+//       body: json.encode(creditCard));
 
-  //   var result = jsonDecode(jsonResponse);
-  //   return PaymentMethods.fromJson(result);
-  // }
+//   var result = jsonDecode(jsonResponse);
+//   return PaymentMethods.fromJson(result);
+// }
 
-  // @override
-  // Future<User?> signUp(Signup registrationUser) async {
-  //   user = User.fromVoid();
-  //   user?.code = '12345';
-  //   return user;
-  // }
+// @override
+// Future<User?> signUp(Signup registrationUser) async {
+//   user = User.fromVoid();
+//   user?.code = '12345';
+//   return user;
+// }
 
-  // @override
-  // Future<Signup> validateCode(Signup registrationUser, String code) async {
-  //   if (registrationUser.registrationCode != code) {
-  //     MsgUtils.error("Código inválido");
-  //     return null;
-  //   }
-  //   return registrationUser as Signup;
-  // }
+// @override
+// Future<Signup> validateCode(Signup registrationUser, String code) async {
+//   if (registrationUser.registrationCode != code) {
+//     MsgUtils.error("Código inválido");
+//     return null;
+//   }
+//   return registrationUser as Signup;
+// }
 
-
-
-
-
-
-// signupStepOne() {    
+// signupStepOne() {
 //     this.isLoading = true;
-//     this.errorMessage = '';    
+//     this.errorMessage = '';
 //     this._authService
 //         .signUp(this.usersForm.value)
-//         .then(response => {                    
+//         .then(response => {
 //           this.usersForm.get('registrationCode')?.setValue(response.registrationCode);
 //           this.modalValidationBtn?.nativeElement.click();
-//         }) 
+//         })
 //         .catch(errorResponse => this._handleError(errorResponse))
 //         .finally(() => this.isLoading = false);
 
 //   }
 
 //   signupStepTwo(){
-//     this.errorMessage = '';    
+//     this.errorMessage = '';
 //     this.ngOtpInputRef.otpForm.disable();
 //     this.isValidating = true;
 //     this._authService
-//         .signUp(this.usersForm.value)        
-//         .then(response => {     
+//         .signUp(this.usersForm.value)
+//         .then(response => {
 //           this.isVisible = true;
-//           this.title = 'Ingresa tu contraseña';          
+//           this.title = 'Ingresa tu contraseña';
 //           this.modalValidateCloseBtn?.nativeElement.click();
 //         })
 //         .catch(errorResponse => {
-//           this._handleError(errorResponse);          
-//           this.ngOtpInputRef.setValue(''); 
+//           this._handleError(errorResponse);
+//           this.ngOtpInputRef.setValue('');
 //           setTimeout(() => {
 //             this.errorMessage = '';
 //           }, 2000);
 //         })
 //         .finally(() => {
 //           this.ngOtpInputRef.otpForm.enable();
-//           this.isValidating = false;          
+//           this.isValidating = false;
 //         });
 //   }
 
 //   signupStepThree(){
-//     this.errorMessage = '';    
+//     this.errorMessage = '';
 //     this.usersForm.get('password')?.setValue(
 //       this.passwordForm.get('password')?.value
-//     );    
+//     );
 //     this._authService
 //         .signUp(this.usersForm.value)
-//         .then((response: Signup) => {          
+//         .then((response: Signup) => {
 //           this.successMessage = `!Felicidades ${response.userData.name}(${response.userData.user.username}) has realizado con exito tu registro!`;
 //           this.modalSigninComplete?.nativeElement.click();
 //         })

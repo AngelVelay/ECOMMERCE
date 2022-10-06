@@ -1,6 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:jexpoints/app/modules/main/views/main/main.controller.dart';
+import 'package:jexpoints/app/modules/main/views/main/main.page.dart';
 
 import '../../../auth/views/login/login.page.dart';
 

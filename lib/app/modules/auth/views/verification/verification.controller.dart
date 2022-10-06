@@ -28,32 +28,38 @@ class VerificationController extends GetxController {
 
   @override
   void onInit() {
-    phoneNumber = _authService.user!.phoneNumber;
+    if (_authService.signup != null) {
+      phoneNumber = _authService.signup!.email.toString();
+    }
     super.onInit();
   }
 
-  // validate() async {
-  //   currentText = textEditingController.text;
-  //   formKey.currentState!.validate();
-  //   var validatedUser =
-  //       await _authService.validateCode(_authService.user!, currentText);
-  //   if (currentText.length != 5 || validatedUser == null) {
-  //     errorController!.add(ErrorAnimationType.shake);
-  //     hasError = true;
-  //     clear();
-  //   } else {
-  //     hasError = false;
-  //     Get.toNamed(AuthRouting.PASSWORD_ROUTE);
-  //   }
-  // }
+  signUpStepTwo() async {
+    _authService.signup!.validationCode = textEditingController.text;
+    await _authService.signUp().then((value) {
+      hasError = false;
+      Get.toNamed(AuthRouting.PASSWORD_ROUTE);
+    }).onError((error, stackTrace) {
+      errorController!.add(ErrorAnimationType.shake);
+      hasError = true;
+      clear();
+    });
+  }
 
   clear() {
     textEditingController.clear();
   }
 
-  resend() {
-    MsgUtils.success("Se ha vuelto a enviar el codigo de verificación.",
-        title: 'Código reenviado');
-    textEditingController.clear();
+  resend() async {
+    _authService.signup!.validationCode = null;
+    await _authService.signUp();
+    MsgUtils.success('El código ha sido reenviado.');
+    // textEditingController.clear();
+  }
+
+  onTextChange(String code) {
+    if (code.length < 5) return;
+
+    signUpStepTwo();
   }
 }

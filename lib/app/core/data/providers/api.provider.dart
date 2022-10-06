@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:jexpoints/app/core/data/providers/api_exceptions.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
+import 'package:jexpoints/app/modules/auth/entities/api-error.type.dart';
 import 'package:jexpoints/app/shared/values/enviroments.dart';
 import 'package:jexpoints/app/shared/values/globals.dart';
 
@@ -84,7 +85,12 @@ class ApiProvider {
       case 200:
         return response.body.toString();
       case 400:
-        throw BadRequestException(response.body.toString());
+        // throw BadRequestException(response.body.toString());
+        var apiException = ApiException.fromRawJson(response.body.toString());
+        if (apiException.exceptionType.contains('AppValidationException')) {
+          MsgUtils.error(apiException.exceptionMessage);
+        }
+        throw Exception(apiException.exceptionMessage);
       case 401:
       case 403:
         LocalStorageUtils.setStringKey(Globals.CURRENT_USER_KEY, '');

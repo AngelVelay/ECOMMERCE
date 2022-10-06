@@ -35,10 +35,7 @@ class AuthRouting {
     GetPage(name: VERIFICATION_ROUTE, page: () => VerificationPage()),
     GetPage(name: SPLASH_ROUTE, page: () => const SplashPage()),
     GetPage(name: SIGNUP_SUCCESS_ROUTE, page: () => const SignupSuccessPage()),
-    GetPage(
-        name: PASSWORD_ROUTE,
-        page: () => const PasswordPage(),
-        binding: PasswordBinding()),
+    GetPage(name: PASSWORD_ROUTE, page: () => const PasswordPage()),
     GetPage(
         name: USER_DETAILS_ROUTE,
         page: () => const UserDetailPage(),
@@ -59,15 +56,17 @@ class AuthBinding implements Bindings {
     Get.lazyPut<VerificationController>(
         () => VerificationController(authService),
         fenix: true);
+    Get.lazyPut<PasswordController>(() => PasswordController(authService),
+        fenix: true);
   }
 }
 
-class PasswordBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<PasswordController>(() => PasswordController(AuthApiService()));
-  }
-}
+// class PasswordBinding implements Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut<PasswordController>(() => PasswordController(AuthApiService()));
+//   }
+// }
 
 class UserDetailsBinding implements Bindings {
   @override

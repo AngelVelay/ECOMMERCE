@@ -120,7 +120,7 @@ class PasswordPage extends GetView<PasswordController> {
       margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
       width: double.infinity,
       child: CustomRoundedButton(
-          text: 'ENVIAR', onPressed: () => controller.save()),
+          text: 'ENVIAR', onPressed: () => controller.signUpStepThree()),
     );
   }
 }
