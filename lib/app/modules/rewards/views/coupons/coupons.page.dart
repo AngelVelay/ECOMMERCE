@@ -2,7 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/app-bar/simple_app_bar/simple_app_bar.widget.dart';
 import 'package:jexpoints/app/modules/rewards/entities/coupon.type.dart';
+import 'package:jexpoints/app/shared/values/globals.dart';
 
 import 'coupons.controller.dart';
 
@@ -14,9 +16,7 @@ class CouponsPage extends GetView<CouponsController> {
     return Container(
       color: const Color(0xff2222222),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Mis Cupones'),
-        ),
+        appBar: SimpleAppBar(title: 'Mis Cupones'),
         body: _couponList(context),
       ),
     );
@@ -72,17 +72,18 @@ class CouponsPage extends GetView<CouponsController> {
                                     const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 10)),
                                 textStyle: MaterialStateProperty.all(
-                                    TextStyle(fontSize: 15))),
+                                    const TextStyle(fontSize: 15))),
                             onPressed: () {
                               controller.copyCoupon(item);
                             },
                             label: Text(
                               item.code.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            icon: Icon(Icons.copy_rounded, color: Colors.white),
+                            icon: const Icon(Icons.copy_rounded,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -106,12 +107,6 @@ class CouponsPage extends GetView<CouponsController> {
                             item.description.toString(),
                             textStyle: const TextStyle(color: Colors.white),
                           ),
-                          //     child: Text(
-                          //   item.description,
-                          //   style: const TextStyle(color: Colors.white70),
-                          //   maxLines: 6,
-                          //   overflow: TextOverflow.ellipsis,
-                          // ))
                         )
                       ]),
                       Row(
@@ -124,7 +119,8 @@ class CouponsPage extends GetView<CouponsController> {
                                   color: Colors.white70, fontSize: 12),
                             ),
                             Text(
-                              item.beginDate!,
+                              Globals.dateFormat
+                                  .format(DateTime.parse(item.endDate!)),
                               style: const TextStyle(color: Colors.white),
                             )
                           ]),

@@ -1,37 +1,32 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
-import 'package:jexpoints/app/modules/auth/services/auth/auth.fake.service.dart';
 import 'package:jexpoints/app/modules/cart/views/address-detail/address-detail.controller.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/home/services/products/products.api.service.dart';
+import 'package:jexpoints/app/modules/home/services/qr-codes/qr-codes.api.service.dart';
 import 'package:jexpoints/app/modules/home/views/address/address.controller.dart';
 import 'package:jexpoints/app/modules/home/views/address/address.page.dart';
 
 import 'package:jexpoints/app/modules/home/views/detail-delivery/detail-delivery.controller.dart';
 import 'package:jexpoints/app/modules/home/views/details/components/detailTopProducts.dart';
 import 'package:jexpoints/app/modules/home/views/details/detail.controller.dart';
-import 'package:jexpoints/app/modules/home/views/details/detail.page.dart';
-import 'package:jexpoints/app/modules/home/views/publicidad_detail/publicidad.controller.dart';
-import 'package:jexpoints/app/modules/home/views/publicidad_detail/publicidad.page.dart';
 import 'package:jexpoints/app/modules/home/views/qr-generate/generate.qr.controller.dart';
 import 'package:jexpoints/app/modules/home/views/qr-generate/generate.qr.page.dart';
-import 'package:jexpoints/app/modules/main/services/products/products.fake.service.dart';
 import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service.dart';
 
 import '../auth/services/auth/auth.api.service.dart';
 import '../cart/views/address-detail/address-detail.page.dart';
-import '../main/services/address/address.fake.service.dart';
-import 'views/commercial-detail/commercial.page.dart';
 import 'views/detail-delivery/detail-delivery.page.dart';
 import 'views/details_screen/item_details_screen.dart';
-import 'views/details_screen/widgets/header.dart';
+import 'views/poster-detail/poster.controller.dart';
+import 'views/poster-detail/poster.page.dart';
 
 class HomeRouting {
   static const ADDRESS_ROUTE = '/address';
   static const DETAIL_ROUTE = '/detail';
-  static const PUBLICIDAD_ROUTE = '/publicidad';
+  static const POSTER_ROUTE = '/poster';
   static const ADDRESS_DETAIL_ROUTE = '/address-detail';
   static const DELIVERY_DETAIL = '/delivery-detail';
   static const TOP_PRODUCTS_DETAIL_ROUTE = '/top-products';
@@ -51,9 +46,9 @@ class HomeRouting {
       binding: DetailBinding(),
     ),
     GetPage(
-        name: PUBLICIDAD_ROUTE,
-        page: () => ProductPage(),
-        binding: PublicidadBinding()),
+        name: POSTER_ROUTE,
+        page: () => const PosterPage(),
+        binding: PosterBinding()),
     GetPage(
         name: ADDRESS_DETAIL_ROUTE,
         page: () => const AddressDetailPage(),
@@ -89,10 +84,10 @@ class DetailBinding implements Bindings {
   }
 }
 
-class PublicidadBinding implements Bindings {
+class PosterBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PublicidadController>(() => PublicidadController());
+    Get.lazyPut<PosterController>(() => PosterController());
   }
 }
 
@@ -114,6 +109,7 @@ class DeliveryDetailBinding implements Bindings {
 class QrGenerateBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<QrGenerateController>(() => QrGenerateController());
+    Get.lazyPut<QrGenerateController>(
+        () => QrGenerateController(QrCodesApiService()));
   }
 }

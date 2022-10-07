@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/core/utils/storage.utils.dart';
+import 'package:jexpoints/app/modules/auth/entities/user-data.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
 import 'package:jexpoints/app/modules/rewards/entities/point-level.type.dart';
 import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.contract.dart';
@@ -28,7 +29,7 @@ class RewardsController extends GetxController {
 
   final IAuthService _repo;
 
-  var user$ = User.fromVoid().obs;
+  var user$ = UserData.fromVoid().obs;
   List<Menu> menuItems = [
     Menu(Icons.shopping_basket, RewardsRouting.CONSUME_ROUTE, 'Compras'),
     Menu(Icons.card_membership, CartRouting.PAYMENT_METHODS_ROUTE, 'Pagos'),

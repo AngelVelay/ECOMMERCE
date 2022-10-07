@@ -101,8 +101,7 @@ class CouponsBinding implements Bindings {
 class CouponDetailBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CouponDetailController>(
-        () => CouponDetailController(CouponsApiService()));
+    Get.lazyPut<CouponDetailController>(() => CouponDetailController());
   }
 }
 

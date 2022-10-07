@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/cart/entities/product.type.dart';
-import 'package:jexpoints/app/modules/home/views/details_screen/widgets/constants.dart';
+import 'package:jexpoints/app/shared/values/constants.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
 import '../../details/detail.controller.dart';

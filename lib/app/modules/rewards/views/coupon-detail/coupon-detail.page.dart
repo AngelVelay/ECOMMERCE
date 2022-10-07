@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/app-bar/simple_app_bar/simple_app_bar.widget.dart';
 import 'package:jexpoints/app/components/form-controls/custom-rounded-button.widget.dart';
 import 'coupon-detail.controller.dart';
 
@@ -10,47 +11,31 @@ class CouponDetailPage extends GetView<CouponDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            controller.coupon$.value.shortDescription,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-          backgroundColor: const Color(0xFF222222),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
+        appBar: SimpleAppBar(title: controller.coupon$.value.shortDescription),
+        body: SingleChildScrollView(child: Obx(() {
+          return Column(
             children: [
+              // const SizedBox(height: 20),
+              // _title(),
               const SizedBox(height: 20),
-              _title(),
-              const SizedBox(height: 10),
-              controller.couponImage$.value != ''
-                  ? _header()
-                  : Container(
-                      color: Colors.grey,
-                      height: 220,
-                      width: 200,
-                      child: const Center(
-                        child: Text('No hay imagen'),
-                      ),
-                    ),
+              _imageWidget(),
               const SizedBox(height: 20),
               _center(),
-              const SizedBox(height: 5),
+              const SizedBox(height: 20),
               _bottomButton(context),
               const SizedBox(height: 20),
             ],
-          ),
-        ));
+          );
+        })));
   }
 
-  Widget _header() {
+  Widget _imageWidget() {
     return SizedBox(
         width: double.infinity,
         height: 300,
-        child: Obx(() => controller.couponImage$.value != ''
+        child: controller.couponImage$.value != ''
             ? Image.network(controller.couponImage$.value)
-            : const Center(child: CircularProgressIndicator())));
+            : const Center(child: CircularProgressIndicator()));
   }
 
   Widget _title() {
@@ -64,13 +49,21 @@ class CouponDetailPage extends GetView<CouponDetailController> {
   Widget _center() {
     return Column(
       children: [
-        Text('Valido Hasta ${controller.coupon$.value.endDate}',
+        Text('Valido Hasta ${controller.formattedEndDate}',
             style: const TextStyle(fontSize: 14, color: Colors.white70)),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: HtmlWidget(controller.coupon$.value.description,
-              textStyle: const TextStyle(fontSize: 16, color: Colors.white)),
+        const SizedBox(
+          height: 20,
         ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Descripción', style: TextStyle(color: Colors.white)),
+            const SizedBox(height: 5),
+            HtmlWidget(controller.coupon$.value.description,
+                textStyle:
+                    const TextStyle(fontSize: 16, color: Colors.white70)),
+          ],
+        ).paddingAll(10)
       ],
     );
   }

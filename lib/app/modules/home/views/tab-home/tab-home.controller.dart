@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart'
     show BuildContext, FocusScope, Navigator, TextEditingController;
 import 'package:get/get.dart';
-import 'package:jexpoints/app/core/utils/msg.utils.dart';
 import 'package:jexpoints/app/modules/auth/entities/user.type.dart';
 import 'package:jexpoints/app/modules/auth/services/auth/auth.contract.dart';
 import 'package:jexpoints/app/modules/home/entities/address.type.dart';
 import 'package:jexpoints/app/modules/home/entities/impulse-products.type.dart';
 import 'package:jexpoints/app/modules/home/services/address/address.api.service.dart';
-import 'package:jexpoints/app/modules/home/services/flyers/flyers.contract.dart';
 import 'package:jexpoints/app/modules/home/services/impulse-products/impulse-products.contract.dart';
-import 'package:jexpoints/app/modules/home/views/details/components/detailTopProducts.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home-search/tab-home-search.page.dart';
 import 'package:jexpoints/app/modules/main/entities/credit-card.dart';
-import 'package:jexpoints/app/modules/main/entities/address.type.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
-import 'package:jexpoints/app/modules/main/services/address/address.contract.dart';
 import 'package:jexpoints/app/modules/rewards/entities/point-level.type.dart';
 import 'package:jexpoints/app/modules/rewards/services/point-level/point-level.contract.dart';
 
+import '../../../auth/entities/user-data.type.dart';
 import '../../../cart/cart.module.dart';
-import '../../../main/services/creditCard/creditCard.contract.dart';
 import '../../../main/services/products/products.contract.dart';
 import '../../../rewards/entities/coupon.type.dart';
 import '../../../rewards/rewards.module.dart';
@@ -28,10 +23,11 @@ import '../../../rewards/services/coupons/coupons.contract.dart';
 
 import '../../entities/posters.type.dart';
 import '../../home.module.dart';
+import '../../services/posters/posters.contract.dart';
 
 class HomeController extends GetxController {
   final IProductsService productsService;
-  final IFlyersService flyersService;
+  final IPostersService postersService;
   final IAuthService authService;
   final AddressService addressService;
   final ICouponsService couponsService;
@@ -53,7 +49,7 @@ class HomeController extends GetxController {
   late var favoriteProducts$ = <Product>[].obs;
   late var likedProducts$ = <Product>[].obs;
   late var cartProducts$ = <Product>[].obs;
-  late var user$ = User.fromVoid().obs;
+  late var user$ = UserData.fromVoid().obs;
   late var addressList$ = <UserAddress>[].obs;
   late var selectedCreditCard$ = <CreditCard>[].obs;
   late var selectedAddress$ = UserAddress.fromVoid().obs;
@@ -79,7 +75,7 @@ class HomeController extends GetxController {
   HomeController(
       this.productsService,
       this.authService,
-      this.flyersService,
+      this.postersService,
       this.addressService,
       this.couponsService,
       this.pointLevelService,
@@ -88,6 +84,7 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    isLoading$.value = true;
     var currentUser = await authService.checkUser();
     if (currentUser != null) {
       user$.value = currentUser;
@@ -96,9 +93,9 @@ class HomeController extends GetxController {
 
     total$ = 0.0;
     subtotal$ = 0.0;
-    var banners = await flyersService.getAll();
-    var bannersList = flyersService.getFileId();
-    var imagesBanner = flyersService.getBanners();
+    var banners = await postersService.getAll();
+    var bannersList = postersService.getFileId();
+    var imagesBanner = postersService.getBanners();
 
     variableProductsList$.value = await productsService.getProductsVariable();
     productsImpulseList$.value =
@@ -106,17 +103,17 @@ class HomeController extends GetxController {
     // productsPackList$.value = await productsService.addVariableProducts(
     //      productsPackList$.value);
     productList$.value = await productsService.getTop();
-    flyerList$.value = await flyersService.getBanners();
-    posterList$.value = await flyersService.getAll();
+    flyerList$.value = await postersService.getBanners();
+    posterList$.value = await postersService.getAll();
 
     pointsLevel$.value = await pointLevelService.getPoints();
 
     // flyerList$.value = await flyersService.getFlyers();
     productList$.sort((a, b) => a.topRate.compareTo(b.topRate));
     favoriteProducts$.value = await productsService.getFavorites();
-    flyerList$.value = await flyersService.getBanners();
+    flyerList$.value = await postersService.getBanners();
     if (flyerList$.isEmpty) {
-      flyerList$.value = await flyersService.getBanners();
+      flyerList$.value = await postersService.getBanners();
     } else {
       print('Error');
     }
@@ -135,6 +132,8 @@ class HomeController extends GetxController {
     } else {
       selectedAddress$.value.zipcode = 000000;
     }
+
+    isLoading$.value = false;
   }
 
   addCart(Product item, context) {
@@ -149,8 +148,6 @@ class HomeController extends GetxController {
     catalogsList$.refresh();
     favoriteProducts$.refresh();
     productsImpulseList$.refresh();
-    // cartValue$.value = cartValue$.value + 1;
-    // cartValue$.refresh();
     updateCartItems();
   }
 
@@ -170,8 +167,6 @@ class HomeController extends GetxController {
   }
 
   updateCartItems() {
-    // cartItems$.value =
-    //     cartProducts$.map((e) => e.cartValue).reduce((a, b) => a + b) ;
     cartItems$.value = cartProducts$.length;
     cartItems$.refresh();
   }
@@ -199,34 +194,15 @@ class HomeController extends GetxController {
   }
 
   toFlyer(Posters item) {
-    Get.toNamed(HomeRouting.PUBLICIDAD_ROUTE, arguments: [
-      item.appFileManagerThumbnail,
-      item.name,
-      item.description,
-      item.appFileManagerId,
-      item.terms,
-      item.title
-    ]);
+    Get.toNamed(HomeRouting.POSTER_ROUTE, arguments: [item]);
   }
 
   toProductDetail(Product item) {
     Get.toNamed(HomeRouting.DETAIL_ROUTE, arguments: {"product": item});
   }
 
-  // toProductDetailTopProducts(ImpulseProducts item) {
-  //   Get.toNamed(HomeRouting.TOP_PRODUCTS_DETAIL_ROUTE, arguments: [
-  //     item.product.imageLink,
-  //     item.product.name,
-  //     item.product.description,
-  //     item.product.imageFileId,
-  //     item.product.topRate,
-  //   ]);
-  // }
-
   addressSelect(UserAddress item, BuildContext context) {
     selectedAddress$.value = item;
-    // Navigator.pop(context);
-    // Get.toNamed('/confirm-compra');
   }
 
   toPayment() {

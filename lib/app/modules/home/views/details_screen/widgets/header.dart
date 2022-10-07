@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:jexpoints/app/modules/home/views/details/detail.controller.dart';
-import 'package:jexpoints/app/modules/home/views/details_screen/widgets/constants.dart';
+import 'package:jexpoints/app/shared/values/constants.dart';
 
 class Header extends GetView<DetailController> {
   @override

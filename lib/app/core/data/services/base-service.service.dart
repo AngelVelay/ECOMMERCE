@@ -18,7 +18,8 @@ class BaseService extends IBaseService {
   @override
   Future<String> get<T>(String urlComplement, {bool useCustomUrl = false}) {
     return provider.request(
-        RequestMethod.get, _solveUrl(urlComplement, useCustomUrl));
+        RequestMethod.get, _solveUrl(urlComplement, useCustomUrl),
+        useDefaultUrl: !(_url != null && _url != ''));
   }
 
   @override

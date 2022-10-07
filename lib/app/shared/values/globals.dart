@@ -9,4 +9,5 @@ class Globals {
   static NumberFormat CURRENCY_FORMATTER =
       NumberFormat.currency(locale: 'en_US', symbol: '\$');
   static NumberFormat NODECIMALS_FORMATTER = NumberFormat();
+  static DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 }

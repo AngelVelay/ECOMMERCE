@@ -39,7 +39,8 @@ class HomePage extends GetView<HomeController> {
                         _welcomeGreeting(),
                         _coupons(),
                         const SizedBox(height: 20),
-                        _flyerList(),
+                        _postersList(),
+                        const SizedBox(height: 20),
                         const HomeTopProducts(),
                         const SizedBox(height: 20),
                         const HomeFavoriteProducts(),
@@ -109,7 +110,7 @@ class HomePage extends GetView<HomeController> {
     });
   }
 
-  Widget _flyerList() {
+  Widget _postersList() {
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -121,7 +122,7 @@ class HomePage extends GetView<HomeController> {
                 .length,
             itemBuilder: (context, index, realIndex) {
               return controller.posterList$.isNotEmpty
-                  ? _flyerItem(controller.posterList$[index])
+                  ? _posterItem(controller.posterList$[index])
                   : Container();
             },
             options: CarouselOptions(
@@ -140,7 +141,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  Widget _flyerItem(Posters item) {
+  Widget _posterItem(Posters item) {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         child: SizedBox(

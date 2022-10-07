@@ -59,7 +59,7 @@ class ButtonQRScanner extends StatelessWidget {
 
   static _goTo(BuildContext context, String type) {
     Navigator.pop(context);
-    Get.toNamed('/generate-qr', arguments: {"type": type});
+    Get.toNamed('/generate-qr', arguments: [type]);
   }
 
   static _close(BuildContext context) {

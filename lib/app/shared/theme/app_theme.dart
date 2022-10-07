@@ -23,7 +23,10 @@ final ThemeData appTheme = ThemeData(
     headline4: TextStyle(fontSize: 18.0, color: Colors.white),
     headline5: TextStyle(fontSize: 15.0, color: Colors.white),
     headline6: TextStyle(
-        fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
+        fontSize: 20.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Montserrat'),
     bodyText1: TextStyle(fontSize: 14.0, color: Colors.white),
     bodyText2: TextStyle(fontSize: 14.0, color: Colors.black),
     subtitle1: TextStyle(

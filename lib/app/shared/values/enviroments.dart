@@ -12,7 +12,7 @@ class Enviroments {
   static const String FILE_MANAGER_URL =
       'http://dev.jexbit.mx/JexcoreService/api/';
 
-  static const String FILE_MANAGER_KEY = 'db755596-ed44-417b-9a5a-8512964932a8';
+  static const String FILE_MANAGER_KEY = '2511f893-aff1-4064-962c-f174cfc4dc17';
 
   // static const String SHA1_GOOGLE =
   //     ' F9:3A:D8:20:BC:77:CA:31:CB:46:E4:5D:33:92:F4:95:DB:D6:88:6B';

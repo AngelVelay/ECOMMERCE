@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jexpoints/app/modules/auth/auth.module.dart';
 import 'package:jexpoints/app/modules/main/main.module.dart';
+import '../../../auth/entities/user-data.type.dart';
 import '../../../auth/entities/user.type.dart';
 import '../../../auth/services/auth/auth.contract.dart';
 import '../../../rewards/rewards.module.dart';
@@ -28,13 +29,13 @@ class MenuController extends GetxController {
   ];
   // final zoomDrawerController = ZoomDrawerController();
 
-  var user = User.fromVoid().obs;
+  var user$ = UserData.fromVoid().obs;
   @override
   void onInit() async {
     super.onInit();
     var existingUser = await _repo.checkUser();
     if (existingUser != null) {
-      user.value = existingUser;
+      user$.value = existingUser;
     } else {
       Get.toNamed(AuthRouting.LOGIN_ROUTE);
     }

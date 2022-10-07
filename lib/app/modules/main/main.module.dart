@@ -29,7 +29,7 @@ import 'package:jexpoints/app/modules/ubications/views/ubications/ubications-bra
 import '../auth/services/auth/auth.api.service.dart';
 import '../cart/views/checkout/checkout.controller.dart';
 
-import '../home/services/flyers/flyers.api.service.dart';
+import '../home/services/posters/posters.api.service.dart';
 import '../rewards/services/coupons/coupons.api.service.dart';
 import '../rewards/views/consume/consume.controller.dart';
 
@@ -169,7 +169,7 @@ class MainBinding implements Bindings {
         () => HomeController(
             ProductsApiService(),
             authService,
-            FlyersApiService(),
+            PostersApiService(),
             AddressService(),
             CouponsApiService(),
             pointLevelService,

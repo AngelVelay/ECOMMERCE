@@ -4,13 +4,15 @@ import 'package:get/get.dart';
 
 class TimerQr extends StatelessWidget {
   late double height;
+  late int duration;
 
-  TimerQr({Key? key, required this.height}) : super(key: key);
+  TimerQr({Key? key, required this.height, required this.duration})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CircularCountDownTimer(
-        duration: 60,
+        duration: duration,
         initialDuration: 0,
         controller: CountDownController(),
         width: MediaQuery.of(context).size.width / 3,

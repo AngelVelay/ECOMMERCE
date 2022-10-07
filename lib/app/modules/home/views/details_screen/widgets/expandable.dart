@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jexpoints/app/modules/home/views/details_screen/widgets/constants.dart';
+import 'package:jexpoints/app/shared/values/constants.dart';
 
 class Expandable extends StatefulWidget {
   final String title;

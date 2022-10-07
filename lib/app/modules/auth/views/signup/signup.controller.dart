@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:jexpoints/app/core/utils/msg.utils.dart';
-import 'package:jexpoints/app/modules/auth/entities/user-data.type.dart';
 import '../../auth.module.dart';
 import '../../services/auth/auth.contract.dart';
 import '../../entities/signup.type.dart';
+// import 'package:jexpoints/app/modules/auth/entities/user-data.type.dart';
 
 class SignupController extends GetxController {
   final formKey = GlobalKey<FormBuilderState>();
@@ -15,8 +15,8 @@ class SignupController extends GetxController {
   String successMessage = '';
   String registrationCode = '';
   String validationCode = '';
-  UserData userData =
-      UserData(id: '', password: '', passwordSalt: '', username: '');
+  // UserData userData =
+  //     UserData(id: '', password: '', passwordSalt: '', username: '', userId: 0, );
 
   SignupController(IAuthService authService) {
     _authService = authService;

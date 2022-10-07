@@ -17,9 +17,7 @@ class PointLevel {
     required this.discountPercentage,
     required this.name,
     required this.isActive,
-    required this.isBySystem,
     required this.id,
-    required this.isNew,
   });
 
   String? cardBackgroundFileId;
@@ -28,14 +26,12 @@ class PointLevel {
   String? cardHeaderFile;
   String? headerFileId;
   String? headerFile;
-  String? color;
-  int? initialPoints;
+  String color;
+  int initialPoints;
   double discountPercentage;
-  String? name;
+  String name;
   bool isActive;
-  bool isBySystem;
   String id;
-  bool isNew;
 
   factory PointLevel.fromRawJson(String str) =>
       PointLevel.fromJson(json.decode(str));
@@ -43,20 +39,20 @@ class PointLevel {
   String toRawJson() => json.encode(toJson());
 
   factory PointLevel.fromJson(Map<String, dynamic> json) => PointLevel(
-        cardBackgroundFileId: json["cardBackgroundFileId"],
-        cardBackgroundFile: json["cardBackgroundFile"],
-        cardHeaderFileId: json["cardHeaderFileId"],
-        cardHeaderFile: json["cardHeaderFile"],
-        headerFileId: json["headerFileId"],
-        headerFile: json["headerFile"],
+        cardBackgroundFileId:
+            json["cardBackgroundFileId"] ?? json["cardBackgroundFileId"],
+        cardBackgroundFile:
+            json["cardBackgroundFile"] ?? json["cardBackgroundFile"],
+        cardHeaderFileId: json["cardHeaderFileId"] ?? json["cardHeaderFileId"],
+        cardHeaderFile: json["cardHeaderFile"] ?? json["cardHeaderFile"],
+        headerFileId: json["headerFileId"] ?? json["headerFileId"],
+        headerFile: json["headerFile"] ?? json["headerFile"],
         color: json["color"],
         initialPoints: json["initialPoints"],
         discountPercentage: json["discountPercentage"].toDouble(),
         name: json["name"],
         isActive: json["isActive"],
-        isBySystem: json["isBySystem"],
         id: json["id"],
-        isNew: json["isNew"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,8 +67,6 @@ class PointLevel {
         "discountPercentage": discountPercentage,
         "name": name,
         "isActive": isActive,
-        "isBySystem": isBySystem,
         "id": id,
-        "isNew": isNew,
       };
 }

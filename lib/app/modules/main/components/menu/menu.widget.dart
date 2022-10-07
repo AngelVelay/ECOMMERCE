@@ -221,8 +221,8 @@ class Menu extends GetView<MenuController> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Text(
-                                controller.user.value.id != null
-                                    ? controller.user.value.username
+                                controller.user$.value.id != null
+                                    ? controller.user$.value.name
                                     : '',
                                 style: const TextStyle(color: Colors.white)),
                           ),
