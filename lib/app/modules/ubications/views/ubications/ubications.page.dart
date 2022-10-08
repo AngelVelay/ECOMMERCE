@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jexpoints/app/shared/values/enviroments.dart';
 
 import 'ubications-branches/ubications-branches.controller.dart';
 import 'utills/map_utils.dart';
@@ -66,8 +67,10 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
     final controller = Get.find<UbicationsBranchesController>();
 
     controller.branchesToShow.forEach((element) async {
-      imgurl = 'http://201.151.139.54/FileManagerDoctos/jexbit/' +
-          element.geoIcon.toString();
+      if (element == null || element.geoIcon == null) {
+        return;
+      }
+      imgurl = '${Enviroments.FILES_URL}pointers/${element.geoIcon}';
 
       if (element.isActive == true) {
         imgUber = controller.branchesTags$
@@ -119,7 +122,7 @@ class _CustomMarkerInfoWindowScreenState extends State<UbicationsPage> {
                 width: 300,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Color(0xff2222222),
+                  color: const Color(0xff2222222),
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10.0),
                 ),

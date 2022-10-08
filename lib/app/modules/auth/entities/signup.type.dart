@@ -36,11 +36,11 @@ class Signup {
         email: json["email"],
         phone:
             json["phone"] != null ? int.parse(json["phone"].toString()) : null,
-        registrationCode: json["registrationCode"],
+        registrationCode: json["registrationCode"] != null ? json["registrationCode"] : null,
         validationCode: json["validationCode"],
         password: json["password"],
         birthdate: json["birthdate"],
-        userData: UserData.fromJson(json["userData"]),
+        userData: json["userData"] != null ? UserData.fromJson(json["userData"]) : null,
       );
 
   Map<String, dynamic> toJson() => {

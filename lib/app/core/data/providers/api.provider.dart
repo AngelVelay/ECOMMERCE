@@ -109,7 +109,7 @@ class ApiProvider {
               'Ocurrio un error en la peticion, revisalo con el administrador';
         }
         MsgUtils.error(errorMessage);
-        throw Exception(errorMessage);
+      throw Exception(errorMessage);
       default:
         throw FetchDataException(
             'Error occured while Communication with Server with StatusCode : ${response.statusCode}');

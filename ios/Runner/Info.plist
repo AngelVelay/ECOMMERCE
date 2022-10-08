@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Jexpoints</string>
+	<string>Ecommerce</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -52,8 +52,18 @@
 	<string>JEXPOINTS</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Se requiere usar la camara</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Autenticacion usando FaceID</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>...</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>...</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permitir usar tu localización para obtener tu dirección de pedido</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se requiere acceso al album de fotos</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -73,20 +83,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>Se requiere usar la camara</string>	
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Se requiere acceso al album de fotos</string>
-
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>...</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>...</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>...</string>
-
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Permitir usar tu localización para obtener tu dirección de pedido</string>
-	<key>io.flutter.embedded_views_preview</key><true/> 
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>

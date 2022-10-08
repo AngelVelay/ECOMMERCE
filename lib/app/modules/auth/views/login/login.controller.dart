@@ -45,7 +45,10 @@ class LoginController extends GetxController {
 
   singIn() async {
     loginText.value = 'Ingresando...';
-    var errorMessage = await _service.singIn(username.text, password.text);
+    var errorMessage = await _service.singIn(username.text, password.text)
+      .onError((error, stackTrace){
+        loginText.value = 'Ingresar'  ;  
+      });
     loginText.value = 'Ingresar';
     if (errorMessage == "") {
       Get.toNamed(MainRouting.MAIN_ROUTE);

@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/modules/home/views/tab-home/components/address-add.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/components/address-choose.widget.dart';
+import 'package:jexpoints/app/modules/home/views/tab-home/components/user-number-card.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 
-import '../../../../core/utils/sheet.utils.dart';
 import '../../../main/entities/business-line.type.dart';
 import '../../../main/entities/category.type.dart';
 import '../../store.module.dart';
@@ -18,36 +17,75 @@ class StorePage extends GetView<StoreController> {
   Widget build(BuildContext context) {
     return SafeArea(
         bottom: false,
-        child: Obx(() {
-          return DefaultTabController(
-            length: controller.businessLines$
-                .where((p0) => p0.isActive == true)
-                .length,
-            child: Scaffold(
-                body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: _header(context),
-            )),
-          );
-        }));
+        child: Obx((){
+          return controller.loading$.value 
+            ? const Center(child: CircularProgressIndicator()) 
+            : _demo(context);
+        }) 
+    );
+        // child: Obx(() {
+        //   return DefaultTabController(
+        //     length: controller.businessLines$
+        //         .where((p0) => p0.isActive == true)
+        //         .length,
+        //     child: Scaffold(
+        //         body: Padding(
+        //       padding: const EdgeInsets.symmetric(vertical: 20.0),
+        //       child: _header(context),
+        //     )),
+        //   );
+        // }));
   }
 
-  Widget _header(context) {
-    return controller.businessLines$.isEmpty
-        ? Container()
-        : Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [_zipCodeLabel(context)],
-                ),
-              ),
-              _tabs(context),
-              _tabViews(context)
-            ],
-          );
+  // Widget _header(context) {
+  //   return controller.businessLines$.isEmpty
+  //       ? Container()
+  //       : Column(
+  //           children: [
+  //             // Container(
+  //             //   padding: const EdgeInsets.symmetric(horizontal: 20),
+  //             //   child: Row(
+  //             //     mainAxisAlignment: MainAxisAlignment.center,
+  //             //     children: [_zipCodeLabel(context)],
+  //             //   ),
+  //             // ),
+  //             _tabs(context),
+  //             _tabViews(context)
+  //           ],
+  //         );
+  // }
+
+  Widget _demo(BuildContext context){
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          pinned: true,   
+          leading: const Text(''),
+          actions: [
+            IconButton(onPressed:(){}, icon: const Icon(Icons.search)),
+            IconButton(onPressed:(){}, icon: const Icon(Icons.swipe))
+          ],       
+          expandedHeight: 100,
+          flexibleSpace: const FlexibleSpaceBar(            
+            title: Text('Panadería'),
+          )
+        ),
+        SliverGrid(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 150,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            childAspectRatio: 1.0,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return _gridItem(context, controller.businessLines$.value[1].categories![index]);
+            },
+            childCount: controller.businessLines$.value[1].categories!.length,
+          ),
+        ),
+      ],
+    ); 
   }
 
   Widget _tabs(BuildContext context) {
@@ -68,69 +106,60 @@ class StorePage extends GetView<StoreController> {
               return Tab(
                 text: x.name,
               );
-            }).toList()),
-        //   return x.isActive == true
-        //       ? Tab(
-        //           child: Text(x.name),
-        //         )
-        //       : const SizedBox();
-        // }).toList()),
+            }).toList()),        
       ),
     );
   }
 
-  Widget _tabViews(BuildContext context) {
-    return Expanded(
-        child: TabBarView(
-            children: controller.businessLines$
-                .where((p0) => p0.isActive == true)
-                .map<Widget>((BusinessLine bl) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: _grid(context, bl.categories!),
-        ),
-      );
-    }).toList()));
-  }
+  // Widget _tabViews(BuildContext context) {
+  //   return Expanded(
+  //       child: TabBarView(
+  //           children: controller.businessLines$
+  //               .where((p0) => p0.isActive == true)
+  //               .map<Widget>((BusinessLine bl) {
+  //     return SizedBox(
+  //         height: MediaQuery.of(context).size.height - 100,
+  //         child: SingleChildScrollView(
+  //           child: _grid(context, bl.categories!),
+  //         )        
+  //     );
+  //   }).toList()));
+  // }
 
-  Widget _grid(BuildContext context, List<Category> categories) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-              dragStartBehavior: DragStartBehavior.start,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: categories.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 30.0,
-                        crossAxisSpacing: 30.0,
-                        childAspectRatio: 1,
-                      ),
-                      itemBuilder: (context, index) =>
-                          _gridItem(context, categories[index])))),
-        ),
-        // TextButton(
-        //     onPressed: () {
-        //       Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => VariableProductsPage()));
-        //     },
-        //     child: Text(
-        //       'Paquetes',
-        //       style: TextStyle(color: Colors.white),
-        //     ))
-      ]),
-    );
-  }
+  // Widget _grid(BuildContext context, List<Category> categories) {
+  //   return GridView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: categories.length,
+  //           gridDelegate:
+  //               const SliverGridDelegateWithFixedCrossAxisCount(
+  //             crossAxisCount: 3,
+  //             mainAxisSpacing: 20.0,
+  //             crossAxisSpacing: 20.0,
+  //             childAspectRatio: 0.85,
+  //           ),
+  //           itemBuilder: (context, index) =>
+  //               _gridItem(context, categories[index])
+  //   );
+
+    // return Column(children: categories.map((e) => Text(e.name).paddingSymmetric(vertical: 10)).toList());
+    // return SizedBox(
+    //       height: MediaQuery.of(context).size.height - 400,
+    //       child: SingleChildScrollView(
+    //           dragStartBehavior: DragStartBehavior.start,              
+    //         child: GridView.builder(
+    //             shrinkWrap: true,
+    //             itemCount: categories.length,
+    //             gridDelegate:
+    //                 const SliverGridDelegateWithFixedCrossAxisCount(
+    //               crossAxisCount: 3,
+    //               mainAxisSpacing: 20.0,
+    //               crossAxisSpacing: 20.0,
+    //               childAspectRatio: 0.85,
+    //             ),
+    //             itemBuilder: (context, index) =>
+    //                 _gridItem(context, categories[index])))
+    //     );
+  // }
 
   Widget _gridItem(BuildContext context, Category category) {
     return GestureDetector(
@@ -186,7 +215,7 @@ class StorePage extends GetView<StoreController> {
             ),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             builder: (context) => Container(
-              color: Color(0xff222222),
+              color: const Color(0xff222222),
               height: MediaQuery.of(context).copyWith().size.height * 0.60,
               child: Column(
                 children: [

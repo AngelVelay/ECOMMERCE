@@ -115,7 +115,7 @@ class HomeTopProducts extends GetView<HomeController> {
                                       snackPosition: SnackPosition.BOTTOM,
                                       backgroundColor:
                                           Colors.black.withOpacity(0.5),
-                                      duration: Duration(seconds: 2),
+                                      duration: const Duration(seconds: 2),
                                     );
                                   },
                                   child: controller.likedProducts$
@@ -133,30 +133,32 @@ class HomeTopProducts extends GetView<HomeController> {
                                               controller.addFavorite(item),
                                           child: const Icon(
                                             Icons.favorite_border,
+                                            size: 20,
                                           ),
                                         ))),
                         );
                       })),
                     ],
                   ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   Container(
-                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     width: double.infinity,
                     child: Text(
                       item.name,
                       style: const TextStyle(
                           color: Color(0xFF575E67),
-                          fontFamily: 'Varela',
+                          fontFamily: 'Monserrat',
                           fontSize: 14.0),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   Text('\$${item.price}',
                       style: const TextStyle(
-                          color: Color(0xFFCC8053),
-                          fontFamily: 'Varela',
+                          // color: Color(0xFFCC8053),
+                          color: Colors.black87,
+                          fontFamily: 'Montserrat Regular',
                           fontSize: 14.0)),
                   const Divider(
                     color: Colors.grey,
@@ -176,14 +178,17 @@ class HomeTopProducts extends GetView<HomeController> {
                     child: Padding(
                         padding: EdgeInsets.all(5),
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Icon(Icons.shopping_basket,
-                                  color: Color(0xFFD17E50), size: 12.0),
-                              Text('Agregar al carrito',
+                                  color: Colors.black87, size: 12.0),
+                                  // color: Color(0xFFD17E50), size: 12.0),
+                              SizedBox(width: 10),
+                              Text('Agregar',
                                   style: TextStyle(
                                       fontFamily: 'Monsterrat',
-                                      color: Color(0xFFD17E50),
+                                      color: Colors.black87,
+                                      // color: Color(0xFFD17E50),
                                       fontSize: 12.0))
                             ])),
                   )

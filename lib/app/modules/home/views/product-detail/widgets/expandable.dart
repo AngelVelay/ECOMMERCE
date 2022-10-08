@@ -5,11 +5,11 @@ class Expandable extends StatefulWidget {
   final String title;
   final String description;
   final Widget trailing;
-  const Expandable({
+  const Expandable({Key? key, 
     required this.title,
     required this.description,
     required this.trailing,
-  });
+  }) : super(key: key);
 
   @override
   _ExpandableState createState() => _ExpandableState();
@@ -29,11 +29,11 @@ class _ExpandableState extends State<Expandable>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(widget.title, style: kTitleStyle),
-              Spacer(),
-              if (widget.trailing != null) widget.trailing,
+              const Spacer(),
+              widget.trailing,
               InkWell(
                 child: RotatedBox(
-                  quarterTurns: _expanded ? 3 : 0,
+                  quarterTurns: _expanded ? 2 : 0,
                   child: const Icon(Icons.arrow_drop_down_sharp,
                       color: Colors.white),
                 ),
@@ -42,11 +42,11 @@ class _ExpandableState extends State<Expandable>
             ],
           ),
           AnimatedSize(
-            duration: Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 150),
             vsync: this,
             child: ConstrainedBox(
               constraints:
-                  _expanded ? BoxConstraints() : BoxConstraints(maxHeight: 0),
+                  _expanded ? const BoxConstraints() : const BoxConstraints(maxHeight: 0),
               child: Text(
                 widget.description,
                 style: const TextStyle(color: Colors.white),

@@ -9,19 +9,20 @@ import '../../store.module.dart';
 class StoreController extends GetxController {
   final IBusinessLinesService businessLinesService;
   late var businessLines$ = <BusinessLine>[].obs;
+  var loading$ = false.obs;
 
   StoreController(this.businessLinesService);
 
   @override
   void onInit() async {
     super.onInit();
-    // businessLines$.value = await businessLinesService.get();
-    // businessLines$.where((element) => element.isActive == true);
-
+    
+    loading$.value = true;
     businessLines$.value = await businessLinesService.get();
-    businessLines$.where((element) {
-      return element.isActive == true;
-    }).toList();
+    loading$.value = false;
+    // businessLines$.where((element) {
+    //   return element.isActive == true;
+    // }).toList();
   }
 }
 

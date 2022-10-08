@@ -52,11 +52,13 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF222222),
-          title: Opacity(
-              opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-              child: Image(
+          title: 
+           Opacity(
+              opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,              
+              child: controller.isLoading$.value ? Container() : Image(
                   image: NetworkImage(
-                      controller.user$.value.level?.headerFile ?? ''))),
+                      controller.user$.value.level?.headerFile ?? ''))
+          ),
           actions: [
             Opacity(
               opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
@@ -79,7 +81,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
   Widget _header(BuildContext context, double percent) {
     return Positioned(
         top: 10,
-        left: MediaQuery.of(context).size.width * 0.09,
+        left: (MediaQuery.of(context).size.width - 350) / 2,
         child: Opacity(
             opacity: percent,
             child: Container(

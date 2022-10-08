@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jexpoints/app/components/app_bar/simple_app_bar/simple_app_bar.widget.dart';
 import 'package:jexpoints/app/components/button/custom_button_transparent.dart';
 import 'package:jexpoints/app/shared/values/constants.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
@@ -9,20 +10,17 @@ import 'widgets/details.dart';
 import 'widgets/expandable.dart';
 import 'widgets/header.dart';
 
-class ItemDetailsSreen extends GetView<DetailController> {
+class ProductDetailPage extends GetView<DetailController> {
   final home = Get.find<HomeController>();
 
-  ItemDetailsSreen({
+  ProductDetailPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: SimpleAppBar(title: 'Detalle de producto'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -37,25 +35,25 @@ class ItemDetailsSreen extends GetView<DetailController> {
                 description: controller.itemDetail.description,
                 trailing: Container(),
               ),
-              const SizedBox(height: 30),
-              Divider(color: kBorderColor, indent: 15, endIndent: 15),
-              Expandable(
-                title: 'Reviews',
-                trailing: Row(
-                  children: List.generate(
-                      3,
-                      (index) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 20,
-                          )),
-                ),
-                description: 'No hay reviews',
-              ),
+              // const SizedBox(height: 30),
+              // Divider(color: kBorderColor, indent: 15, endIndent: 15),
+              // Expandable(
+              //   title: 'Reviews',
+              //   trailing: Row(
+              //     children: List.generate(
+              //         3,
+              //         (index) => const Icon(
+              //               Icons.star,
+              //               color: Colors.amber,
+              //               size: 20,
+              //             )),
+              //   ),
+              //   description: 'No hay reviews',
+              // ),
               const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: ButtonTransparent(
                     paddingHorizontal: 0,

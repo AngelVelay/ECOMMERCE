@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:jexpoints/app/components/circle_icon_button/circle_icon_button.dart';
-import 'package:jexpoints/app/modules/home/views/tab-home/components/cart-controls.widget.dart';
 import 'package:jexpoints/app/modules/home/views/tab-home/tab-home.controller.dart';
 import 'package:jexpoints/app/modules/main/entities/product.type.dart';
 
@@ -18,7 +16,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
               height: 300,
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   _header(),
@@ -118,7 +116,7 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                                 colorText: Colors.white,
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: Colors.black.withOpacity(0.5),
-                                duration: Duration(seconds: 2),
+                                duration: const Duration(seconds: 2),
                               );
                             },
                             child: controller.likedProducts$
@@ -140,9 +138,9 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                 })),
               ],
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
               width: double.infinity,
               child: Text(
                 item.name,
@@ -153,10 +151,10 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             Text('\$${item.price}',
                 style: const TextStyle(
-                    color: Color(0xFFCC8053),
+                    color: Colors.black87,
                     fontFamily: 'Varela',
                     fontSize: 14.0)),
             const Divider(
@@ -171,20 +169,20 @@ class HomeFavoriteProducts extends GetView<HomeController> {
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.black.withOpacity(0.5),
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                 );
               },
               child: Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: const [
                         Icon(Icons.shopping_basket,
-                            color: Color(0xFFD17E50), size: 12.0),
+                            color: Colors.black87, size: 12.0),
                         Text('Agregar al carrito',
                             style: TextStyle(
                                 fontFamily: 'Monsterrat',
-                                color: Color(0xFFD17E50),
+                                color: Colors.black87,
                                 fontSize: 12.0))
                       ])),
             )

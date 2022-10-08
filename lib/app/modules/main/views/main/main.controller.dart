@@ -29,7 +29,7 @@ class MainController extends GetxController {
 
   late List<TabItem> navigationItems = [
     TabItem(HomePage(), 'Inicio', assetPath: 'assets/icons_tab_bar/home.png'),
-    TabItem(const StorePage(), 'Tienda',
+    TabItem(StorePage(), 'Tienda',
         assetPath: 'assets/icons_tab_bar/heart.png'),
     TabItem(const RewardsPage(), 'Rewards',
         assetPath: 'assets/icons_tab_bar/star.png'),

@@ -13,7 +13,7 @@ class PosterPage extends GetView<PosterController> {
       child: Scaffold(
           appBar: SimpleAppBar(title: controller.item?.title ?? 'Publicidad'),
           body: Column(
-            children: [Expanded(child: imagePublicity()), productDesciption()],
+            children: [Expanded(child: imagePublicity()), productDesciption(context)],
           )),
     );
   }
@@ -31,22 +31,26 @@ class PosterPage extends GetView<PosterController> {
     ]);
   }
 
-  Widget productDesciption() {
+  Widget productDesciption(BuildContext context) {
     return Container(
         width: double.infinity,
         height: 500,
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,          
           children: <Widget>[
             // Title and Heart
             Row(
-              children: <Widget>[
-                Text('${controller.item?.title}',
-                    style: const TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+              children: <Widget>[                
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 60,
+                  child: Text('${controller.item?.title}',
+                      overflow: TextOverflow.clip,                    
+                      style: const TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                )
               ],
             ),
 

@@ -66,7 +66,6 @@ class SignupPage extends GetView<SignupController> {
             children: <Widget>[
               FormBuilderTextField(
                 name: 'name',
-                initialValue: 'Erasto',
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -91,7 +90,6 @@ class SignupPage extends GetView<SignupController> {
               ),
               FormBuilderTextField(
                 name: 'email',
-                initialValue: 'erasto16@hotmail.com',
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -119,7 +117,6 @@ class SignupPage extends GetView<SignupController> {
               ),
               FormBuilderTextField(
                 name: 'phone',
-                initialValue: '5510112494',
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(

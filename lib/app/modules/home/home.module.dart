@@ -19,9 +19,9 @@ import 'package:jexpoints/app/modules/main/services/reviews/reviews.fake.service
 import '../auth/services/auth/auth.api.service.dart';
 import '../cart/views/address-detail/address-detail.page.dart';
 import 'views/detail-delivery/detail-delivery.page.dart';
-import 'views/details_screen/item_details_screen.dart';
 import 'views/poster-detail/poster.controller.dart';
 import 'views/poster-detail/poster.page.dart';
+import 'views/product-detail/product-detail.dart';
 
 class HomeRouting {
   static const ADDRESS_ROUTE = '/address';
@@ -42,7 +42,7 @@ class HomeRouting {
         binding: AddressBinding()),
     GetPage(
       name: DETAIL_ROUTE,
-      page: () => ItemDetailsSreen(),
+      page: () => ProductDetailPage(),
       binding: DetailBinding(),
     ),
     GetPage(
